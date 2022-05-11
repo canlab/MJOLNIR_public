@@ -1,0 +1,345 @@
+---
+title: "MJOLNIR_04_CovidMisconception"
+author: "Léo HENRY"
+date: "4/29/2022"
+output: html_document
+---
+
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(psych)
+library(GPArotation)
+library(FactoMineR)
+library(factoextra)
+library(explor)
+options(max.print=5000)
+```
+
+
+# data
+
+```{r}
+df <- read.csv("./data/mjolnir_clean_v5_AMBI_BIG5.csv")
+```
+
+
+# COV variables
+
+```{r}
+df %>% select(matches("^COV((ATT)|(CONSP)|(ORIGIN)|(POLITICS)|(COVERAGE)|(ANTIVACC)|(MEDSKEP))"))
+```
+
+
+```{r}
+df_covmis <- df %>%
+  mutate(covmis_att_flu=COVATT_1,
+         covmis_att_afrDie=COVATT_2,
+         covmis_att_eldrNoBgDl=COVATT_3,
+         covmis_att_rareNoWorr=COVATT_4,
+         covmis_att_bgThrt=COVATT_5,
+         covmis_cnsp_ctiusAsian=COVCONSP_1,
+         covmis_cnsp_stpCovStpImmi=COVCONSP_2,
+         covmis_cnsp_redIntWthChina=COVCONSP_3,
+         covmis_cnsp_chnsCovRcst=COVCONSP_4,
+         covmis_orgn_covPlnnd=COVORIGIN_1,
+         covmis_orgn_covNat=COVORIGIN_2,
+         covmis_orgn_covNgeenLab=COVORIGIN_3,
+         covmis_orgn_scntFkNwsCov=COVORIGIN_4,
+         covmis_pltc_polBgDlIntrst=COVPOLITICS_1,
+         covmis_pltc_covNtSerPolSay=COVPOLITICS_2,
+         covmis_pltc_polDwnplCovPlpLDngr=COVPOLITICS_3,
+         covmis_cvrg_mdiaCovBgrDl=COVCOVERAGE_1,
+         covmis_cvrg_nwsGdJbComCov=COVCOVERAGE_2,
+         covmis_cvrg_mdiaUseCovMkTrmpRepLkBd=COVCOVERAGE_3,
+         covmis_anti_frGovUseCovMndtVacc=COVANTIVACC_1,
+         covmis_anti_thnksNoCovVacc=COVANTIVACC_2,
+         covmis_anti_covVacEffRedVirus=COVANTIVACC_3)
+```
+
+```{r}
+res.pca <- PCA(df_covmis %>% select(matches("^covmis_att")),
+               scale.unit=TRUE, ncp=25, graph=T)
+explor(res.pca)
+```
+
+```{r}
+res.pca <- PCA(df_covmis %>% select(matches("^covmis_cnsp")),
+               scale.unit=TRUE, ncp=25, graph=T)
+explor(res.pca)
+```
+
+
+
+```{r}
+res.pca <- PCA(df_covmis %>% select(matches("^covmis_orgn")),
+               scale.unit=TRUE, ncp=25, graph=T)
+explor(res.pca)
+```
+
+
+```{r}
+res.pca <- PCA(df_covmis %>% select(matches("^covmis_pltc")),
+               scale.unit=TRUE, ncp=25, graph=T)
+explor(res.pca)
+```
+
+
+```{r}
+res.pca <- PCA(df_covmis %>% select(matches("^covmis_cvrg")),
+               scale.unit=TRUE, ncp=25, graph=T)
+explor(res.pca)
+```
+
+
+
+
+```{r}
+res.pca <- PCA(df_covmis %>% select(matches("^covmis_anti")),
+               scale.unit=TRUE, ncp=25, graph=T)
+explor(res.pca)
+```
+
+
+
+### HCPM ET CLASSIF 
+
+```{r}
+res.mfa <- MFA(df_covmis %>% select(matches("^covmis")) %>% rename_with(function(x){str_remove(x,"^covmis_[A-z]{3,4}_")}),
+               group = c(5,4,4,3,3,3),
+               type=c("c","c","c","c","c","c"),
+               name.group = c("att","conspiracy","origin","politics","coverage","antivaccin"))
+```
+
+
+```{r}
+get_eigenvalue(res.mfa) %>% head
+```
+
+```{r}
+fviz_screeplot(res.mfa)
+```
+
+
+```{r}
+group <- get_mfa_var(res.mfa, "group")
+
+group$coord
+group$contrib
+# Contribution to the first dimension
+fviz_contrib(res.mfa, "group", axes = 1)
+# Contribution to the second dimension
+fviz_contrib(res.mfa, "group", axes = 2)
+```
+
+
+
+```{r}
+quanti.var <- get_mfa_var(res.mfa, "quanti.var")
+quanti.var$contrib
+quanti.var$coord
+fviz_mfa_var(res.mfa, "quanti.var", palette = "jco", 
+             col.var.sup = "violet", repel = TRUE)
+fviz_mfa_var(res.mfa, "quanti.var", palette = "jco", 
+             col.var.sup = "violet", repel = TRUE,
+             geom = c("point", "text"), legend = "bottom")
+# Contributions to dimension 1
+fviz_contrib(res.mfa, choice = "quanti.var", axes = 1, top = 20,
+             palette = "jco")
+# Contributions to dimension 2
+fviz_contrib(res.mfa, choice = "quanti.var", axes = 2, top = 20,
+             palette = "jco")
+```
+
+
+
+#### Classification
+
+```{r}
+res.hcpc <- HCPC(res.mfa, nb.clust=4, graph = T)
+```
+
+
+```{r}
+fviz_cluster(res.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+
+
+
+```{r}
+res.hcpc$desc.var$quanti
+```
+
+```{r}
+save(res.mfa, res.hcpc, file='./data/mfa_and_classification.rdata')
+```
+
+
+#### Analysis
+
+```{r}
+df_covmis$cov_class <- res.hcpc$data.clust$clust
+freq(df_covmis$cov_class)
+
+df_covmis %>% 
+  gather(key = "Covmis_var", value="Covmis_res", df_covmis %>% colnames %>% str_detect("^covmis") %>% which) %>%
+  ggplot(., aes(y=Covmis_res, x= cov_class, fill=cov_class)) +
+  geom_boxplot() +
+  facet_wrap(~ Covmis_var, ncol = 5)
+
+df_covmis %>% 
+  gather(key = "Covmis_var", value="Covmis_res", df_covmis %>% colnames %>% str_detect("^covmis") %>% which) %>%
+  mutate(Covmis_var=str_remove(Covmis_var,"^covmis_")) %>%
+  ggplot(., aes(y=Covmis_res, x= Covmis_var, fill=Covmis_var)) +
+  geom_boxplot() +
+  facet_wrap(~ cov_class, ncol = 1)
+```
+
+
+```{r}
+table(df_covmis$EXPGRP_TEXT, df_covmis$cov_class) %>% prop
+```
+
+```{r}
+table(df_covmis$CONTINENT_BORN_TEXT_3, df_covmis$cov_class) %>% lprop
+```
+
+```{r}
+table(df_covmis$HAS_LIVED_USA, df_covmis$cov_class) %>% lprop
+```
+
+By considering the data has quatitative and not qualitative we tend to put closer the outsider that might have answered with extreme response in misconsception data and those who answered in the middle. Let's try to see if we get different result when analysing qualitative data.
+
+### MFA and HCPC with qualitative data
+
+
+
+```{r}
+res_mfa_quali <- df_covmis %>%
+  select(matches("^covmis_")) %>%
+  transmute_all(~fct_recode(.x %>% as_factor,
+                                   "-"="1",
+                                   "-"="2",
+                                   "="="3",
+                                   "="="4",
+                                   "+"="5",
+                                   "+"="6")) %>% 
+  rename_with(function(x){str_remove(x,"^covmis_[A-z]{3,4}_")}) %>%
+  MFA(.,
+      group = c(5,4,4,3,3,3),
+      type=c("n","n","n","n","n","n"),
+      name.group = c("att","conspiracy","origin","politics","coverage","antivaccin"))
+```
+
+
+
+```{r}
+fviz_screeplot(res_mfa_quali)
+```
+
+
+
+```{r}
+fviz_mfa_var(res_mfa_quali, "quali.var", palette = "jco", 
+             col.var.sup = "violet", repel = TRUE)
+```
+
+
+```{r}
+quali.var <- get_mfa_var(res_mfa_quali, "quali.var")
+quali.var$coord
+```
+
+
+#### Cassification
+
+```{r}
+res.hcpc <- HCPC(res_mfa_quali, nb.clust=3, graph = T)
+```
+
+
+```{r}
+fviz_cluster(res.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+
+
+
+```{r}
+res.hcpc$desc.var$category
+```
+
+```{r}
+save(res_mfa_quali, res.hcpc, file='./data/mfa_and_classification_onqualidata.rdata')
+```
+
+
+#### Analysis
+
+##### Boxplot of choice covmis per group
+
+```{r}
+df_covmis$covqual_class <- res.hcpc$data.clust$clust
+freq(df_covmis$covqual_class)
+
+df_covmis %>%
+  transmute_at(.vars = vars(starts_with("covmis")),
+               ~fct_recode(.x %>% as_factor,
+                                   "-"="1",
+                                   "-"="2",
+                                   "="="3",
+                                   "="="4",
+                                   "+"="5",
+                                   "+"="6")) %>%
+  cbind(df,.) %>%
+  mutate(covqual_class=res.hcpc$data.clust$clust) %>%
+  gather(key = "Covmis_var", value="Covmis_res", df_covmis %>% colnames %>% str_detect("^covmis") %>% which) %>%
+  mutate(Covmis_var=str_remove(Covmis_var,"^covmis_"),
+         Covmis_res=factor(Covmis_res,
+                           levels = c("+","=","-"))) %>%
+  ggplot(., aes(x = covqual_class, fill=Covmis_res)) +
+  scale_fill_manual(values=c("green", "blue", "red")) +
+  geom_bar(position='fill') +
+  facet_wrap(~ Covmis_var, ncol = 5)
+```
+
+##### mean of choice covmis per group
+
+```{r}
+df_mean_per_cat <- df_covmis %>%
+  select(matches("^covmis_")) %>%
+  mutate(covmis_cat=df_covmis$covqual_class) %>%
+  group_by(covmis_cat) %>%
+  summarise_all(mean)
+df_mean_per_cat
+```
+
+```{r}
+map(df_mean_per_cat, std)
+sd(c(1,2,)
+```
+
+####
+
+```{r}
+questionr::freq(df_covmis$covmis_cat)
+```
+
+
+
+
+
+
