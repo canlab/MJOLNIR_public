@@ -1,0 +1,19 @@
+Package: AMBI
+Title: Calculate the AMBI measures and the Big 5
+Version: 0.0.0.9000
+Authors@R: person("Leo", "HENRY", email="leo@henry.sh", role = c("aut", "cre"))
+Description: Calculate AMBI measure and the Big 5 from questions surveys in a data frame.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports:
+  lavaan,
+  tidyverse
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+LazyData: true
