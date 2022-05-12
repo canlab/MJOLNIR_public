@@ -11,6 +11,8 @@ output: html_document
 library(questionr)
 library(FactoMineR)
 library(tidyverse)
+library(FactoMineR)
+library(factoextra)
 options(max.print=2000)
 ```
 
@@ -249,11 +251,45 @@ freq(df$SEX_TEXT)
 ```
 
 ```{r}
-v <- c()
-for (i in c(1:10000)) {
-  v <- c(v, sample(c('h','f'),656, replace=T) %>% freq() %>% .[1,1])
-}
+structure(c(288, 328, 368, 328), dim = c(2L, 2L)) %>% t.test()
 ```
+
+# classification according to demographic data
+
+
+```{r}
+df_mca <- df %>%
+  select(EXPGRP_TEXT, CONTINENT_BORN_TEXT_1, HAS_LIVED_USA, HH_INCOME_TEXT, 
+         DOB_YEAR_PERIODE, EDUCATION_1_TEXT, SEX_TEXT) %>%
+  rename_with(function(x){x %>% str_remove_all("_|TEXT|[0-9]")})
+res.mca <- MCA(df_mca)
+```
+
+```{r}
+res.hcpc <- HCPC(res.mca, nb.clust = 7 ,graph = T)
+
+```
+
+
+```{r}
+fviz_cluster(res.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+
+```{r}
+res.hcpc$desc.var$category
+```
+
+```{r}
+df$demo_class <- res.hcpc$data.clust$clust
+freq(df$demo_class)
+```
+
 
 
 # Save data
