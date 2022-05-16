@@ -62,13 +62,13 @@ df_covmis <- df %>%
 ```{r}
 res.pca <- PCA(df_covmis %>% select(matches("^covmis_att")),
                scale.unit=TRUE, ncp=25, graph=T)
-explor(res.pca)
+#explor(res.pca)
 ```
 
 ```{r}
 res.pca <- PCA(df_covmis %>% select(matches("^covmis_cnsp")),
                scale.unit=TRUE, ncp=25, graph=T)
-explor(res.pca)
+#explor(res.pca)
 ```
 
 
@@ -76,21 +76,21 @@ explor(res.pca)
 ```{r}
 res.pca <- PCA(df_covmis %>% select(matches("^covmis_orgn")),
                scale.unit=TRUE, ncp=25, graph=T)
-explor(res.pca)
+#explor(res.pca)
 ```
 
 
 ```{r}
 res.pca <- PCA(df_covmis %>% select(matches("^covmis_pltc")),
                scale.unit=TRUE, ncp=25, graph=T)
-explor(res.pca)
+#explor(res.pca)
 ```
 
 
 ```{r}
 res.pca <- PCA(df_covmis %>% select(matches("^covmis_cvrg")),
                scale.unit=TRUE, ncp=25, graph=T)
-explor(res.pca)
+#explor(res.pca)
 ```
 
 
@@ -99,7 +99,7 @@ explor(res.pca)
 ```{r}
 res.pca <- PCA(df_covmis %>% select(matches("^covmis_anti")),
                scale.unit=TRUE, ncp=25, graph=T)
-explor(res.pca)
+#explor(res.pca)
 ```
 
 
@@ -338,8 +338,74 @@ sd(c(1,2,)
 questionr::freq(df_covmis$covmis_cat)
 ```
 
+```{r}
+df_covmis$HH_INCOME_TEXT <- fct_recode(df_covmis$HH_INCOME %>% as.character,
+"Less than $10,000"="1",
+"$10,000 to $30,000"="2",
+"$30,000 to $50,000"="3",
+"$50,000 to $70,000"="4",
+"$70,000 to $100,000"="5",
+"$100,000 to $200,000"="6",
+"$200,000 to $500,000"="7",
+"$500,000 or more"="8")
+table(df_covmis$HH_INCOME_TEXT, df_covmis$covqual_class) %>% cprop
+table(df_covmis$HH_INCOME, df_covmis$covqual_class) %>% chisq.test()
+```
+
+```{r}
+df_covmis$DOB_YEAR <- df$DOB_3 + 1900
+df_covmis$DOB_YEAR_PERIODE <- df_covmis$DOB_YEAR %>% as.numeric() %>% cut(breaks = c(1945,1955,1965,1975,1985,1995,2005))
+table(df_covmis$DOB_YEAR_PERIODE, df_covmis$covqual_class) %>% cprop
+table(df_covmis$DOB_YEAR_PERIODE, df_covmis$covqual_class) %>% chisq.test()
+```
+
+```{r}
+df_covmis$EDUCATION_1_TEXT <- fct_recode(df$EDUCATION_1 %>% as.character,
+          "Less than high school degree"="1",
+          "High school graduate"="2",
+          "Some college but no degree"="3",
+          "Associate degree in college"="4",
+          "Bachelor's degree in college"="5",
+          "Master's degree"="6",
+          "Doctoral degree"="7",
+          "Professional degree (JD, MD)"="8")
+table(df_covmis$EDUCATION_1_TEXT, df_covmis$covqual_class) %>% cprop
+table(df_covmis$EDUCATION_1_TEXT, df_covmis$covqual_class) %>% chisq.test()
+table(df_covmis$EDUCATION_1_TEXT, df_covmis$covqual_class) %>% t.test()
+
+table(df_covmis %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% pull(EDUCATION_1_TEXT),
+      df_covmis %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% pull(covqual_class)) %>% cprop
+table(df_covmis %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% pull(EDUCATION_1_TEXT),
+      df_covmis %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% pull(covqual_class)) %>% t.test()
+```
+
+```{r}
+df_covmis$EDUCATION_2_TEXT <- fct_recode(df$EDUCATION_1 %>% as.character,
+          "No college degree"="1",
+          "No college degree"="2",
+          "No college degree"="3",
+          "College degree"="4",
+          "College degree"="5",
+          "Graduate degree"="6",
+          "Graduate degree"="7",
+          "Graduate degree"="8")
+table(df_covmis %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% pull(EDUCATION_2_TEXT),
+      df_covmis %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% pull(covqual_class)) %>% cprop
+table(df_covmis %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% pull(EDUCATION_2_TEXT),
+      df_covmis %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% pull(covqual_class)) %>% t.test()
+```
 
 
+```{r}
+df_covmis$SEX_TEXT <- fct_recode(df$SEX %>% as.character,
+          "Male"="1",
+          "Female"="2",
+          "Transgender"="3",
+          "Other"="4")
+table(df_covmis$SEX_TEXT,df_covmis$covqual_class) %>% cprop
+table(df_covmis$SEX_TEXT,df_covmis$covqual_class) %>% chisq.test()
+table(df_covmis$SEX_TEXT,df_covmis$covqual_class) %>% t.test()
+```
 
 
 

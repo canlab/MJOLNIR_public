@@ -1,0 +1,299 @@
+---
+title: "MJOLNIR_DEMO_DescriptiveAnalysis"
+author: "Léo HENRY"
+date: "4/20/2022"
+output: html_document
+---
+
+# Packages
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(FactoMineR)
+library(factoextra)
+options(max.print=2000)
+```
+
+## data
+
+```{r}
+df <- read.csv('./data/mjolnir_clean_v3_added_var.csv')
+```
+
+## Race
+
+```{r}
+df$EXPGRP_TEXT <- fct_recode(df$EXPGRP %>% as.character,
+"White"="1","Chinese"="2","Non-Chinese Asian"="3")
+freq(df$EXPGRP_TEXT)
+```
+
+```{r}
+df$CHIN_SPECIFIC_TEXT <- fct_recode(df$CHIN_SPECIFIC %>% as.character,
+"Mainland Chinese"="1","Taiwanese"="2","Mongolian"="3","Hongkongese"="4","Macanese"="5", "Other"="6")
+freq(df$CHIN_SPECIFIC_TEXT)
+df$CHIN_SPECIFIC_6_TEXT[which(!(df$CHIN_SPECIFIC_6_TEXT%in%c("","-99")))]
+```
+
+
+
+## Country of Birth
+
+```{r}
+df$COUNTRY_BORN_2_TEXT %>% as_factor() %>% levels()
+```
+
+```{r}
+v_ceeur <- c('POLAND', 'CZECHIA', 'LATVIA', 'ROMANIA', 'RUSSIA', 'SLOVENIA', 'HUNGARY', 'BULGARIA', 'CROATIA', 'ESTONIA', 'USSR')
+v_weur <- c('FINLAND', 'UNITED KINGDOM','PORTUGAL', 'ITALY', 'NETHERLANDS', 'SPAIN', 'SWITZERLAND', 'GREECE', 'GERMANY', 'SWEDEN', 'ENGLAND', 'FRANCE')
+v_name <- c('CANADA')
+v_same <- c('BRAZIL')
+v_ocea <- c('AUSTRALIA')
+v_asia <- c('CHINA', 'VIETNAM')
+v_oasia <- c('HONG KONG', 'TAIWAN','SINGAPORE','KOREA', 'JAPAN')
+v_meast <- c('TURKIYE')
+v_africa <- c('SOUTH AFRICA')
+
+
+df <- df %>%
+mutate(CONTINENT_BORN_TEXT_1 = case_when(COUNTRY_BORN_2_TEXT %in% v_ceeur ~ 'Central Eastern Europe',
+                                         COUNTRY_BORN_2_TEXT %in% v_weur ~ 'Western Europe',
+                                         COUNTRY_BORN_2_TEXT %in% v_name ~ 'North America',
+                                         COUNTRY_BORN_2_TEXT %in% v_same ~ 'South America',
+                                         COUNTRY_BORN_2_TEXT %in% v_ocea ~ 'Oceania',
+                                         COUNTRY_BORN_2_TEXT %in% v_asia ~ 'Developping Asia',
+                                         COUNTRY_BORN_2_TEXT %in% v_oasia ~ '4Tigers and Japan',
+                                         COUNTRY_BORN_2_TEXT %in% v_meast ~ 'Middle East',
+                                         COUNTRY_BORN_2_TEXT %in% v_africa ~ 'Africa',
+                                         COUNTRY_BORN == 1 ~ 'USA'),
+       CONTINENT_BORN_TEXT_2 = case_when(COUNTRY_BORN_2_TEXT %in% c(v_ceeur, v_weur) ~ 'Europe',
+                                         COUNTRY_BORN_2_TEXT %in% c(v_name, v_same) ~ 'America',
+                                         COUNTRY_BORN_2_TEXT %in% c(v_ocea) ~ 'Oceania',
+                                         COUNTRY_BORN_2_TEXT %in% c(v_oasia, v_asia, v_meast) ~ 'Asia',
+                                         COUNTRY_BORN_2_TEXT %in% v_africa ~ 'Africa',
+                                         COUNTRY_BORN == 1 ~ 'USA'),
+       CONTINENT_BORN_TEXT_3 = case_when(COUNTRY_BORN_2_TEXT %in% c(v_name, v_weur, v_ocea, v_oasia) ~ 'Northern Country (Richer)',
+                                         COUNTRY_BORN_2_TEXT %in% c(v_ceeur, v_same, v_asia, v_meast, v_africa) ~ 'Southern Country (Poorer)',
+                                         COUNTRY_BORN == 1 ~ 'USA'))
+
+print(freq(df$CONTINENT_BORN_TEXT_1))
+print(freq(df$CONTINENT_BORN_TEXT_2))
+print(freq(df$CONTINENT_BORN_TEXT_3))
+```
+
+## Has lived in the US
+
+```{r}
+df[c("COUNTRY_BORN_2_TEXT",
+      "OTHER_COUNTRIES.1_1_TEXT", 
+      "OTHER_COUNTRIES.1_2_TEXT",
+      "OTHER_COUNTRIES.1_3_TEXT",
+      "OTHER_COUNTRIES.1_4_TEXT",
+      "OTHER_COUNTRIES.1_5_TEXT",
+      "OTHER_COUNTRIES.1_6_TEXT",
+      "OTHER_COUNTRIES.1_7_TEXT",
+      "OTHER_COUNTRIES.1_8_TEXT")] <- 
+          lapply(df[c("COUNTRY_BORN_2_TEXT",
+                      "OTHER_COUNTRIES.1_1_TEXT", 
+                      "OTHER_COUNTRIES.1_2_TEXT",
+                      "OTHER_COUNTRIES.1_3_TEXT",
+                      "OTHER_COUNTRIES.1_4_TEXT",
+                      "OTHER_COUNTRIES.1_5_TEXT",
+                      "OTHER_COUNTRIES.1_6_TEXT",
+                      "OTHER_COUNTRIES.1_7_TEXT",
+                      "OTHER_COUNTRIES.1_8_TEXT")],
+                  function(x){x %>%
+                      str_to_upper() %>% 
+                      str_replace_all(c("SCOTLAND UK"="SCOTLAND",
+                                      ENGLADN="ENGLAND",
+                                      "^US$" = "USA",
+                                      "UNITED STATES"="USA",
+                                      HOLLAND="NETHERLANDS",
+                                      TURKEY="TURKIYE",
+                                      "THE NETHERLANDS"="NETHERLANDS",
+                                      UK="UNITED KINGDOM",
+                                      "CZECH REPUBLIC"='CZECHIA',
+                                      CHINESE='CHINA',
+                                      ENGLAND="ENGLAND",
+                                      GREEC='GREECE',
+                                      PRC='CHINA',
+                                      "THE UK"="UNITED KINGDOM",
+                                      "UNITED STATES OF AMERICA"='USA',
+                                      AMERICA='USA',
+                                      GIBRALTAR='UNITED KINGDOM',
+                                      KSA = "SAUDI ARABIA",
+                                      "USA OF USA" = 'USA',
+                                      "THE UNITED KINGDOM"="UNITED KINGDOM",
+                                      BRITAIN="UNITED KINGDOM",
+                                      'PUERTO RICO'='USA')
+                                    ) 
+                                })
+```
+
+```{r}
+df <- df %>%
+mutate(HAS_LIVED_USA=ifelse(df[c("COUNTRY_BORN_2_TEXT",
+      "OTHER_COUNTRIES.1_1_TEXT", 
+      "OTHER_COUNTRIES.1_2_TEXT",
+      "OTHER_COUNTRIES.1_3_TEXT",
+      "OTHER_COUNTRIES.1_4_TEXT",
+      "OTHER_COUNTRIES.1_5_TEXT",
+      "OTHER_COUNTRIES.1_6_TEXT",
+      "OTHER_COUNTRIES.1_7_TEXT",
+      "OTHER_COUNTRIES.1_8_TEXT")]=='USA', T, F) %>% rowSums)
+df$HAS_LIVED_USA <- ifelse(df$HAS_LIVED_USA>0|df$COUNTRY_BORN==1, T, F)
+```
+
+```{r}
+freq(df$HAS_LIVED_USA)
+```
+
+## Has lived USA * EXPGRP
+
+```{r}
+df$EXPGRP_TEXT <- fct_recode(df$EXPGRP %>% as.character,
+"White"="1","Chinese"="2","Non-Chinese Asian"="3")
+df %>% select(HAS_LIVED_USA,EXPGRP_TEXT) %>% table %>% lprop
+df %>% select(HAS_LIVED_USA,EXPGRP_TEXT) %>% table %>% cprop
+```
+
+## Continent born * EXPGRP
+
+```{r}
+df %>% select(CONTINENT_BORN_TEXT_1,EXPGRP_TEXT) %>% table %>% lprop
+df %>% select(CONTINENT_BORN_TEXT_1,EXPGRP_TEXT) %>% table %>% cprop
+df %>% select(CONTINENT_BORN_TEXT_1,EXPGRP_TEXT) %>% 
+  filter(CONTINENT_BORN_TEXT_1 %in% c("USA", "4Tigers and Japan", "Western Europe", "Developping Asia","Central Eastern Europe")) %>%
+  table %>% mosaicplot
+```
+
+## Revenu
+
+```{r}
+df$HH_INCOME_TEXT <- fct_recode(df$HH_INCOME %>% as.character,
+"Less than $10,000"="1",
+"$10,000 to $30,000"="2",
+"$30,000 to $50,000"="3",
+"$50,000 to $70,000"="4",
+"$70,000 to $100,000"="5",
+"$100,000 to $200,000"="6",
+"$200,000 to $500,000"="7",
+"$500,000 or more"="8")
+df$HH_INCOME_TEXT %>% freq
+ggplot(df) +
+  geom_bar(aes(x = HH_INCOME_TEXT, fill=EXPGRP_TEXT))
+ggplot(df) +
+  geom_bar(position='fill', aes(x = HH_INCOME_TEXT, fill=CONTINENT_BORN_TEXT_1))
+```
+
+## AGE
+
+```{r}
+(df$DOB_3 + 1900) %>% freq
+```
+
+```{r}
+(df$DOB_3 + 1900) %>% freq
+```
+
+```{r}
+df$DOB_YEAR <- df$DOB_3 + 1900
+df$DOB_YEAR_PERIODE <- df$DOB_YEAR %>% cut(breaks = c(1945,1955,1965,1975,1985,1995,2005))
+df$DOB_YEAR_PERIODE %>% freq
+ggplot(df) +
+  geom_bar(aes(x = fct_infreq(DOB_YEAR_PERIODE)))
+ggplot(df) +
+  geom_bar(position='fill', aes(x = HH_INCOME_TEXT, fill=DOB_YEAR_PERIODE))
+ggplot(df, aes(HH_INCOME_TEXT, 2020-DOB_YEAR)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+```
+
+## Education
+
+```{r}
+df$EDUCATION_1_TEXT <- fct_recode(df$EDUCATION_1 %>% as.character,
+          "Less than high school degree"="1",
+          "High school graduate"="2",
+          "Some college but no degree"="3",
+          "Associate degree in college"="4",
+          "Bachelor's degree in college"="5",
+          "Master's degree"="6",
+          "Doctoral degree"="7",
+          "Professional degree (JD, MD)"="8")
+df$EDUCATION_1_TEXT %>% freq
+```
+
+## AGE * Education
+
+```{r}
+table(df$EDUCATION_1_TEXT, df$DOB_YEAR_PERIODE) %>% lprop
+table(df$EDUCATION_1_TEXT, df$DOB_YEAR_PERIODE) %>% cprop
+table(df$EDUCATION_1_TEXT, df$DOB_YEAR_PERIODE) %>% mosaicplot
+
+df %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% select(EDUCATION_1_TEXT) %>% freq
+
+df %>% filter(DOB_YEAR_PERIODE != "(1995,2005]") %>% 
+mutate(DOB_WITHOUT_YOUTH=DOB_YEAR_PERIODE %>% as.character) %>%
+select(EDUCATION_1_TEXT, DOB_WITHOUT_YOUTH) %>% table %>% cprop
+```
+
+## Sexe
+
+```{r}
+df$SEX_TEXT <- fct_recode(df$SEX %>% as.character,
+          "Male"="1",
+          "Female"="2",
+          "Transgender"="3",
+          "Other"="4")
+freq(df$SEX_TEXT)
+```
+
+```{r}
+structure(c(288, 328, 368, 328), dim = c(2L, 2L)) %>% t.test()
+```
+
+# classification according to demographic data
+
+
+```{r}
+df_mca <- df %>%
+  select(EXPGRP_TEXT, CONTINENT_BORN_TEXT_1, HAS_LIVED_USA, HH_INCOME_TEXT, 
+         DOB_YEAR_PERIODE, EDUCATION_1_TEXT, SEX_TEXT) %>%
+  rename_with(function(x){x %>% str_remove_all("_|TEXT|[0-9]")})
+res.mca <- MCA(df_mca)
+```
+
+```{r}
+res.hcpc <- HCPC(res.mca, nb.clust = 7 ,graph = T)
+
+```
+
+
+```{r}
+fviz_cluster(res.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+
+```{r}
+res.hcpc$desc.var$category
+```
+
+```{r}
+df$demo_class <- res.hcpc$data.clust$clust
+freq(df$demo_class)
+```
+
+
+
+# Save data
+
+```{r}
+write.csv(df,"./data/mjolnir_clean_v3_1_DemoVarText.csv")
+```
