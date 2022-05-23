@@ -110,7 +110,7 @@ test <- map(seq(5,30,1),
 names(test) <- seq(5,30,1)
 df_test <- test %>% as_tibble()
 row.names(df_test) <- seq(0.1,0.9,0.1)
-map(df_test, function(x){c(min(x), (x==min(x)) %>% which())})
+map(df_test, function(x){c(min(x), (x==min(x) %>% which())})
 ```
 
 ```{r}
@@ -193,7 +193,39 @@ df %>%
   ggplot(., aes(y=AMBI_EFA_res, fill=EXPGRP_TEXT)) +
   geom_boxplot() +
   facet_wrap(~ AMBI_EFA_var, ncol = 5)
+colnames(df)[colnames(df) %>% str_detect("^AMBI_MSR_EFA_")] 
+lt <- map(colnames(df)[colnames(df) %>% str_detect("^AMBI_MSR_EFA_")],
+    function(x){
+      drun <- data_frame(values = df[,x],
+                         race = df$EXPGRP_TEXT %>% as.factor())
+      res <- list()
+      res[["nom"]] <- x
+      res[["aov"]] <- drun %>% anova_test(values ~ race)
+      pwc <- drun %>% tukey_hsd(values ~ race)
+      res[["pwc"]] <- pwc
+      res[["drun"]] <- drun
+      pwc <- res[["pwc"]] %>% add_xy_position(x = "race")
+      res[["bbplot"]] <- ggboxplot(res[["drun"]], x = "race", y = "values") +
+        stat_pvalue_manual(pwc, hide.ns = TRUE) +
+        labs(subtitle = get_test_label(res[["aov"]], detailed = TRUE),
+             caption = get_pwc_label(pwc),
+             title = x)
+      return(res)})
+lt
 ```
+
+
+```{r}
+
+```
+
+
+```{r}
+df %>% 
+  mutate(EXPGRP_TEXT = EXPGRP_TEXT %>% as.factor()) %>%
+  tukey_hsd(AMBI_MSR_EFA_ULS1 ~ EXPGRP_TEXT)
+```
+
 
 ```{r}
 df %>% 
