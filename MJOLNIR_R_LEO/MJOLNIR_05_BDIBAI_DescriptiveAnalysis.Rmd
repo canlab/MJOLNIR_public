@@ -1,0 +1,163 @@
+---
+title: "MJOLNIR_05_BDI"
+author: "Charles Mazof"
+date: "5/23/2022"
+output: html_document
+---
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(psych)
+library(GPArotation)
+library(FactoMineR)
+library(factoextra)
+library(explor)
+options(max.print=5001)
+```
+
+# data
+
+```{r}
+df <- read.csv("./data/mjolnir_clean_v6_Covmis.csv")
+```
+
+# BDI variables
+
+```{r}
+df %>% select(matches("^BDI[0-9]{2}"))
+```
+```{r}
+df_BDI <- df %>%
+  mutate(bdi_d_sadness=BDI01,
+         bdi_d_futureprospects=BDI02,
+         bdi_d_failure=BDI03,
+         bdi_d_enjoyment=BDI04,
+         bdi_d_guilt=BDI05,
+         bdi_d_beingpunished=BDI06,
+         bdi_d_disappointment=BDI07,
+         bdi_d_selfblame=BDI08,
+         bdi_d_suicidal=BDI09,
+         bdi_d_crying=BDI10,
+         bdi_d_irritation=BDI11,
+         bdi_d_interest=BDI12,
+         bdi_d_decisive=BDI13,
+         bdi_d_selfattractiveness=BDI14,
+         bdi_d_motivation=BDI15,
+         bdi_d_sleep=BDI16,
+         bdi_d_energy=BDI17,
+         bdi_d_appetite=BDI18,
+         bdi_d_weightloss=BDI19,
+         bdi_d_dieting=BDI19a,
+         bdi_d_healthworries=BDI20,
+         bdi_d_sexdrive=BDI21)
+```
+
+```{r}
+df_BDI %>% select(matches("^bdi_d_"))
+```
+
+### qualitative classification
+```{r}
+BDI.pca <- PCA(df_BDI %>% select(matches("^bdi_d_")),
+               scale.unit=TRUE, ncp=22, graph=T)
+```
+
+```{r}
+BDI.hcpc <- HCPC(BDI.pca, nb.clust=-1, graph=T)
+```
+```{r}
+fviz_cluster(BDI.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+
+```{r}
+BDI.hcpc$desc.var$quanti
+```
+
+```{r}
+save(BDI.pca, BDI.hcpc, file='./data/BDI_pca_and_classification.rdata')
+```
+
+### Analysis
+
+```{r}
+df_BDI$BDI_class <- BDI.hcpc$data.clust$clust
+freq(df_BDI$BDI_class)
+```
+
+```{r}
+df_BDI %>%
+  gather(key = "BDI_var", value="BDI_res", df_BDI %>% colnames %>% str_detect("^bdi_d_") %>% which) %>%
+  ggplot(., aes(y=BDI_res, x= BDI_class, fill=BDI_class)) +
+  geom_boxplot() +
+  facet_wrap(~ BDI_var, ncol = 5)
+
+df_BDI %>%
+  gather(key = "BDI_var", value="BDI_res", df_BDI %>% colnames %>% str_detect("^bdi_d_") %>% which) %>%
+  mutate(BDI_var=str_remove(BDI_var,"^bdi_d_")) %>%
+  ggplot(., aes(y=BDI_res, x= BDI_class, fill=BDI_class)) +
+  geom_boxplot() +
+  facet_wrap(~ BDI_var, ncol = 1)
+
+```
+
+```{r}
+table(df_BDI$EXPGRP_TEXT, df_BDI$BDI_class) %>% cprop
+table(df_BDI$EXPGRP_TEXT, df_BDI$BDI_class) %>% t.test()
+```
+
+```{r}
+df_BDI$HH_INCOME_TEXT <- fct_recode(df$HH_INCOME %>% as.character,
+"Less than $10,000"="1",
+"$10,000 to $30,000"="2",
+"$30,000 to $50,000"="3",
+"$50,000 to $70,000"="4",
+"$70,000 to $100,000"="5",
+"$100,000 to $200,000"="6",
+"$200,000 to $500,000"="7",
+"$500,000 or more"="8")
+table(df_BDI$HH_INCOME_TEXT, df_BDI$BDI_class) %>% cprop %>% xtable::xtable()
+table(df_BDI$HH_INCOME_TEXT, df_BDI$BDI_class) %>% t.test()
+```
+
+### Total BDI score, all measures equal weights
+```{r}
+df_BDI <- df_BDI %>% rowwise() %>% mutate(BDI_unweightedscore = sum(c_across(matches("^bdi_d_")))*100/86)
+df_BDI$BDI_unweightedscore
+```
+
+## SEM Scoring
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(lavaan)
+library(semTools)
+library(lavaanPlot)
+library(MVN)
+library(MIIVsem)
+library(nloptr) 
+options(max.print=2000)
+```
+
+```{r}
+model <- '
+BDI_weighted =~ bdi_d_sadness + bdi_d_futureprospects + bdi_d_failure + bdi_d_enjoyment + bdi_d_guilt + bdi_d_beingpunished + bdi_d_disappointment + bdi_d_selfblame + bdi_d_suicidal + bdi_d_crying + bdi_d_irritation + bdi_d_interest + bdi_d_decisive + bdi_d_selfattractiveness + bdi_d_motivation + bdi_d_sleep + bdi_d_energy + bdi_d_appetite + bdi_d_weightloss + bdi_d_dieting + bdi_d_healthworries + bdi_d_sexdrive
+'
+```
+
+```{r}
+fit <- cfa(model, data = df_BDI, estimator = "ML")
+semPlot::semPaths(fit)
+```
+```{r}
+summary(fit, fit.measures=T, standardized=T, rsquare=T) 
+```
