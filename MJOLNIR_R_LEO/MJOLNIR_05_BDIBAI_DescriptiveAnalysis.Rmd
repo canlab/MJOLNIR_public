@@ -238,10 +238,18 @@ write.csv(df_BDIpositive,"./data/mjolnir_clean_v7_BDI.csv")
 
 ```{r}
 library(ggplot2)
+library(ggpubr)
+library(rstatix)
 ```
 
 ```{r}
 lm(BDI_weighted~EDUCATION_1, data=df_BDIpositive) %>% summary
+```
+
+```{r}
+aov(BDI_weighted ~ EDUCATION_1_TEXT, data=df_BDIpositive) %>% tukey_hsd()
+ggplot(df_BDIpositive, aes(x = EDUCATION_1_TEXT, y = BDI_weighted)) + 
+  geom_boxplot()
 ```
 
 ```{r}
@@ -266,6 +274,13 @@ ggplot(df_BDIpositive, aes(x = HH_INCOME, y = BDI_weighted)) +
 ```
 
 ```{r}
+aov(BDI_weighted ~ HH_INCOME_TEXT, data=df_BDIpositive) %>% tukey_hsd()
+ggplot(df_BDIpositive, aes(x = HH_INCOME_TEXT, y = BDI_weighted)) + 
+  geom_boxplot()
+```
+
+
+```{r}
 lm(BDI_weighted~CovidSkepticism, data=df_BDIpositive) %>% summary
 ```
 
@@ -287,6 +302,31 @@ ggplot(df_BDIpositive, aes(x =DOB_YEAR, y = BDI_weighted)) +
 lm(BDI_weighted~EDUCATION_1+HH_INCOME+DOB_YEAR, data=df_BDIpositive) %>% summary
 ```
 
+```{r}
+anova <- aov(BDI_weighted ~ EXPGRP_TEXT, data=df_BDIpositive)
+tukey <- TukeyHSD(anova)
+print(tukey)
+ggplot(data=df_BDIpositive, aes(EXPGRP_TEXT,BDI_weighted)) +
+  geom_boxplot()
+```
+
+
+```{r}
+df_BDIpositive$EXPGRP_TEXT <- gsub('-',' ',df_BDIpositive$EXPGRP_TEXT)
+
+res.aov <- aov(BDI_weighted ~ EXPGRP_TEXT, data=df_BDIpositive)
+pwc <- df_BDIpositive %>%
+   tukey_hsd(BDI_weighted ~ EXPGRP_TEXT) 
+pwc %>% add_xy_position(x = "EXPGRP_TEXT")
+
+ggpubr::ggboxplot(df_BDIpositive,x = "EXPGRP_TEXT", y = "BDI") +
+   ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
+   labs(
+     title = i,
+     subtitle = get_test_label(res.aov, detailed = TRUE),
+     caption = get_pwc_label(pwc)
+     )
+```
 
 
 
