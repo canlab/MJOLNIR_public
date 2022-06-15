@@ -252,12 +252,6 @@ ggplot(df_BDIpositive, aes(x = EDUCATION_1_TEXT, y = BDI_weighted)) +
   geom_boxplot()
 ```
 
-```{r}
-ggplot(df_BDIpositive, aes(x=EDUCATION_1, y = BDI_weighted)) + 
-  geom_point() +
-  stat_smooth(method = "lm", col = "red")
-```
-
 
 ```{r}
 df_BDIpositive$HH_INCOME <- df$HH_INCOME
