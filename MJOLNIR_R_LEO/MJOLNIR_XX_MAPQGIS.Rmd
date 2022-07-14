@@ -1,0 +1,273 @@
+---
+title: "GPS coordinate participants"
+output: html_document
+date: '2022-06-07'
+---
+
+# Package
+
+```{r}
+library(tidyverse)
+library(questionr)
+```
+
+# Data import
+
+```{r setup, include=FALSE}
+df <- read.csv("./data/mjolnir_clean_v6_Covmis.csv")
+df$ID <- seq(1:nrow(df))
+```
+
+
+```{r}
+map <- df[,c(1:80, 1152:1164,1562:1608)]
+write_csv(map, file = "./data/dataformapqgis.csv")
+```
+
+```{r}
+map2 <- map  %>%
+  filter(EXPGRP_TEXT != "Non-Chinese Asian" &
+           !(CONTINENT_BORN_TEXT_1 %in% c("4Tigers and Japan", "Africa", "Middle East",
+                                        "North America", "Oceania", "South America")) &
+           !(is.na(CONTINENT_BORN_TEXT_1)) &
+           !(SEX_TEXT %in% c("Other", "Transgender")) &
+           HH_INCOME_TEXT != "$500,000 or more") 
+
+write_csv(map, file = "./data/dataformapqgis2.csv")
+```
+
+
+
+```{r}
+df$CONTINENT_BORN_TEXT_1 %>% freq()
+```
+
+```{r}
+df %>%
+  filter(CONTINENT_BORN_TEXT_1=="Developping Asia") %>%
+  select(HAS_LIVED_USA) %>%
+  freq()
+```
+
+
+```{r}
+df %>%
+  filter(LocationLongitude<150,
+         LocationLongitude>83) %>%
+  dplyr::select(LocationLongitude)
+```
+
+
+## Get the city of the Location using Geopapify API
+
+```{r}
+library(rvest)
+```
+
+
+
+```{r}
+nth2 <- function(x,j){x[j]}
+l_City_scrap <- list()
+scrapeur <- function(long, lat){
+  res <- list()
+  if(is.na(long)){
+        res[["Loc_adresse_formated"]] <- NA
+        
+        res[["Loc_country"]] <- NA
+        
+        res[["Loc_state"]] <- NA
+        
+        res[["Loc_county"]] <- NA
+        
+        res[["Loc_city"]] <- NA
+  
+  }else{
+    
+    url <- paste0("https://api.geoapify.com/v1/geocode/reverse?lat=", lat, "&lon=", long, "&format=json&apiKey=273db677e751486db09fd2fedb9038ac")
+
+      
+    test <- tryCatch({read_html(url)}, error=function(e){return(T)})
+    
+    if(is.logical(test)){
+        res[["Loc_adresse_formated"]] <- "APIERROR"
+        
+        res[["Loc_country"]] <- "APIERROR"
+        
+        res[["Loc_state"]] <- "APIERROR"
+        
+        res[["Loc_county"]] <- "APIERROR"
+        
+        res[["Loc_city"]] <- "APIERROR"
+    }else{
+      
+      page_html <- read_html(url)
+      infos <- html_nodes(page_html,'p') %>% html_text %>% jsonlite::fromJSON()
+      
+      if(length(infos$results) == 0){
+        res[["Loc_adresse_formated"]] <- "NOTFOUND"
+        
+        res[["Loc_country"]] <- "NOTFOUND"
+        
+        res[["Loc_state"]] <- "NOTFOUND"
+        
+        res[["Loc_county"]] <- "NOTFOUND"
+        
+        res[["Loc_city"]] <- "NOTFOUND"
+      }else{
+        match <- infos$results$rank$match_type %>%
+          as_vector()
+        
+        j <- c(1:length(match))
+        
+        if(any(str_detect(match, "full_match"))){
+          j <- match %>%
+            str_detect("full_match") %>%
+            which()
+        }
+        
+        res[["Loc_adresse_formated"]] <- infos$results$formatted
+        
+        res[["Loc_country"]] <- infos$results$country
+        
+        res[["Loc_state"]] <- infos$results$state
+        
+        res[["Loc_county"]] <- infos$results$county
+        
+        res[["Loc_city"]] <- infos$results$city
+      }
+      
+      
+    }
+  }
+  
+  return(res)
+}
+scrapeur(df$LocationLongitude[3], df$LocationLatitude[3])
+```
+
+
+
+
+```{r}
+for(i in c(558:length(df$LocationLatitude))){
+  print(i)
+  l_City_scrap[[i]] <- scrapeur(df$LocationLongitude[i], df$LocationLatitude[i])
+  rt <- round(i/nrow(df)*100, digits=1) %>% as.character() %>% paste0(" %")
+  print(rt)
+  Sys.sleep(0.085)
+  save(l_City_scrap, file = "./data/l_city_GPS_scrap.rdata")
+}
+```
+
+
+
+
+```{r}
+df_City <- do.call("rbind", l_City_scrap) %>% 
+  as_tibble() %>%
+  map_dfc(unlist)
+df_City$ID <- df$ID
+
+write.csv(df_City, file = "./data/coordoneesgpsscrap2.csv")
+```
+
+
+
+
+```{r}
+d <- df %>%
+  left_join(df_City, by='ID')
+
+write.csv(df_City, file = "./data/mjolnir_clean_v7_GPS.csv")
+
+```
+
+
+
+
+```{r}
+
+```
+
+
+
+
+```{r}
+
+```
+
+
+
+
+```{r}
+
+```
+
+
+
+
+```{r}
+
+```
+
+
+
+
+```{r}
+
+```
+
+
+
+
+```{r}
+
+```
+
+
+
+
+```{r}
+
+```
+
+
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
