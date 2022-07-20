@@ -1,0 +1,1152 @@
+---
+title: "MJOLNIR_04_CovidMisconception"
+author: "Léo HENRY"
+date: "4/29/2022"
+output: html_document
+---
+
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(psych)
+library(GPArotation)
+library(FactoMineR)
+library(factoextra)
+library(explor)
+options(max.print=5001)
+```
+
+
+# data
+
+```{r}
+df <- read.csv("./data/mjolnir_clean_v5_AMBI_BIG5.csv")
+```
+
+
+# COV variables
+
+```{r}
+df %>% dplyr::select(matches("^COV((ATT)|(CONSP)|(ORIGIN)|(POLITICS)|(COVERAGE)|(ANTIVACC)|(MEDSKEP))"))
+```
+
+
+```{r}
+df_covmis <- df %>%
+  mutate(covmis_att_flu=COVATT_1,
+         covmis_att_afrDie=7-COVATT_2,
+         covmis_att_eldrNoBgDl=COVATT_3,
+         covmis_att_rareNoWorr=COVATT_4,
+         covmis_att_bgThrt=7-COVATT_5,
+         covmis_cnsp_ctiusAsian=COVCONSP_1,
+         covmis_cnsp_stpCovStpImmi=COVCONSP_2,
+         covmis_cnsp_redIntWthChina=COVCONSP_3,
+         covmis_cnsp_chnsCovRcst=7-COVCONSP_4,
+         covmis_orgn_covPlnnd=COVORIGIN_1,
+         covmis_orgn_covNat=7-COVORIGIN_2,
+         covmis_orgn_covNgeenLab=COVORIGIN_3,
+         covmis_orgn_scntFkNwsCov=COVORIGIN_4,
+         covmis_pltc_polBgDlIntrst=COVPOLITICS_1,
+         covmis_pltc_covNtSerPolSay=COVPOLITICS_2,
+         covmis_pltc_polDwnplCovPlpLDngr=7-COVPOLITICS_3,
+         covmis_cvrg_mdiaCovBgrDl=COVCOVERAGE_1,
+         covmis_cvrg_nwsGdJbComCov=7-COVCOVERAGE_2,
+         covmis_cvrg_mdiaUseCovMkTrmpRepLkBd=COVCOVERAGE_3,
+         covmis_anti_frGovUseCovMndtVacc=COVANTIVACC_1,
+         covmis_anti_thnksNoCovVacc=COVANTIVACC_2,
+         covmis_anti_covVacEffRedVirus=7-COVANTIVACC_3,
+         covmis_mdsk_medOrgUntrust=COVMEDSKEP_1,
+         covmis_mdsk_skeptInfoDocSci=COVMEDSKEP_2,
+         covmis_mdsk_medOrgRecBstInt=7-COVMEDSKEP_3,
+         covmis_mdsk_fllwRecMedOrgImp=7-COVMEDSKEP_4)
+```
+
+### PCA analysis
+```{r}
+res.pca <- PCA(df_covmis %>% dplyr::select(matches("^covmis_att")),
+               scale.unit=TRUE, ncp=25, graph=T)
+#explor(res.pca)
+```
+
+```{r}
+res.pca <- PCA(df_covmis %>% dplyr::select(matches("^covmis_cnsp")),
+               scale.unit=TRUE, ncp=25, graph=T)
+#explor(res.pca)
+```
+
+
+
+```{r}
+res.pca <- PCA(df_covmis %>% dplyr::select(matches("^covmis_orgn")),
+               scale.unit=TRUE, ncp=25, graph=T)
+#explor(res.pca)
+```
+
+
+```{r}
+res.pca <- PCA(df_covmis %>% dplyr::select(matches("^covmis_pltc")),
+               scale.unit=TRUE, ncp=25, graph=T)
+#explor(res.pca)
+```
+
+
+```{r}
+res.pca <- PCA(df_covmis %>% dplyr::select(matches("^covmis_cvrg")),
+               scale.unit=TRUE, ncp=25, graph=T)
+#explor(res.pca)
+```
+
+
+
+
+```{r}
+res.pca <- PCA(df_covmis %>% dplyr::select(matches("^covmis_anti")),
+               scale.unit=TRUE, ncp=25, graph=T)
+#explor(res.pca)
+```
+
+
+
+### HCPM ET CLASSIF 
+
+```{r}
+res.mfa <- MFA(df_covmis %>% dplyr::select(matches("^covmis")) %>% rename_with(function(x){str_remove(x,"^covmis_[A-z]{3,4}_")}),
+               group = c(5,4,4,3,3,3,4),
+               type=c("c","c","c","c","c","c","c"),
+               name.group = c("att","conspiracy","origin","politics","coverage","antivaccin", "Mdsk"))
+```
+
+
+```{r}
+get_eigenvalue(res.mfa) %>% head
+```
+
+```{r}
+fviz_screeplot(res.mfa)
+```
+
+
+```{r}
+group <- get_mfa_var(res.mfa, "group")
+
+group$coord
+group$contrib
+# Contribution to the first dimension
+fviz_contrib(res.mfa, "group", axes = 1)
+# Contribution to the second dimension
+fviz_contrib(res.mfa, "group", axes = 2)
+```
+
+
+
+```{r}
+quanti.var <- get_mfa_var(res.mfa, "quanti.var")
+quanti.var$contrib
+quanti.var$coord
+fviz_mfa_var(res.mfa, "quanti.var", palette = "jco", 
+             col.var.sup = "violet", repel = TRUE)
+fviz_mfa_var(res.mfa, "quanti.var", palette = "jco", 
+             col.var.sup = "violet", repel = TRUE,
+             geom = c("point", "text"), legend = "bottom")
+# Contributions to dimension 1
+fviz_contrib(res.mfa, choice = "quanti.var", axes = 1, top = 20,
+             palette = "jco")
+# Contributions to dimension 2
+fviz_contrib(res.mfa, choice = "quanti.var", axes = 2, top = 20,
+             palette = "jco")
+```
+
+
+
+#### Classification
+
+```{r}
+res.hcpc <- HCPC(res.mfa, nb.clust=4, graph = T)
+```
+
+
+```{r}
+fviz_cluster(res.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+
+
+
+```{r}
+res.hcpc$desc.var$quanti
+```
+
+```{r}
+save(res.mfa, res.hcpc, file='./data/mfa_and_classification.rdata')
+```
+
+
+#### Analysis
+
+```{r}
+df_covmis$cov_class <- res.hcpc$data.clust$clust
+freq(df_covmis$cov_class)
+
+df_covmis %>% 
+  gather(key = "Covmis_var", value="Covmis_res", df_covmis %>% colnames %>% str_detect("^covmis") %>% which) %>%
+  ggplot(., aes(y=Covmis_res, x= cov_class, fill=cov_class)) +
+  geom_boxplot() +
+  facet_wrap(~ Covmis_var, ncol = 5)
+
+df_covmis %>% 
+  gather(key = "Covmis_var", value="Covmis_res", df_covmis %>% colnames %>% str_detect("^covmis") %>% which) %>%
+  mutate(Covmis_var=str_remove(Covmis_var,"^covmis_")) %>%
+  ggplot(., aes(y=Covmis_res, x= Covmis_var, fill=Covmis_var)) +
+  geom_boxplot() +
+  facet_wrap(~ cov_class, ncol = 1)
+```
+
+
+```{r}
+table(df_covmis$EXPGRP_TEXT, df_covmis$cov_class) %>% cprop
+table(df_covmis$EXPGRP_TEXT, df_covmis$cov_class) %>% chisq.test()
+```
+
+```{r}
+table(df_covmis$CONTINENT_BORN_TEXT_3, df_covmis$cov_class) %>% lprop
+```
+
+```{r}
+table(df_covmis$HAS_LIVED_USA, df_covmis$cov_class) %>% lprop
+```
+
+By considering the data has quatitative and not qualitative we tend to put closer the outsider that might have answered with extreme response in misconsception data and those who answered in the middle. Let's try to see if we get different result when analysing qualitative data.
+
+### MFA and HCPC with qualitative data
+
+
+
+```{r}
+res_mfa_quali <- df_covmis %>%
+  dplyr::select(matches("^covmis_")) %>%
+  transmute_all(~fct_recode(.x %>% as_factor,
+                                   "-"="1",
+                                   "-"="2",
+                                   "="="3",
+                                   "="="4",
+                                   "+"="5",
+                                   "+"="6")) %>% 
+  rename_with(function(x){str_remove(x,"^covmis_[A-z]{3,4}_")}) %>%
+  MFA(.,
+      group = c(5,4,4,3,3,3,4),
+      type=c("n","n","n","n","n","n","n"),
+      name.group = c("att","conspiracy","origin","politics","coverage","antivaccin","Mdsk"))
+```
+
+
+
+```{r}
+fviz_screeplot(res_mfa_quali)
+```
+
+
+
+```{r}
+fviz_mfa_var(res_mfa_quali, "quali.var", palette = "jco", 
+             col.var.sup = "violet", repel = TRUE)
+```
+
+
+```{r}
+quali.var <- get_mfa_var(res_mfa_quali, "quali.var")
+quali.var$coord
+quali.var$contrib
+```
+
+
+#### Cassification
+
+```{r}
+res.hcpc <- HCPC(res_mfa_quali, nb.clust=3, graph = T)
+```
+
+
+```{r}
+fviz_cluster(res.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+
+
+
+```{r}
+res.hcpc$desc.var$category
+```
+
+```{r}
+save(res_mfa_quali, res.hcpc, file='./data/mfa_and_classification_onqualidata.rdata')
+```
+
+
+#### Analysis
+
+##### Boxplot of choice covmis per group
+
+```{r}
+df_covmis$covqual_class <- res.hcpc$data.clust$clust
+freq(df_covmis$covqual_class)
+
+df_covmis %>%
+  transmute_at(.vars = vars(starts_with("covmis")),
+               ~fct_recode(.x %>% as_factor,
+                                   "-"="1",
+                                   "-"="2",
+                                   "="="3",
+                                   "="="4",
+                                   "+"="5",
+                                   "+"="6")) %>%
+  cbind(df,.) %>%
+  mutate(covqual_class=res.hcpc$data.clust$clust) %>%
+  gather(key = "Covmis_var", value="Covmis_res", df_covmis %>% colnames %>% str_detect("^covmis") %>% which) %>%
+  mutate(Covmis_var=str_remove(Covmis_var,"^covmis_"),
+         Covmis_res=factor(Covmis_res,
+                           levels = c("+","=","-"))) %>%
+  ggplot(., aes(x = covqual_class, fill=Covmis_res)) +
+  scale_fill_manual(values=c("green", "blue", "red")) +
+  geom_bar(position='fill') +
+  facet_wrap(~ Covmis_var, ncol = 5)
+```
+
+##### mean of choice covmis per group
+
+```{r}
+df_mean_per_cat <- df_covmis %>%
+  dplyr::select(matches("^covmis_")) %>%
+  mutate(covmis_cat=df_covmis$covqual_class) %>%
+  group_by(covmis_cat) %>%
+  summarise_all(mean)
+df_mean_per_cat
+```
+
+
+####
+
+```{r}
+questionr::freq(df_covmis$covmis_cat)
+```
+
+
+
+```{r}
+df_covmis$HH_INCOME_TEXT <- fct_recode(df$HH_INCOME %>% as.character,
+"Less than $10,000"="1",
+"$10,000 to $30,000"="2",
+"$30,000 to $50,000"="3",
+"$50,000 to $70,000"="4",
+"$70,000 to $100,000"="5",
+"$100,000 to $200,000"="6",
+"$200,000 to $500,000"="7",
+"$500,000 or more"="8")
+table(df_covmis$HH_INCOME_TEXT, df_covmis$covqual_class) %>% cprop %>% xtable::xtable()
+```
+
+
+### Demo cluster
+
+```{r}
+table(df_covmis$demo_class, df_covmis$covqual_class) %>% cprop
+table(df_covmis$demo_class, df_covmis$covqual_class) %>% t.test()
+
+```
+
+
+## Logistiaue regression
+
+```{r}
+library(ordinal)
+library(nnet)
+library(GGally)
+library(gtsummary)
+library(ggeffects)
+library(rstatix)
+```
+
+
+We'll do it on the demo classification and then on the other demographic data
+
+
+```{r}
+df_covmis$covqual_class <- factor(df_covmis$covqual_class, c("1","2","3"))
+freq(df_covmis$covqual_class)
+```
+
+
+```{r}
+df_covmis$demo_class <- df_covmis$demo_class %>% as.factor()
+regm <- clm(covqual_class ~ demo_class, data = df_covmis)
+summary(regm)
+```
+
+
+```{r}
+tbl_regression(regm, exponentiate = TRUE)
+```
+
+
+
+```{r}
+ggcoef_model(
+  regm,
+  exponentiate = TRUE
+)
+```
+
+
+```{r}
+plot(ggeffect(regm, "demo_class"))
+```
+
+
+
+```{r}
+df_covmis$covqual_class <-  df_covmis$covqual_class %>%
+  as.character() %>%
+  as.numeric()
+ggpubr::ggboxplot(df_covmis, x="demo_class", y="covqual_class")
+res.aov <- anova_test(covqual_class ~ demo_class, data = df_covmis)
+res.aov
+pwc <- df_covmis %>% tukey_hsd(covqual_class ~ demo_class)
+pwc
+pwc <- pwc %>% add_xy_position(x = "demo_class")
+ggpubr::ggboxplot(df_covmis, x = "demo_class", y = "covqual_class") +
+  ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(pwc)
+    )
+```
+
+```{r}
+df_covmis$covqual_class <- factor(df_covmis$covqual_class, c("1","2","3"))
+freq(df_covmis$covqual_class)
+```
+
+
+```{r}
+df_covmis$CONTINENT_BORN_TEXT_1 <- relevel(df_covmis$CONTINENT_BORN_TEXT_1 %>% as.factor(), "USA")
+df_covmis$DOB_YEAR_PERIODE <- relevel(df_covmis$DOB_YEAR_PERIODE %>% as.factor(), "(1995,2005]")
+df_covmis$EDUCATION_2_TEXT <- fct_recode(df$EDUCATION_1 %>% as.character,
+          "No college degree"="1",
+          "No college degree"="2",
+          "No college degree"="3",
+          "College degree"="4",
+          "College degree"="5",
+          "Graduate degree"="6",
+          "Graduate degree"="7",
+          "Graduate degree"="8")
+df_covmis$EDUCATION_2_TEXT %>% freq()
+
+regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + DOB_YEAR_PERIODE + SEX_TEXT + EDUCATION_2_TEXT, data = df_covmis)
+summary(regm)
+```
+
+
+```{r}
+tbl_regression(regm, exponentiate = TRUE)
+```
+
+
+
+```{r}
+ggcoef_multinom(
+  regm,
+  exponentiate = TRUE
+)
+```
+
+```{r}
+f_normfactor <- function(v){
+  res <- AMBI::f_normalisation(v)
+  res <- res*3
+  res <- cut(res, c(0,1,2,3), labels=c('weak','middle','high'))
+  return(res)
+}
+```
+
+
+
+```{r}
+df_covmis$neuroticism_qual <- f_normfactor(df_covmis$AMBI_BIG5_Neuroticism)
+df_covmis$extraversion_qual <- f_normfactor(df_covmis$AMBI_BIG5_Extraversion)
+df_covmis$openness_qual <- f_normfactor(df_covmis$AMBI_BIG5_Openness)
+df_covmis$conscientiousness_qual <- f_normfactor(df_covmis$AMBI_BIG5_Conscientiousness)
+df_covmis$agreeableness_qual <- f_normfactor(df_covmis$AMBI_BIG5_Agreeableness)
+df_covmis$covqual_class <- relevel(df_covmis$covqual_class %>% as.factor(), "2")
+
+
+regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + DOB_YEAR_PERIODE + SEX_TEXT + EDUCATION_2_TEXT + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, data = df_covmis)
+summary(regm)
+```
+
+```{r}
+table(df_covmis$EDUCATION_2_TEXT, df_covmis$EXPGRP_TEXT) %>% lprop() %>% xtable::xtable()
+```
+
+
+```{r}
+ggcoef_multinom(
+  regm,
+  exponentiate = TRUE
+)
+```
+
+the variable on the age is long, we shall try to shorten it and cross it with education variable (young people without a college degree are socially different than older on without a college degree)
+
+```{r}
+df_covmis$DOB_YEAR_PERIODE <- df_covmis$DOB_YEAR %>% cut(breaks = c(1944,1955,1965,1975,1985,1995,2005))
+df_covmis$DOB_AGE_BRACKET <- fct_recode(df_covmis$DOB_YEAR_PERIODE %>% as.character,
+          "-25y"="(1995,2005]",
+          "25 - 45y"="(1985,1995]",
+          "25 - 45y"="(1975,1985]",
+          "+45y"="(1944,1955]", 
+          "+45y"="(1955,1965]",
+          "+45y"="(1965,1975]")
+df_covmis <-  df_covmis %>% unite("age_education", c("DOB_AGE_BRACKET","EDUCATION_2_TEXT"))
+df_covmis$age_education <- factor(df_covmis$age_education, levels=c('-25y_No college degree',
+                                                    "25 - 45y_No college degree",
+                                                    '+45y_No college degree', 
+                                                    "-25y_College degree", 
+                                                    "25 - 45y_College degree",
+                                                    "+45y_College degree",
+                                                    "-25y_Graduate degree",
+                                                    "25 - 45y_Graduate degree",
+                                                    "+45y_Graduate degree"))
+regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + SEX_TEXT + age_education + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, data = df_covmis)
+summary(regm)
+```
+
+```{r}
+ggcoef_multinom(
+  regm,
+  exponentiate = TRUE
+)
+```
+
+Now we shall consider only two groups, those in the first and second group, and those in the third group.
+
+```{r}
+df_covmis$covqual_class_2 <- fct_recode(df_covmis$covqual_class %>% as.character,
+          "Believers"="1",
+          "Believers"="2",
+          "Skeptics"="3")
+freq(df_covmis$covqual_class_2)
+
+reg <- glm(covqual_class_2 ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + SEX_TEXT +
+             age_education + neuroticism_qual + extraversion_qual + openness_qual + 
+             conscientiousness_qual + agreeableness_qual, data = df_covmis, family = binomial(logit))
+reg
+```
+
+
+```{r}
+ggcoef_model(reg, exponentiate = TRUE)
+```
+
+```{r}
+which(is.na(df_covmis$extraversion_qual))
+```
+
+```{r}
+df_covmis[585,]
+```
+
+```{r}
+df_covmis2 <-  df_covmis %>% filter((!is.na(CONTINENT_BORN_TEXT_1))) %>%
+  filter((!is.na(neuroticism_qual))) %>%
+  filter((!is.na(extraversion_qual))) %>%
+  filter((!is.na(openness_qual))) %>%
+  filter((!is.na(conscientiousness_qual))) %>%
+  filter((!is.na(agreeableness_qual)))
+which(is.na(df_covmis2 %>% dplyr::select(EXPGRP_TEXT, CONTINENT_BORN_TEXT_1, HAS_LIVED_USA, SEX_TEXT,
+             age_education, neuroticism_qual, extraversion_qual, openness_qual, 
+             conscientiousness_qual, agreeableness_qual)), arr.ind=TRUE)
+```
+
+```{r}
+df_covmis$CONTINENT_BORN_TEXT_1 %>% levels()
+df_covmis$CONTINENT_BORN_TEXT_1 %>% levels()
+
+```
+
+
+```{r}
+reg <- glm(covqual_class_2 ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + SEX_TEXT +
+             age_education + neuroticism_qual + extraversion_qual + openness_qual + 
+             conscientiousness_qual + agreeableness_qual, 
+           data = df_covmis2, 
+           family = binomial(logit))
+step(reg)
+```
+
+```{r}
+reg <- glm(covqual_class_2 ~ EXPGRP_TEXT + HAS_LIVED_USA + openness_qual, 
+           data = df_covmis2, 
+           family = binomial(logit))
+ggcoef_model(reg, exponentiate = TRUE)
+```
+
+```{r}
+df_covmis2$EDUCATION_2_TEXT <- fct_recode(df_covmis2$EDUCATION_1 %>% as.character,
+          "No college degree"="1",
+          "No college degree"="2",
+          "No college degree"="3",
+          "College degree"="4",
+          "College degree"="5",
+          "Graduate degree"="6",
+          "Graduate degree"="7",
+          "Graduate degree"="8")
+df_covmis2$DOB_AGE_BRACKET <- fct_recode(df_covmis2$DOB_YEAR_PERIODE %>% as.character,
+          "-25y"="(1995,2005]",
+          "25 - 45y"="(1985,1995]",
+          "25 - 45y"="(1975,1985]",
+          "+45y"="(1944,1955]", 
+          "+45y"="(1955,1965]",
+          "+45y"="(1965,1975]")
+regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + SEX_TEXT +
+             EDUCATION_2_TEXT + DOB_AGE_BRACKET + neuroticism_qual + extraversion_qual + openness_qual + 
+             conscientiousness_qual + agreeableness_qual, 
+           data = df_covmis2)
+step(regm)
+```
+
+
+
+```{r}
+regm <- multinom(covqual_class ~ EXPGRP_TEXT + HAS_LIVED_USA + 
+    SEX_TEXT + openness_qual + agreeableness_qual, 
+           data = df_covmis2)
+stargazer::stargazer(regm)
+ggcoef_multinom(regm, exponentiate = TRUE)
+```
+
+
+### Let's reduce the size of our data
+
+```{r}
+df_covmis$EDUCATION_2_TEXT <- fct_recode(df_covmis$EDUCATION_1 %>% as.character,
+          "No college degree"="1",
+          "No college degree"="2",
+          "No college degree"="3",
+          "College degree"="4",
+          "College degree"="5",
+          "Graduate degree"="6",
+          "Graduate degree"="7",
+          "Graduate degree"="8")
+
+df_covmis$DOB_AGE_BRACKET <- fct_recode(df_covmis$DOB_YEAR_PERIODE %>% as.character,
+          "-25y"="(1995,2005]",
+          "25 - 45y"="(1985,1995]",
+          "25 - 45y"="(1975,1985]",
+          "+45y"="(1944,1955]", 
+          "+45y"="(1955,1965]",
+          "+45y"="(1965,1975]") %>%
+  relevel("-25y")
+
+df_covmis$HH_INCOME_TEXT2 <- fct_recode(df$HH_INCOME %>% as.character,
+"Less than $30,000"="1",
+"Less than $30,000"="2",
+"$30,000 to $70,000"="3",
+"$30,000 to $70,000"="4",
+"$70,000 or more"="5",
+"$70,000 or more"="6",
+"$70,000 or more"="7",
+"$70,000 or more"="8")
+
+df_covmis$covqual_class <- relevel(df_covmis$covqual_class, "1")
+
+
+df_covmis3 <- df_covmis %>%
+                   filter(EXPGRP_TEXT != "Non-Chinese Asian" &
+                            !(CONTINENT_BORN_TEXT_1 %in% c("4Tigers and Japan", "Africa", "Middle East",
+                                                           "North America", "Oceania", "South America")) &
+                            !(is.na(CONTINENT_BORN_TEXT_1)) &
+                            !(SEX_TEXT %in% c("Other", "Transgender")) &
+                            HH_INCOME_TEXT != "$500,000 or more")
+
+df_covmis3$CONTINENT_BORN_TEXT_1 <- df_covmis3$CONTINENT_BORN_TEXT_1 %>% as.character %>% as.factor %>% relevel("USA")
+
+regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + DOB_AGE_BRACKET + SEX_TEXT + EDUCATION_2_TEXT + HH_INCOME_TEXT2 + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, 
+                 data = df_covmis3)
+summary(regm)
+
+table(df_covmis$EDUCATION_2_TEXT, df_covmis$EXPGRP_TEXT) %>% lprop() %>% xtable::xtable()
+
+ggcoef_multinom(
+  regm,
+  exponentiate = TRUE
+)
+```
+
+
+
+
+# Create a quantitative variable of covid skeptism
+
+options:
+  - Sem scoring on latent variable 
+  - Coordinate on the first variable of MFA which resume almost 50% of the variance
+  - Standardization of score
+
+## SEM Scoring for covid skepticism
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(lavaan)
+library(semTools)
+library(lavaanPlot)
+library(MVN)
+library(MIIVsem)
+options(max.print=2000)
+```
+'
+Attention =~ covmis_att_flu + covmis_att_afrDie + covmis_att_eldrNoBgDl + covmis_att_rareNoWorr + covmis_att_bgThrt
+Conspiracy =~ covmis_cnsp_ctiusAsian + covmis_cnsp_stpCovStpImmi + covmis_cnsp_redIntWthChina + covmis_cnsp_chnsCovRcst
+Origin =~ covmis_orgn_covPlnnd + covmis_orgn_covNat + covmis_orgn_covNgeenLab + covmis_orgn_scntFkNwsCov
+Politics =~ covmis_pltc_polBgDlIntrst + covmis_pltc_covNtSerPolSay + covmis_pltc_polDwnplCovPlpLDngr
+Coverage =~ covmis_cvrg_mdiaCovBgrDl + covmis_cvrg_nwsGdJbComCov + covmis_cvrg_mdiaUseCovMkTrmpRepLkBd
+AntiVacc =~ covmis_anti_frGovUseCovMndtVacc + covmis_anti_thnksNoCovVacc + covmis_anti_covVacEffRedVirus
+MedSkep =~ covmis_mdsk_medOrgUntrust + covmis_mdsk_skeptInfoDocSci + covmis_mdsk_medOrgRecBstInt + covmis_mdsk_fllwRecMedOrgImp
+Attention ~~ Conspiracy
+Attention ~~ Origin
+Attention ~~ Politics
+Attention ~~ Coverage
+Attention ~~ AntiVacc
+Attention ~~ MedSkep
+Conspiracy ~~ Origin
+Conspiracy ~~ Politics
+Conspiracy ~~ Coverage
+Conspiracy ~~ AntiVacc
+Conspiracy ~~ MedSkep
+Origin ~~ Politics
+Origin ~~ Coverage
+Origin ~~ AntiVacc
+Origin ~~ MedSkep
+Politics ~~ Coverage
+Politics ~~ AntiVacc
+Politics ~~ MedSkep
+Coverage ~~ AntiVacc
+Coverage ~~ MedSkep
+AntiVacc ~~ MedSkep
+CovidSkepticism =~ Attention + Conspiracy + Origin + Politics + Coverage + AntiVacc + MedSkep
+'
+```{r}
+model <- '
+CovidSkepticism =~ covmis_att_flu + covmis_att_afrDie + covmis_att_eldrNoBgDl + covmis_att_rareNoWorr + covmis_att_bgThrt + covmis_cnsp_ctiusAsian + covmis_cnsp_stpCovStpImmi + covmis_cnsp_redIntWthChina + covmis_cnsp_chnsCovRcst + covmis_orgn_covPlnnd + covmis_orgn_covNat + covmis_orgn_covNgeenLab + covmis_orgn_scntFkNwsCov + covmis_pltc_polBgDlIntrst + covmis_pltc_covNtSerPolSay + covmis_pltc_polDwnplCovPlpLDngr + covmis_cvrg_mdiaCovBgrDl + covmis_cvrg_nwsGdJbComCov + covmis_cvrg_mdiaUseCovMkTrmpRepLkBd + covmis_anti_frGovUseCovMndtVacc + covmis_anti_thnksNoCovVacc + covmis_anti_covVacEffRedVirus + covmis_mdsk_medOrgUntrust + covmis_mdsk_skeptInfoDocSci + covmis_mdsk_medOrgRecBstInt + covmis_mdsk_fllwRecMedOrgImp
+'
+```
+
+```{r}
+fit <- cfa(model, data = df_covmis, estimator = "ML")
+semPlot::semPaths(fit)
+```
+
+```{r}
+summary(fit, fit.measures=T, standardized=T, rsquare=T) 
+```
+
+
+```{r}
+fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  filter(!(rhs%in%lhs)) %>% 
+  group_by(lhs) %>%
+  summarise(sest=sum(est)) %>%
+  inner_join(fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+    filter((rhs%in%lhs)) %>% 
+    dplyr::select(rhs,est),
+  by = c("lhs" = "rhs")) %>%
+  mutate(factor=sest*est) %>%
+  dplyr::select(factor) %>%
+  colSums()
+```
+
+
+
+```{r}
+f_semscoring_latent <- function(fit, data, scaled = TRUE){
+  
+  df_sem_estimate <- fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1)
+  v_latent_var <- df_sem_estimate$lhs %>% as_factor %>% levels
+  
+  f_calculate_latent <- function(latent_var, data2){
+    
+    v_obs_var <- df_sem_estimate %>% filter(lhs==latent_var) %>% dplyr::select(rhs) %>% as_vector()
+    
+    d <- tibble(matrix(ncol = 0, nrow = nrow(data)))
+    for (obs_var in v_obs_var) {
+      res <- data2[,obs_var] * (df_sem_estimate %>% filter(lhs==latent_var, rhs==obs_var) %>% dplyr::select(est) %>% as.numeric())
+      d[,obs_var] <- res
+    }
+    res <- rowSums(d)
+    if(scaled) res <- res %>% scale
+    return(res)
+  }
+  
+  d <- tibble(matrix(ncol = 0, nrow = nrow(data)))
+  for(j in v_latent_var){
+    data[,j] <- f_calculate_latent(j, data)
+  }
+  data <- data %>% dplyr::select(v_latent_var)
+  return(data)
+}
+
+
+df_scorecovmis <- f_semscoring_latent(fit, df_covmis, scaled = F)
+
+(df_scorecovmis$CovidSkepticism == min(df_scorecovmis$CovidSkepticism)) %>% which()
+df_covmis %>% dplyr::select(matches("^covmis")) %>% as_tibble %>% dplyr::slice(455L,589L)
+```
+
+
+```{r}
+standardisation_hierar <- function(x){
+  x <-  (x- (fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  filter(!(rhs%in%lhs)) %>% 
+  group_by(lhs) %>%
+  summarise(sest=sum(est)) %>%
+  inner_join(fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+    filter((rhs%in%lhs)) %>% 
+    dplyr::select(rhs,est),
+  by = c("lhs" = "rhs")) %>%
+  mutate(factor=sest*est) %>%
+  dplyr::select(factor) %>%
+  colSums()))  / (fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  filter(!(rhs%in%lhs)) %>% 
+  group_by(lhs) %>%
+  summarise(sest=sum(est)) %>%
+  inner_join(fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+    filter((rhs%in%lhs)) %>% 
+    dplyr::select(rhs,est),
+  by = c("lhs" = "rhs")) %>%
+  mutate(factor=sest*est) %>%
+  dplyr::select(factor) %>%
+  colSums() * 6) * 100
+}
+
+standardisation <- function(x){
+  x <-  (x- (fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  dplyr::select(est) %>%
+  colSums()))  / ((fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  dplyr::select(est) %>%
+  colSums()) * 6) * 100
+}
+
+df_scorecovmis$CovidSkepticism <- df_scorecovmis$CovidSkepticism %>% standardisation()
+df_covmis$CovidSkepticism <- df_scorecovmis$CovidSkepticism
+df_covmis$CovidSkepticism %>% summary
+
+```
+
+```{r}
+df_covmis$CovidSkepticism %>% hist()
+```
+
+```{r}
+write.csv(df_covmis,"./data/mjolnir_clean_v6_Covmis.csv")
+```
+
+### cleaning data
+
+Some group of participants are not big enough to be analyzed and produces noises we want to avoid.
+
+```{r}
+df_covmis$HH_INCOME_TEXT2 <- fct_recode(df$HH_INCOME %>% as.character,
+"Less than $30,000"="1",
+"Less than $30,000"="2",
+"$30,000 to $70,000"="3",
+"$30,000 to $70,000"="4",
+"$70,000 or more"="5",
+"$70,000 or more"="6",
+"$70,000 or more"="7",
+"$70,000 or more"="8")
+df_covmis$EDUCATION_2_TEXT <- fct_recode(df$EDUCATION_1 %>% as.character,
+          "No college degree"="1",
+          "No college degree"="2",
+          "No college degree"="3",
+          "College degree"="4",
+          "College degree"="5",
+          "Graduate degree"="6",
+          "Graduate degree"="7",
+          "Graduate degree"="8")
+df_covmis$DOB_YEAR_PERIODE <- df_covmis$DOB_YEAR %>% cut(breaks = c(1944,1955,1965,1975,1985,1995,2005))
+df_covmis$DOB_AGE_BRACKET <- fct_recode(df_covmis$DOB_YEAR_PERIODE %>% as.character,
+          "-25y"="(1995,2005]",
+          "25 - 35y"="(1985,1995]",
+          "35 - 45y"="(1975,1985]",
+          "+45y"="(1944,1955]", 
+          "+45y"="(1955,1965]",
+          "+45y"="(1965,1975]")
+f_normfactor <- function(v){
+  res <- AMBI::f_normalisation(v)
+  res <- res*3
+  res <- cut(res, c(-0.1,1,2,3), labels=c('weak','middle','high'))
+  return(res)
+}
+df_covmis$neuroticism_qual <- f_normfactor(df_covmis$AMBI_BIG5_Neuroticism)
+df_covmis$extraversion_qual <- f_normfactor(df_covmis$AMBI_BIG5_Extraversion)
+df_covmis$openness_qual <- f_normfactor(df_covmis$AMBI_BIG5_Openness)
+df_covmis$conscientiousness_qual <- f_normfactor(df_covmis$AMBI_BIG5_Conscientiousness)
+df_covmis$agreeableness_qual <- f_normfactor(df_covmis$AMBI_BIG5_Agreeableness)
+
+
+
+df_covmis2 <-  df_covmis %>%
+  filter(EXPGRP_TEXT != "Non-Chinese Asian" &
+           !(CONTINENT_BORN_TEXT_1 %in% c("4Tigers and Japan", "Africa", "Middle East",
+                                        "North America", "Oceania", "South America")) &
+           !(is.na(CONTINENT_BORN_TEXT_1)) &
+           !(SEX_TEXT %in% c("Other", "Transgender")) &
+           HH_INCOME_TEXT != "$500,000 or more") 
+
+df_covmis2 %>%
+  dplyr::select(EXPGRP_TEXT) %>%
+  freq()
+  
+df_covmis2 %>%
+  dplyr::select(CONTINENT_BORN_TEXT_1) %>%
+  freq()
+
+df_covmis2 %>%
+  dplyr::select(SEX_TEXT) %>%
+  freq()
+
+df_covmis2 %>%
+  dplyr::select(agreeableness_qual) %>%
+  freq()
+
+df_covmis2 %>%
+  dplyr::select(conscientiousness_qual) %>%
+  freq()
+```
+
+
+```{r}
+ex <- car::powerTransform(df_covmis2$CovidSkepticism+0.0000001)
+df_covmis2$CovidSkepticism^ex$lambda %>% hist()
+df_covmis2$CovidSkepticismnorm <-  df_covmis2$CovidSkepticism^ex$lambda
+```
+
+
+
+
+```{r}
+df_covmis2 %>% 
+  gather(key = "Covmis_var", value="Covmis_res", df_covmis %>% colnames %>% str_detect("^covmis") %>% which) %>%
+  ggplot(aes(Covmis_res, CovidSkepticism)) +
+  geom_point() +
+  geom_smooth(method = "loess") + 
+  facet_wrap(~ Covmis_var, ncol = 5)
+```
+
+
+```{r}
+library(ggpubr)
+
+res <-  list()
+
+res[["aov"]] <- df_covmis2 %>% anova_test(CovidSkepticism ~ EXPGRP_TEXT)
+pwc <- df_covmis2 %>% tukey_hsd(CovidSkepticism ~ EXPGRP_TEXT)
+res[["pwc"]] <- pwc
+pwc <- res[["pwc"]] %>% add_xy_position(x = "EXPGRP_TEXT")
+
+ggboxplot(df_covmis2, x = "EXPGRP_TEXT", y = "CovidSkepticism") +
+        stat_pvalue_manual(pwc, hide.ns = TRUE) +
+        labs(subtitle = get_test_label(res[["aov"]], detailed = TRUE),
+             caption = get_pwc_label(pwc))
+```
+
+
+```{r}
+
+res <-  list()
+
+res[["aov"]] <- df_covmis2 %>% anova_test(CovidSkepticism ~ EDUCATION_2_TEXT)
+pwc <- df_covmis2 %>% tukey_hsd(CovidSkepticism ~ EDUCATION_2_TEXT)
+res[["pwc"]] <- pwc
+pwc <- res[["pwc"]] %>% add_xy_position(x = "EDUCATION_2_TEXT")
+
+ggboxplot(df_covmis2, x = "EDUCATION_2_TEXT", y = "CovidSkepticism") +
+        stat_pvalue_manual(pwc, hide.ns = TRUE) +
+        labs(subtitle = get_test_label(res[["aov"]], detailed = TRUE),
+             caption = get_pwc_label(pwc))
+```
+
+
+```{r}
+
+res <-  list()
+
+res[["aov"]] <- df_covmis2 %>% anova_test(CovidSkepticism ~ SEX_TEXT)
+pwc <- df_covmis2 %>% tukey_hsd(CovidSkepticism ~ SEX_TEXT)
+res[["pwc"]] <- pwc
+pwc <- res[["pwc"]] %>% add_xy_position(x = "SEX_TEXT")
+
+ggboxplot(df_covmis2, x = "SEX_TEXT", y = "CovidSkepticism") +
+        stat_pvalue_manual(pwc, hide.ns = TRUE) +
+        labs(subtitle = get_test_label(res[["aov"]], detailed = TRUE),
+             caption = get_pwc_label(pwc))
+```
+
+
+```{r}
+df_covmis2 %>%
+  gather(key = "BIG5_var", value="BIG5_res", df_covmis %>% colnames %>% str_detect("BIG5") %>% which) %>%
+  ggplot(aes(BIG5_res, CovidSkepticism)) +
+    facet_wrap(~BIG5_var) +
+    geom_point(color="grey") +
+    geom_smooth(method='lm')+
+    ggpubr::stat_regline_equation(label.y = 100, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 90, aes(label = ..rr.label..)) +
+    ggpmisc::stat_fit_glance(method = 'lm',
+                       method.args = list(formula = formula),
+                       geom = 'text',
+                       aes(label = paste("p = ", signif(..p.value.., digits = 3), sep = "")),
+                       label.x.npc = 'left', size = 3)
+```
+
+
+
+```{r}
+res.aov <- rstatix::anova_test(CovidSkepticismnorm ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HH_INCOME_TEXT2 + SEX_TEXT + EDUCATION_2_TEXT + DOB_AGE_BRACKET + AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Conscientiousness + AMBI_BIG5_Agreeableness, data = df_covmis2)
+res.aov
+res.aov <- rstatix::anova_test(CovidSkepticismnorm ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HH_INCOME_TEXT2 + SEX_TEXT + EDUCATION_2_TEXT:DOB_AGE_BRACKET, data = df_covmis2)
+res.aov
+res.aov <- rstatix::anova_test(CovidSkepticismnorm ~ AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Conscientiousness + AMBI_BIG5_Agreeableness, data = df_covmis2)
+res.aov
+```
+
+```{r}
+pwc <- df_covmis2 %>% tukey_hsd(CovidSkepticismnorm ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HH_INCOME_TEXT2 + SEX_TEXT + EDUCATION_2_TEXT + DOB_AGE_BRACKET)
+pwc[,-c(1)] %>% xtable::xtable()
+
+res.aov <- anova_test(CovidSkepticismnorm ~ EXPGRP_TEXT , data = df_covmis2)
+res.aov
+pwc <- df_covmis2 %>% tukey_hsd(CovidSkepticismnorm ~ EXPGRP_TEXT)
+pwc
+```
+
+```{r}
+res.aov <- rstatix::anova_test(CovidSkepticismnorm ~ demo_class + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, data = df_covmis2)
+
+res.aov
+```
+
+```{r}
+df_covmis2 <- fastDummies::dummy_cols(df_covmis2, select_columns = c("EXPGRP_TEXT","CONTINENT_BORN_TEXT_1", 'HH_INCOME_TEXT2', "SEX_TEXT", "EDUCATION_2_TEXT", "DOB_AGE_BRACKET"))
+
+colnames(df_covmis2) <- str_replace_all(colnames(df_covmis2), "[ ,+$-]", "")
+
+res.aov <- anova_test(CovidSkepticismnorm ~ EXPGRP_TEXT_Chinese + EXPGRP_TEXT_White + CONTINENT_BORN_TEXT_1_CentralEasternEurope + CONTINENT_BORN_TEXT_1_DeveloppingAsia + CONTINENT_BORN_TEXT_1_USA + CONTINENT_BORN_TEXT_1_WesternEurope + HH_INCOME_TEXT2_Lessthan30000 + HH_INCOME_TEXT2_30000to70000 + HH_INCOME_TEXT2_70000ormore + SEX_TEXT_Female + SEX_TEXT_Male + EDUCATION_2_TEXT_Nocollegedegree + EDUCATION_2_TEXT_Collegedegree + EDUCATION_2_TEXT_Graduatedegree + DOB_AGE_BRACKET_45y + DOB_AGE_BRACKET_3545y + DOB_AGE_BRACKET_2535y + DOB_AGE_BRACKET_25y + AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Conscientiousness + AMBI_BIG5_Agreeableness, data = df_covmis2)
+res.aov
+```
+
+```{r}
+df_covmis2$demo_class %>% freq()
+```
+
+
+#### What if without conspiracy and xenophobia question
+
+```{r}
+model <- '
+Attention =~ covmis_att_flu + covmis_att_afrDie + covmis_att_eldrNoBgDl + covmis_att_rareNoWorr + covmis_att_bgThrt
+Origin =~ covmis_orgn_covPlnnd + covmis_orgn_covNat + covmis_orgn_covNgeenLab + covmis_orgn_scntFkNwsCov
+Politics =~ covmis_pltc_polBgDlIntrst + covmis_pltc_covNtSerPolSay + covmis_pltc_polDwnplCovPlpLDngr
+Coverage =~ covmis_cvrg_mdiaCovBgrDl + covmis_cvrg_nwsGdJbComCov + covmis_cvrg_mdiaUseCovMkTrmpRepLkBd
+AntiVacc =~ covmis_anti_frGovUseCovMndtVacc + covmis_anti_thnksNoCovVacc + covmis_anti_covVacEffRedVirus
+CovidSkepticism2 =~ Attention + Origin + Politics + Coverage + AntiVacc
+'
+fit <- cfa(model, data = df_covmis, estimator = "ML")
+df_scorecovmis <- f_semscoring_latent(fit, df_covmis, scaled = F)
+standardisation <- function(x){
+  x <-  (x- (fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  filter(!(rhs%in%lhs)) %>% 
+  group_by(lhs) %>%
+  summarise(sest=sum(est)) %>%
+  inner_join(fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+    filter((rhs%in%lhs)) %>% 
+    dplyr::select(rhs,est),
+  by = c("lhs" = "rhs")) %>%
+  mutate(factor=sest*est) %>%
+  dplyr::select(factor) %>%
+  colSums()))  / (fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  filter(!(rhs%in%lhs)) %>% 
+  group_by(lhs) %>%
+  summarise(sest=sum(est)) %>%
+  inner_join(fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+    filter((rhs%in%lhs)) %>% 
+    dplyr::select(rhs,est),
+  by = c("lhs" = "rhs")) %>%
+  mutate(factor=sest*est) %>%
+  dplyr::select(factor) %>%
+  colSums() * 6) * 100
+}
+df_scorecovmis$CovidSkepticism <- df_scorecovmis$CovidSkepticism %>% standardisation
+df_scorecovmis$CovidSkepticism %>% summary
+ex <- car::powerTransform(df_scorecovmis$CovidSkepticism+0.0000001)
+df_scorecovmis$CovidSkepticism^ex$lambda %>% hist()
+df_scorecovmis$CovidSkepticismnorm <-  df_scorecovmis$CovidSkepticism^ex$lambda
+df_covmis$CovidSkepticism2 <- df_scorecovmis$CovidSkepticism
+df_covmis$CovidSkepticism2norm <-  df_scorecovmis$CovidSkepticism^ex$lambda
+
+
+```
+
+```{r}
+res.aov <- anova_test(CovidSkepticism2norm ~ EXPGRP_TEXT:CONTINENT_BORN_TEXT_1 + HH_INCOME_TEXT + SEX_TEXT + EDUCATION_2_TEXT:DOB_AGE_BRACKET + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, data = df_covmis)
+
+res.aov
+```
+
+```{r}
+res.aov <- anova_test(CovidSkepticism2norm ~ demo_class + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, data = df_covmis)
+
+res.aov
+```
+
+
+##To do mediation analysis
+
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+write.csv(df_covmis,"./data/mjolnir_clean_v6_Covmis.csv")
+```
+
+
+
+
+
+
+
+
+
+
