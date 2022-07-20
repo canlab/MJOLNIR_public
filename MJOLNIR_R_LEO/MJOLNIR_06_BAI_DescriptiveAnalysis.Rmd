@@ -164,6 +164,7 @@ ggplot(df_BAI, aes(x = HH_INCOME_TEXT2, y = BAI_score)) +
 
 ```{r}
 lm(BAI_score~CovidSkepticism, data=df_BAI) %>% summary
+lm(CovidSkepticism~BAI_score, data=df_BAI) %>% summary
 ```
 
 # no significant trend
@@ -173,7 +174,27 @@ ggplot(df_BAI, aes(x =CovidSkepticism, y = BAI_score)) +
   stat_smooth(method = "lm", col = "red") +
   ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
     ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+
+ggplot(df_BAI, aes(y =CovidSkepticism, x = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+
+ggplot(df_BAI, aes(y =CovidSkepticism, x = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "loess", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
 ```
+
+```{r}
+smoothed <- predict(loess(CovidSkepticism~BAI_score, data=df_BAI, span=.5))
+plot(df_BAI$BAI_score, df_BAI$CovidSkepticism, pch=19, main='Loess Regression Models')
+lines(smoothed, x=df_BAI$BAI_score, col='red')
+```
+
+
 # younger people are more anxious
 ```{r}
 lm(BAI_score~DOB_YEAR, data=df_BAI) %>% summary
@@ -207,6 +228,22 @@ ggplot(df_BAI, aes(x =BDI_unweighted, y = BAI_score)) +
   ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
     ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
 ```
+
+```{r}
+df_BAI <- df_BAI %>% mutate(BAI_qual = ifelse(BAI_score<=20,"Low anxiety",ifelse(BAI_score>20,"High anxiety",NA)))
+```
+
+```{r}
+anova <- aov(CovidSkepticism ~ BAI_qual, data=df_BAI)
+tukey <- TukeyHSD(anova)
+print(tukey)
+ggplot(data=df_BAI, aes(BAI_qual,CovidSkepticism)) +
+  geom_boxplot() +
+  geom_signif(comparisons=list(c('Low anxiety','High anxiety')),
+              map_signif_level = TRUE,
+              step_increase=0.1)
+```
+
 
 
 ```{r}
