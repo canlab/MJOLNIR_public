@@ -1,0 +1,2763 @@
+\documentclass[]{report}
+\usepackage{lscape}
+\usepackage{tablefootnote}
+\usepackage[pass, left = 1pt, right = 1pt]{geometry}
+\usepackage{booktabs}
+\usepackage{resizegather}
+\usepackage{longtable}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\graphicspath{ {./graphs/Model} }
+%opening
+\title{}
+\author{Leo HENRY}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{abstract}
+		
+	\end{abstract}
+
+
+\part{Scenario}
+
+
+\chapter{Model 1 - Product}
+
+\section{other}
+l
+
+\begin{table}
+	
+	\caption{Model 1, Product without update}
+	\centering
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorrallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{22.41}*** & \num{32.15}*** & \num{31.65}***\\
+		V\_Productbabyformula & \num{-6.08}*** & \num{-0.94} & \num{-0.43}\\
+		V\_Productcigarettes & \num{11.72}*** & \num{6.48}*** & \num{5.30}***\\
+		V\_Producttoiletpaper & \num{11.73}*** & \num{0.79} & \num{1.30}*\\
+		SD (Intercept ID) & \num{20.41} & \num{19.48} & \num{20.45}\\
+		SD (Observations) & \num{20.38} & \num{11.32} & \num{11.28}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.066} & \num{0.016} & \num{0.009}\\
+		R2 Cond. & \num{0.534} & \num{0.752} & \num{0.769}\\
+		AIC & \num{22211.3} & \num{19960.2} & \num{20001.5}\\
+		BIC & \num{22246.0} & \num{19994.9} & \num{20036.2}\\
+		ICC & \num{0.5} & \num{0.7} & \num{0.8}\\
+		RMSE & \num{18.21} & \num{9.92} & \num{9.87}\\
+		\toprule
+hardwaresupplies - babyformula & 6.08*** & 0.94 & 0.43 \\ 
+hardwaresupplies - cigarettes & -11.72*** & -6.48*** & -5.3*** \\ 
+hardwaresupplies - toiletpaper & -11.73*** & -0.79 & -1.3* \\ 
+babyformula - cigarettes & -17.79*** & -7.42*** & -5.72*** \\ 
+babyformula - toiletpaper & -17.8*** & -1.73** & -1.73** \\ 
+cigarettes - toiletpaper & -0.01 & 5.69*** & 3.99*** \\ 
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\resizebox{15cm}{!}{
+\includegraphics{Model01_product}
+}
+	
+\section{self}
+
+\begin{table}
+	
+	\caption{Model 1.2, Product without update - self}
+	\centering
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+(Intercept) & \num{23.73}*** & \num{29.21}*** & \num{28.24}***\\
+V\_Productbabyformula & \num{-5.07}*** & \num{-0.77} & \num{-0.54}\\
+V\_Productcigarettes & \num{14.09}*** & \num{6.16}*** & \num{4.94}***\\
+V\_Producttoiletpaper & \num{14.89}*** & \num{0.91} & \num{0.80}\\
+SD (Intercept ID) & \num{21.43} & \num{19.26} & \num{20.79}\\
+SD (Observations) & \num{21.65} & \num{10.96} & \num{10.77}\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.075} & \num{0.015} & \num{0.008}\\
+R2 Cond. & \num{0.533} & \num{0.759} & \num{0.790}\\
+AIC & \num{22489.3} & \num{19831.0} & \num{19852.4}\\
+BIC & \num{22524.0} & \num{19865.7} & \num{19887.1}\\
+ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+RMSE & \num{19.36} & \num{9.60} & \num{9.42}\\
+		 \hline
+		 hardwaresupplies - babyformula & 5.07*** & 0.77 & 0.54 \\ 
+		 hardwaresupplies - cigarettes & -14.09*** & -6.16*** & -4.94*** \\ 
+		 hardwaresupplies - toiletpaper & -14.89*** & -0.91 & -0.8 \\ 
+		 babyformula - cigarettes & -19.16*** & -6.93*** & -5.48*** \\ 
+		 babyformula - toiletpaper & -19.95*** & -1.68** & -1.35* \\ 
+		 cigarettes - toiletpaper & -0.8 & 5.25*** & 4.13*** \\ 
+		 \bottomrule
+	\end{tabular}
+\end{table}
+
+\resizebox{15cm}{!}{
+	\includegraphics{Model01.2_product}
+}
+
+
+
+\section{comparaison}	
+	
+	\begin{table}
+		
+		\caption{Model 1.2, Product without update - self}
+		\centering
+		\resizebox{15cm}{!}{
+		\begin{tabular}[t]{lcccccc}
+			\toprule
+			& MorallyWrong & CatchCovid & TransmitCovid & selfMorallyWrong & selfCatchCovid & selfTransmitCovid\\
+			\midrule
+			(Intercept) & \num{22.41}*** & \num{32.15}*** & \num{31.65}*** & \num{23.73}*** & \num{29.21}*** & \num{28.24}***\\
+			V\_Productbabyformula & \num{-6.08}*** & \num{-0.94} & \num{-0.43} & \num{-5.07}*** & \num{-0.77} & \num{-0.54}\\
+			V\_Productcigarettes & \num{11.72}*** & \num{6.48}*** & \num{5.30}*** & \num{14.09}*** & \num{6.16}*** & \num{4.94}***\\
+			V\_Producttoiletpaper & \num{11.73}*** & \num{0.79} & \num{1.30}* & \num{14.89}*** & \num{0.91} & \num{0.80}\\
+			SD (Intercept ID) & \num{20.41} & \num{19.48} & \num{20.45} & \num{21.43} & \num{19.26} & \num{20.79}\\
+			SD (Observations) & \num{20.38} & \num{11.32} & \num{11.28} & \num{21.65} & \num{10.96} & \num{10.77}\\
+			\midrule
+			Num.Obs. & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396}\\
+			R2 Marg. & \num{0.066} & \num{0.016} & \num{0.009} & \num{0.075} & \num{0.015} & \num{0.008}\\
+			R2 Cond. & \num{0.534} & \num{0.752} & \num{0.769} & \num{0.533} & \num{0.759} & \num{0.790}\\
+			AIC & \num{22211.3} & \num{19960.2} & \num{20001.5} & \num{22489.3} & \num{19831.0} & \num{19852.4}\\
+			BIC & \num{22246.0} & \num{19994.9} & \num{20036.2} & \num{22524.0} & \num{19865.7} & \num{19887.1}\\
+			ICC & \num{0.5} & \num{0.7} & \num{0.8} & \num{0.5} & \num{0.8} & \num{0.8}\\
+			RMSE & \num{18.21} & \num{9.92} & \num{9.87} & \num{19.36} & \num{9.60} & \num{9.42}\\
+			\hline
+			hardwaresupplies - babyformula & 6.08*** & 0.94 & 0.43 & 5.07*** & 0.77 & 0.54 \\ 
+			hardwaresupplies - cigarettes & -11.72*** & -6.48*** & -5.3*** & -14.09*** & -6.16*** & -4.94*** \\ 
+			hardwaresupplies - toiletpaper & -11.73*** & -0.79 & -1.3* & -14.89*** & -0.91 & -0.8 \\ 
+			babyformula - cigarettes & -17.79*** & -7.42*** & -5.72*** & -19.16*** & -6.93*** & -5.48*** \\ 
+			babyformula - toiletpaper & -17.8*** & -1.73** & -1.73** & -19.95*** & -1.68** & -1.35* \\ 
+			cigarettes - toiletpaper & -0.01 & 5.69*** & 3.99*** & -0.8 & 5.25*** & 4.13*** \\ 
+			\bottomrule
+		\end{tabular}}
+	\end{table}
+	
+
+\chapter{Model 2 - Update}
+
+\section{other}
+
+\begin{table}
+	
+	\caption{Model 2, Update presentation}
+	\centering
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{26.75}*** & \num{33.73}*** & \num{33.19}***\\
+		V\_presentation3Defensive & \num{5.79}*** & \num{-1.06}** & \num{-0.94}*\\
+		V\_presentation3Prosocial & \num{-12.30}*** & \num{-1.47}*** & \num{-1.27}**\\
+		SD (Intercept ID) & \num{19.31} & \num{19.94} & \num{20.68}\\
+		SD (Observations) & \num{21.17} & \num{10.90} & \num{11.04}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.050} & \num{0.001} & \num{0.001}\\
+		R2 Cond. & \num{0.482} & \num{0.770} & \num{0.778}\\
+		AIC & \num{44067.7} & \num{38478.4} & \num{38631.5}\\
+		BIC & \num{44100.1} & \num{38510.8} & \num{38663.8}\\
+		ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{19.98} & \num{10.22} & \num{10.35}\\
+		\toprule
+		NONE - Defensive & -5.79*** & 1.06** & 0.94* \\ 
+		NONE - Prosocial & 12.3*** & 1.47*** & 1.27** \\ 
+		Defensive - Prosocial & 18.09*** & 0.41 & 0.32 \\ 
+		\bottomrule
+	\end{tabular}
+\end{table}
+	
+	\resizebox{15cm}{!}{
+		\includegraphics{Model02_presentation}
+	}
+
+
+
+\section{self}
+
+\begin{table}
+	
+	\caption{Model 2.2, Update presentation - self}
+	\centering
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& selfMorallyWrong & selfCatchCovid & selfTransmitCovid\\
+		\midrule
+		(Intercept) & \num{29.71}*** & \num{30.78}*** & \num{29.53}***\\
+		V\_presentation3Defensive & \num{6.15}*** & \num{-0.11} & \num{0.05}\\
+		V\_presentation3Prosocial & \num{-13.48}*** & \num{-0.86}* & \num{-0.45}\\
+		SD (Intercept ID) & \num{20.04} & \num{19.75} & \num{20.95}\\
+		SD (Observations) & \num{22.81} & \num{10.55} & \num{10.54}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.053} & \num{0.000} & \num{0.000}\\
+		R2 Cond. & \num{0.465} & \num{0.778} & \num{0.798}\\
+		AIC & \num{44744.2} & \num{38193.4} & \num{38256.4}\\
+		BIC & \num{44776.6} & \num{38225.7} & \num{38288.8}\\
+		ICC & \num{0.4} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{21.54} & \num{9.89} & \num{9.88}\\
+		  \hline
+		NONE - Defensive & -6.15*** & 0.11 & -0.05 \\ 
+		NONE - Prosocial & 13.48*** & 0.86* & 0.45 \\ 
+		Defensive - Prosocial & 19.62*** & 0.75. & 0.5 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+	\resizebox{15cm}{!}{
+	\includegraphics{Model02.2_presentationself}
+}
+
+
+
+\section{comparaison}	
+
+	
+\begin{table}
+	
+	\caption{Model 2, Update presentation - comparison}
+		\resizebox{15cm}{!}{
+	\centering
+	\begin{tabular}[t]{lcccccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid & selfMorallyWrong & selfCatchCovid & selfTransmitCovid\\
+		\midrule
+		(Intercept) & \num{26.75}*** & \num{33.73}*** & \num{33.19}*** & \num{29.71}*** & \num{30.78}*** & \num{29.53}***\\
+		V\_presentation3Defensive & \num{5.79}*** & \num{-1.06}** & \num{-0.94}* & \num{6.15}*** & \num{-0.11} & \num{0.05}\\
+		V\_presentation3Prosocial & \num{-12.30}*** & \num{-1.47}*** & \num{-1.27}** & \num{-13.48}*** & \num{-0.86}* & \num{-0.45}\\
+		SD (Intercept ID) & \num{19.31} & \num{19.94} & \num{20.68} & \num{20.04} & \num{19.75} & \num{20.95}\\
+		SD (Observations) & \num{21.17} & \num{10.90} & \num{11.04} & \num{22.81} & \num{10.55} & \num{10.54}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.050} & \num{0.001} & \num{0.001} & \num{0.053} & \num{0.000} & \num{0.000}\\
+		R2 Cond. & \num{0.482} & \num{0.770} & \num{0.778} & \num{0.465} & \num{0.778} & \num{0.798}\\
+		AIC & \num{44067.7} & \num{38478.4} & \num{38631.5} & \num{44744.2} & \num{38193.4} & \num{38256.4}\\
+		BIC & \num{44100.1} & \num{38510.8} & \num{38663.8} & \num{44776.6} & \num{38225.7} & \num{38288.8}\\
+		ICC & \num{0.5} & \num{0.8} & \num{0.8} & \num{0.4} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{19.98} & \num{10.22} & \num{10.35} & \num{21.54} & \num{9.89} & \num{9.88}\\
+		  \hline
+		NONE - Defensive & -5.79*** & 1.06** & 0.94* & -6.15*** & 0.11 & -0.05 \\ 
+		NONE - Prosocial & 12.3*** & 1.47*** & 1.27** & 13.48*** & 0.86* & 0.45 \\ 
+		Defensive - Prosocial & 18.09*** & 0.41 & 0.32 & 19.62*** & 0.75. & 0.5 \\ 
+		\hline
+	\end{tabular}}
+\end{table}
+	
+	
+	
+	
+\chapter{Model 3 - Product*Presentation}
+
+	\begin{longtable}{lccc}
+
+					\caption{Model 3, Product and Update presentation}\\
+			\hline
+			& MorallyWrong & CatchCovid & TransmitCovid\\
+			\hline
+			(Intercept) & \num{22.41}*** & \num{32.15}*** & \num{31.65}***\\
+			V\_Productbabyformula & \num{-6.08}*** & \num{-0.94} & \num{-0.43}\\
+			V\_Productcigarettes & \num{11.72}*** & \num{6.48}*** & \num{5.30}***\\
+			V\_Producttoiletpaper & \num{11.73}*** & \num{0.79} & \num{1.30}*\\
+			V\_presentation3Defensive & \num{12.64}*** & \num{0.36} & \num{0.74}\\
+			V\_presentation3Prosocial & \num{-12.11}*** & \num{-1.69}* & \num{-1.63}*\\
+			V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.96}* & \num{-0.99} & \num{-1.50}\\
+			V\_ProductcigarettesV\_presentation3Defensive & \num{-12.78}*** & \num{-2.63}* & \num{-3.11}**\\
+			V\_ProducttoiletpaperV\_presentation3Defensive & \num{-9.78}*** & \num{-2.08}+ & \num{-2.15}+\\
+			V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.41}** & \num{-0.04} & \num{-0.63}\\
+			V\_ProductcigarettesV\_presentation3Prosocial & \num{6.04}** & \num{-2.01}+ & \num{-0.10}\\
+			V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-12.19}*** & \num{2.99}** & \num{2.23}*\\
+			SD (Intercept ID) & \num{19.47} & \num{19.95} & \num{20.68}\\
+			SD (Observations) & \num{19.80} & \num{10.55} & \num{10.81}\\
+			\hline
+			Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+			R2 Marg. & \num{0.109} & \num{0.014} & \num{0.009}\\
+			R2 Cond. & \num{0.547} & \num{0.785} & \num{0.788}\\
+			AIC & \num{43493.2} & \num{38204.8} & \num{38450.6}\\
+			BIC & \num{43583.8} & \num{38295.4} & \num{38541.2}\\
+			ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+			RMSE & \num{18.65} & \num{9.88} & \num{10.12}\\
+			\hline
+			hardwaresupplies - babyformula & 5.93*** & 1.29** & 1.14* \\ 
+			hardwaresupplies - cigarettes & -9.47*** & -4.93*** & -4.22*** \\ 
+			hardwaresupplies - toiletpaper & -4.4*** & -1.09* & -1.33** \\ 
+			babyformula - cigarettes & -15.4*** & -6.22*** & -5.37*** \\ 
+			babyformula - toiletpaper & -10.33*** & -2.38*** & -2.47*** \\ 
+			cigarettes - toiletpaper & 5.07*** & 3.84*** & 2.89*** \\ 
+			NONE - Defensive & -5.75*** & 1.06** & 0.95* \\ 
+			NONE - Prosocial & 12.3*** & 1.46*** & 1.25** \\ 
+			Defensive - Prosocial & 18.05*** & 0.39 & 0.3 \\ 
+			hardwaresupplies:NONE - babyformula:NONE & 6.08*** & 0.94 & 0.43 \\ 
+			hardwaresupplies:NONE - cigarettes:NONE & -11.72*** & -6.48*** & -5.3*** \\ 
+			hardwaresupplies:NONE - toiletpaper:NONE & -11.73*** & -0.79 & -1.3* \\ 
+			hardwaresupplies:NONE - hardwaresupplies:Defensive & -12.64*** & -0.36 & -0.74 \\ 
+			hardwaresupplies:NONE - babyformula:Defensive & -1.6 & 1.57* & 1.19 \\ 
+			hardwaresupplies:NONE - cigarettes:Defensive & -11.58*** & -4.21*** & -2.93*** \\ 
+			hardwaresupplies:NONE - toiletpaper:Defensive & -14.58*** & 0.93 & 0.1 \\ 
+			hardwaresupplies:NONE - hardwaresupplies:Prosocial & 12.11*** & 1.69* & 1.63* \\ 
+			hardwaresupplies:NONE - babyformula:Prosocial & 12.78*** & 2.67*** & 2.69*** \\ 
+			hardwaresupplies:NONE - cigarettes:Prosocial & -5.64*** & -2.78*** & -3.57*** \\ 
+			hardwaresupplies:NONE - toiletpaper:Prosocial & 12.57*** & -2.09** & -1.91* \\ 
+			babyformula:NONE - cigarettes:NONE & -17.79*** & -7.42*** & -5.72*** \\ 
+			babyformula:NONE - toiletpaper:NONE & -17.8*** & -1.73** & -1.73** \\ 
+			babyformula:NONE - hardwaresupplies:Defensive & -18.71*** & -1.3. & -1.17 \\ 
+			babyformula:NONE - babyformula:Defensive & -7.67*** & 0.63 & 0.76 \\ 
+			babyformula:NONE - cigarettes:Defensive & -17.65*** & -5.15*** & -3.35*** \\ 
+			babyformula:NONE - toiletpaper:Defensive & -20.66*** & -0.02 & -0.33 \\ 
+			babyformula:NONE - hardwaresupplies:Prosocial & 6.04*** & 0.75 & 1.2 \\ 
+			babyformula:NONE - babyformula:Prosocial & 6.71*** & 1.73* & 2.26** \\ 
+			babyformula:NONE - cigarettes:Prosocial & -11.72*** & -3.72*** & -4*** \\ 
+			babyformula:NONE - toiletpaper:Prosocial & 6.5*** & -3.03*** & -2.34** \\ 
+			cigarettes:NONE - toiletpaper:NONE & -0.01 & 5.69*** & 3.99*** \\ 
+			cigarettes:NONE - hardwaresupplies:Defensive & -0.92 & 6.12*** & 4.55*** \\ 
+			cigarettes:NONE - babyformula:Defensive & 10.12*** & 8.05*** & 6.48*** \\ 
+			cigarettes:NONE - cigarettes:Defensive & 0.14 & 2.27** & 2.37** \\ 
+			cigarettes:NONE - toiletpaper:Defensive & -2.86* & 7.41*** & 5.4*** \\ 
+			cigarettes:NONE - hardwaresupplies:Prosocial & 23.83*** & 8.17*** & 6.92*** \\ 
+			cigarettes:NONE - babyformula:Prosocial & 24.5*** & 9.15*** & 7.98*** \\ 
+			cigarettes:NONE - cigarettes:Prosocial & 6.07*** & 3.7*** & 1.73* \\ 
+			cigarettes:NONE - toiletpaper:Prosocial & 24.29*** & 4.39*** & 3.38*** \\ 
+			toiletpaper:NONE - hardwaresupplies:Defensive & -0.91 & 0.43 & 0.56 \\ 
+			toiletpaper:NONE - babyformula:Defensive & 10.13*** & 2.36** & 2.49** \\ 
+			toiletpaper:NONE - cigarettes:Defensive & 0.15 & -3.42*** & -1.62* \\ 
+			toiletpaper:NONE - toiletpaper:Defensive & -2.85* & 1.72* & 1.41. \\ 
+			toiletpaper:NONE - hardwaresupplies:Prosocial & 23.84*** & 2.48** & 2.93*** \\ 
+			toiletpaper:NONE - babyformula:Prosocial & 24.51*** & 3.46*** & 3.99*** \\ 
+			toiletpaper:NONE - cigarettes:Prosocial & 6.09*** & -1.99** & -2.27** \\ 
+			toiletpaper:NONE - toiletpaper:Prosocial & 24.3*** & -1.3. & -0.61 \\ 
+			hardwaresupplies:Defensive - babyformula:Defensive & 11.04*** & 1.93* & 1.93* \\ 
+			hardwaresupplies:Defensive - cigarettes:Defensive & 1.06 & -3.85*** & -2.18* \\ 
+			hardwaresupplies:Defensive - toiletpaper:Defensive & -1.94 & 1.29 & 0.84 \\ 
+			hardwaresupplies:Defensive - hardwaresupplies:Prosocial & 24.75*** & 2.05* & 2.37* \\ 
+			hardwaresupplies:Defensive - babyformula:Prosocial & 25.42*** & 3.03*** & 3.43*** \\ 
+			hardwaresupplies:Defensive - cigarettes:Prosocial & 6.99*** & -2.42** & -2.83** \\ 
+			hardwaresupplies:Defensive - toiletpaper:Prosocial & 25.21*** & -1.73. & -1.17 \\ 
+			babyformula:Defensive - cigarettes:Defensive & -9.98*** & -5.78*** & -4.11*** \\ 
+			babyformula:Defensive - toiletpaper:Defensive & -12.98*** & -0.65 & -1.08 \\ 
+			babyformula:Defensive - hardwaresupplies:Prosocial & 13.71*** & 0.12 & 0.44 \\ 
+			babyformula:Defensive - babyformula:Prosocial & 14.38*** & 1.1 & 1.5 \\ 
+			babyformula:Defensive - cigarettes:Prosocial & -4.05* & -4.35*** & -4.76*** \\ 
+			babyformula:Defensive - toiletpaper:Prosocial & 14.17*** & -3.66*** & -3.1*** \\ 
+			cigarettes:Defensive - toiletpaper:Defensive & -3. & 5.14*** & 3.03** \\ 
+			cigarettes:Defensive - hardwaresupplies:Prosocial & 23.69*** & 5.9*** & 4.55*** \\ 
+			cigarettes:Defensive - babyformula:Prosocial & 24.36*** & 6.88*** & 5.61*** \\ 
+			cigarettes:Defensive - cigarettes:Prosocial & 5.93*** & 1.43 & -0.64 \\ 
+			cigarettes:Defensive - toiletpaper:Prosocial & 24.15*** & 2.12* & 1.01 \\ 
+			toiletpaper:Defensive - hardwaresupplies:Prosocial & 26.69*** & 0.77 & 1.52. \\ 
+			toiletpaper:Defensive - babyformula:Prosocial & 27.36*** & 1.74* & 2.59** \\ 
+			toiletpaper:Defensive - cigarettes:Prosocial & 8.94*** & -3.7*** & -3.67*** \\ 
+			toiletpaper:Defensive - toiletpaper:Prosocial & 27.15*** & -3.02** & -2.01* \\ 
+			hardwaresupplies:Prosocial - babyformula:Prosocial & 0.67 & 0.98 & 1.06 \\ 
+			hardwaresupplies:Prosocial - cigarettes:Prosocial & -17.75*** & -4.47*** & -5.2*** \\ 
+			hardwaresupplies:Prosocial - toiletpaper:Prosocial & 0.46 & -3.78*** & -3.54*** \\ 
+			babyformula:Prosocial - cigarettes:Prosocial & -18.42*** & -5.45*** & -6.26*** \\ 
+			babyformula:Prosocial - toiletpaper:Prosocial & -0.21 & -4.76*** & -4.6*** \\ 
+			cigarettes:Prosocial - toiletpaper:Prosocial & 18.22*** & 0.69 & 1.66. \\ 
+			\bottomrule
+	
+	\end{longtable}
+	
+	\begin{table}
+		
+		\caption{Model 3, Product and Update presentation - selected co}
+		\centering
+				\resizebox{10cm}{!}{
+		\begin{tabular}[t]{lccc}
+			\toprule
+			& MorallyWrong & CatchCovid & TransmitCovid\\
+			\midrule
+			(Intercept) & \num{22.41}*** & \num{32.15}*** & \num{31.65}***\\
+			V\_Productbabyformula & \num{-6.08}*** & \num{-0.94} & \num{-0.43}\\
+			V\_Productcigarettes & \num{11.72}*** & \num{6.48}*** & \num{5.30}***\\
+			V\_Producttoiletpaper & \num{11.73}*** & \num{0.79} & \num{1.30}*\\
+			V\_presentation3Defensive & \num{12.64}*** & \num{0.36} & \num{0.74}\\
+			V\_presentation3Prosocial & \num{-12.11}*** & \num{-1.69}* & \num{-1.63}*\\
+			V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.96}* & \num{-0.99} & \num{-1.50}\\
+			V\_ProductcigarettesV\_presentation3Defensive & \num{-12.78}*** & \num{-2.63}* & \num{-3.11}**\\
+			V\_ProducttoiletpaperV\_presentation3Defensive & \num{-9.78}*** & \num{-2.08}+ & \num{-2.15}+\\
+			V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.41}** & \num{-0.04} & \num{-0.63}\\
+			V\_ProductcigarettesV\_presentation3Prosocial & \num{6.04}** & \num{-2.01}+ & \num{-0.10}\\
+			V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-12.19}*** & \num{2.99}** & \num{2.23}*\\
+			SD (Intercept ID) & \num{19.47} & \num{19.95} & \num{20.68}\\
+			SD (Observations) & \num{19.80} & \num{10.55} & \num{10.81}\\
+			\midrule
+			Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+			R2 Marg. & \num{0.109} & \num{0.014} & \num{0.009}\\
+			R2 Cond. & \num{0.547} & \num{0.785} & \num{0.788}\\
+			AIC & \num{43493.2} & \num{38204.8} & \num{38450.6}\\
+			BIC & \num{43583.8} & \num{38295.4} & \num{38541.2}\\
+			ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+			RMSE & \num{18.65} & \num{9.88} & \num{10.12}\\
+			\toprule
+			\textbf{Product:} &&&\\
+			hardwaresupplies - babyformula & 5.93*** & 1.29** & 1.14* \\ 
+			hardwaresupplies - cigarettes & -9.47*** & -4.93*** & -4.22*** \\ 
+			hardwaresupplies - toiletpaper & -4.4*** & -1.09* & -1.33** \\ 
+			babyformula - cigarettes & -15.4*** & -6.22*** & -5.37*** \\ 
+			babyformula - toiletpaper & -10.33*** & -2.38*** & -2.47*** \\ 
+			cigarettes - toiletpaper & 5.07*** & 3.84*** & 2.89*** \\ 
+			\midrule
+			\textbf{Presentation:} &&&\\
+			NONE - Defensive & -5.75*** & 1.06** & 0.95* \\ 
+			NONE - Prosocial & 12.3*** & 1.46*** & 1.25** \\ 
+			Defensive - Prosocial & 18.05*** & 0.39 & 0.3 \\ 
+			\midrule
+			\textbf{Harwaresupplies:Presentation:}  &&&\\
+			hardwaresupplies:NONE - hardwaresupplies:Defensive & -12.64*** & -0.36 & -0.74 \\ 
+			hardwaresupplies:NONE - hardwaresupplies:Prosocial & 12.11*** & 1.69* & 1.63* \\ 
+			hardwaresupplies:Defensive - hardwaresupplies:Prosocial & 24.75*** & 2.05* & 2.37* \\ 
+			\midrule
+			\textbf{Babyformula:Presentation:} &&&\\
+			babyformula:NONE - babyformula:Defensive & -7.67*** & 0.63 & 0.76 \\ 
+			babyformula:NONE - babyformula:Prosocial & 6.71*** & 1.73* & 2.26** \\ 
+			babyformula:Defensive - babyformula:Prosocial & 14.38*** & 1.1 & 1.5 \\ 
+			\midrule
+			\textbf{Cigarettes:Presentation:} &&&\\
+			cigarettes:NONE - cigarettes:Defensive & 0.14 & 2.27** & 2.37** \\ 
+			cigarettes:NONE - cigarettes:Prosocial & 6.07*** & 3.7*** & 1.73* \\ 
+			cigarettes:Defensive - cigarettes:Prosocial & 5.93*** & 1.43 & -0.64 \\ 
+			\midrule
+			\textbf{Toiletpaper:Presentation:} &&&\\
+			toiletpaper:NONE - toiletpaper:Defensive & -2.85* & 1.72* & 1.41. \\ 
+			toiletpaper:NONE - toiletpaper:Prosocial & 24.3*** & -1.3. & -0.61 \\ 
+			toiletpaper:Defensive - toiletpaper:Prosocial & 27.15*** & -3.02** & -2.01* \\ 
+			\midrule
+			\textbf{Product:NONE:} &&&\\
+			hardwaresupplies:NONE - babyformula:NONE & 6.08*** & 0.94 & 0.43 \\ 
+			hardwaresupplies:NONE - cigarettes:NONE & -11.72*** & -6.48*** & -5.3*** \\ 
+			hardwaresupplies:NONE - toiletpaper:NONE & -11.73*** & -0.79 & -1.3* \\ 
+			babyformula:NONE - cigarettes:NONE & -17.79*** & -7.42*** & -5.72*** \\ 
+			babyformula:NONE - toiletpaper:NONE & -17.8*** & -1.73** & -1.73** \\ 
+			cigarettes:NONE - toiletpaper:NONE & -0.01 & 5.69*** & 3.99*** \\ 
+			\midrule
+			\textbf{Product:Defensive:} &&&\\
+			hardwaresupplies:Defensive - babyformula:Defensive & 11.04*** & 1.93* & 1.93* \\ 
+			hardwaresupplies:Defensive - cigarettes:Defensive & 1.06 & -3.85*** & -2.18* \\ 
+			hardwaresupplies:Defensive - toiletpaper:Defensive & -1.94 & 1.29 & 0.84 \\ 
+			babyformula:Defensive - cigarettes:Defensive & -9.98*** & -5.78*** & -4.11*** \\ 
+			babyformula:Defensive - toiletpaper:Defensive & -12.98*** & -0.65 & -1.08 \\ 
+			cigarettes:Defensive - toiletpaper:Defensive & -3. & 5.14*** & 3.03** \\ 
+			\midrule
+			\textbf{Product:Prosocial:} &&&\\
+			hardwaresupplies:Prosocial - babyformula:Prosocial & 0.67 & 0.98 & 1.06 \\ 
+			hardwaresupplies:Prosocial - cigarettes:Prosocial & -17.75*** & -4.47*** & -5.2*** \\ 
+			hardwaresupplies:Prosocial - toiletpaper:Prosocial & 0.46 & -3.78*** & -3.54*** \\ 
+			babyformula:Prosocial - cigarettes:Prosocial & -18.42*** & -5.45*** & -6.26*** \\ 
+			babyformula:Prosocial - toiletpaper:Prosocial & -0.21 & -4.76*** & -4.6*** \\ 
+			cigarettes:Prosocial - toiletpaper:Prosocial & 18.22*** & 0.69 & 1.66. \\ 
+			\bottomrule
+		\end{tabular}}
+	\end{table}
+	
+				\resizebox{15cm}{!}{
+		\includegraphics{Model03_presentation.product}
+	}
+
+
+
+
+\section{self}
+
+
+\begin{table}
+	
+	\caption{Model 3.2, Product and Update presentation - self}
+	\centering
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& selfMorallyWrong & selfCatchCovid & selfTransmitCovid\\
+		\midrule
+		(Intercept) & \num{23.73}*** & \num{29.21}*** & \num{28.24}***\\
+		V\_Productbabyformula & \num{-5.07}*** & \num{-0.77} & \num{-0.54}\\
+		V\_Productcigarettes & \num{14.09}*** & \num{6.16}*** & \num{4.94}***\\
+		V\_Producttoiletpaper & \num{14.89}*** & \num{0.91} & \num{0.80}\\
+		V\_presentation3Defensive & \num{13.18}*** & \num{0.87} & \num{1.10}\\
+		V\_presentation3Prosocial & \num{-12.80}*** & \num{-0.64} & \num{-0.93}\\
+		V\_ProductbabyformulaV\_presentation3Defensive & \num{-3.15} & \num{-1.10} & \num{-0.99}\\
+		V\_ProductcigarettesV\_presentation3Defensive & \num{-13.77}*** & \num{-1.99}+ & \num{-2.10}*\\
+		V\_ProducttoiletpaperV\_presentation3Defensive & \num{-11.38}*** & \num{-0.86} & \num{-1.13}\\
+		V\_ProductbabyformulaV\_presentation3Prosocial & \num{6.68}** & \num{-0.65} & \num{-0.26}\\
+		V\_ProductcigarettesV\_presentation3Prosocial & \num{6.04}** & \num{-2.66}* & \num{-0.50}\\
+		V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-15.45}*** & \num{2.50}* & \num{2.76}**\\
+		SD (Intercept ID) & \num{20.27} & \num{19.76} & \num{20.96}\\
+		SD (Observations) & \num{21.29} & \num{10.23} & \num{10.32}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.115} & \num{0.012} & \num{0.008}\\
+		R2 Cond. & \num{0.536} & \num{0.791} & \num{0.806}\\
+		AIC & \num{44152.5} & \num{37935.0} & \num{38080.6}\\
+		BIC & \num{44243.2} & \num{38025.7} & \num{38171.2}\\
+		ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{20.06} & \num{9.58} & \num{9.66}\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+				\resizebox{15cm}{!}{
+	\includegraphics{Model03.2_presentation.productself}
+}
+
+
+\section{comparaison}	
+
+
+\begin{table}
+	
+	\caption{Model 3, Product and Update presentation - comparison}
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lcccccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid & selfMorallyWrong & selfCatchCovid & selfTransmitCovid\\
+		\midrule
+		(Intercept) & \num{22.41}*** & \num{32.15}*** & \num{31.65}*** & \num{23.73}*** & \num{29.21}*** & \num{28.24}***\\
+		V\_Productbabyformula & \num{-6.08}*** & \num{-0.94} & \num{-0.43} & \num{-5.07}*** & \num{-0.77} & \num{-0.54}\\
+		V\_Productcigarettes & \num{11.72}*** & \num{6.48}*** & \num{5.30}*** & \num{14.09}*** & \num{6.16}*** & \num{4.94}***\\
+		V\_Producttoiletpaper & \num{11.73}*** & \num{0.79} & \num{1.30}* & \num{14.89}*** & \num{0.91} & \num{0.80}\\
+		V\_presentation3Defensive & \num{12.64}*** & \num{0.36} & \num{0.74} & \num{13.18}*** & \num{0.87} & \num{1.10}\\
+		V\_presentation3Prosocial & \num{-12.11}*** & \num{-1.69}* & \num{-1.63}* & \num{-12.80}*** & \num{-0.64} & \num{-0.93}\\
+		V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.96}* & \num{-0.99} & \num{-1.50} & \num{-3.15} & \num{-1.10} & \num{-0.99}\\
+		V\_ProductcigarettesV\_presentation3Defensive & \num{-12.78}*** & \num{-2.63}* & \num{-3.11}** & \num{-13.77}*** & \num{-1.99}+ & \num{-2.10}*\\
+		V\_ProducttoiletpaperV\_presentation3Defensive & \num{-9.78}*** & \num{-2.08}+ & \num{-2.15}+ & \num{-11.38}*** & \num{-0.86} & \num{-1.13}\\
+		V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.41}** & \num{-0.04} & \num{-0.63} & \num{6.68}** & \num{-0.65} & \num{-0.26}\\
+		V\_ProductcigarettesV\_presentation3Prosocial & \num{6.04}** & \num{-2.01}+ & \num{-0.10} & \num{6.04}** & \num{-2.66}* & \num{-0.50}\\
+		V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-12.19}*** & \num{2.99}** & \num{2.23}* & \num{-15.45}*** & \num{2.50}* & \num{2.76}**\\
+		SD (Intercept ID) & \num{19.47} & \num{19.95} & \num{20.68} & \num{20.27} & \num{19.76} & \num{20.96}\\
+		SD (Observations) & \num{19.80} & \num{10.55} & \num{10.81} & \num{21.29} & \num{10.23} & \num{10.32}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.109} & \num{0.014} & \num{0.009} & \num{0.115} & \num{0.012} & \num{0.008}\\
+		R2 Cond. & \num{0.547} & \num{0.785} & \num{0.788} & \num{0.536} & \num{0.791} & \num{0.806}\\
+		AIC & \num{43493.2} & \num{38204.8} & \num{38450.6} & \num{44152.5} & \num{37935.0} & \num{38080.6}\\
+		BIC & \num{43583.8} & \num{38295.4} & \num{38541.2} & \num{44243.2} & \num{38025.7} & \num{38171.2}\\
+		ICC & \num{0.5} & \num{0.8} & \num{0.8} & \num{0.5} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{18.65} & \num{9.88} & \num{10.12} & \num{20.06} & \num{9.58} & \num{9.66}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+\chapter{Model 4 - SpillingEffect}
+
+
+\begin{table}
+	
+	\caption{Model 1.4 - Spill Over effect}
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lcccc}
+		\toprule
+		& CatchCovidModel & TransmitCovidModel & Ctch\&TrnsmtModel & Ctch*TrnsmtModel\\
+		\midrule
+		(Intercept) & \num{24.42}*** & \num{24.21}*** & \num{24.20}*** & \num{23.34}***\\
+		ScaledCatchCovid & \num{12.29}(0.54)*** &  & \num{5.40}(0.24)*** & \num{5.03}(0.22)***\\
+		ScaledTransmitCovid &  & \num{13.25}(0.56)*** & \num{8.97}(0.38)*** & \num{8.65}(0.37)***\\
+		ScaledCatchCovidScaledTransmitCovid &  &  &  & \num{1.00}*\\
+		SD (Intercept ID) & \num{16.18} & \num{15.91} & \num{16.03} & \num{16.01}\\
+		SD (Observations) & \num{21.45} & \num{21.32} & \num{21.20} & \num{21.19}\\
+		\midrule
+		Num.Obs. & \num{4792} & \num{4792} & \num{4792} & \num{4792}\\
+		R2 Marg. & \num{0.175} & \num{0.198} & \num{0.217} & \num{0.214}\\
+		R2 Cond. & \num{0.474} & \num{0.485} & \num{0.502} & \num{0.500}\\
+		AIC & \num{44013.6} & \num{43944.2} & \num{43902.9} & \num{43898.9}\\
+		BIC & \num{44039.5} & \num{43970.1} & \num{43935.2} & \num{43937.8}\\
+		ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+		RMSE & \num{20.32} & \num{20.20} & \num{20.08} & \num{20.07}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+				\resizebox{15cm}{!}{
+	\includegraphics{Model04_SplillingEffect}
+}
+
+
+\chapter{Model 4 - SpillingEffect, Product, Update}
+
+\begin{table}
+	
+	\caption{Model 1.5, Product, Update presentation and Spill Over}
+	\centering
+			\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lcc}
+		\toprule
+		& Spill\&UpdateProduct & Spill*UpdateProduct\\
+		\midrule
+		(Intercept) & \num{21.38}*** & \num{21.07}***\\
+		ScaledCatchCovid & \num{4.21}(0.17)*** & \num{5.91}(0.26)**\\
+		ScaledTransmitCovid & \num{8.12}(0.34)*** & \num{7.85}(0.33)***\\
+		V\_Productbabyformula & \num{-5.76}*** & \num{-5.27}***\\
+		V\_Productcigarettes & \num{8.45}*** & \num{8.06}***\\
+		V\_Producttoiletpaper & \num{11.09}*** & \num{11.74}***\\
+		V\_presentation3Defensive & \num{12.18}*** & \num{14.05}***\\
+		V\_presentation3Prosocial & \num{-11.22}*** & \num{-11.86}***\\
+		ScaledCatchCovidScaledTransmitCovid & \num{0.93}* & \num{1.29}\\
+		V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.14}* & \num{-5.29}*\\
+		V\_ProductcigarettesV\_presentation3Defensive & \num{-11.08}*** & \num{-13.63}***\\
+		V\_ProducttoiletpaperV\_presentation3Defensive & \num{-8.47}*** & \num{-8.44}***\\
+		V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.65}** & \num{5.27}*\\
+		V\_ProductcigarettesV\_presentation3Prosocial & \num{6.45}*** & \num{8.39}***\\
+		V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-13.63}*** & \num{-10.13}***\\
+		ScaledCatchCovidV\_Productbabyformula &  & \num{-2.76}\\
+		ScaledCatchCovidV\_Productcigarettes &  & \num{1.06}\\
+		ScaledCatchCovidV\_Producttoiletpaper &  & \num{-4.25}+\\
+		ScaledTransmitCovidV\_Productbabyformula &  & \num{-0.99}\\
+		ScaledTransmitCovidV\_Productcigarettes &  & \num{-0.47}\\
+		ScaledTransmitCovidV\_Producttoiletpaper &  & \num{4.66}+\\
+		ScaledCatchCovidV\_presentation3Defensive &  & \num{4.60}\\
+		ScaledCatchCovidV\_presentation3Prosocial &  & \num{-1.45}\\
+		ScaledTransmitCovidV\_presentation3Defensive &  & \num{-1.78}\\
+		ScaledTransmitCovidV\_presentation3Prosocial &  & \num{-3.37}\\
+		ScaledCatchCovidScaledTransmitCovidV\_Productbabyformula &  & \num{-0.59}\\
+		ScaledCatchCovidScaledTransmitCovidV\_Productcigarettes &  & \num{-0.31}\\
+		ScaledCatchCovidScaledTransmitCovidV\_Producttoiletpaper &  & \num{-1.03}\\
+		ScaledCatchCovidScaledTransmitCovidV\_presentation3Defensive &  & \num{-2.28}\\
+		ScaledCatchCovidScaledTransmitCovidV\_presentation3Prosocial &  & \num{0.50}\\
+		ScaledCatchCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-7.75}+\\
+		ScaledCatchCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{-4.06}\\
+		ScaledCatchCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-4.73}\\
+		ScaledCatchCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{0.79}\\
+		ScaledCatchCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{0.60}\\
+		ScaledCatchCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{0.80}\\
+		ScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{3.44}\\
+		ScaledTransmitCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{2.38}\\
+		ScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{2.88}\\
+		ScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{1.92}\\
+		ScaledTransmitCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{2.55}\\
+		ScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-3.46}\\
+		ScaledCatchCovidScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{1.06}\\
+		ScaledCatchCovidScaledTransmitCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{2.94}\\
+		ScaledCatchCovidScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{0.12}\\
+		ScaledCatchCovidScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{0.46}\\
+		ScaledCatchCovidScaledTransmitCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-1.15}\\
+		ScaledCatchCovidScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-2.54}\\
+		SD (Intercept ID) & \num{16.26} & \num{16.25}\\
+		SD (Observations) & \num{18.96} & \num{18.71}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.286} & \num{0.295}\\
+		R2 Cond. & \num{0.588} & \num{0.598}\\
+		AIC & \num{42936.7} & \num{42770.6}\\
+		BIC & \num{43046.8} & \num{43094.3}\\
+		ICC & \num{0.4} & \num{0.4}\\
+		RMSE & \num{17.89} & \num{17.58}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+\chapter{Model 5 - EXPGRP, SpillingEffect, Product, Update}
+
+
+\begin{table}
+	
+	\caption{Model 1.6, EXPGRP, Product, Update presentation and Spill Over}
+	\centering
+					\resizebox{13cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& EXPGRP\&Spill\&UpdateProduct & Spill\&EXPGRP*UpdateProduct & Spill*EXPGRP\&UpdateProduct\\
+		\midrule
+(Intercept) & \num{21.19}*** & \num{21.21}*** & \num{21.00}***\\
+EXPGRP\_TEXTChinese & \num{0.59} & \num{-0.70} & \num{1.06}\\
+ScaledCatchCovid & \num{4.20}*** & \num{3.79} & \num{4.23}***\\
+ScaledTransmitCovid & \num{8.12}*** & \num{10.04}*** & \num{8.26}***\\
+V\_Productbabyformula & \num{-5.76}*** & \num{-5.76}*** & \num{-5.75}***\\
+V\_Productcigarettes & \num{8.45}*** & \num{6.05}*** & \num{8.46}***\\
+V\_Producttoiletpaper & \num{11.09}*** & \num{10.96}*** & \num{11.09}***\\
+V\_presentation3Defensive & \num{12.18}*** & \num{14.43}*** & \num{12.18}***\\
+V\_presentation3Prosocial & \num{-11.22}*** & \num{-12.15}*** & \num{-11.21}***\\
+ScaledCatchCovidScaledTransmitCovid & \num{0.93}* & \num{1.66} & \num{1.13}*\\
+V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.15}* & \num{-5.54}+ & \num{-4.15}*\\
+V\_ProductcigarettesV\_presentation3Defensive & \num{-11.08}*** & \num{-12.99}*** & \num{-11.08}***\\
+V\_ProducttoiletpaperV\_presentation3Defensive & \num{-8.47}*** & \num{-7.64}* & \num{-8.46}***\\
+V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.65}** & \num{6.18}* & \num{5.64}**\\
+V\_ProductcigarettesV\_presentation3Prosocial & \num{6.45}*** & \num{12.57}*** & \num{6.45}***\\
+V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-13.63}*** & \num{-10.68}*** & \num{-13.64}***\\
+ScaledCatchCovidEXPGRP\_TEXTChinese &  & \num{6.88}+ & \\
+ScaledTransmitCovidEXPGRP\_TEXTChinese &  & \num{-6.82} & \\
+ScaledCatchCovidV\_Productbabyformula &  & \num{0.98} & \\
+ScaledCatchCovidV\_Productcigarettes &  & \num{3.36} & \\
+ScaledCatchCovidV\_Producttoiletpaper &  & \num{-1.60} & \\
+ScaledTransmitCovidV\_Productbabyformula &  & \num{-4.37} & \\
+ScaledTransmitCovidV\_Productcigarettes &  & \num{-3.83} & \\
+ScaledTransmitCovidV\_Producttoiletpaper &  & \num{2.41} & \\
+EXPGRP\_TEXTChineseV\_Productbabyformula &  & \num{1.77} & \\
+EXPGRP\_TEXTChineseV\_Productcigarettes &  & \num{6.25}* & \\
+EXPGRP\_TEXTChineseV\_Producttoiletpaper &  & \num{2.36} & \\
+ScaledCatchCovidV\_presentation3Defensive &  & \num{4.45} & \\
+ScaledCatchCovidV\_presentation3Prosocial &  & \num{1.00} & \\
+ScaledTransmitCovidV\_presentation3Defensive &  & \num{-1.60} & \\
+ScaledTransmitCovidV\_presentation3Prosocial &  & \num{-6.38}+ & \\
+EXPGRP\_TEXTChineseV\_presentation3Defensive &  & \num{0.36} & \\
+EXPGRP\_TEXTChineseV\_presentation3Prosocial &  & \num{0.95} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChinese &  & \num{-0.81} & \\
+ScaledCatchCovidScaledTransmitCovidV\_Productbabyformula &  & \num{-0.84} & \\
+ScaledCatchCovidScaledTransmitCovidV\_Productcigarettes &  & \num{0.19} & \\
+ScaledCatchCovidScaledTransmitCovidV\_Producttoiletpaper &  & \num{-1.22} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_Productbabyformula &  & \num{-11.93}* & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_Productcigarettes &  & \num{-8.37} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_Producttoiletpaper &  & \num{-8.79} & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_Productbabyformula &  & \num{10.65}* & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_Productcigarettes &  & \num{12.39}* & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_Producttoiletpaper &  & \num{7.17} & \\
+ScaledCatchCovidScaledTransmitCovidV\_presentation3Defensive &  & \num{-3.76}* & \\
+ScaledCatchCovidScaledTransmitCovidV\_presentation3Prosocial &  & \num{0.88} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_presentation3Defensive &  & \num{-2.05} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_presentation3Prosocial &  & \num{-8.31} & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_presentation3Defensive &  & \num{1.50} & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_presentation3Prosocial &  & \num{10.11} & \\
+ScaledCatchCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-10.09}+ & \\
+ScaledCatchCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{-2.97} & \\
+ScaledCatchCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-3.27} & \\
+ScaledCatchCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{0.03} & \\
+ScaledCatchCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-4.31} & \\
+ScaledCatchCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-3.62} & \\
+ScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{5.93} & \\
+ScaledTransmitCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{3.07} & \\
+ScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{2.45} & \\
+ScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{4.27} & \\
+ScaledTransmitCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{8.33} & \\
+ScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{1.17} & \\
+EXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-1.12} & \\
+EXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  & \num{-2.85} & \\
+EXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-3.16} & \\
+EXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{-2.58} & \\
+EXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-11.67}* & \\
+EXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{1.65} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_Productbabyformula &  & \num{0.58} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_Productcigarettes &  & \num{-1.95} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_Producttoiletpaper &  & \num{0.75} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_presentation3Defensive &  & \num{3.09} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_presentation3Prosocial &  & \num{-0.76} & \\
+ScaledCatchCovidScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{2.37} & \\
+ScaledCatchCovidScaledTransmitCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{4.20}+ & \\
+ScaledCatchCovidScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-0.25} & \\
+ScaledCatchCovidScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{0.88} & \\
+ScaledCatchCovidScaledTransmitCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-3.33} & \\
+ScaledCatchCovidScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-2.17} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  & \num{12.44} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  & \num{-1.14} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-2.37} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{0.63} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  & \num{15.28} & \\
+ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{19.23}+ & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-12.69} & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  & \num{-5.04} & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-1.12} & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{-5.57} & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-18.59}+ & \\
+ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-20.00}+ & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-2.33} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  & \num{-2.01} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{1.21} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{-2.52} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  & \num{5.00} & \\
+ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-1.25} & \\
+EXPGRP\_TEXTChineseScaledCatchCovid &  &  & \num{0.00}\\
+EXPGRP\_TEXTChineseScaledTransmitCovid &  &  & \num{-0.44}\\
+EXPGRP\_TEXTChineseScaledCatchCovidScaledTransmitCovid &  &  & \num{-0.47}\\
+SD (Intercept ID) & \num{16.28} & \num{16.29} & \num{16.28}\\
+SD (Observations) & \num{18.96} & \num{18.69} & \num{18.96}\\
+\midrule
+Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+R2 Marg. & \num{0.286} & \num{0.299} & \num{0.286}\\
+R2 Cond. & \num{0.589} & \num{0.602} & \num{0.589}\\
+AIC & \num{42935.9} & \num{42629.8} & \num{42934.9}\\
+BIC & \num{43052.4} & \num{43264.3} & \num{43070.9}\\
+ICC & \num{0.4} & \num{0.4} & \num{0.4}\\
+RMSE & \num{17.89} & \num{17.47} & \num{17.88}\\
+\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+\begin{table}
+	
+	\caption{Model 1.6, EXPGRP, Product, Update presentation and Spill Over}
+	\centering
+	\resizebox{13cm}{!}{
+		\begin{tabular}[t]{lccc}
+			\toprule
+			& EXPGRP\&Spill\&UpdateProduct & Spill\&EXPGRP*UpdateProduct & Spill*EXPGRP\&UpdateProduct\\
+			\midrule
+			(Intercept) & \num{21.19}*** & \num{21.21}*** & \num{21.00}***\\
+			EXPGRP\_TEXTChinese & \num{0.59} & \num{-0.70} & \num{1.06}\\
+			ScaledCatchCovid & \num{4.20}*** & \num{3.79} & \num{4.23}***\\
+			ScaledTransmitCovid & \num{8.12}*** & \num{10.04}*** & \num{8.26}***\\
+			V\_Productbabyformula & \num{-5.76}*** & \num{-5.76}*** & \num{-5.75}***\\
+			V\_Productcigarettes & \num{8.45}*** & \num{6.05}*** & \num{8.46}***\\
+			V\_Producttoiletpaper & \num{11.09}*** & \num{10.96}*** & \num{11.09}***\\
+			V\_presentation3Defensive & \num{12.18}*** & \num{14.43}*** & \num{12.18}***\\
+			V\_presentation3Prosocial & \num{-11.22}*** & \num{-12.15}*** & \num{-11.21}***\\
+			ScaledCatchCovidScaledTransmitCovid & \num{0.93}* & \num{1.66} & \num{1.13}*\\
+			V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.15}* & \num{-5.54}+ & \num{-4.15}*\\
+			V\_ProductcigarettesV\_presentation3Defensive & \num{-11.08}*** & \num{-12.99}*** & \num{-11.08}***\\
+			V\_ProducttoiletpaperV\_presentation3Defensive & \num{-8.47}*** & \num{-7.64}* & \num{-8.46}***\\
+			V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.65}** & \num{6.18}* & \num{5.64}**\\
+			V\_ProductcigarettesV\_presentation3Prosocial & \num{6.45}*** & \num{12.57}*** & \num{6.45}***\\
+			V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-13.63}*** & \num{-10.68}*** & \num{-13.64}***\\
+			
+			SD (Intercept ID) & \num{16.28} & \num{16.29} & \num{16.28}\\
+			SD (Observations) & \num{18.96} & \num{18.69} & \num{18.96}\\
+			\midrule
+			Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+			R2 Marg. & \num{0.286} & \num{0.299} & \num{0.286}\\
+			R2 Cond. & \num{0.589} & \num{0.602} & \num{0.589}\\
+			AIC & \num{42935.9} & \num{42629.8} & \num{42934.9}\\
+			BIC & \num{43052.4} & \num{43264.3} & \num{43070.9}\\
+			ICC & \num{0.4} & \num{0.4} & \num{0.4}\\
+			RMSE & \num{17.89} & \num{17.47} & \num{17.88}\\
+			\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+\begin{table}
+	
+	\caption{Model 1.6, EXPGRP, Product, Update presentation and Spill Over}
+	\centering
+	\resizebox{13cm}{!}{
+		\begin{tabular}[t]{lccc}
+			\toprule
+			& EXPGRP\&Spill\&UpdateProduct & Spill\&EXPGRP*UpdateProduct & Spill*EXPGRP\&UpdateProduct\\
+			\midrule
+			ScaledCatchCovidEXPGRP\_TEXTChinese &  & \num{6.88}+ & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChinese &  & \num{-6.82} & \\
+			ScaledCatchCovidV\_Productbabyformula &  & \num{0.98} & \\
+			ScaledCatchCovidV\_Productcigarettes &  & \num{3.36} & \\
+			ScaledCatchCovidV\_Producttoiletpaper &  & \num{-1.60} & \\
+			ScaledTransmitCovidV\_Productbabyformula &  & \num{-4.37} & \\
+			ScaledTransmitCovidV\_Productcigarettes &  & \num{-3.83} & \\
+			ScaledTransmitCovidV\_Producttoiletpaper &  & \num{2.41} & \\
+			EXPGRP\_TEXTChineseV\_Productbabyformula &  & \num{1.77} & \\
+			EXPGRP\_TEXTChineseV\_Productcigarettes &  & \num{6.25}* & \\
+			EXPGRP\_TEXTChineseV\_Producttoiletpaper &  & \num{2.36} & \\
+			ScaledCatchCovidV\_presentation3Defensive &  & \num{4.45} & \\
+			ScaledCatchCovidV\_presentation3Prosocial &  & \num{1.00} & \\
+			ScaledTransmitCovidV\_presentation3Defensive &  & \num{-1.60} & \\
+			ScaledTransmitCovidV\_presentation3Prosocial &  & \num{-6.38}+ & \\
+			EXPGRP\_TEXTChineseV\_presentation3Defensive &  & \num{0.36} & \\
+			EXPGRP\_TEXTChineseV\_presentation3Prosocial &  & \num{0.95} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChinese &  & \num{-0.81} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_Productbabyformula &  & \num{-0.84} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_Productcigarettes &  & \num{0.19} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_Producttoiletpaper &  & \num{-1.22} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_Productbabyformula &  & \num{-11.93}* & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_Productcigarettes &  & \num{-8.37} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_Producttoiletpaper &  & \num{-8.79} & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_Productbabyformula &  & \num{10.65}* & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_Productcigarettes &  & \num{12.39}* & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_Producttoiletpaper &  & \num{7.17} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_presentation3Defensive &  & \num{-3.76}* & \\
+			ScaledCatchCovidScaledTransmitCovidV\_presentation3Prosocial &  & \num{0.88} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_presentation3Defensive &  & \num{-2.05} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_presentation3Prosocial &  & \num{-8.31} & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_presentation3Defensive &  & \num{1.50} & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_presentation3Prosocial &  & \num{10.11} & \\
+			ScaledCatchCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-10.09}+ & \\
+			ScaledCatchCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{-2.97} & \\
+			ScaledCatchCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-3.27} & \\
+			ScaledCatchCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{0.03} & \\
+			ScaledCatchCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-4.31} & \\
+			ScaledCatchCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-3.62} & \\
+			ScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{5.93} & \\
+			ScaledTransmitCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{3.07} & \\
+			ScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{2.45} & \\
+			ScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{4.27} & \\
+			ScaledTransmitCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{8.33} & \\
+			ScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{1.17} & \\
+			EXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-1.12} & \\
+			EXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  & \num{-2.85} & \\
+			EXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-3.16} & \\
+			EXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{-2.58} & \\
+			EXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-11.67}* & \\
+			EXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{1.65} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_Productbabyformula &  & \num{0.58} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_Productcigarettes &  & \num{-1.95} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_Producttoiletpaper &  & \num{0.75} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_presentation3Defensive &  & \num{3.09} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_presentation3Prosocial &  & \num{-0.76} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Defensive &  & \num{2.37} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_ProductcigarettesV\_presentation3Defensive &  & \num{4.20}+ & \\
+			ScaledCatchCovidScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-0.25} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{0.88} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-3.33} & \\
+			ScaledCatchCovidScaledTransmitCovidV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-2.17} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  & \num{12.44} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  & \num{-1.14} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-2.37} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{0.63} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  & \num{15.28} & \\
+			ScaledCatchCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{19.23}+ & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-12.69} & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  & \num{-5.04} & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{-1.12} & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{-5.57} & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  & \num{-18.59}+ & \\
+			ScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-20.00}+ & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  & \num{-2.33} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  & \num{-2.01} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  & \num{1.21} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  & \num{-2.52} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  & \num{5.00} & \\
+			ScaledCatchCovidScaledTransmitCovidEXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  & \num{-1.25} & \\
+			EXPGRP\_TEXTChineseScaledCatchCovid &  &  & \num{0.00}\\
+			EXPGRP\_TEXTChineseScaledTransmitCovid &  &  & \num{-0.44}\\
+			EXPGRP\_TEXTChineseScaledCatchCovidScaledTransmitCovid &  &  & \num{-0.47}\\
+			\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+\begin{table}
+	
+	\caption{Model 1.6, EXPGRP, Product, Update presentation and Spill Over}
+	\centering
+	\resizebox{13cm}{!}{
+		\begin{tabular}[t]{lccc}
+			\toprule
+			& EXPGRP\&Spill\&UpdateProduct & Spill\&EXPGRP*UpdateProduct & Spill*EXPGRP\&UpdateProduct\\
+			\midrule
+			(Intercept) & \num{21.19}*** & \num{21.21}*** & \num{21.00}***\\
+			EXPGRP\_TEXTChinese & \num{0.59} & \num{-0.70} & \num{1.06}\\
+			ScaledCatchCovid & \num{4.20}*** & \num{3.79} & \num{4.23}***\\
+			ScaledTransmitCovid & \num{8.12}*** & \num{10.04}*** & \num{8.26}***\\
+			V\_Productbabyformula & \num{-5.76}*** & \num{-5.76}*** & \num{-5.75}***\\
+			V\_Productcigarettes & \num{8.45}*** & \num{6.05}*** & \num{8.46}***\\
+			V\_Producttoiletpaper & \num{11.09}*** & \num{10.96}*** & \num{11.09}***\\
+			V\_presentation3Defensive & \num{12.18}*** & \num{14.43}*** & \num{12.18}***\\
+			V\_presentation3Prosocial & \num{-11.22}*** & \num{-12.15}*** & \num{-11.21}***\\
+			ScaledCatchCovidScaledTransmitCovid & \num{0.93}* & \num{1.66} & \num{1.13}*\\
+			V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.15}* & \num{-5.54}+ & \num{-4.15}*\\
+			V\_ProductcigarettesV\_presentation3Defensive & \num{-11.08}*** & \num{-12.99}*** & \num{-11.08}***\\
+			V\_ProducttoiletpaperV\_presentation3Defensive & \num{-8.47}*** & \num{-7.64}* & \num{-8.46}***\\
+			V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.65}** & \num{6.18}* & \num{5.64}**\\
+			V\_ProductcigarettesV\_presentation3Prosocial & \num{6.45}*** & \num{12.57}*** & \num{6.45}***\\
+			V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-13.63}*** & \num{-10.68}*** & \num{-13.64}***\\
+			
+			SD (Intercept ID) & \num{16.28} & \num{16.29} & \num{16.28}\\
+			SD (Observations) & \num{18.96} & \num{18.69} & \num{18.96}\\
+			\midrule
+			Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+			R2 Marg. & \num{0.286} & \num{0.299} & \num{0.286}\\
+			R2 Cond. & \num{0.589} & \num{0.602} & \num{0.589}\\
+			AIC & \num{42935.9} & \num{42629.8} & \num{42934.9}\\
+			BIC & \num{43052.4} & \num{43264.3} & \num{43070.9}\\
+			ICC & \num{0.4} & \num{0.4} & \num{0.4}\\
+			RMSE & \num{17.89} & \num{17.47} & \num{17.88}\\
+			\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+\chapter{Model Summary}
+
+
+\begin{table}
+	
+	\caption{Model 1s - Summary on Morally Wrong}
+	\centering
+	\resizebox{13cm}{!}{
+	\begin{tabular}[t]{lccccc}
+		\toprule
+		& Product & Update & UpdateProduct & Spill\&UpdateProduct & EXPGRP\&Spill\&UpdateProduct\\
+		\midrule
+		(Intercept) & \num{22.41}*** & \num{26.75}*** & \num{22.41}*** & \num{21.38}*** & \num{21.19}***\\
+		V\_Productbabyformula & \num{-6.08}*** &  & \num{-6.08}*** & \num{-5.76}*** & \num{-5.76}***\\
+		V\_Productcigarettes & \num{11.72}*** &  & \num{11.72}*** & \num{8.45}*** & \num{8.45}***\\
+		V\_Producttoiletpaper & \num{11.73}*** &  & \num{11.73}*** & \num{11.09}*** & \num{11.09}***\\
+		V\_presentation3Defensive &  & \num{5.79}*** & \num{12.64}*** & \num{12.18}*** & \num{12.18}***\\
+		V\_presentation3Prosocial &  & \num{-12.30}*** & \num{-12.11}*** & \num{-11.22}*** & \num{-11.22}***\\
+		V\_ProductbabyformulaV\_presentation3Defensive &  &  & \num{-4.96}* & \num{-4.14}* & \num{-4.15}*\\
+		V\_ProductcigarettesV\_presentation3Defensive &  &  & \num{-12.78}*** & \num{-11.08}*** & \num{-11.08}***\\
+		V\_ProducttoiletpaperV\_presentation3Defensive &  &  & \num{-9.78}*** & \num{-8.47}*** & \num{-8.47}***\\
+		V\_ProductbabyformulaV\_presentation3Prosocial &  &  & \num{5.41}** & \num{5.65}** & \num{5.65}**\\
+		V\_ProductcigarettesV\_presentation3Prosocial &  &  & \num{6.04}** & \num{6.45}*** & \num{6.45}***\\
+		V\_ProducttoiletpaperV\_presentation3Prosocial &  &  & \num{-12.19}*** & \num{-13.63}*** & \num{-13.63}***\\
+		ScaledCatchCovid &  &  &  & \num{4.21}(0.19)*** & \num{4.20}(0.19)***\\
+		ScaledTransmitCovid &  &  &  & \num{8.12}(0.35)*** & \num{8.12}(0.35)***\\
+		ScaledCatchCovidScaledTransmitCovid &  &  &  & \num{0.93}* & \num{0.93}*\\
+		EXPGRP\_TEXTChinese &  &  &  &  & \num{0.59}\\
+		SD (Intercept ID) & \num{20.41} & \num{19.31} & \num{19.47} & \num{16.26} & \num{16.28}\\
+		SD (Observations) & \num{20.38} & \num{21.17} & \num{19.80} & \num{18.96} & \num{18.96}\\
+		\midrule
+		Num.Obs. & \num{2396} & &&&\\
+		R2 Marg. & \num{0.066} & &&&\\
+		R2 Cond. & \num{0.534} & &&&\\
+		AIC & \num{22211.3} & &&&\\
+		BIC & \num{22246.0} & &&&\\
+		ICC & \num{0.5} &&&&\\
+		RMSE & \num{18.21} & &&&\\
+		\midrule
+		Num.Obs. &  & \num{4791} & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. &  & \num{0.050} & \num{0.109} & \num{0.286} & \num{0.286}\\
+		R2 Cond. & & \num{0.482} & \num{0.547} & \num{0.588} & \num{0.589}\\
+		AIC & & \num{44067.7} & \num{43493.2} & \num{42936.7} & \num{42935.9}\\
+		BIC &  & \num{44100.1} & \num{43583.8} & \num{43046.8} & \num{43052.4}\\
+		ICC &  & \num{0.5} & \num{0.5} & \num{0.4} & \num{0.4}\\
+		RMSE &  & \num{19.98} & \num{18.65} & \num{17.89} & \num{17.89}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+\part{Some Racial Demography and Covid Beliefs}
+
+\chapter{Model 4 - Race Name}
+
+\begin{table}
+	
+	\caption{Model 4, Race Name}
+	\centering
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{28.65}*** & \num{34.36}*** & \num{34.19}***\\
+		V\_RacenamefBlack & \num{-3.26}* & \num{-0.87} & \num{-1.41}*\\
+		V\_RacenamefChinese & \num{-3.25}* & \num{-1.07} & \num{-0.98}\\
+		V\_RacenamefIndian & \num{-1.09} & \num{-0.59} & \num{-1.62}*\\
+		SD (Intercept ID) & \num{19.94} & \num{19.41} & \num{20.41}\\
+		SD (Observations) & \num{22.17} & \num{11.79} & \num{11.55}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.002} & \num{0.000} & \num{0.001}\\
+		R2 Cond. & \num{0.448} & \num{0.730} & \num{0.757}\\
+		AIC & \num{22513.7} & \num{20107.6} & \num{20088.2}\\
+		BIC & \num{22548.3} & \num{20142.3} & \num{20122.9}\\
+		ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+		RMSE & \num{19.93} & \num{10.35} & \num{10.12}\\
+		  \midrule
+		White - Black & 3.26* & 0.87 & 1.41* \\ 
+		White - Chinese & 3.25* & 1.07 & 0.98 \\ 
+		White - Indian & 1.09 & 0.59 & 1.62* \\ 
+		Black - Chinese & -0.01 & 0.2 & -0.43 \\ 
+		Black - Indian & -2.17. & -0.27 & 0.21 \\ 
+		Chinese - Indian & -2.15. & -0.47 & 0.64 \\ 
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+				\resizebox{15cm}{!}{
+	\includegraphics{Model04_racename}
+}
+
+
+\chapter{Model 5 -  Race Respondant}
+
+\begin{table}
+	
+	\caption{Model 5, Race Respondant}
+	\centering
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{25.93}*** & \num{32.84}*** & \num{32.59}***\\
+		EXPGRP\_TEXTChinese & \num{2.52} & \num{2.73} & \num{1.85}\\
+		SD (Intercept ID) & \num{19.91} & \num{19.38} & \num{20.41}\\
+		SD (Observations) & \num{22.21} & \num{11.79} & \num{11.57}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.002} & \num{0.003} & \num{0.001}\\
+		R2 Cond. & \num{0.446} & \num{0.731} & \num{0.757}\\
+		AIC & \num{22520.8} & \num{20103.6} & \num{20089.4}\\
+		BIC & \num{22543.9} & \num{20126.7} & \num{20112.6}\\
+		ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+		RMSE & \num{19.98} & \num{10.35} & \num{10.14}\\
+		\midrule
+		White - Chinese & -2.52 & -2.73 & -1.85 \\ 
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+
+				\resizebox{15cm}{!}{
+	\includegraphics{Model05_racerespondant}
+}
+
+
+\chapter{Model 6 -  Race Respondant and Name}
+
+\begin{table}
+	
+	\caption{Model 6, Race Respondant and name}
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{26.99}*** & \num{33.48}*** & \num{33.77}***\\
+		EXPGRP\_TEXTChinese & \num{5.10}* & \num{2.71} & \num{1.28}\\
+		V\_RacenamefBlack & \num{-2.06} & \num{-1.01} & \num{-1.67}*\\
+		V\_RacenamefChinese & \num{-1.74} & \num{-0.75} & \num{-1.15}\\
+		V\_RacenamefIndian & \num{-0.43} & \num{-0.79} & \num{-1.93}*\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlack & \num{-3.68} & \num{0.46} & \num{0.81}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChinese & \num{-4.64}+ & \num{-0.98} & \num{0.51}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndian & \num{-2.04} & \num{0.59} & \num{0.96}\\
+		SD (Intercept ID) & \num{19.93} & \num{19.38} & \num{20.41}\\
+		SD (Observations) & \num{22.17} & \num{11.80} & \num{11.56}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.005} & \num{0.004} & \num{0.002}\\
+		R2 Cond. & \num{0.449} & \num{0.731} & \num{0.758}\\
+		AIC & \num{22502.7} & \num{20101.8} & \num{20084.6}\\
+		BIC & \num{22560.5} & \num{20159.6} & \num{20142.4}\\
+		ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+		RMSE & \num{19.91} & \num{10.34} & \num{10.12}\\
+		 \hline
+		RespWhite - RespChinese & -2.52 & -2.73 & -1.85 \\ 
+		NameWhite - NameBlack & 3.9** & 0.79 & 1.27. \\ 
+		NameWhite - NameChinese & 4.06** & 1.24. & 0.89 \\ 
+		NameWhite - NameIndian & 1.45 & 0.49 & 1.45* \\ 
+		NameBlack - NameChinese & 0.16 & 0.45 & -0.37 \\ 
+		NameBlack - NameIndian & -2.45. & -0.3 & 0.18 \\ 
+		NameChinese - NameIndian & -2.61. & -0.75 & 0.56 \\ 
+		RespWhite:NameWhite - RespChinese:NameWhite & -5.1* & -2.71 & -1.28 \\ 
+		RespWhite:NameWhite - RespWhite:NameBlack & 2.06 & 1.01 & 1.67* \\ 
+		RespWhite:NameWhite - RespChinese:NameBlack & 0.63 & -2.16 & -0.42 \\ 
+		RespWhite:NameWhite - RespWhite:NameChinese & 1.74 & 0.75 & 1.15 \\ 
+		RespWhite:NameWhite - RespChinese:NameChinese & 1.27 & -0.99 & -0.64 \\ 
+		RespWhite:NameWhite - RespWhite:NameIndian & 0.43 & 0.79 & 1.93* \\ 
+		RespWhite:NameWhite - RespChinese:NameIndian & -2.64 & -2.52 & -0.31 \\ 
+		RespChinese:NameWhite - RespWhite:NameBlack & 7.17** & 3.73. & 2.95 \\ 
+		RespChinese:NameWhite - RespChinese:NameBlack & 5.74* & 0.56 & 0.86 \\ 
+		RespChinese:NameWhite - RespWhite:NameChinese & 6.84** & 3.46. & 2.43 \\ 
+		RespChinese:NameWhite - RespChinese:NameChinese & 6.37** & 1.73 & 0.64 \\ 
+		RespChinese:NameWhite - RespWhite:NameIndian & 5.54* & 3.5. & 3.21 \\ 
+		RespChinese:NameWhite - RespChinese:NameIndian & 2.47 & 0.19 & 0.97 \\ 
+		RespWhite:NameBlack - RespChinese:NameBlack & -1.43 & -3.17 & -2.09 \\ 
+		RespWhite:NameBlack - RespWhite:NameChinese & -0.32 & -0.27 & -0.52 \\ 
+		RespWhite:NameBlack - RespChinese:NameChinese & -0.79 & -2 & -2.31 \\ 
+		RespWhite:NameBlack - RespWhite:NameIndian & -1.63 & -0.23 & 0.26 \\ 
+		RespWhite:NameBlack - RespChinese:NameIndian & -4.7. & -3.53. & -1.99 \\ 
+		RespChinese:NameBlack - RespWhite:NameChinese & 1.1 & 2.9 & 1.57 \\ 
+		RespChinese:NameBlack - RespChinese:NameChinese & 0.64 & 1.17 & -0.22 \\ 
+		RespChinese:NameBlack - RespWhite:NameIndian & -0.2 & 2.94 & 2.35 \\ 
+		RespChinese:NameBlack - RespChinese:NameIndian & -3.27 & -0.36 & 0.11 \\ 
+		RespWhite:NameChinese - RespChinese:NameChinese & -0.47 & -1.73 & -1.79 \\ 
+		RespWhite:NameChinese - RespWhite:NameIndian & -1.31 & 0.04 & 0.78 \\ 
+		RespWhite:NameChinese - RespChinese:NameIndian & -4.38. & -3.27. & -1.46 \\ 
+		RespChinese:NameChinese - RespWhite:NameIndian & -0.84 & 1.77 & 2.57 \\ 
+		RespChinese:NameChinese - RespChinese:NameIndian & -3.91. & -1.53 & 0.33 \\ 
+		RespWhite:NameIndian - RespChinese:NameIndian & -3.07 & -3.31. & -2.25 \\ 
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+				\resizebox{15cm}{!}{
+	\includegraphics{Model06_racerespondant.racename}
+}
+
+\chapter{Model 6.2 - CovidSkepticism}
+
+\begin{table}
+	
+	\caption{Model 2.2, Race perceived and Update}
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lcccccc}
+		\toprule
+		& MorallyWrong & MorallyWrongcross & CatchCovid & CatchCovidcross & TransmitCovid & TransmitCovidcross\\
+		\midrule
+		(Intercept) & \num{27.97}*** & \num{28.65}*** & \num{34.02}*** & \num{34.36}*** & \num{33.78}*** & \num{34.19}***\\
+		V\_RacenamefBlack & \num{-1.55}+ & \num{-3.26}** & \num{-0.28} & \num{-0.87} & \num{-0.73} & \num{-1.41}*\\
+		V\_RacenamefChinese & \num{-2.64}** & \num{-3.25}** & \num{-0.63} & \num{-1.07}+ & \num{-0.75}+ & \num{-0.98}\\
+		V\_RacenamefIndian & \num{-0.69} & \num{-1.09} & \num{-0.23} & \num{-0.59} & \num{-0.87}+ & \num{-1.62}*\\
+		V\_presentation3Defensive & \num{5.85}*** & \num{4.85}** & \num{-1.05}** & \num{-1.37}+ & \num{-0.93}* & \num{-1.65}*\\
+		V\_presentation3Prosocial & \num{-12.36}*** & \num{-14.04}*** & \num{-1.48}*** & \num{-2.51}** & \num{-1.28}** & \num{-2.20}**\\
+		V\_RacenamefBlackV\_presentation3Defensive &  & \num{3.29} &  & \num{1.02} &  & \num{1.20}\\
+		V\_RacenamefChineseV\_presentation3Defensive &  & \num{-0.55} &  & \num{0.15} &  & \num{0.24}\\
+		V\_RacenamefIndianV\_presentation3Defensive &  & \num{1.28} &  & \num{0.08} &  & \num{1.42}\\
+		V\_RacenamefBlackV\_presentation3Prosocial &  & \num{3.49} &  & \num{1.27} &  & \num{1.48}\\
+		V\_RacenamefChineseV\_presentation3Prosocial &  & \num{3.13} &  & \num{1.60} &  & \num{0.70}\\
+		V\_RacenamefIndianV\_presentation3Prosocial &  & \num{0.37} &  & \num{1.29} &  & \num{1.55}\\
+		SD (Intercept ID) & \num{19.31} & \num{19.31} & \num{19.94} & \num{19.94} & \num{20.68} & \num{20.68}\\
+		SD (Observations) & \num{21.15} & \num{21.15} & \num{10.90} & \num{10.90} & \num{11.04} & \num{11.04}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.052} & \num{0.052} & \num{0.001} & \num{0.001} & \num{0.001} & \num{0.001}\\
+		R2 Cond. & \num{0.483} & \num{0.483} & \num{0.770} & \num{0.770} & \num{0.778} & \num{0.778}\\
+		AIC & \num{44059.4} & \num{44044.8} & \num{38482.4} & \num{38480.1} & \num{38632.8} & \num{38629.8}\\
+		BIC & \num{44111.2} & \num{44135.4} & \num{38534.2} & \num{38570.8} & \num{38684.6} & \num{38720.5}\\
+		ICC & \num{0.5} & \num{0.5} & \num{0.8} & \num{0.8} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{19.96} & \num{19.94} & \num{10.21} & \num{10.21} & \num{10.34} & \num{10.34}\\
+	 \hline
+
+	NameWhite - NameBlack & 1.55. & 1 & 0.28 & 0.1 & 0.73 & 0.51 \\ 
+	NameWhite - NameChinese & 2.64** & 2.39** & 0.63 & 0.48 & 0.75. & 0.67 \\ 
+	NameWhite - NameIndian & 0.69 & 0.54 & 0.23 & 0.14 & 0.87. & 0.63 \\ 
+	NameBlack - NameChinese & 1.09 & 1.39 & 0.35 & 0.38 & 0.01 & 0.16 \\ 
+	NameBlack - NameIndian & -0.85 & -0.46 & -0.04 & 0.03 & 0.14 & 0.11 \\ 
+	NameChinese - NameIndian & -1.95* & -1.84* & -0.4 & -0.35 & 0.12 & -0.04 \\ 
+	NONE - Defensive & -5.85*** & -5.86*** & 1.05** & 1.06** & 0.93* & 0.93* \\ 
+	NONE - Prosocial & 12.36*** & 12.29*** & 1.48*** & 1.47*** & 1.28** & 1.27** \\ 
+	Defensive - Prosocial & 18.21*** & 18.15*** & 0.43 & 0.41 & 0.34 & 0.34 \\ 
+	NameWhite:NONE - NameBlack:NONE &  & 3.26** &  & 0.87 &  & 1.41* \\ 
+	NameWhite:NONE - NameChinese:NONE &  & 3.25** &  & 1.07. &  & 0.98 \\ 
+	NameWhite:NONE - NameIndian:NONE &  & 1.09 &  & 0.59 &  & 1.62* \\ 
+	NameWhite:NONE - NameWhite:Defensive &  & -4.85** &  & 1.37. &  & 1.65* \\ 
+	NameWhite:NONE - NameWhite:Prosocial &  & 14.04*** &  & 2.51** &  & 2.2** \\ 
+	NameBlack:NONE - NameChinese:NONE &  & -0.01 &  & 0.2 &  & -0.43 \\ 
+	NameBlack:NONE - NameIndian:NONE &  & -2.17. &  & -0.27 &  & 0.21 \\ 
+	NameBlack:NONE - NameBlack:Defensive &  & -8.14*** &  & 0.35 &  & 0.44 \\ 
+	NameBlack:NONE - NameBlack:Prosocial &  & 10.55*** &  & 1.24 &  & 0.72 \\ 
+	NameChinese:NONE - NameIndian:NONE &  & -2.15. &  & -0.47 &  & 0.64 \\ 
+	NameChinese:NONE - NameChinese:Defensive &  & -4.31** &  & 1.22 &  & 1.41. \\ 
+	NameChinese:NONE - NameChinese:Prosocial &  & 10.91*** &  & 0.91 &  & 1.5. \\ 
+	NameIndian:NONE - NameIndian:Defensive &  & -6.13*** &  & 1.29 &  & 0.23 \\ 
+	NameIndian:NONE - NameIndian:Prosocial &  & 13.66*** &  & 1.22 &  & 0.65 \\ 
+	NameWhite:Defensive - NameBlack:Defensive &  & -0.03 &  & -0.16 &  & 0.21 \\ 
+	NameWhite:Defensive - NameChinese:Defensive &  & 3.79* &  & 0.92 &  & 0.75 \\ 
+	NameWhite:Defensive - NameIndian:Defensive &  & -0.19 &  & 0.51 &  & 0.2 \\ 
+	NameWhite:Defensive - NameWhite:Prosocial &  & 18.89*** &  & 1.14 &  & 0.56 \\ 
+	NameBlack:Defensive - NameChinese:Defensive &  & 3.82* &  & 1.07 &  & 0.54 \\ 
+	NameBlack:Defensive - NameIndian:Defensive &  & -0.16 &  & 0.67 &  & -0.01 \\ 
+	NameBlack:Defensive - NameBlack:Prosocial &  & 18.69*** &  & 0.9 &  & 0.28 \\ 
+	NameChinese:Defensive - NameIndian:Defensive &  & -3.98* &  & -0.4 &  & -0.55 \\ 
+	NameChinese:Defensive - NameChinese:Prosocial &  & 15.22*** &  & -0.31 &  & 0.09 \\ 
+	NameIndian:Defensive - NameIndian:Prosocial &  & 19.79*** &  & -0.07 &  & 0.43 \\ 
+	NameWhite:Prosocial - NameBlack:Prosocial &  & -0.23 &  & -0.4 &  & -0.08 \\ 
+	NameWhite:Prosocial - NameChinese:Prosocial &  & 0.12 &  & -0.54 &  & 0.28 \\ 
+	NameWhite:Prosocial - NameIndian:Prosocial &  & 0.72 &  & -0.7 &  & 0.07 \\ 
+	NameBlack:Prosocial - NameChinese:Prosocial &  & 0.35 &  & -0.14 &  & 0.36 \\ 
+	NameBlack:Prosocial - NameIndian:Prosocial &  & 0.95 &  & -0.3 &  & 0.14 \\ 
+	NameChinese:Prosocial - NameIndian:Prosocial &  & 0.6 &  & -0.16 &  & -0.22 \\ 
+	\hline
+	\end{tabular}}
+\end{table}
+
+
+				\resizebox{10cm}{!}{
+	\includegraphics{Model6.2_presentation.racename}
+}
+
+
+\begin{table}
+	
+	\caption{Model 2.3, SpillOver and Race}
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lcccccc}
+		\toprule
+		& Spill\&Race & Spill*Race & Spill\&Race\&Upd & Spill*Race\&Upd & Spill\&Race*Upd & Spill*Race*Upd\\
+		\midrule
+		(Intercept) & \num{23.97}*** & \num{22.79}*** & \num{25.54}*** & \num{24.37}*** & \num{25.98}*** & \num{25.00}***\\
+		ScaledTransmitCovid & \num{8.66}*** & \num{7.84}*** & \num{8.65}*** & \num{7.94}*** & \num{8.66}*** & \num{8.03}***\\
+		ScaledCatchCovid & \num{5.02}*** & \num{4.82}*** & \num{4.85}*** & \num{4.48}*** & \num{4.83}*** & \num{5.26}**\\
+		V\_RacenamefBlack & \num{-0.59} & \num{0.89} & \num{-1.16} & \num{0.46} & \num{-2.45}* & \num{-0.78}\\
+		V\_RacenamefChinese & \num{-1.63}+ & \num{-0.16} & \num{-2.19}** & \num{-0.68} & \num{-2.60}* & \num{-1.70}\\
+		V\_RacenamefIndian & \num{-0.27} & \num{1.95}+ & \num{-0.29} & \num{1.71} & \num{-0.33} & \num{0.55}\\
+		ScaledTransmitCovidScaledCatchCovid & \num{1.00}* & \num{2.36}*** & \num{1.03}** & \num{2.39}*** & \num{1.02}* & \num{2.11}**\\
+		ScaledTransmitCovidV\_RacenamefBlack &  & \num{-0.11} &  & \num{0.29} &  & \num{-0.68}\\
+		ScaledTransmitCovidV\_RacenamefChinese &  & \num{0.56} &  & \num{0.28} &  & \num{0.47}\\
+		ScaledTransmitCovidV\_RacenamefIndian &  & \num{3.44}+ &  & \num{2.95} &  & \num{5.44}*\\
+		ScaledCatchCovidV\_RacenamefBlack &  & \num{1.23} &  & \num{0.85} &  & \num{1.46}\\
+		ScaledCatchCovidV\_RacenamefChinese &  & \num{1.25} &  & \num{1.63} &  & \num{1.34}\\
+		ScaledCatchCovidV\_RacenamefIndian &  & \num{-2.16} &  & \num{-1.59} &  & \num{-3.54}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefBlack &  & \num{-1.71}* &  & \num{-1.88}* &  & \num{-1.96}+\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefChinese &  & \num{-1.72}* &  & \num{-1.77}* &  & \num{-1.11}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefIndian &  & \num{-2.54}** &  & \num{-2.30}** &  & \num{-1.03}\\
+		V\_presentation3Defensive &  &  & \num{6.39}*** & \num{6.36}*** & \num{5.77}*** & \num{5.87}**\\
+		V\_presentation3Prosocial &  &  & \num{-11.58}*** & \num{-11.58}*** & \num{-12.67}*** & \num{-13.58}***\\
+		V\_RacenamefBlackV\_presentation3Defensive &  &  &  &  & \num{2.52} & \num{2.31}\\
+		V\_RacenamefChineseV\_presentation3Defensive &  &  &  &  & \num{-0.74} & \num{0.99}\\
+		V\_RacenamefIndianV\_presentation3Defensive &  &  &  &  & \num{0.73} & \num{2.19}\\
+		V\_RacenamefBlackV\_presentation3Prosocial &  &  &  &  & \num{2.57} & \num{3.14}\\
+		V\_RacenamefChineseV\_presentation3Prosocial &  &  &  &  & \num{2.52} & \num{2.73}\\
+		V\_RacenamefIndianV\_presentation3Prosocial &  &  &  &  & \num{-0.48} & \num{2.57}\\
+		ScaledTransmitCovidV\_presentation3Defensive &  &  &  &  &  & \num{0.71}\\
+		ScaledTransmitCovidV\_presentation3Prosocial &  &  &  &  &  & \num{-1.38}\\
+		ScaledCatchCovidV\_presentation3Defensive &  &  &  &  &  & \num{0.17}\\
+		ScaledCatchCovidV\_presentation3Prosocial &  &  &  &  &  & \num{-2.84}\\
+		ScaledTransmitCovidScaledCatchCovidV\_presentation3Defensive &  &  &  &  &  & \num{-0.15}\\
+		ScaledTransmitCovidScaledCatchCovidV\_presentation3Prosocial &  &  &  &  &  & \num{1.10}\\
+		ScaledTransmitCovidV\_RacenamefBlackV\_presentation3Defensive &  &  &  &  &  & \num{3.93}\\
+		ScaledTransmitCovidV\_RacenamefChineseV\_presentation3Defensive &  &  &  &  &  & \num{1.29}\\
+		ScaledTransmitCovidV\_RacenamefIndianV\_presentation3Defensive &  &  &  &  &  & \num{-5.60}\\
+		ScaledTransmitCovidV\_RacenamefBlackV\_presentation3Prosocial &  &  &  &  &  & \num{1.39}\\
+		ScaledTransmitCovidV\_RacenamefChineseV\_presentation3Prosocial &  &  &  &  &  & \num{-3.03}\\
+		ScaledTransmitCovidV\_RacenamefIndianV\_presentation3Prosocial &  &  &  &  &  & \num{-5.08}\\
+		ScaledCatchCovidV\_RacenamefBlackV\_presentation3Defensive &  &  &  &  &  & \num{-3.58}\\
+		ScaledCatchCovidV\_RacenamefChineseV\_presentation3Defensive &  &  &  &  &  & \num{-0.94}\\
+		ScaledCatchCovidV\_RacenamefIndianV\_presentation3Defensive &  &  &  &  &  & \num{3.94}\\
+		ScaledCatchCovidV\_RacenamefBlackV\_presentation3Prosocial &  &  &  &  &  & \num{-0.64}\\
+		ScaledCatchCovidV\_RacenamefChineseV\_presentation3Prosocial &  &  &  &  &  & \num{2.41}\\
+		ScaledCatchCovidV\_RacenamefIndianV\_presentation3Prosocial &  &  &  &  &  & \num{4.75}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefBlackV\_presentation3Defensive &  &  &  &  &  & \num{0.32}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefChineseV\_presentation3Defensive &  &  &  &  &  & \num{-1.86}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefIndianV\_presentation3Defensive &  &  &  &  &  & \num{-1.68}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefBlackV\_presentation3Prosocial &  &  &  &  &  & \num{-0.62}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefChineseV\_presentation3Prosocial &  &  &  &  &  & \num{-0.05}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefIndianV\_presentation3Prosocial &  &  &  &  &  & \num{-3.15}+\\
+		SD (Intercept ID) & \num{16.01} & \num{16.04} & \num{16.20} & \num{16.22} & \num{16.20} & \num{16.22}\\
+		SD (Observations) & \num{21.19} & \num{21.17} & \num{20.02} & \num{20.01} & \num{20.02} & \num{19.93}\\
+		\midrule
+		Num.Obs. & \num{4792} & \num{4792} & \num{4791} & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.214} & \num{0.216} & \num{0.259} & \num{0.260} & \num{0.259} & \num{0.265}\\
+		R2 Cond. & \num{0.500} & \num{0.502} & \num{0.552} & \num{0.554} & \num{0.552} & \num{0.558}\\
+		AIC & \num{43896.9} & \num{43882.5} & \num{43413.2} & \num{43400.1} & \num{43400.3} & \num{43305.9}\\
+		BIC & \num{43955.2} & \num{43999.1} & \num{43484.4} & \num{43529.6} & \num{43510.4} & \num{43629.6}\\
+		ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+		RMSE & \num{20.06} & \num{20.02} & \num{18.93} & \num{18.89} & \num{18.91} & \num{18.75}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+				\resizebox{10cm}{!}{
+	\includegraphics{Model6.3_spill.racename}
+} 
+\\
+
+				\resizebox{10cm}{!}{
+	\includegraphics{Model6.3.2_spill.racename.update}
+}
+\\
+				\resizebox{10cm}{!}{
+	\includegraphics{Model6.3.2_spill.racename.update.2}
+}
+
+
+\begin{table}
+	
+	\caption{Model 2.4, Race perceived and Race Respondant}
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lcccc}
+		\toprule
+		& EXPGRP\&Spill*Race\&Upd & EXPGRP*Race\&Spill*Race\&Upd & EXPGRP+Spill*Race\&Upd & EXPGRP*Spill*Race\&Upd\\
+		\midrule
+(Intercept) & \num{24.20}*** & \num{23.48}*** & \num{24.66}*** & \num{23.04}***\\
+EXPGRP\_TEXTChinese & \num{0.55} & \num{2.74} & \num{2.70} & \num{4.33}*\\
+ScaledTransmitCovid & \num{7.94}*** & \num{7.97}*** & \num{8.65}*** & \num{6.29}***\\
+ScaledCatchCovid & \num{4.48}*** & \num{4.41}** & \num{4.84}*** & \num{5.70}***\\
+V\_RacenamefBlack & \num{0.46} & \num{1.38} & \num{-0.27} & \num{2.27}+\\
+V\_RacenamefChinese & \num{-0.68} & \num{0.53} & \num{-1.01} & \num{0.94}\\
+V\_RacenamefIndian & \num{1.71} & \num{2.44}* & \num{0.49} & \num{2.42}+\\
+V\_presentation3Defensive & \num{6.36}*** & \num{6.37}*** & \num{6.40}*** & \num{6.30}***\\
+V\_presentation3Prosocial & \num{-11.58}*** & \num{-11.59}*** & \num{-11.59}*** & \num{-11.60}***\\
+ScaledTransmitCovidScaledCatchCovid & \num{2.39}*** & \num{2.40}*** & \num{1.04}** & \num{2.98}***\\
+ScaledTransmitCovidV\_RacenamefBlack & \num{0.29} & \num{0.24} &  & \num{3.14}\\
+ScaledTransmitCovidV\_RacenamefChinese & \num{0.28} & \num{0.22} &  & \num{3.56}+\\
+ScaledTransmitCovidV\_RacenamefIndian & \num{2.95} & \num{2.92} &  & \num{3.65}+\\
+ScaledCatchCovidV\_RacenamefBlack & \num{0.85} & \num{0.96} &  & \num{-1.53}\\
+ScaledCatchCovidV\_RacenamefChinese & \num{1.63} & \num{1.75} &  & \num{-1.00}\\
+ScaledCatchCovidV\_RacenamefIndian & \num{-1.59} & \num{-1.51} &  & \num{-1.90}\\
+ScaledTransmitCovidScaledCatchCovidV\_RacenamefBlack & \num{-1.88}* & \num{-1.89}* &  & \num{-2.98}**\\
+ScaledTransmitCovidScaledCatchCovidV\_RacenamefChinese & \num{-1.77}* & \num{-1.76}* &  & \num{-2.33}*\\
+ScaledTransmitCovidScaledCatchCovidV\_RacenamefIndian & \num{-2.30}** & \num{-2.31}** &  & \num{-2.29}*\\
+EXPGRP\_TEXTChineseV\_RacenamefBlack &  & \num{-2.80} & \num{-2.73} & \num{-5.48}*\\
+EXPGRP\_TEXTChineseV\_RacenamefChinese &  & \num{-3.74}* & \num{-3.63}* & \num{-5.24}*\\
+EXPGRP\_TEXTChineseV\_RacenamefIndian &  & \num{-2.22} & \num{-2.39} & \num{-2.36}\\
+EXPGRP\_TEXTChineseScaledTransmitCovid &  &  &  & \num{6.10}*\\
+EXPGRP\_TEXTChineseScaledCatchCovid &  &  &  & \num{-4.41}\\
+EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovid &  &  &  & \num{-1.98}\\
+EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefBlack &  &  &  & \num{-10.38}*\\
+EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefChinese &  &  &  & \num{-12.38}**\\
+EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefIndian &  &  &  & \num{-1.85}\\
+EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefBlack &  &  &  & \num{8.24}*\\
+EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefChinese &  &  &  & \num{9.81}*\\
+EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefIndian &  &  &  & \num{0.70}\\
+EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefBlack &  &  &  & \num{3.24}*\\
+EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefChinese &  &  &  & \num{2.03}\\
+EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefIndian &  &  &  & \num{0.44}\\
+SD (Intercept ID) & \num{16.24} & \num{16.24} & \num{16.21} & \num{16.27}\\
+SD (Observations) & \num{20.01} & \num{20.00} & \num{20.02} & \num{19.98}\\
+\midrule
+Num.Obs. & \num{4791} & \num{4791} & \num{4791} & \num{4791}\\
+R2 Marg. & \num{0.260} & \num{0.261} & \num{0.260} & \num{0.261}\\
+R2 Cond. & \num{0.554} & \num{0.554} & \num{0.553} & \num{0.555}\\
+AIC & \num{43399.2} & \num{43392.1} & \num{43405.5} & \num{43363.3}\\
+BIC & \num{43535.2} & \num{43547.5} & \num{43502.6} & \num{43596.4}\\
+ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+RMSE & \num{18.89} & \num{18.88} & \num{18.92} & \num{18.84}\\
+		  \hline
+		RespWhite - RespChinese & -0.55 & -0.55 & -0.51 & -1.07 \\ 
+		NameWhite - NameBlack & -0.52 & -0.04 & 1.64. & 0.47 \\ 
+		NameWhite - NameChinese & 0.58 & 1.23 & 2.82** & 1.64 \\ 
+		NameWhite - NameIndian & -1.82. & -1.43 & 0.7 & -1.33 \\ 
+		NameBlack - NameChinese & 1.1 & 1.28 & 1.18 & 1.17 \\ 
+		NameBlack - NameIndian & -1.29 & -1.39 & -0.94 & -1.8 \\ 
+		NameChinese - NameIndian & -2.39* & -2.67* & -2.12* & -2.97** \\ 
+		UpNONE - UpDefensive & -6.36*** & -6.37*** & -6.4*** & -6.3*** \\ 
+		UpNONE - UpProsocial & 11.58*** & 11.59*** & 11.59*** & 11.6*** \\ 
+		UpDefensive - UpProsocial & 17.93*** & 17.95*** & 17.99*** & 17.91*** \\ 
+		RespWhite:NameWhite - RespChinese:NameWhite &  & -2.74 & -2.7 & -4.49* \\ 
+		RespWhite:NameWhite - RespWhite:NameBlack &  & -1.44 & 0.27 & -2.38. \\ 
+		RespWhite:NameWhite - RespChinese:NameBlack &  & -1.39 & 0.31 & -1.16 \\ 
+		RespWhite:NameWhite - RespWhite:NameChinese &  & -0.64 & 1.01 & -1.12 \\ 
+		RespWhite:NameWhite - RespChinese:NameChinese &  & 0.36 & 1.94 & -0.09 \\ 
+		RespWhite:NameWhite - RespWhite:NameIndian &  & -2.54* & -0.49 & -2.55. \\ 
+		RespWhite:NameWhite - RespChinese:NameIndian &  & -3.06 & -0.8 & -4.6* \\ 
+		RespChinese:NameWhite - RespWhite:NameBlack &  & 1.3 & 2.97 & 2.11 \\ 
+		RespChinese:NameWhite - RespChinese:NameBlack &  & 1.36 & 3.01* & 3.32. \\ 
+		RespChinese:NameWhite - RespWhite:NameChinese &  & 2.1 & 3.7* & 3.37 \\ 
+		RespChinese:NameWhite - RespChinese:NameChinese &  & 3.11* & 4.64** & 4.4* \\ 
+		RespChinese:NameWhite - RespWhite:NameIndian &  & 0.2 & 2.21 & 1.94 \\ 
+		RespChinese:NameWhite - RespChinese:NameIndian &  & -0.32 & 1.9 & -0.11 \\ 
+		RespWhite:NameBlack - RespChinese:NameBlack &  & 0.06 & 0.04 & 1.22 \\ 
+		RespWhite:NameBlack - RespWhite:NameChinese &  & 0.8 & 0.73 & 1.27 \\ 
+		RespWhite:NameBlack - RespChinese:NameChinese &  & 1.81 & 1.67 & 2.29 \\ 
+		RespWhite:NameBlack - RespWhite:NameIndian &  & -1.1 & -0.77 & -0.17 \\ 
+		RespWhite:NameBlack - RespChinese:NameIndian &  & -1.62 & -1.07 & -2.22 \\ 
+		RespChinese:NameBlack - RespWhite:NameChinese &  & 0.75 & 0.7 & 0.05 \\ 
+		RespChinese:NameBlack - RespChinese:NameChinese &  & 1.75 & 1.63 & 1.08 \\ 
+		RespChinese:NameBlack - RespWhite:NameIndian &  & -1.16 & -0.8 & -1.39 \\ 
+		RespChinese:NameBlack - RespChinese:NameIndian &  & -1.68 & -1.11 & -3.44. \\ 
+		RespWhite:NameChinese - RespChinese:NameChinese &  & 1 & 0.93 & 1.03 \\ 
+		RespWhite:NameChinese - RespWhite:NameIndian &  & -1.9 & -1.5 & -1.43 \\ 
+		RespWhite:NameChinese - RespChinese:NameIndian &  & -2.42 & -1.8 & -3.48 \\ 
+		RespChinese:NameChinese - RespWhite:NameIndian &  & -2.91 & -2.43 & -2.46 \\ 
+		RespChinese:NameChinese - RespChinese:NameIndian &  & -3.43* & -2.74. & -4.51* \\ 
+		RespWhite:NameIndian - RespChinese:NameIndian &  & -0.52 & -0.3 & -2.05 \\ 
+		\hline
+	\end{tabular}}
+\end{table}
+
+
+
+\begin{table}
+	
+	\caption{Model 2's-Summary}
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lcccccccc}
+		\toprule
+		& RcPercvd & Rac\&Update & Rac\&Update  & Spill*Race & Spill*Race & Spill*Race\&Upd & EXPGRP\&Spill*Race\&Upd & EXPGRP*Spill*Race\&Upd\\
+		\midrule
+		(Intercept) & \num{28.65}*** & \num{27.97}*** & \num{28.65}*** & \num{23.97}*** & \num{22.79}*** & \num{24.37}*** & \num{24.20}*** & \num{23.04}***\\
+		V\_RacenamefBlack & \num{-3.26}* & \num{-1.55}+ & \num{-3.26}** & \num{-0.59} & \num{0.89} & \num{0.46} & \num{0.46} & \num{2.27}+\\
+		V\_RacenamefChinese & \num{-3.25}* & \num{-2.64}** & \num{-3.25}** & \num{-1.63}+ & \num{-0.16} & \num{-0.68} & \num{-0.68} & \num{0.94}\\
+		V\_RacenamefIndian & \num{-1.09} & \num{-0.69} & \num{-1.09} & \num{-0.27} & \num{1.95}+ & \num{1.71} & \num{1.71} & \num{2.42}+\\
+		V\_presentation3Defensive &  & \num{5.85}*** & \num{4.85}** &  &  & \num{6.36}*** & \num{6.36}*** & \num{6.30}***\\
+		V\_presentation3Prosocial &  & \num{-12.36}*** & \num{-14.04}*** &  &  & \num{-11.58}*** & \num{-11.58}*** & \num{-11.60}***\\
+		V\_RacenamefBlackV\_presentation3Defensive &  &  & \num{3.29} &  &  &  &  & \\
+		V\_RacenamefChineseV\_presentation3Defensive &  &  & \num{-0.55} &  &  &  &  & \\
+		V\_RacenamefIndianV\_presentation3Defensive &  &  & \num{1.28} &  &  &  &  & \\
+		V\_RacenamefBlackV\_presentation3Prosocial &  &  & \num{3.49} &  &  &  &  & \\
+		V\_RacenamefChineseV\_presentation3Prosocial &  &  & \num{3.13} &  &  &  &  & \\
+		V\_RacenamefIndianV\_presentation3Prosocial &  &  & \num{0.37} &  &  &  &  & \\
+		ScaledTransmitCovid &  &  &  & \num{8.66}*** & \num{7.84}*** & \num{7.94}*** & \num{7.94}*** & \num{6.29}***\\
+		ScaledCatchCovid &  &  &  & \num{5.02}*** & \num{4.82}*** & \num{4.48}*** & \num{4.48}*** & \num{5.70}***\\
+		ScaledTransmitCovidScaledCatchCovid &  &  &  & \num{1.00}* & \num{2.36}*** & \num{2.39}*** & \num{2.39}*** & \num{2.98}***\\
+		ScaledTransmitCovidV\_RacenamefBlack &  &  &  &  & \num{-0.11} & \num{0.29} & \num{0.29} & \num{3.14}\\
+		ScaledTransmitCovidV\_RacenamefChinese &  &  &  &  & \num{0.56} & \num{0.28} & \num{0.28} & \num{3.56}+\\
+		ScaledTransmitCovidV\_RacenamefIndian &  &  &  &  & \num{3.44}+ & \num{2.95} & \num{2.95} & \num{3.65}+\\
+		ScaledCatchCovidV\_RacenamefBlack &  &  &  &  & \num{1.23} & \num{0.85} & \num{0.85} & \num{-1.53}\\
+		ScaledCatchCovidV\_RacenamefChinese &  &  &  &  & \num{1.25} & \num{1.63} & \num{1.63} & \num{-1.00}\\
+		ScaledCatchCovidV\_RacenamefIndian &  &  &  &  & \num{-2.16} & \num{-1.59} & \num{-1.59} & \num{-1.90}\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefBlack &  &  &  &  & \num{-1.71}* & \num{-1.88}* & \num{-1.88}* & \num{-2.98}**\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefChinese &  &  &  &  & \num{-1.72}* & \num{-1.77}* & \num{-1.77}* & \num{-2.33}*\\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefIndian &  &  &  &  & \num{-2.54}** & \num{-2.30}** & \num{-2.30}** & \num{-2.29}*\\
+		EXPGRP\_TEXTChinese &  &  &  &  &  &  & \num{0.55} & \num{4.33}*\\
+		EXPGRP\_TEXTChineseScaledTransmitCovid &  &  &  &  &  &  &  & \num{6.10}*\\
+		EXPGRP\_TEXTChineseScaledCatchCovid &  &  &  &  &  &  &  & \num{-4.41}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlack &  &  &  &  &  &  &  & \num{-5.48}*\\
+		EXPGRP\_TEXTChineseV\_RacenamefChinese &  &  &  &  &  &  &  & \num{-5.24}*\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndian &  &  &  &  &  &  &  & \num{-2.36}\\
+		EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovid &  &  &  &  &  &  &  & \num{-1.98}\\
+		EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefBlack &  &  &  &  &  &  &  & \num{-10.38}*\\
+		EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefChinese &  &  &  &  &  &  &  & \num{-12.38}**\\
+		EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefIndian &  &  &  &  &  &  &  & \num{-1.85}\\
+		EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefBlack &  &  &  &  &  &  &  & \num{8.24}*\\
+		EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefChinese &  &  &  &  &  &  &  & \num{9.81}*\\
+		EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefIndian &  &  &  &  &  &  &  & \num{0.70}\\
+		EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefBlack &  &  &  &  &  &  &  & \num{3.24}*\\
+		EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefChinese &  &  &  &  &  &  &  & \num{2.03}\\
+		EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefIndian &  &  &  &  &  &  &  & \num{0.44}\\
+		SD (Intercept ID) & \num{19.94} & \num{19.31} & \num{19.31} & \num{16.01} & \num{16.04} & \num{16.22} & \num{16.24} & \num{16.27}\\
+		SD (Observations) & \num{22.17} & \num{21.15} & \num{21.15} & \num{21.19} & \num{21.17} & \num{20.01} & \num{20.01} & \num{19.98}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{4791} & \num{4791} & \num{4792} & \num{4792} & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.002} & \num{0.052} & \num{0.052} & \num{0.214} & \num{0.216} & \num{0.260} & \num{0.260} & \num{0.261}\\
+		R2 Cond. & \num{0.448} & \num{0.483} & \num{0.483} & \num{0.500} & \num{0.502} & \num{0.554} & \num{0.554} & \num{0.555}\\
+		AIC & \num{22513.7} & \num{44059.4} & \num{44044.8} & \num{43896.9} & \num{43882.5} & \num{43400.1} & \num{43399.2} & \num{43363.3}\\
+		BIC & \num{22548.3} & \num{44111.2} & \num{44135.4} & \num{43955.2} & \num{43999.1} & \num{43529.6} & \num{43535.2} & \num{43596.4}\\
+		ICC & \num{0.4} & \num{0.5} & \num{0.5} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+		RMSE & \num{19.93} & \num{19.96} & \num{19.94} & \num{20.06} & \num{20.02} & \num{18.89} & \num{18.89} & \num{18.84}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Wed Jul 20 12:21:32 2022
+\begin{table}[ht]
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}{rllllllll}
+		\hline
+		& RcPercvd & Rac\&Update & Rac*Update & Spill\&Race & Spill*Race & Spill*Race\&Upd & EXPGRP\&Spill*Race\&Upd & EXPGRP*Spill*Race\&Upd \\ 
+		\hline
+		NameWhite - NameBlack & 3.26* & 1.55. & 1 & 0.59 & -0.94 & -0.52 & -0.52 & 0.47 \\ 
+		NameWhite - NameChinese & 3.25* & 2.64** & 2.39** & 1.63. & 0.06 & 0.58 & 0.58 & 1.64 \\ 
+		NameWhite - NameIndian & 1.09 & 0.69 & 0.54 & 0.27 & -2.05. & -1.81. & -1.82. & -1.33 \\ 
+		NameBlack - NameChinese & -0.01 & 1.09 & 1.39 & 1.04 & 1 & 1.1 & 1.1 & 1.17 \\ 
+		NameBlack - NameIndian & -2.17. & -0.85 & -0.46 & -0.32 & -1.11 & -1.29 & -1.29 & -1.8 \\ 
+		NameChinese - NameIndian & -2.15. & -1.95* & -1.84* & -1.36 & -2.11. & -2.39* & -2.39* & -2.97** \\ 
+		UpNONE - UpDefensive &  & -5.85*** & -5.86*** &  &  & -6.36*** & -6.36*** & -6.3*** \\ 
+		UpNONE - UpProsocial &  & 12.36*** & 12.29*** &  &  & 11.58*** & 11.58*** & 11.6*** \\ 
+		UpDefensive - UpProsocial &  & 18.21*** & 18.15*** &  &  & 17.93*** & 17.93*** & 17.91*** \\ 
+		NameWhite:UpNONE - NameBlack:UpNONE &  &  & 3.26** &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameChinese:UpNONE &  &  & 3.25** &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameIndian:UpNONE &  &  & 1.09 &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameWhite:UpDefensive &  &  & -4.85** &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameBlack:UpDefensive &  &  & -4.88** &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameChinese:UpDefensive &  &  & -1.06 &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameIndian:UpDefensive &  &  & -5.04** &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameWhite:UpProsocial &  &  & 14.04*** &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameBlack:UpProsocial &  &  & 13.81*** &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameChinese:UpProsocial &  &  & 14.16*** &  &  &  &  &  \\ 
+		NameWhite:UpNONE - NameIndian:UpProsocial &  &  & 14.76*** &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameChinese:UpNONE &  &  & -0.01 &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameIndian:UpNONE &  &  & -2.17. &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameWhite:UpDefensive &  &  & -8.11*** &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameBlack:UpDefensive &  &  & -8.14*** &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameChinese:UpDefensive &  &  & -4.32** &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameIndian:UpDefensive &  &  & -8.3*** &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameWhite:UpProsocial &  &  & 10.78*** &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameBlack:UpProsocial &  &  & 10.55*** &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameChinese:UpProsocial &  &  & 10.9*** &  &  &  &  &  \\ 
+		NameBlack:UpNONE - NameIndian:UpProsocial &  &  & 11.5*** &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameIndian:UpNONE &  &  & -2.15. &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameWhite:UpDefensive &  &  & -8.1*** &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameBlack:UpDefensive &  &  & -8.13*** &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameChinese:UpDefensive &  &  & -4.31** &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameIndian:UpDefensive &  &  & -8.28*** &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameWhite:UpProsocial &  &  & 10.79*** &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameBlack:UpProsocial &  &  & 10.56*** &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameChinese:UpProsocial &  &  & 10.91*** &  &  &  &  &  \\ 
+		NameChinese:UpNONE - NameIndian:UpProsocial &  &  & 11.51*** &  &  &  &  &  \\ 
+		NameIndian:UpNONE - NameWhite:UpDefensive &  &  & -5.95*** &  &  &  &  &  \\ 
+		NameIndian:UpNONE - NameBlack:UpDefensive &  &  & -5.97*** &  &  &  &  &  \\ 
+		NameIndian:UpNONE - NameChinese:UpDefensive &  &  & -2.15 &  &  &  &  &  \\ 
+		NameIndian:UpNONE - NameIndian:UpDefensive &  &  & -6.13*** &  &  &  &  &  \\ 
+		NameIndian:UpNONE - NameWhite:UpProsocial &  &  & 12.94*** &  &  &  &  &  \\ 
+		NameIndian:UpNONE - NameBlack:UpProsocial &  &  & 12.72*** &  &  &  &  &  \\ 
+		NameIndian:UpNONE - NameChinese:UpProsocial &  &  & 13.06*** &  &  &  &  &  \\ 
+		NameIndian:UpNONE - NameIndian:UpProsocial &  &  & 13.66*** &  &  &  &  &  \\ 
+		NameWhite:UpDefensive - NameBlack:UpDefensive &  &  & -0.03 &  &  &  &  &  \\ 
+		NameWhite:UpDefensive - NameChinese:UpDefensive &  &  & 3.79* &  &  &  &  &  \\ 
+		NameWhite:UpDefensive - NameIndian:UpDefensive &  &  & -0.19 &  &  &  &  &  \\ 
+		NameWhite:UpDefensive - NameWhite:UpProsocial &  &  & 18.89*** &  &  &  &  &  \\ 
+		NameWhite:UpDefensive - NameBlack:UpProsocial &  &  & 18.66*** &  &  &  &  &  \\ 
+		NameWhite:UpDefensive - NameChinese:UpProsocial &  &  & 19.01*** &  &  &  &  &  \\ 
+		NameWhite:UpDefensive - NameIndian:UpProsocial &  &  & 19.61*** &  &  &  &  &  \\ 
+		NameBlack:UpDefensive - NameChinese:UpDefensive &  &  & 3.82* &  &  &  &  &  \\ 
+		NameBlack:UpDefensive - NameIndian:UpDefensive &  &  & -0.16 &  &  &  &  &  \\ 
+		NameBlack:UpDefensive - NameWhite:UpProsocial &  &  & 18.91*** &  &  &  &  &  \\ 
+		NameBlack:UpDefensive - NameBlack:UpProsocial &  &  & 18.69*** &  &  &  &  &  \\ 
+		NameBlack:UpDefensive - NameChinese:UpProsocial &  &  & 19.04*** &  &  &  &  &  \\ 
+		NameBlack:UpDefensive - NameIndian:UpProsocial &  &  & 19.64*** &  &  &  &  &  \\ 
+		NameChinese:UpDefensive - NameIndian:UpDefensive &  &  & -3.98* &  &  &  &  &  \\ 
+		NameChinese:UpDefensive - NameWhite:UpProsocial &  &  & 15.09*** &  &  &  &  &  \\ 
+		NameChinese:UpDefensive - NameBlack:UpProsocial &  &  & 14.87*** &  &  &  &  &  \\ 
+		NameChinese:UpDefensive - NameChinese:UpProsocial &  &  & 15.22*** &  &  &  &  &  \\ 
+		NameChinese:UpDefensive - NameIndian:UpProsocial &  &  & 15.81*** &  &  &  &  &  \\ 
+		NameIndian:UpDefensive - NameWhite:UpProsocial &  &  & 19.07*** &  &  &  &  &  \\ 
+		NameIndian:UpDefensive - NameBlack:UpProsocial &  &  & 18.85*** &  &  &  &  &  \\ 
+		NameIndian:UpDefensive - NameChinese:UpProsocial &  &  & 19.2*** &  &  &  &  &  \\ 
+		NameIndian:UpDefensive - NameIndian:UpProsocial &  &  & 19.79*** &  &  &  &  &  \\ 
+		NameWhite:UpProsocial - NameBlack:UpProsocial &  &  & -0.23 &  &  &  &  &  \\ 
+		NameWhite:UpProsocial - NameChinese:UpProsocial &  &  & 0.12 &  &  &  &  &  \\ 
+		NameWhite:UpProsocial - NameIndian:UpProsocial &  &  & 0.72 &  &  &  &  &  \\ 
+		NameBlack:UpProsocial - NameChinese:UpProsocial &  &  & 0.35 &  &  &  &  &  \\ 
+		NameBlack:UpProsocial - NameIndian:UpProsocial &  &  & 0.95 &  &  &  &  &  \\ 
+		NameChinese:UpProsocial - NameIndian:UpProsocial &  &  & 0.6 &  &  &  &  &  \\ 
+		RespWhite - RespChinese &  &  &  &  &  &  & -0.55 & -1.07 \\ 
+		RespWhite:NameWhite - RespChinese:NameWhite &  &  &  &  &  &  &  & -4.49* \\ 
+		RespWhite:NameWhite - RespWhite:NameBlack &  &  &  &  &  &  &  & -2.38. \\ 
+		RespWhite:NameWhite - RespChinese:NameBlack &  &  &  &  &  &  &  & -1.16 \\ 
+		RespWhite:NameWhite - RespWhite:NameChinese &  &  &  &  &  &  &  & -1.12 \\ 
+		RespWhite:NameWhite - RespChinese:NameChinese &  &  &  &  &  &  &  & -0.09 \\ 
+		RespWhite:NameWhite - RespWhite:NameIndian &  &  &  &  &  &  &  & -2.55. \\ 
+		RespWhite:NameWhite - RespChinese:NameIndian &  &  &  &  &  &  &  & -4.6* \\ 
+		RespChinese:NameWhite - RespWhite:NameBlack &  &  &  &  &  &  &  & 2.11 \\ 
+		RespChinese:NameWhite - RespChinese:NameBlack &  &  &  &  &  &  &  & 3.32. \\ 
+		RespChinese:NameWhite - RespWhite:NameChinese &  &  &  &  &  &  &  & 3.37 \\ 
+		RespChinese:NameWhite - RespChinese:NameChinese &  &  &  &  &  &  &  & 4.4* \\ 
+		RespChinese:NameWhite - RespWhite:NameIndian &  &  &  &  &  &  &  & 1.94 \\ 
+		RespChinese:NameWhite - RespChinese:NameIndian &  &  &  &  &  &  &  & -0.11 \\ 
+		RespWhite:NameBlack - RespChinese:NameBlack &  &  &  &  &  &  &  & 1.22 \\ 
+		RespWhite:NameBlack - RespWhite:NameChinese &  &  &  &  &  &  &  & 1.27 \\ 
+		RespWhite:NameBlack - RespChinese:NameChinese &  &  &  &  &  &  &  & 2.29 \\ 
+		RespWhite:NameBlack - RespWhite:NameIndian &  &  &  &  &  &  &  & -0.17 \\ 
+		RespWhite:NameBlack - RespChinese:NameIndian &  &  &  &  &  &  &  & -2.22 \\ 
+		RespChinese:NameBlack - RespWhite:NameChinese &  &  &  &  &  &  &  & 0.05 \\ 
+		RespChinese:NameBlack - RespChinese:NameChinese &  &  &  &  &  &  &  & 1.08 \\ 
+		RespChinese:NameBlack - RespWhite:NameIndian &  &  &  &  &  &  &  & -1.39 \\ 
+		RespChinese:NameBlack - RespChinese:NameIndian &  &  &  &  &  &  &  & -3.44. \\ 
+		RespWhite:NameChinese - RespChinese:NameChinese &  &  &  &  &  &  &  & 1.03 \\ 
+		RespWhite:NameChinese - RespWhite:NameIndian &  &  &  &  &  &  &  & -1.43 \\ 
+		RespWhite:NameChinese - RespChinese:NameIndian &  &  &  &  &  &  &  & -3.48 \\ 
+		RespChinese:NameChinese - RespWhite:NameIndian &  &  &  &  &  &  &  & -2.46 \\ 
+		RespChinese:NameChinese - RespChinese:NameIndian &  &  &  &  &  &  &  & -4.51* \\ 
+		RespWhite:NameIndian - RespChinese:NameIndian &  &  &  &  &  &  &  & -2.05 \\ 
+		\hline
+	\end{tabular}}
+\end{table}
+
+
+
+\begin{table}
+	
+	\caption{Model 3}
+	\centering
+	\resizebox{11cm}{!}{
+	\begin{tabular}[t]{lcccc}
+		\toprule
+		& EXPGRP\&Spill\&UpdProd & EXPGRPSpillRace\&Upd & EXPGRPSpillRace\&UpdProd & Spill\&EXPGRPRaceUpdProd\\
+		\midrule
+		(Intercept) & \num{21.19}*** & \num{23.04}*** & \num{20.05}*** & \num{20.00}***\\
+		EXPGRP\_TEXTChinese & \num{0.59} & \num{4.33}* & \num{3.49}+ & \num{2.48}\\
+		ScaledCatchCovid & \num{4.20}*** & \num{5.70}*** & \num{4.25}** & \num{3.91}***\\
+		ScaledTransmitCovid & \num{8.12}*** & \num{6.29}*** & \num{6.64}*** & \num{8.30}***\\
+		V\_Productbabyformula & \num{-5.76}*** &  & \num{-5.62}*** & \num{-5.37}+\\
+		V\_Productcigarettes & \num{8.45}*** &  & \num{8.47}*** & \num{11.39}***\\
+		V\_Producttoiletpaper & \num{11.09}*** &  & \num{11.15}*** & \num{13.78}***\\
+		V\_presentation3Defensive & \num{12.18}*** & \num{6.30}*** & \num{12.27}*** & \num{14.35}***\\
+		V\_presentation3Prosocial & \num{-11.22}*** & \num{-11.60}*** & \num{-11.41}*** & \num{-12.05}***\\
+		ScaledCatchCovidScaledTransmitCovid & \num{0.93}* &  &  & \\
+		V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.15}* &  & \num{-4.36}* & \num{-6.22}\\
+		V\_ProductcigarettesV\_presentation3Defensive & \num{-11.08}*** &  & \num{-11.25}*** & \num{-12.80}**\\
+		V\_ProducttoiletpaperV\_presentation3Defensive & \num{-8.47}*** &  & \num{-8.56}*** & \num{-14.38}**\\
+		V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.65}** &  & \num{5.76}** & \num{7.29}\\
+		V\_ProductcigarettesV\_presentation3Prosocial & \num{6.45}*** &  & \num{6.65}*** & \num{9.48}*\\
+		V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-13.63}*** &  & \num{-13.47}*** & \num{-13.59}**\\
+		V\_RacenamefBlack &  & \num{2.27}+ & \num{1.52} & \num{-0.35}\\
+		V\_RacenamefChinese &  & \num{0.94} & \num{-0.14} & \num{2.98}\\
+		V\_RacenamefIndian &  & \num{2.42}+ & \num{2.95}* & \num{4.75}+\\
+		EXPGRP\_TEXTChineseScaledTransmitCovid &  & \num{6.10}* & \num{4.08} & \\
+		EXPGRP\_TEXTChineseScaledCatchCovid &  & \num{-4.41} & \num{-3.30} & \\
+		ScaledTransmitCovidScaledCatchCovid &  & \num{2.98}*** & \num{2.55}*** & \num{0.96}*\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlack &  & \num{-5.48}* & \num{-3.66}+ & \num{-5.18}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChinese &  & \num{-5.24}* & \num{-3.40} & \num{-3.24}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndian &  & \num{-2.36} & \num{-2.90} & \num{-7.22}\\
+		ScaledTransmitCovidV\_RacenamefBlack &  & \num{3.14} & \num{2.43} & \\
+		ScaledTransmitCovidV\_RacenamefChinese &  & \num{3.56}+ & \num{2.23} & \\
+		ScaledTransmitCovidV\_RacenamefIndian &  & \num{3.65}+ & \num{2.84} & \\
+		ScaledCatchCovidV\_RacenamefBlack &  & \num{-1.53} & \num{-0.89} & \\
+		ScaledCatchCovidV\_RacenamefChinese &  & \num{-1.00} & \num{0.72} & \\
+		ScaledCatchCovidV\_RacenamefIndian &  & \num{-1.90} & \num{-0.69} & \\
+		EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovid &  & \num{-1.98} & \num{-1.34} & \\
+		EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefBlack &  & \num{-10.38}* & \num{-7.31}+ & \\
+		EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefChinese &  & \num{-12.38}** & \num{-9.65}* & \\
+		EXPGRP\_TEXTChineseScaledTransmitCovidV\_RacenamefIndian &  & \num{-1.85} & \num{-1.75} & \\
+		EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefBlack &  & \num{8.24}* & \num{5.73} & \\
+		EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefChinese &  & \num{9.81}* & \num{7.61}* & \\
+		EXPGRP\_TEXTChineseScaledCatchCovidV\_RacenamefIndian &  & \num{0.70} & \num{0.03} & \\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefBlack &  & \num{-2.98}** & \num{-2.15}* & \\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefChinese &  & \num{-2.33}* & \num{-1.61}+ & \\
+		ScaledTransmitCovidScaledCatchCovidV\_RacenamefIndian &  & \num{-2.29}* & \num{-2.72}** & \\
+		EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefBlack &  & \num{3.24}* & \num{1.73} & \\
+		EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefChinese &  & \num{2.03} & \num{1.43} & \\
+		EXPGRP\_TEXTChineseScaledTransmitCovidScaledCatchCovidV\_RacenamefIndian &  & \num{0.44} & \num{0.93} & \\
+		EXPGRP\_TEXTChineseV\_Productbabyformula &  &  &  & \num{1.45}\\
+		EXPGRP\_TEXTChineseV\_Productcigarettes &  &  &  & \num{2.69}\\
+		EXPGRP\_TEXTChineseV\_Producttoiletpaper &  &  &  & \num{-0.07}\\
+		V\_RacenamefBlackV\_Productbabyformula &  &  &  & \num{-1.44}\\
+		V\_RacenamefChineseV\_Productbabyformula &  &  &  & \num{-2.70}\\
+		V\_RacenamefIndianV\_Productbabyformula &  &  &  & \num{-0.69}\\
+		V\_RacenamefBlackV\_Productcigarettes &  &  &  & \num{-1.24}\\
+		V\_RacenamefChineseV\_Productcigarettes &  &  &  & \num{-8.21}*\\
+		V\_RacenamefIndianV\_Productcigarettes &  &  &  & \num{-9.14}*\\
+		V\_RacenamefBlackV\_Producttoiletpaper &  &  &  & \num{-0.19}\\
+		V\_RacenamefChineseV\_Producttoiletpaper &  &  &  & \num{-7.20}+\\
+		V\_RacenamefIndianV\_Producttoiletpaper &  &  &  & \num{-7.25}+\\
+		EXPGRP\_TEXTChineseV\_presentation3Defensive &  &  &  & \num{-5.64}\\
+		EXPGRP\_TEXTChineseV\_presentation3Prosocial &  &  &  & \num{-1.02}\\
+		V\_RacenamefBlackV\_presentation3Defensive &  &  &  & \num{-1.19}\\
+		V\_RacenamefChineseV\_presentation3Defensive &  &  &  & \num{-7.12}\\
+		V\_RacenamefIndianV\_presentation3Defensive &  &  &  & \num{-4.61}\\
+		V\_RacenamefBlackV\_presentation3Prosocial &  &  &  & \num{4.55}\\
+		V\_RacenamefChineseV\_presentation3Prosocial &  &  &  & \num{0.10}\\
+		V\_RacenamefIndianV\_presentation3Prosocial &  &  &  & \num{-1.19}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_Productbabyformula &  &  &  & \num{5.39}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_Productbabyformula &  &  &  & \num{-0.54}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_Productbabyformula &  &  &  & \num{-1.12}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_Productcigarettes &  &  &  & \num{1.56}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_Productcigarettes &  &  &  & \num{-3.39}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_Productcigarettes &  &  &  & \num{11.75}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_Producttoiletpaper &  &  &  & \num{-0.61}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_Producttoiletpaper &  &  &  & \num{3.71}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_Producttoiletpaper &  &  &  & \num{8.35}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_presentation3Defensive &  &  &  & \num{13.06}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_presentation3Defensive &  &  &  & \num{11.93}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_presentation3Defensive &  &  &  & \num{9.81}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_presentation3Prosocial &  &  &  & \num{1.07}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_presentation3Prosocial &  &  &  & \num{1.20}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_presentation3Prosocial &  &  &  & \num{2.27}\\
+		EXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive &  &  &  & \num{-0.15}\\
+		EXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive &  &  &  & \num{4.95}\\
+		EXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive &  &  &  & \num{10.95}\\
+		EXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial &  &  &  & \num{-1.61}\\
+		EXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial &  &  &  & \num{-10.27}\\
+		EXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  &  &  & \num{1.11}\\
+		V\_RacenamefBlackV\_ProductbabyformulaV\_presentation3Defensive &  &  &  & \num{1.85}\\
+		V\_RacenamefChineseV\_ProductbabyformulaV\_presentation3Defensive &  &  &  & \num{8.01}\\
+		V\_RacenamefIndianV\_ProductbabyformulaV\_presentation3Defensive &  &  &  & \num{3.75}\\
+		V\_RacenamefBlackV\_ProductcigarettesV\_presentation3Defensive &  &  &  & \num{2.05}\\
+		V\_RacenamefChineseV\_ProductcigarettesV\_presentation3Defensive &  &  &  & \num{7.41}\\
+		V\_RacenamefIndianV\_ProductcigarettesV\_presentation3Defensive &  &  &  & \num{6.01}\\
+		V\_RacenamefBlackV\_ProducttoiletpaperV\_presentation3Defensive &  &  &  & \num{7.68}\\
+		V\_RacenamefChineseV\_ProducttoiletpaperV\_presentation3Defensive &  &  &  & \num{9.76}\\
+		V\_RacenamefIndianV\_ProducttoiletpaperV\_presentation3Defensive &  &  &  & \num{9.97}\\
+		V\_RacenamefBlackV\_ProductbabyformulaV\_presentation3Prosocial &  &  &  & \num{-4.60}\\
+		V\_RacenamefChineseV\_ProductbabyformulaV\_presentation3Prosocial &  &  &  & \num{2.78}\\
+		V\_RacenamefIndianV\_ProductbabyformulaV\_presentation3Prosocial &  &  &  & \num{0.15}\\
+		V\_RacenamefBlackV\_ProductcigarettesV\_presentation3Prosocial &  &  &  & \num{-2.42}\\
+		V\_RacenamefChineseV\_ProductcigarettesV\_presentation3Prosocial &  &  &  & \num{-0.88}\\
+		V\_RacenamefIndianV\_ProductcigarettesV\_presentation3Prosocial &  &  &  & \num{1.11}\\
+		V\_RacenamefBlackV\_ProducttoiletpaperV\_presentation3Prosocial &  &  &  & \num{-5.87}\\
+		V\_RacenamefChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  &  &  & \num{3.57}\\
+		V\_RacenamefIndianV\_ProducttoiletpaperV\_presentation3Prosocial &  &  &  & \num{2.66}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProductbabyformulaV\_presentation3Defensive &  &  &  & \num{-4.10}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProductbabyformulaV\_presentation3Defensive &  &  &  & \num{-8.60}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProductbabyformulaV\_presentation3Defensive &  &  &  & \num{-2.28}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProductcigarettesV\_presentation3Defensive &  &  &  & \num{-17.04}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProductcigarettesV\_presentation3Defensive &  &  &  & \num{-13.68}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProductcigarettesV\_presentation3Defensive &  &  &  & \num{-12.72}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProducttoiletpaperV\_presentation3Defensive &  &  &  & \num{-19.03}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProducttoiletpaperV\_presentation3Defensive &  &  &  & \num{-17.31}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProducttoiletpaperV\_presentation3Defensive &  &  &  & \num{-16.37}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProductbabyformulaV\_presentation3Prosocial &  &  &  & \num{-2.55}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProductbabyformulaV\_presentation3Prosocial &  &  &  & \num{-4.18}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProductbabyformulaV\_presentation3Prosocial &  &  &  & \num{-2.69}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProductcigarettesV\_presentation3Prosocial &  &  &  & \num{2.04}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProductcigarettesV\_presentation3Prosocial &  &  &  & \num{11.30}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProductcigarettesV\_presentation3Prosocial &  &  &  & \num{-1.51}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProducttoiletpaperV\_presentation3Prosocial &  &  &  & \num{6.27}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProducttoiletpaperV\_presentation3Prosocial &  &  &  & \num{-4.50}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProducttoiletpaperV\_presentation3Prosocial &  &  &  & \num{-8.77}\\
+		SD (Intercept ID) & \num{16.28} & \num{16.27} & \num{16.32} & \num{16.25}\\
+		SD (Observations) & \num{18.96} & \num{19.98} & \num{18.91} & \num{18.98}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.286} & \num{0.261} & \num{0.288} & \num{0.291}\\
+		R2 Cond. & \num{0.589} & \num{0.555} & \num{0.592} & \num{0.591}\\
+		AIC & \num{42935.9} & \num{43363.3} & \num{42885.5} & \num{42662.7}\\
+		BIC & \num{43052.4} & \num{43596.4} & \num{43176.9} & \num{43316.6}\\
+		ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+		RMSE & \num{17.89} & \num{18.84} & \num{17.79} & \num{17.74}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+\chapter{Model 7 - CovidSkepticism}
+
+\begin{table}
+	
+	\caption{Model 7, CovidSkepticism}
+	\centering
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{28.96}*** & \num{37.34}*** & \num{36.81}***\\
+		CovidSkepticism & \num{-0.11}+ & \num{-0.18}** & \num{-0.18}**\\
+		SD (Intercept ID) & \num{19.89} & \num{19.25} & \num{20.26}\\
+		SD (Observations) & \num{22.21} & \num{11.79} & \num{11.57}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.003} & \num{0.013} & \num{0.012}\\
+		R2 Cond. & \num{0.446} & \num{0.731} & \num{0.757}\\
+		AIC & \num{22526.4} & \num{20103.0} & \num{20088.3}\\
+		BIC & \num{22549.5} & \num{20126.1} & \num{20111.4}\\
+		ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+		RMSE & \num{19.98} & \num{10.36} & \num{10.14}\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+				\resizebox{15cm}{!}{
+	\includegraphics{Model07_covidskepticism}
+}
+
+
+
+\chapter{Model 8 - CovidSkepticism, race name and race respondant}
+
+\begin{table}
+	
+	\caption{Model 8, CovidSkepticism, race name and race respondant}
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{29.16}*** & \num{37.24}*** & \num{38.32}***\\
+		CovidSkepticism & \num{-0.10} & \num{-0.17}* & \num{-0.20}**\\
+		V\_RacenamefBlack & \num{-3.23} & \num{-0.78} & \num{-2.60}+\\
+		V\_RacenamefChinese & \num{-0.11} & \num{-0.37} & \num{-1.33}\\
+		V\_RacenamefIndian & \num{0.19} & \num{-1.31} & \num{-3.55}*\\
+		EXPGRP\_TEXTChinese & \num{0.46} & \num{-0.98} & \num{-1.37}\\
+		CovidSkepticismV\_RacenamefBlack & \num{0.05} & \num{-0.01} & \num{0.04}\\
+		CovidSkepticismV\_RacenamefChinese & \num{-0.07} & \num{-0.02} & \num{0.01}\\
+		CovidSkepticismV\_RacenamefIndian & \num{-0.03} & \num{0.02} & \num{0.07}\\
+		CovidSkepticismEXPGRP\_TEXTChinese & \num{0.25} & \num{0.17} & \num{0.09}\\
+		V\_RacenamefBlackEXPGRP\_TEXTChinese & \num{2.57} & \num{3.69} & \num{4.00}\\
+		V\_RacenamefChineseEXPGRP\_TEXTChinese & \num{-6.11} & \num{0.53} & \num{1.13}\\
+		V\_RacenamefIndianEXPGRP\_TEXTChinese & \num{3.96} & \num{5.28}* & \num{3.42}\\
+		CovidSkepticismV\_RacenamefBlackEXPGRP\_TEXTChinese & \num{-0.37} & \num{-0.20} & \num{-0.18}\\
+		CovidSkepticismV\_RacenamefChineseEXPGRP\_TEXTChinese & \num{0.06} & \num{-0.10} & \num{-0.04}\\
+		CovidSkepticismV\_RacenamefIndianEXPGRP\_TEXTChinese & \num{-0.38} & \num{-0.28}* & \num{-0.12}\\
+		SD (Intercept ID) & \num{19.92} & \num{19.27} & \num{20.29}\\
+		SD (Observations) & \num{22.16} & \num{11.80} & \num{11.57}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.008} & \num{0.015} & \num{0.014}\\
+		R2 Cond. & \num{0.452} & \num{0.732} & \num{0.758}\\
+		AIC & \num{22527.8} & \num{20129.7} & \num{20115.0}\\
+		BIC & \num{22631.8} & \num{20233.8} & \num{20219.1}\\
+		ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+		RMSE & \num{19.87} & \num{10.33} & \num{10.11}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+
+
+\begin{table}
+	
+	\caption{Model 8, CovidSkepticism, race name and race respondant}
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+(Intercept) & \num{36.89}*** & \num{40.58}*** & \num{41.40}***\\
+CovidSkepticism & \num{-0.13}* & \num{-0.19}** & \num{-0.21}***\\
+V\_RacenamefBlack & \num{-2.06} & \num{-1.01} & \num{-1.67}*\\
+V\_RacenamefChinese & \num{-1.74} & \num{-0.75} & \num{-1.15}\\
+V\_RacenamefIndian & \num{-0.43} & \num{-0.79} & \num{-1.93}*\\
+EXPGRP\_TEXTChinese & \num{9.88}*** & \num{5.04}* & \num{4.16}+\\
+V\_RacenamefBlackEXPGRP\_TEXTChinese & \num{-3.68} & \num{0.46} & \num{0.81}\\
+V\_RacenamefChineseEXPGRP\_TEXTChinese & \num{-4.64}+ & \num{-0.98} & \num{0.51}\\
+V\_RacenamefIndianEXPGRP\_TEXTChinese & \num{-2.04} & \num{0.59} & \num{0.96}\\
+CONTINENT\_BORN\_TEXT\_1USAHH\_INCOME\_TEXT2\$30,000 to \$70,000 & \num{-12.36}*** & \num{-4.07} & \num{-5.20}\\
+CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT2\$30,000 to \$70,000 & \num{-8.44} & \num{-6.62} & \num{-2.10}\\
+CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT2\$30,000 to \$70,000 & \num{-13.59}* & \num{-11.52}* & \num{-11.65}*\\
+CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXT2\$30,000 to \$70,000 & \num{0.12} & \num{-1.89} & \num{-0.64}\\
+CONTINENT\_BORN\_TEXT\_1USAHH\_INCOME\_TEXT2\$70,000 or more & \num{-11.34}** & \num{-5.98}+ & \num{-6.57}*\\
+CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT2\$70,000 or more & \num{3.58} & \num{2.27} & \num{5.69}\\
+CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT2\$70,000 or more & \num{-11.73}+ & \num{-12.05}* & \num{-10.59}+\\
+CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXT2\$70,000 or more & \num{-7.71} & \num{-12.62} & \num{-16.72}+\\
+CONTINENT\_BORN\_TEXT\_1USAHH\_INCOME\_TEXT2Less than \$30,000 & \num{-12.04}** & \num{-1.71} & \num{-4.21}\\
+CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT2Less than \$30,000 & \num{1.94} & \num{1.54} & \num{3.69}\\
+CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT2Less than \$30,000 & \num{-19.92}** & \num{-7.25} & \num{-9.30}\\
+SD (Intercept ID) & \num{19.44} & \num{19.20} & \num{20.16}\\
+SD (Observations) & \num{22.17} & \num{11.80} & \num{11.56}\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.037} & \num{0.032} & \num{0.035}\\
+R2 Cond. & \num{0.455} & \num{0.735} & \num{0.761}\\
+AIC & \num{22441.8} & \num{20055.5} & \num{20034.5}\\
+BIC & \num{22569.0} & \num{20182.7} & \num{20161.7}\\
+ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+RMSE & \num{19.92} & \num{10.34} & \num{10.12}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Mon Jul 18 16:04:16 2022
+\begin{table}[ht]
+	\centering
+			\resizebox{10cm}{!}{
+	\begin{tabular}{rlll}
+		\hline
+		& MorallyWrong & CatchCovid & TransmitCovid \\ 
+		\hline
+		NameWhite - NameBlack & 3.9** & 0.79 & 1.27. \\ 
+		NameWhite - NameChinese & 4.06** & 1.24. & 0.89 \\ 
+		NameWhite - NameIndian & 1.45 & 0.49 & 1.45* \\ 
+		NameBlack - NameChinese & 0.16 & 0.45 & -0.37 \\ 
+		NameBlack - NameIndian & -2.45. & -0.3 & 0.18 \\ 
+		NameChinese - NameIndian & -2.61. & -0.75 & 0.56 \\ 
+		RespWhite - RespChinese & -7.29** & -5.06* & -4.73* \\ 
+		NameWhite:RespWhite - NameBlack:RespWhite & 2.06 & 1.01 & 1.67* \\ 
+		NameWhite:RespWhite - NameChinese:RespWhite & 1.74 & 0.75 & 1.15 \\ 
+		NameWhite:RespWhite - NameIndian:RespWhite & 0.43 & 0.79 & 1.93* \\ 
+		NameWhite:RespWhite - NameWhite:RespChinese & -9.88*** & -5.04* & -4.16. \\ 
+		NameWhite:RespWhite - NameBlack:RespChinese & -4.14 & -4.48. & -3.3 \\ 
+		NameWhite:RespWhite - NameChinese:RespChinese & -3.5 & -3.31 & -3.52 \\ 
+		NameWhite:RespWhite - NameIndian:RespChinese & -7.41* & -4.84* & -3.19 \\ 
+		NameBlack:RespWhite - NameChinese:RespWhite & -0.32 & -0.27 & -0.52 \\ 
+		NameBlack:RespWhite - NameIndian:RespWhite & -1.63 & -0.23 & 0.26 \\ 
+		NameBlack:RespWhite - NameWhite:RespChinese & -11.94*** & -6.05* & -5.83* \\ 
+		NameBlack:RespWhite - NameBlack:RespChinese & -6.2* & -5.5* & -4.97* \\ 
+		NameBlack:RespWhite - NameChinese:RespChinese & -5.56. & -4.33. & -5.19* \\ 
+		NameBlack:RespWhite - NameIndian:RespChinese & -9.47** & -5.86* & -4.86* \\ 
+		NameChinese:RespWhite - NameIndian:RespWhite & -1.31 & 0.04 & 0.78 \\ 
+		NameChinese:RespWhite - NameWhite:RespChinese & -11.61*** & -5.79* & -5.3* \\ 
+		NameChinese:RespWhite - NameBlack:RespChinese & -5.88* & -5.23* & -4.44. \\ 
+		NameChinese:RespWhite - NameChinese:RespChinese & -5.24. & -4.06. & -4.66. \\ 
+		NameChinese:RespWhite - NameIndian:RespChinese & -9.15** & -5.59* & -4.34. \\ 
+		NameIndian:RespWhite - NameWhite:RespChinese & -10.31*** & -5.83* & -6.09* \\ 
+		NameIndian:RespWhite - NameBlack:RespChinese & -4.57 & -5.27* & -5.23* \\ 
+		NameIndian:RespWhite - NameChinese:RespChinese & -3.93 & -4.1. & -5.45* \\ 
+		NameIndian:RespWhite - NameIndian:RespChinese & -7.84** & -5.63* & -5.12* \\ 
+		NameWhite:RespChinese - NameBlack:RespChinese & 5.74* & 0.56 & 0.86 \\ 
+		NameWhite:RespChinese - NameChinese:RespChinese & 6.37** & 1.73 & 0.64 \\ 
+		NameWhite:RespChinese - NameIndian:RespChinese & 2.47 & 0.19 & 0.97 \\ 
+		NameBlack:RespChinese - NameChinese:RespChinese & 0.64 & 1.17 & -0.22 \\ 
+		NameBlack:RespChinese - NameIndian:RespChinese & -3.27 & -0.36 & 0.11 \\ 
+		NameChinese:RespChinese - NameIndian:RespChinese & -3.91. & -1.53 & 0.33 \\ 
+		USA:\$30,000 to \$70,000 - Central Eastern Europe:\$30,000 to \$70,000 & -3.92 & 2.55 & -3.1 \\ 
+		USA:\$30,000 to \$70,000 - Developping Asia:\$30,000 to \$70,000 & 1.23 & 7.44 & 6.44 \\ 
+		USA:\$30,000 to \$70,000 - Western Europe:\$30,000 to \$70,000 & -12.48** & -2.18 & -4.56 \\ 
+		USA:\$30,000 to \$70,000 - USA:\$70,000 or more & -1.02 & 1.91 & 1.37 \\ 
+		USA:\$30,000 to \$70,000 - Central Eastern Europe:\$70,000 or more & -15.94. & -6.34 & -10.89 \\ 
+		USA:\$30,000 to \$70,000 - Developping Asia:\$70,000 or more & -0.63 & 7.97 & 5.39 \\ 
+		USA:\$30,000 to \$70,000 - Western Europe:\$70,000 or more & -4.65 & 8.55 & 11.52 \\ 
+		USA:\$30,000 to \$70,000 - USA:Less than \$30,000 & -0.32 & -2.36 & -0.99 \\ 
+		USA:\$30,000 to \$70,000 - Central Eastern Europe:Less than \$30,000 & -14.3*** & -5.61 & -8.89* \\ 
+		USA:\$30,000 to \$70,000 - Developping Asia:Less than \$30,000 & 7.56 & 3.18 & 4.1 \\ 
+		USA:\$30,000 to \$70,000 - Western Europe:Less than \$30,000 & -12.36*** & -4.07 & -5.2 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - Developping Asia:\$30,000 to \$70,000 & 5.15 & 4.89 & 9.55 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - Western Europe:\$30,000 to \$70,000 & -8.55 & -4.73 & -1.45 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - USA:\$70,000 or more & 2.9 & -0.64 & 4.47 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - Central Eastern Europe:\$70,000 or more & -12.02 & -8.89 & -7.78 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - Developping Asia:\$70,000 or more & 3.29 & 5.42 & 8.49 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - Western Europe:\$70,000 or more & -0.73 & 6 & 14.62 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - USA:Less than \$30,000 & 3.6 & -4.91 & 2.11 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - Central Eastern Europe:Less than \$30,000 & -10.38. & -8.16 & -5.78 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - Developping Asia:Less than \$30,000 & 11.48 & 0.63 & 7.2 \\ 
+		Central Eastern Europe:\$30,000 to \$70,000 - Western Europe:Less than \$30,000 & -8.44 & -6.62 & -2.1 \\ 
+		Developping Asia:\$30,000 to \$70,000 - Western Europe:\$30,000 to \$70,000 & -13.7* & -9.62. & -11. \\ 
+		Developping Asia:\$30,000 to \$70,000 - USA:\$70,000 or more & -2.25 & -5.53 & -5.07 \\ 
+		Developping Asia:\$30,000 to \$70,000 - Central Eastern Europe:\$70,000 or more & -17.17 & -13.79 & -17.33. \\ 
+		Developping Asia:\$30,000 to \$70,000 - Developping Asia:\$70,000 or more & -1.86 & 0.53 & -1.05 \\ 
+		Developping Asia:\$30,000 to \$70,000 - Western Europe:\$70,000 or more & -5.88 & 1.1 & 5.08 \\ 
+		Developping Asia:\$30,000 to \$70,000 - USA:Less than \$30,000 & -1.55 & -9.8* & -7.43 \\ 
+		Developping Asia:\$30,000 to \$70,000 - Central Eastern Europe:Less than \$30,000 & -15.53* & -13.05* & -15.33** \\ 
+		Developping Asia:\$30,000 to \$70,000 - Developping Asia:Less than \$30,000 & 6.33 & -4.27 & -2.35 \\ 
+		Developping Asia:\$30,000 to \$70,000 - Western Europe:Less than \$30,000 & -13.59* & -11.52* & -11.65* \\ 
+		Western Europe:\$30,000 to \$70,000 - USA:\$70,000 or more & 11.46** & 4.09 & 5.93 \\ 
+		Western Europe:\$30,000 to \$70,000 - Central Eastern Europe:\$70,000 or more & -3.46 & -4.16 & -6.33 \\ 
+		Western Europe:\$30,000 to \$70,000 - Developping Asia:\$70,000 or more & 11.85. & 10.15. & 9.95 \\ 
+		Western Europe:\$30,000 to \$70,000 - Western Europe:\$70,000 or more & 7.83 & 10.72 & 16.08. \\ 
+		Western Europe:\$30,000 to \$70,000 - USA:Less than \$30,000 & 12.16** & -0.18 & 3.57 \\ 
+		Western Europe:\$30,000 to \$70,000 - Central Eastern Europe:Less than \$30,000 & -1.83 & -3.43 & -4.33 \\ 
+		Western Europe:\$30,000 to \$70,000 - Developping Asia:Less than \$30,000 & 20.03** & 5.35 & 8.66 \\ 
+		Western Europe:\$30,000 to \$70,000 - Western Europe:Less than \$30,000 & 0.12 & -1.89 & -0.64 \\ 
+		USA:\$70,000 or more - Central Eastern Europe:\$70,000 or more & -14.92 & -8.25 & -12.26 \\ 
+		USA:\$70,000 or more - Developping Asia:\$70,000 or more & 0.39 & 6.06 & 4.02 \\ 
+		USA:\$70,000 or more - Western Europe:\$70,000 or more & -3.63 & 6.64 & 10.15 \\ 
+		USA:\$70,000 or more - USA:Less than \$30,000 & 0.7 & -4.27 & -2.36 \\ 
+		USA:\$70,000 or more - Central Eastern Europe:Less than \$30,000 & -13.28*** & -7.52* & -10.26** \\ 
+		USA:\$70,000 or more - Developping Asia:Less than \$30,000 & 8.58 & 1.27 & 2.73 \\ 
+		USA:\$70,000 or more - Western Europe:Less than \$30,000 & -11.34** & -5.98. & -6.57* \\ 
+		Central Eastern Europe:\$70,000 or more - Developping Asia:\$70,000 or more & 15.31 & 14.32 & 16.28 \\ 
+		Central Eastern Europe:\$70,000 or more - Western Europe:\$70,000 or more & 11.29 & 14.89 & 22.41. \\ 
+		Central Eastern Europe:\$70,000 or more - USA:Less than \$30,000 & 15.62 & 3.98 & 9.9 \\ 
+		Central Eastern Europe:\$70,000 or more - Central Eastern Europe:Less than \$30,000 & 1.64 & 0.73 & 2 \\ 
+		Central Eastern Europe:\$70,000 or more - Developping Asia:Less than \$30,000 & 23.5* & 9.52 & 14.99 \\ 
+		Central Eastern Europe:\$70,000 or more - Western Europe:Less than \$30,000 & 3.58 & 2.27 & 5.69 \\ 
+		Developping Asia:\$70,000 or more - Western Europe:\$70,000 or more & -4.02 & 0.57 & 6.13 \\ 
+		Developping Asia:\$70,000 or more - USA:Less than \$30,000 & 0.31 & -10.33. & -6.38 \\ 
+		Developping Asia:\$70,000 or more - Central Eastern Europe:Less than \$30,000 & -13.67* & -13.58* & -14.28* \\ 
+		Developping Asia:\$70,000 or more - Developping Asia:Less than \$30,000 & 8.19 & -4.8 & -1.29 \\ 
+		Developping Asia:\$70,000 or more - Western Europe:Less than \$30,000 & -11.73. & -12.05* & -10.59. \\ 
+		Western Europe:\$70,000 or more - USA:Less than \$30,000 & 4.33 & -10.9 & -12.51 \\ 
+		Western Europe:\$70,000 or more - Central Eastern Europe:Less than \$30,000 & -9.65 & -14.16 & -20.41* \\ 
+		Western Europe:\$70,000 or more - Developping Asia:Less than \$30,000 & 12.21 & -5.37 & -7.42 \\ 
+		Western Europe:\$70,000 or more - Western Europe:Less than \$30,000 & -7.71 & -12.62 & -16.72. \\ 
+		USA:Less than \$30,000 - Central Eastern Europe:Less than \$30,000 & -13.99*** & -3.25 & -7.9* \\ 
+		USA:Less than \$30,000 - Developping Asia:Less than \$30,000 & 7.87 & 5.53 & 5.09 \\ 
+		USA:Less than \$30,000 - Western Europe:Less than \$30,000 & -12.04** & -1.71 & -4.21 \\ 
+		Central Eastern Europe:Less than \$30,000 - Developping Asia:Less than \$30,000 & 21.86** & 8.79 & 12.99* \\ 
+		Central Eastern Europe:Less than \$30,000 - Western Europe:Less than \$30,000 & 1.94 & 1.54 & 3.69 \\ 
+		Developping Asia:Less than \$30,000 - Western Europe:Less than \$30,000 & -19.92** & -7.25 & -9.3 \\ 
+		\hline
+	\end{tabular}}
+\end{table}
+
+\begin{table}
+	
+	\caption{Model 8, CovidSkepticism, race name and race respondant}
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{24.52}*** & \num{36.51}*** & \num{36.19}***\\
+		CovidSkepticism & \num{-0.13}* & \num{-0.19}** & \num{-0.21}***\\
+		V\_RacenamefBlack & \num{-2.06} & \num{-1.01} & \num{-1.67}*\\
+		V\_RacenamefChinese & \num{-1.74} & \num{-0.75} & \num{-1.15}\\
+		V\_RacenamefIndian & \num{-0.43} & \num{-0.79} & \num{-1.93}*\\
+		EXPGRP\_TEXTChinese & \num{9.88}*** & \num{5.04}* & \num{4.16}+\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern Europe & \num{3.92} & \num{-2.55} & \num{3.10}\\
+		CONTINENT\_BORN\_TEXT\_1Developping Asia & \num{-1.23} & \num{-7.44} & \num{-6.44}\\
+		CONTINENT\_BORN\_TEXT\_1Western Europe & \num{12.48}** & \num{2.18} & \num{4.56}\\
+		HH\_INCOME\_TEXT2\$70,000 or more & \num{1.02} & \num{-1.91} & \num{-1.37}\\
+		HH\_INCOME\_TEXT2Less than \$30,000 & \num{0.32} & \num{2.36} & \num{0.99}\\
+		V\_RacenamefBlackEXPGRP\_TEXTChinese & \num{-3.68} & \num{0.46} & \num{0.81}\\
+		V\_RacenamefChineseEXPGRP\_TEXTChinese & \num{-4.64}+ & \num{-0.98} & \num{0.51}\\
+		V\_RacenamefIndianEXPGRP\_TEXTChinese & \num{-2.04} & \num{0.59} & \num{0.96}\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT2\$70,000 or more & \num{11.00} & \num{10.80} & \num{9.15}\\
+		CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT2\$70,000 or more & \num{0.84} & \num{1.38} & \num{2.42}\\
+		CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXT2\$70,000 or more & \num{-8.85} & \num{-8.81} & \num{-14.71}\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT2Less than \$30,000 & \num{10.06} & \num{5.80} & \num{4.79}\\
+		CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT2Less than \$30,000 & \num{-6.65} & \num{1.91} & \num{1.35}\\
+		CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXT2Less than \$30,000 & \num{-0.43} & \num{-0.46} & \num{-0.35}\\
+		SD (Intercept ID) & \num{19.44} & \num{19.20} & \num{20.16}\\
+		SD (Observations) & \num{22.17} & \num{11.80} & \num{11.56}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.037} & \num{0.032} & \num{0.035}\\
+		R2 Cond. & \num{0.455} & \num{0.735} & \num{0.761}\\
+		AIC & \num{22441.8} & \num{20055.5} & \num{20034.5}\\
+		BIC & \num{22569.0} & \num{20182.7} & \num{20161.7}\\
+		ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+		RMSE & \num{19.92} & \num{10.34} & \num{10.12}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+\begin{table}
+	
+	\caption{Model 8, CovidSkepticism, race name and race respondant}
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{22.75}*** & \num{38.29}*** & \num{38.01}***\\
+		CovidSkepticism & \num{-0.14}* & \num{-0.18}** & \num{-0.20}**\\
+		V\_RacenamefBlack & \num{-2.06} & \num{-1.01} & \num{-1.67}*\\
+		V\_RacenamefChinese & \num{-1.74} & \num{-0.75} & \num{-1.15}\\
+		V\_RacenamefIndian & \num{-0.43} & \num{-0.79} & \num{-1.93}*\\
+		EXPGRP\_TEXTChinese & \num{9.57}** & \num{5.18}* & \num{4.35}+\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern Europe & \num{5.51} & \num{-9.12} & \num{-4.80}\\
+		CONTINENT\_BORN\_TEXT\_1Developping Asia & \num{1.65} & \num{-11.64}+ & \num{-11.44}+\\
+		CONTINENT\_BORN\_TEXT\_1Western Europe & \num{13.74}* & \num{1.62} & \num{4.47}\\
+		HH\_INCOME\_TEXT\$10,000 to \$30,000 & \num{2.22} & \num{0.91} & \num{0.34}\\
+		HH\_INCOME\_TEXT\$100,000 to \$200,000 & \num{1.72} & \num{-3.39} & \num{-3.77}\\
+		HH\_INCOME\_TEXT\$200,000 to \$500,000 & \num{4.15} & \num{-3.60} & \num{-1.91}\\
+		HH\_INCOME\_TEXT\$50,000 to \$70,000 & \num{3.70} & \num{-3.65} & \num{-3.78}\\
+		HH\_INCOME\_TEXT\$70,000 to \$100,000 & \num{3.89} & \num{-4.44} & \num{-3.59}\\
+		HH\_INCOME\_TEXTLess than \$10,000 & \num{2.59} & \num{-1.31} & \num{-5.59}\\
+		V\_RacenamefBlackEXPGRP\_TEXTChinese & \num{-3.68} & \num{0.46} & \num{0.81}\\
+		V\_RacenamefChineseEXPGRP\_TEXTChinese & \num{-4.64}+ & \num{-0.98} & \num{0.51}\\
+		V\_RacenamefIndianEXPGRP\_TEXTChinese & \num{-2.04} & \num{0.59} & \num{0.96}\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT\$10,000 to \$30,000 & \num{9.05} & \num{10.33} & \num{9.62}\\
+		CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT\$10,000 to \$30,000 & \num{-10.08} & \num{5.13} & \num{6.00}\\
+		CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXT\$10,000 to \$30,000 & \num{-3.07} & \num{0.08} & \num{-1.31}\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT\$100,000 to \$200,000 & \num{17.67} & \num{26.17}+ & \num{33.16}*\\
+		CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT\$100,000 to \$200,000 & \num{-5.30} & \num{-1.95} & \num{1.38}\\
+		CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXT\$100,000 to \$200,000 & \num{-5.68} & \num{-8.08} & \num{-16.54}\\
+		CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT\$200,000 to \$500,000 & \num{6.34} & \num{-6.37} & \num{-4.71}\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT\$50,000 to \$70,000 & \num{-2.13} & \num{25.61}* & \num{31.80}*\\
+		CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT\$50,000 to \$70,000 & \num{-5.82} & \num{10.17} & \num{12.38}\\
+		CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXT\$50,000 to \$70,000 & \num{-1.43} & \num{-1.14} & \num{-2.83}\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXT\$70,000 to \$100,000 & \num{5.04} & \num{13.26} & \num{9.33}\\
+		CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXT\$70,000 to \$100,000 & \num{-1.28} & \num{13.27} & \num{14.00}\\
+		CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXT\$70,000 to \$100,000 & \num{-14.40} & \num{-8.17} & \num{-11.92}\\
+		CONTINENT\_BORN\_TEXT\_1Central Eastern EuropeHH\_INCOME\_TEXTLess than \$10,000 & \num{7.31} & \num{16.41}+ & \num{19.85}*\\
+		CONTINENT\_BORN\_TEXT\_1Developping AsiaHH\_INCOME\_TEXTLess than \$10,000 & \num{-5.78} & \num{9.60} & \num{5.55}\\
+		CONTINENT\_BORN\_TEXT\_1Western EuropeHH\_INCOME\_TEXTLess than \$10,000 & \num{2.68} & \num{0.24} & \num{3.37}\\
+		SD (Intercept ID) & \num{19.68} & \num{19.27} & \num{20.16}\\
+		SD (Observations) & \num{22.17} & \num{11.80} & \num{11.56}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.039} & \num{0.045} & \num{0.053}\\
+		R2 Cond. & \num{0.463} & \num{0.740} & \num{0.766}\\
+		AIC & \num{22379.5} & \num{19989.6} & \num{19963.3}\\
+		BIC & \num{22587.6} & \num{20197.7} & \num{20171.4}\\
+		ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+		RMSE & \num{19.89} & \num{10.34} & \num{10.12}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+\part{Scenario and demography}
+
+\chapter{Model 4 - Race Name}
+
+\begin{table}
+	
+	\caption{Model 9, Race Name and Respondant, Product and Update presentation}
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{22.49}*** & \num{31.84}*** & \num{31.79}***\\
+		EXPGRP\_TEXTChinese & \num{3.22} & \num{1.98} & \num{1.51}\\
+		V\_RacenamefBlack & \num{-0.79} & \num{-0.62} & \num{-0.95}+\\
+		V\_RacenamefChinese & \num{-2.12}* & \num{-1.03}+ & \num{-1.10}*\\
+		V\_RacenamefIndian & \num{0.08} & \num{-0.55} & \num{-1.17}*\\
+		V\_Productbabyformula & \num{-6.03}*** & \num{-0.93} & \num{-0.42}\\
+		V\_Productcigarettes & \num{11.77}*** & \num{6.50}*** & \num{5.31}***\\
+		V\_Producttoiletpaper & \num{11.74}*** & \num{0.80} & \num{1.30}*\\
+		V\_presentation3Defensive & \num{12.72}*** & \num{0.38} & \num{0.77}\\
+		V\_presentation3Prosocial & \num{-12.19}*** & \num{-1.71}* & \num{-1.66}*\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlack & \num{-1.89} & \num{0.85} & \num{0.53}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChinese & \num{-1.73} & \num{0.77} & \num{0.69}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndian & \num{-1.87} & \num{0.87} & \num{0.87}\\
+		V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.91}* & \num{-0.98} & \num{-1.52}\\
+		V\_ProductcigarettesV\_presentation3Defensive & \num{-12.83}*** & \num{-2.64}* & \num{-3.13}**\\
+		V\_ProducttoiletpaperV\_presentation3Defensive & \num{-9.87}*** & \num{-2.10}+ & \num{-2.20}*\\
+		V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.35}** & \num{-0.05} & \num{-0.62}\\
+		V\_ProductcigarettesV\_presentation3Prosocial & \num{6.09}** & \num{-2.00}+ & \num{-0.08}\\
+		V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-12.11}*** & \num{3.02}** & \num{2.29}*\\
+		SD (Intercept ID) & \num{19.47} & \num{19.93} & \num{20.68}\\
+		SD (Observations) & \num{19.78} & \num{10.55} & \num{10.81}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.112} & \num{0.017} & \num{0.011}\\
+		R2 Cond. & \num{0.549} & \num{0.785} & \num{0.788}\\
+		AIC & \num{43477.2} & \num{38204.9} & \num{38449.4}\\
+		BIC & \num{43613.2} & \num{38340.9} & \num{38585.3}\\
+		ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{18.61} & \num{9.87} & \num{10.11}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+\begin{table}
+	
+	\caption{Model 9, Race Name and Respondant, Product and Update presentation}
+	\centering
+		\resizebox{10cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{20.57}*** & \num{30.95}*** & \num{32.11}***\\
+		EXPGRP\_TEXTChinese & \num{3.46} & \num{1.75} & \num{-0.21}\\
+		V\_RacenamefBlack & \num{0.07} & \num{0.66} & \num{-0.89}\\
+		V\_RacenamefChinese & \num{2.84} & \num{0.68} & \num{-2.32}\\
+		V\_RacenamefIndian & \num{5.16}+ & \num{1.33} & \num{-1.26}\\
+		V\_Productbabyformula & \num{-5.12}+ & \num{-1.19} & \num{-0.44}\\
+		V\_Productcigarettes & \num{16.65}*** & \num{10.02}*** & \num{7.08}***\\
+		V\_Producttoiletpaper & \num{14.90}*** & \num{1.94} & \num{0.47}\\
+		V\_presentation3Defensive & \num{15.12}*** & \num{2.11} & \num{0.72}\\
+		V\_presentation3Prosocial & \num{-12.66}*** & \num{-1.10} & \num{-1.22}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlack & \num{-6.72} & \num{-2.92} & \num{0.71}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChinese & \num{-2.71} & \num{0.07} & \num{4.40}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndian & \num{-6.61} & \num{2.01} & \num{3.15}\\
+		EXPGRP\_TEXTChineseV\_Productbabyformula & \num{0.81} & \num{1.67} & \num{0.40}\\
+		EXPGRP\_TEXTChineseV\_Productcigarettes & \num{2.10} & \num{-0.19} & \num{0.99}\\
+		EXPGRP\_TEXTChineseV\_Producttoiletpaper & \num{0.28} & \num{1.07} & \num{3.38}\\
+		V\_RacenamefBlackV\_Productbabyformula & \num{-1.98} & \num{0.64} & \num{0.68}\\
+		V\_RacenamefChineseV\_Productbabyformula & \num{-2.36} & \num{1.30} & \num{2.52}\\
+		V\_RacenamefIndianV\_Productbabyformula & \num{-1.91} & \num{-0.28} & \num{-0.85}\\
+		V\_RacenamefBlackV\_Productcigarettes & \num{-4.81} & \num{-5.90}* & \num{-3.68}\\
+		V\_RacenamefChineseV\_Productcigarettes & \num{-10.92}* & \num{-6.67}** & \num{-1.77}\\
+		V\_RacenamefIndianV\_Productcigarettes & \num{-12.59}** & \num{-6.32}** & \num{-3.33}\\
+		V\_RacenamefBlackV\_Producttoiletpaper & \num{-1.47} & \num{-1.95} & \num{-0.52}\\
+		V\_RacenamefChineseV\_Producttoiletpaper & \num{-7.36}+ & \num{-1.51} & \num{2.69}\\
+		V\_RacenamefIndianV\_Producttoiletpaper & \num{-8.03}+ & \num{-2.24} & \num{1.31}\\
+		EXPGRP\_TEXTChineseV\_presentation3Defensive & \num{-5.49} & \num{-3.37} & \num{2.00}\\
+		EXPGRP\_TEXTChineseV\_presentation3Prosocial & \num{-1.18} & \num{-0.60} & \num{0.16}\\
+		V\_RacenamefBlackV\_presentation3Defensive & \num{-0.81} & \num{-0.72} & \num{1.30}\\
+		V\_RacenamefChineseV\_presentation3Defensive & \num{-8.37} & \num{-3.33} & \num{-1.43}\\
+		V\_RacenamefIndianV\_presentation3Defensive & \num{-5.65} & \num{-2.66} & \num{-1.28}\\
+		V\_RacenamefBlackV\_presentation3Prosocial & \num{3.95} & \num{-1.81} & \num{-0.54}\\
+		V\_RacenamefChineseV\_presentation3Prosocial & \num{0.10} & \num{-1.00} & \num{0.57}\\
+		V\_RacenamefIndianV\_presentation3Prosocial & \num{-1.04} & \num{0.67} & \num{0.38}\\
+		V\_ProductbabyformulaV\_presentation3Defensive & \num{-7.83} & \num{-2.49} & \num{-2.69}\\
+		V\_ProductcigarettesV\_presentation3Defensive & \num{-15.72}** & \num{-5.33}+ & \num{-4.89}+\\
+		V\_ProducttoiletpaperV\_presentation3Defensive & \num{-16.85}*** & \num{-5.17}+ & \num{-3.52}\\
+		V\_ProductbabyformulaV\_presentation3Prosocial & \num{6.67} & \num{-0.40} & \num{-2.01}\\
+		V\_ProductcigarettesV\_presentation3Prosocial & \num{6.94} & \num{-4.84}+ & \num{-4.21}\\
+		V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-12.64}** & \num{1.60} & \num{1.87}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_Productbabyformula & \num{6.59} & \num{0.23} & \num{-1.57}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_Productbabyformula & \num{-1.62} & \num{-4.66} & \num{-5.41}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_Productbabyformula & \num{-0.71} & \num{-3.33} & \num{-0.79}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_Productcigarettes & \num{5.38} & \num{7.65}+ & \num{2.16}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_Productcigarettes & \num{0.05} & \num{7.94}+ & \num{1.49}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_Productcigarettes & \num{12.77}+ & \num{1.56} & \num{-1.06}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_Producttoiletpaper & \num{2.47} & \num{6.51} & \num{0.84}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_Producttoiletpaper & \num{1.45} & \num{-3.46} & \num{-8.04}+\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_Producttoiletpaper & \num{7.25} & \num{-3.45} & \num{-6.38}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_presentation3Defensive & \num{13.41} & \num{5.54} & \num{-1.70}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_presentation3Defensive & \num{11.43} & \num{2.08} & \num{-2.89}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_presentation3Defensive & \num{10.95} & \num{4.22} & \num{0.40}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_presentation3Prosocial & \num{2.88} & \num{5.34} & \num{1.13}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_presentation3Prosocial & \num{0.89} & \num{0.88} & \num{-2.72}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_presentation3Prosocial & \num{-0.57} & \num{-5.14} & \num{-5.48}\\
+		EXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Defensive & \num{-0.94} & \num{2.25} & \num{-3.32}\\
+		EXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Defensive & \num{7.51} & \num{6.14} & \num{3.35}\\
+		EXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Defensive & \num{10.73} & \num{3.04} & \num{-2.55}\\
+		EXPGRP\_TEXTChineseV\_ProductbabyformulaV\_presentation3Prosocial & \num{-1.73} & \num{-1.17} & \num{0.92}\\
+		EXPGRP\_TEXTChineseV\_ProductcigarettesV\_presentation3Prosocial & \num{-8.84} & \num{0.46} & \num{3.54}\\
+		EXPGRP\_TEXTChineseV\_ProducttoiletpaperV\_presentation3Prosocial & \num{-0.05} & \num{-2.37} & \num{-3.30}\\
+		V\_RacenamefBlackV\_ProductbabyformulaV\_presentation3Defensive & \num{2.45} & \num{1.00} & \num{1.18}\\
+		V\_RacenamefChineseV\_ProductbabyformulaV\_presentation3Defensive & \num{9.33} & \num{1.90} & \num{2.24}\\
+		V\_RacenamefIndianV\_ProductbabyformulaV\_presentation3Defensive & \num{5.78} & \num{3.02} & \num{3.52}\\
+		V\_RacenamefBlackV\_ProductcigarettesV\_presentation3Defensive & \num{3.25} & \num{2.02} & \num{1.76}\\
+		V\_RacenamefChineseV\_ProductcigarettesV\_presentation3Defensive & \num{9.47} & \num{4.90} & \num{2.02}\\
+		V\_RacenamefIndianV\_ProductcigarettesV\_presentation3Defensive & \num{7.79} & \num{2.26} & \num{3.70}\\
+		V\_RacenamefBlackV\_ProducttoiletpaperV\_presentation3Defensive & \num{8.29} & \num{3.45} & \num{-0.91}\\
+		V\_RacenamefChineseV\_ProducttoiletpaperV\_presentation3Defensive & \num{12.60}+ & \num{4.30} & \num{4.79}\\
+		V\_RacenamefIndianV\_ProducttoiletpaperV\_presentation3Defensive & \num{12.08}+ & \num{4.39} & \num{3.33}\\
+		V\_RacenamefBlackV\_ProductbabyformulaV\_presentation3Prosocial & \num{-3.66} & \num{2.30} & \num{1.95}\\
+		V\_RacenamefChineseV\_ProductbabyformulaV\_presentation3Prosocial & \num{3.02} & \num{0.90} & \num{0.57}\\
+		V\_RacenamefIndianV\_ProductbabyformulaV\_presentation3Prosocial & \num{-0.17} & \num{-1.81} & \num{0.57}\\
+		V\_RacenamefBlackV\_ProductcigarettesV\_presentation3Prosocial & \num{0.77} & \num{5.83} & \num{4.74}\\
+		V\_RacenamefChineseV\_ProductcigarettesV\_presentation3Prosocial & \num{0.63} & \num{4.08} & \num{2.64}\\
+		V\_RacenamefIndianV\_ProductcigarettesV\_presentation3Prosocial & \num{4.02} & \num{3.69} & \num{4.68}\\
+		V\_RacenamefBlackV\_ProducttoiletpaperV\_presentation3Prosocial & \num{-5.45} & \num{2.23} & \num{0.03}\\
+		V\_RacenamefChineseV\_ProducttoiletpaperV\_presentation3Prosocial & \num{3.32} & \num{2.59} & \num{-2.56}\\
+		V\_RacenamefIndianV\_ProducttoiletpaperV\_presentation3Prosocial & \num{2.97} & \num{0.52} & \num{0.23}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProductbabyformulaV\_presentation3Defensive & \num{-3.96} & \num{-4.34} & \num{2.56}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProductbabyformulaV\_presentation3Defensive & \num{-7.00} & \num{1.29} & \num{4.02}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProductbabyformulaV\_presentation3Defensive & \num{-3.02} & \num{-5.49} & \num{0.83}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProductcigarettesV\_presentation3Defensive & \num{-21.44}+ & \num{-8.39} & \num{-6.49}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProductcigarettesV\_presentation3Defensive & \num{-15.55} & \num{-3.95} & \num{-1.23}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProductcigarettesV\_presentation3Defensive & \num{-15.65} & \num{-5.43} & \num{-4.31}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProducttoiletpaperV\_presentation3Defensive & \num{-20.79}+ & \num{-9.96} & \num{1.31}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProducttoiletpaperV\_presentation3Defensive & \num{-16.30} & \num{2.71} & \num{2.95}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProducttoiletpaperV\_presentation3Defensive & \num{-16.78} & \num{-3.20} & \num{1.53}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProductbabyformulaV\_presentation3Prosocial & \num{-5.22} & \num{-6.40} & \num{-4.49}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProductbabyformulaV\_presentation3Prosocial & \num{-1.50} & \num{5.18} & \num{4.69}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProductbabyformulaV\_presentation3Prosocial & \num{0.39} & \num{7.64} & \num{4.37}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProductcigarettesV\_presentation3Prosocial & \num{0.21} & \num{-5.79} & \num{-1.80}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProductcigarettesV\_presentation3Prosocial & \num{7.76} & \num{-6.01} & \num{-5.40}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProductcigarettesV\_presentation3Prosocial & \num{0.32} & \num{2.59} & \num{4.32}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlackV\_ProducttoiletpaperV\_presentation3Prosocial & \num{7.24} & \num{-3.66} & \num{5.86}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChineseV\_ProducttoiletpaperV\_presentation3Prosocial & \num{-1.46} & \num{3.74} & \num{9.20}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndianV\_ProducttoiletpaperV\_presentation3Prosocial & \num{-3.63} & \num{10.76}+ & \num{10.44}\\
+		SD (Intercept ID) & \num{19.41} & \num{19.90} & \num{20.69}\\
+		SD (Observations) & \num{19.81} & \num{10.54} & \num{10.81}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.118} & \num{0.022} & \num{0.015}\\
+		R2 Cond. & \num{0.550} & \num{0.786} & \num{0.789}\\
+		AIC & \num{43204.9} & \num{38004.8} & \num{38261.5}\\
+		BIC & \num{43839.4} & \num{38639.3} & \num{38896.0}\\
+		ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{18.48} & \num{9.77} & \num{10.02}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+\begin{table}
+	
+	\caption{Model 9.2, Race Name and Respondant, Product and Update presentation}
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lccc}
+		\toprule
+		& MorallyWrong & CatchCovid & TransmitCovid\\
+		\midrule
+		(Intercept) & \num{27.90}*** & \num{28.89}*** & \num{28.69}***\\
+		EXPGRP\_TEXTChinese & \num{5.71} & \num{1.27} & \num{6.20}\\
+		V\_RacenamefBlack & \num{1.43} & \num{-1.15} & \num{-0.40}\\
+		V\_RacenamefChinese & \num{-1.95}* & \num{-0.97}+ & \num{-1.05}+\\
+		V\_RacenamefIndian & \num{-0.18} & \num{-0.34} & \num{0.95}\\
+		V\_Productbabyformula & \num{-6.02}*** & \num{-0.91} & \num{-0.41}\\
+		V\_Productcigarettes & \num{15.13}*** & \num{10.49}*** & \num{7.90}***\\
+		V\_Producttoiletpaper & \num{14.25}** & \num{4.67}+ & \num{4.77}+\\
+		V\_presentation3Defensive & \num{18.90}*** & \num{2.05} & \num{2.17}\\
+		V\_presentation3Prosocial & \num{-17.13}*** & \num{-3.38}* & \num{-1.81}\\
+		EXPGRP\_TEXTChineseV\_RacenamefBlack & \num{-8.71} & \num{-0.15} & \num{-4.39}\\
+		EXPGRP\_TEXTChineseV\_RacenamefChinese & \num{-1.73} & \num{0.84} & \num{0.76}\\
+		EXPGRP\_TEXTChineseV\_RacenamefIndian & \num{-5.69} & \num{4.01} & \num{0.06}\\
+		V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.90}* & \num{-0.95} & \num{-1.42}\\
+		V\_ProductcigarettesV\_presentation3Defensive & \num{-22.97}*** & \num{-4.38} & \num{-6.79}*\\
+		V\_ProducttoiletpaperV\_presentation3Defensive & \num{-16.49}** & \num{-6.87}* & \num{-6.08}+\\
+		V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.41}** & \num{-0.04} & \num{-0.64}\\
+		V\_ProductcigarettesV\_presentation3Prosocial & \num{6.20}** & \num{-1.96}+ & \num{-0.10}\\
+		V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-11.34}* & \num{7.77}** & \num{4.69}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBOtherV\_prdctCigOtherV\_presDOther & \num{1.25} & \num{5.34}* & \num{1.54}\\
+		EXPGRP\_TEXTChineseV\_rnmeBOtherV\_prdctCigOtherV\_presDOther & \num{-3.48} & \num{0.30} & \num{-3.42}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBBlackV\_prdctCigOtherV\_presDOther & \num{-3.00} & \num{6.10}* & \num{1.47}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBOtherV\_prdctCigcigarettesV\_presDOther & \num{-4.42} & \num{0.48} & \num{-1.64}\\
+		EXPGRP\_TEXTChineseV\_rnmeBOtherV\_prdctCigcigarettesV\_presDOther & \num{-4.16} & \num{-1.76} & \num{-4.13}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBBlackV\_prdctCigcigarettesV\_presDOther & \num{-4.94} & \num{0.05} & \num{-3.35}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBOtherV\_prdctCigOtherV\_presDDefensive & \num{-5.85} & \num{3.53} & \num{-0.54}\\
+		EXPGRP\_TEXTChineseV\_rnmeBOtherV\_prdctCigOtherV\_presDDefensive & \num{-10.97}+ & \num{-2.37} & \num{-5.07}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBBlackV\_prdctCigOtherV\_presDDefensive & \num{-7.87} & \num{5.24} & \num{1.17}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBOtherV\_presDOtherV\_prdctTptoiletpaper & \num{-5.26} & \num{-9.20}* & \num{-4.88}\\
+		EXPGRP\_TEXTChineseV\_rnmeBOtherV\_presDOtherV\_prdctTptoiletpaper & \num{-1.35} & \num{-5.47}* & \num{-4.28}+\\
+		EXPGRP\_TEXTWhiteV\_rnmeBBlackV\_presDOtherV\_prdctTptoiletpaper & \num{-3.01} & \num{-10.07}* & \num{-6.29}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBOtherV\_presDDefensiveV\_prdctTptoiletpaper & \num{0.89} & \num{-4.79} & \num{0.06}\\
+		EXPGRP\_TEXTChineseV\_rnmeBOtherV\_presDDefensiveV\_prdctTptoiletpaper & \num{7.46} & \num{1.31} & \num{0.48}\\
+		EXPGRP\_TEXTWhiteV\_rnmeBBlackV\_presDDefensiveV\_prdctTptoiletpaper & \num{5.68} & \num{-4.69} & \num{-4.49}\\
+		EXPGRP\_TEXTWhiteV\_prdctTpOtherV\_rnmeIOtherV\_presPOther & \num{-6.03} & \num{-2.10} & \num{1.94}\\
+		EXPGRP\_TEXTChineseV\_prdctTpOtherV\_rnmeIOtherV\_presPOther & \num{-4.91} & \num{3.03} & \num{1.20}\\
+		EXPGRP\_TEXTWhiteV\_prdctTptoiletpaperV\_rnmeIOtherV\_presPOther & \num{-4.10} & \num{3.13} & \num{3.07}\\
+		EXPGRP\_TEXTChineseV\_prdctTptoiletpaperV\_rnmeIOtherV\_presPOther & \num{-5.56} & \num{4.21} & \num{1.83}\\
+		EXPGRP\_TEXTWhiteV\_prdctTpOtherV\_rnmeIIndianV\_presPOther & \num{-5.38} & \num{-2.54} & \num{-0.73}\\
+		EXPGRP\_TEXTWhiteV\_prdctTptoiletpaperV\_rnmeIIndianV\_presPOther & \num{-4.42} & \num{2.85} & \num{1.64}\\
+		EXPGRP\_TEXTWhiteV\_prdctTpOtherV\_rnmeIOtherV\_presPProsocial & \num{0.30} & \num{-0.40} & \num{1.86}\\
+		EXPGRP\_TEXTChineseV\_prdctTpOtherV\_rnmeIOtherV\_presPProsocial & \num{-1.90} & \num{4.42} & \num{1.47}\\
+		SD (Intercept ID) & \num{19.49} & \num{19.93} & \num{20.69}\\
+		SD (Observations) & \num{19.77} & \num{10.53} & \num{10.79}\\
+		\midrule
+		Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+		R2 Marg. & \num{0.114} & \num{0.019} & \num{0.013}\\
+		R2 Cond. & \num{0.550} & \num{0.786} & \num{0.789}\\
+		AIC & \num{43406.5} & \num{38145.6} & \num{38398.3}\\
+		BIC & \num{43691.4} & \num{38430.5} & \num{38683.2}\\
+		ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+		RMSE & \num{18.56} & \num{9.82} & \num{10.07}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Wed Jul 13 11:46:53 2022
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Wed Jul 13 12:25:21 2022
+\begin{table}[ht]
+	\centering
+		\caption{Mean comparison of Model 3, for cigarettes and White and Chinese name}
+		\resizebox{15cm}{!}{
+	\begin{tabular}{lllll}
+		\hline
+		 &  & MorallyWrong & CatchCovid & TransmitCovid \\ 
+		\hline
+		\textbf{Name} &  &  &  &  \\ 
+		\hline
+		NmeWhite:cigarettes:NONE  &  NmeChinese:cigarettes:NONE & 9.41*** & 1.99 & 1.14 \\ 
+		NmeWhite:cigarettes:Defensive  &  NmeChinese:cigarettes:Defensive & 10.38** & 1.34 & 2.61 \\ 
+		NmeWhite:cigarettes:Prosocial  &  NmeChinese:cigarettes:Prosocial & 4.37 & 1.47 & 1.99 \\ 
+		\hline
+		\textbf{Respondant Race} &  &  &  &  \\ 
+		\hline
+		RspWhite:cigarettes:NONE  &  RspChinese:cigarettes:NONE & -6.1* & -5.64** & -3.5. \\ 
+		RspWhite:cigarettes:Defensive  &  RspChinese:cigarettes:Defensive & -3.9 & -6.93** & -4.8* \\ 
+		RspWhite:cigarettes:Prosocial  &  RspChinese:cigarettes:Prosocial & 1.04 & -3.46 & -4.71* \\ 
+		
+		 \hline
+		\textbf{Respondant Race} &  &  &  &  \\ 
+		\hline
+		 \multicolumn{2}{l}{\textbf{In Group: White White - Chinese Chinese}} &  &  &  \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & 5.18 & -3.58 & -2.59 \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & 6.19 & -6.06. & -4.41 \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & 5.83 & -1.38 & -1.38 \\ 
+		 \multicolumn{2}{l}{\textbf{Out Group: Chinese White - White Chinese}} &  &  &  \\ 
+		RspChinese:NmeWhite:cigarettes:NONE  &  RspWhite:NmeChinese:cigarettes:NONE & 13.64*** & 7.55** & 4.87. \\ 
+		RspChinese:NmeWhite:cigarettes:Defensive  &  RspWhite:NmeChinese:cigarettes:Defensive & 14.56** & 8.75** & 9.64** \\ 
+		RspChinese:NmeWhite:cigarettes:Prosocial  &  RspWhite:NmeChinese:cigarettes:Prosocial & 2.9 & 4.32 & 5.36. \\ 
+		
+		
+		
+	    \hline
+		 \multicolumn{2}{l}{\textbf{White vs. Chinese Judgment by group}} &  &  &  \\ 
+		\hline
+		\textbf{Chinese White - Chinese Chinese} &  &  &  &  \\
+		RspChinese:NmeWhite:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & 10.75* & -2.02 & -1.8 \\ 
+		RspChinese:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & 13.77* & -1.73 & 1.73 \\ 
+		RspChinese:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & 1.38 & 0.03 & 3.1 \\ 
+		\textbf{White White - White Chinese} &  &  &  &  \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspWhite:NmeChinese:cigarettes:NONE & 8.08** & 5.99*** & 4.08* \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspWhite:NmeChinese:cigarettes:Defensive & 6.98. & 4.41* & 3.5 \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspWhite:NmeChinese:cigarettes:Prosocial & 7.36. & 2.9 & 0.87 \\ 
+
+		
+
+		
+					    \hline
+		 \multicolumn{2}{l}{\textbf{Comparison of Encoder Judgment by group}}  &  &  &  \\ 
+		\hline
+		
+		\textbf{White Chinese - Chinese Chinese} &  &  &  &  \\ 
+		RspWhite:NmeChinese:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & -2.89 & -9.57*** & -6.68* \\ 
+		RspWhite:NmeChinese:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & -0.79 & -10.47** & -7.91* \\ 
+		RspWhite:NmeChinese:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & -1.53 & -4.29 & -2.25 \\ 
+		\textbf{White White - Chinese White} &  &  &  &  \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspChinese:NmeWhite:cigarettes:NONE & -5.56 & -1.56 & -0.79 \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeWhite:cigarettes:Defensive & -7.58 & -4.34 & -6.14. \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeWhite:cigarettes:Prosocial & 4.45 & -1.42 & -4.49 \\ 
+		
+	
+	
+			\hline
+\end{tabular}}
+\end{table}   
+
+
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Thu Jul 14 15:50:17 2022
+\begin{table}[ht]
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}{lllll}
+		\hline
+		comp1 & comp2 & MorallyWrong & CatchCovid & TransmitCovid \\ 
+		\hline
+		NmeWhite:cigarettes:Defensive  &  NmeChinese:cigarettes:Defensive & 10.38** & 1.34 & 2.61 \\ 
+		NmeWhite:cigarettes:Prosocial  &  NmeChinese:cigarettes:Prosocial & 4.37 & 1.47 & 1.99 \\ 
+		RspWhite:cigarettes:NONE  &  RspChinese:cigarettes:NONE & -6.1* & -5.64** & -3.5. \\ 
+		RspWhite:cigarettes:Defensive  &  RspChinese:cigarettes:Defensive & -3.9 & -6.93** & -4.8* \\ 
+		RspWhite:cigarettes:Prosocial  &  RspChinese:cigarettes:Prosocial & 1.04 & -3.46 & -4.71* \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & 5.18 & -3.58 & -2.59 \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & 6.19 & -6.06. & -4.41 \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & 5.83 & -1.38 & -1.38 \\ 
+		RspChinese:NmeWhite:cigarettes:NONE  &  RspWhite:NmeChinese:cigarettes:NONE & 13.64*** & 7.55** & 4.87. \\ 
+		RspChinese:NmeWhite:cigarettes:Defensive  &  RspWhite:NmeChinese:cigarettes:Defensive & 14.56** & 8.75** & 9.64** \\ 
+		RspChinese:NmeWhite:cigarettes:Prosocial  &  RspWhite:NmeChinese:cigarettes:Prosocial & 2.9 & 4.32 & 5.36. \\ 
+		RspChinese:NmeWhite:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & 10.75* & -2.02 & -1.8 \\ 
+		RspChinese:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & 13.77* & -1.73 & 1.73 \\ 
+		RspChinese:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & 1.38 & 0.03 & 3.1 \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspWhite:NmeChinese:cigarettes:NONE & 8.08** & 5.99*** & 4.08* \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspWhite:NmeChinese:cigarettes:Defensive & 6.98. & 4.41* & 3.5 \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspWhite:NmeChinese:cigarettes:Prosocial & 7.36. & 2.9 & 0.87 \\ 
+		RspWhite:NmeChinese:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & -2.89 & -9.57*** & -6.68* \\ 
+		RspWhite:NmeChinese:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & -0.79 & -10.47** & -7.91* \\ 
+		RspWhite:NmeChinese:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & -1.53 & -4.29 & -2.25 \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspChinese:NmeWhite:cigarettes:NONE & -5.56 & -1.56 & -0.79 \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeWhite:cigarettes:Defensive & -7.58 & -4.34 & -6.14. \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeWhite:cigarettes:Prosocial & 4.45 & -1.42 & -4.49 \\ 
+		NmeWhite:cigarettes:NONE  &  NmeChinese:cigarettes:NONE & 9.41*** & 1.99 & 1.14 \\ 
+		\hline
+	\end{tabular}}
+	\caption{Mean comparison of Model 9, for cigarettes and White and Chinese name} 
+\end{table}
+
+
+
+
+
+
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Thu Jul 14 15:56:46 2022
+\begin{table}[ht]
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}{lllll}
+		\hline
+		comp1 & comp2 & MorallyWrong & CatchCovid & TransmitCovid \\ 
+		\hline
+		NmeWhite:hardwaresupplies:Defensive  &  NmeChinese:hardwaresupplies:Defensive & 1.17 & 1.57 & 3 \\ 
+		NmeWhite:hardwaresupplies:Prosocial  &  NmeChinese:hardwaresupplies:Prosocial & -2.02 & -0.15 & 0.91 \\ 
+		RspWhite:hardwaresupplies:NONE  &  RspChinese:hardwaresupplies:NONE & 0.55 & -1.54 & -1.86 \\ 
+		RspWhite:hardwaresupplies:Defensive  &  RspChinese:hardwaresupplies:Defensive & -2.91 & -1.13 & -2.81 \\ 
+		RspWhite:hardwaresupplies:Prosocial  &  RspChinese:hardwaresupplies:Prosocial & 0.92 & -1.2 & -0.25 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:NONE  &  RspChinese:NmeChinese:hardwaresupplies:NONE & -3.59 & -2.49 & -1.87 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:Defensive  &  RspChinese:NmeChinese:hardwaresupplies:Defensive & -1.16 & 2.12 & 0.45 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:Prosocial  &  RspChinese:NmeChinese:hardwaresupplies:Prosocial & -3.4 & -1.77 & 0.12 \\ 
+		RspChinese:NmeWhite:hardwaresupplies:NONE  &  RspWhite:NmeChinese:hardwaresupplies:NONE & 0.62 & 1.07 & 2.11 \\ 
+		RspChinese:NmeWhite:hardwaresupplies:Defensive  &  RspWhite:NmeChinese:hardwaresupplies:Defensive & 3.5 & 1.03 & 5.54 \\ 
+		RspChinese:NmeWhite:hardwaresupplies:Prosocial  &  RspWhite:NmeChinese:hardwaresupplies:Prosocial & -0.65 & 1.46 & 1.7 \\ 
+		RspChinese:NmeWhite:hardwaresupplies:NONE  &  RspChinese:NmeChinese:hardwaresupplies:NONE & -0.13 & -0.75 & -2.08 \\ 
+		RspChinese:NmeWhite:hardwaresupplies:Defensive  &  RspChinese:NmeChinese:hardwaresupplies:Defensive & -3.19 & 0.5 & 2.25 \\ 
+		RspChinese:NmeWhite:hardwaresupplies:Prosocial  &  RspChinese:NmeChinese:hardwaresupplies:Prosocial & -1.11 & -0.63 & 0.07 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:NONE  &  RspWhite:NmeChinese:hardwaresupplies:NONE & -2.84 & -0.68 & 2.32 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:Defensive  &  RspWhite:NmeChinese:hardwaresupplies:Defensive & 5.53 & 2.65 & 3.75 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:Prosocial  &  RspWhite:NmeChinese:hardwaresupplies:Prosocial & -2.94 & 0.32 & 1.75 \\ 
+		RspWhite:NmeChinese:hardwaresupplies:NONE  &  RspChinese:NmeChinese:hardwaresupplies:NONE & -0.75 & -1.82 & -4.19 \\ 
+		RspWhite:NmeChinese:hardwaresupplies:Defensive  &  RspChinese:NmeChinese:hardwaresupplies:Defensive & -6.69 & -0.53 & -3.3 \\ 
+		RspWhite:NmeChinese:hardwaresupplies:Prosocial  &  RspChinese:NmeChinese:hardwaresupplies:Prosocial & -0.46 & -2.09 & -1.63 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:NONE  &  RspChinese:NmeWhite:hardwaresupplies:NONE & -3.46 & -1.75 & 0.21 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:Defensive  &  RspChinese:NmeWhite:hardwaresupplies:Defensive & 2.03 & 1.62 & -1.79 \\ 
+		RspWhite:NmeWhite:hardwaresupplies:Prosocial  &  RspChinese:NmeWhite:hardwaresupplies:Prosocial & -2.29 & -1.14 & 0.05 \\ 
+		NmeWhite:hardwaresupplies:NONE  &  NmeChinese:hardwaresupplies:NONE & -1.48 & -0.71 & 0.12 \\ 
+		\hline
+	\end{tabular}}
+	\caption{Mean comparison of Model 9, for  hardwaresupplies  and White and Chinese name} 
+\end{table}
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Thu Jul 14 15:56:46 2022
+\begin{table}[ht]
+	\centering
+	\resizebox{15cm}{!}{
+	\begin{tabular}{lllll}
+		\hline
+		comp1 & comp2 & MorallyWrong & CatchCovid & TransmitCovid \\ 
+		\hline
+		NmeWhite:babyformula:Defensive  &  NmeChinese:babyformula:Defensive & -1.48 & 0.06 & -1.07 \\ 
+		NmeWhite:babyformula:Prosocial  &  NmeChinese:babyformula:Prosocial & -1.12 & -2.61 & -1.82 \\ 
+		RspWhite:babyformula:NONE  &  RspChinese:babyformula:NONE & -1.34 & -1.27 & -0.32 \\ 
+		RspWhite:babyformula:Defensive  &  RspChinese:babyformula:Defensive & -0.36 & -0.98 & 0.19 \\ 
+		RspWhite:babyformula:Prosocial  &  RspChinese:babyformula:Prosocial & 2.35 & -1.37 & -0.77 \\ 
+		RspWhite:NmeWhite:babyformula:NONE  &  RspChinese:NmeChinese:babyformula:NONE & -0.42 & -0.81 & 0.62 \\ 
+		RspWhite:NmeWhite:babyformula:Defensive  &  RspChinese:NmeChinese:babyformula:Defensive & 0.62 & -1.63 & 0 \\ 
+		RspWhite:NmeWhite:babyformula:Prosocial  &  RspChinese:NmeChinese:babyformula:Prosocial & -0.02 & -4.99 & -3.57 \\ 
+		RspChinese:NmeWhite:babyformula:NONE  &  RspWhite:NmeChinese:babyformula:NONE & 3.8 & 1.44 & -0.01 \\ 
+		RspChinese:NmeWhite:babyformula:Defensive  &  RspWhite:NmeChinese:babyformula:Defensive & -3.58 & 1.75 & -2.13 \\ 
+		RspChinese:NmeWhite:babyformula:Prosocial  &  RspWhite:NmeChinese:babyformula:Prosocial & -2.22 & -0.23 & -0.06 \\ 
+		RspChinese:NmeWhite:babyformula:NONE  &  RspChinese:NmeChinese:babyformula:NONE & 3.85 & 2.61 & 0.82 \\ 
+		RspChinese:NmeWhite:babyformula:Defensive  &  RspChinese:NmeChinese:babyformula:Defensive & -1.53 & 0.67 & -1.13 \\ 
+		RspChinese:NmeWhite:babyformula:Prosocial  &  RspChinese:NmeChinese:babyformula:Prosocial & 1.35 & -3.34 & -2.3 \\ 
+		RspWhite:NmeWhite:babyformula:NONE  &  RspWhite:NmeChinese:babyformula:NONE & -0.48 & -1.98 & -0.2 \\ 
+		RspWhite:NmeWhite:babyformula:Defensive  &  RspWhite:NmeChinese:babyformula:Defensive & -1.43 & -0.55 & -1.01 \\ 
+		RspWhite:NmeWhite:babyformula:Prosocial  &  RspWhite:NmeChinese:babyformula:Prosocial & -3.59 & -1.88 & -1.34 \\ 
+		RspWhite:NmeChinese:babyformula:NONE  &  RspChinese:NmeChinese:babyformula:NONE & 0.05 & 1.17 & 0.82 \\ 
+		RspWhite:NmeChinese:babyformula:Defensive  &  RspChinese:NmeChinese:babyformula:Defensive & 2.05 & -1.08 & 1.01 \\ 
+		RspWhite:NmeChinese:babyformula:Prosocial  &  RspChinese:NmeChinese:babyformula:Prosocial & 3.57 & -3.11 & -2.23 \\ 
+		RspWhite:NmeWhite:babyformula:NONE  &  RspChinese:NmeWhite:babyformula:NONE & -4.28 & -3.42 & -0.2 \\ 
+		RspWhite:NmeWhite:babyformula:Defensive  &  RspChinese:NmeWhite:babyformula:Defensive & 2.15 & -2.31 & 1.12 \\ 
+		RspWhite:NmeWhite:babyformula:Prosocial  &  RspChinese:NmeWhite:babyformula:Prosocial & -1.37 & -1.65 & -1.27 \\ 
+		NmeWhite:babyformula:NONE  &  NmeChinese:babyformula:NONE & 1.69 & 0.32 & 0.31 \\ 
+		\hline
+	\end{tabular}}
+	\caption{Mean comparison of Model 9, for  babyformula  and White and Chinese name} 
+\end{table}
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Thu Jul 14 15:56:46 2022
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{lllll}
+		\hline
+		comp1 & comp2 & MorallyWrong & CatchCovid & TransmitCovid \\ 
+		\hline
+		NmeWhite:cigarettes:Defensive  &  NmeChinese:cigarettes:Defensive & 10.38** & 1.34 & 2.61 \\ 
+		NmeWhite:cigarettes:Prosocial  &  NmeChinese:cigarettes:Prosocial & 4.37 & 1.47 & 1.99 \\ 
+		RspWhite:cigarettes:NONE  &  RspChinese:cigarettes:NONE & -6.1* & -5.64** & -3.5. \\ 
+		RspWhite:cigarettes:Defensive  &  RspChinese:cigarettes:Defensive & -3.9 & -6.93** & -4.8* \\ 
+		RspWhite:cigarettes:Prosocial  &  RspChinese:cigarettes:Prosocial & 1.04 & -3.46 & -4.71* \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & 5.18 & -3.58 & -2.59 \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & 6.19 & -6.06. & -4.41 \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & 5.83 & -1.38 & -1.38 \\ 
+		RspChinese:NmeWhite:cigarettes:NONE  &  RspWhite:NmeChinese:cigarettes:NONE & 13.64*** & 7.55** & 4.87. \\ 
+		RspChinese:NmeWhite:cigarettes:Defensive  &  RspWhite:NmeChinese:cigarettes:Defensive & 14.56** & 8.75** & 9.64** \\ 
+		RspChinese:NmeWhite:cigarettes:Prosocial  &  RspWhite:NmeChinese:cigarettes:Prosocial & 2.9 & 4.32 & 5.36. \\ 
+		RspChinese:NmeWhite:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & 10.75* & -2.02 & -1.8 \\ 
+		RspChinese:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & 13.77* & -1.73 & 1.73 \\ 
+		RspChinese:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & 1.38 & 0.03 & 3.1 \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspWhite:NmeChinese:cigarettes:NONE & 8.08** & 5.99*** & 4.08* \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspWhite:NmeChinese:cigarettes:Defensive & 6.98. & 4.41* & 3.5 \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspWhite:NmeChinese:cigarettes:Prosocial & 7.36. & 2.9 & 0.87 \\ 
+		RspWhite:NmeChinese:cigarettes:NONE  &  RspChinese:NmeChinese:cigarettes:NONE & -2.89 & -9.57*** & -6.68* \\ 
+		RspWhite:NmeChinese:cigarettes:Defensive  &  RspChinese:NmeChinese:cigarettes:Defensive & -0.79 & -10.47** & -7.91* \\ 
+		RspWhite:NmeChinese:cigarettes:Prosocial  &  RspChinese:NmeChinese:cigarettes:Prosocial & -1.53 & -4.29 & -2.25 \\ 
+		RspWhite:NmeWhite:cigarettes:NONE  &  RspChinese:NmeWhite:cigarettes:NONE & -5.56 & -1.56 & -0.79 \\ 
+		RspWhite:NmeWhite:cigarettes:Defensive  &  RspChinese:NmeWhite:cigarettes:Defensive & -7.58 & -4.34 & -6.14. \\ 
+		RspWhite:NmeWhite:cigarettes:Prosocial  &  RspChinese:NmeWhite:cigarettes:Prosocial & 4.45 & -1.42 & -4.49 \\ 
+		NmeWhite:cigarettes:NONE  &  NmeChinese:cigarettes:NONE & 9.41*** & 1.99 & 1.14 \\ 
+		\hline
+	\end{tabular}
+	\caption{Mean comparison of Model 9, for  cigarettes  and White and Chinese name} 
+\end{table}
+% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Thu Jul 14 15:56:46 2022
+\begin{table}[ht]
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}{lllll}
+		\hline
+		comp1 & comp2 & MorallyWrong & CatchCovid & TransmitCovid \\ 
+		\hline
+		NmeWhite:toiletpaper:Defensive  &  NmeChinese:toiletpaper:Defensive & 3.36 & -0.83 & -1.94 \\ 
+		NmeWhite:toiletpaper:Prosocial  &  NmeChinese:toiletpaper:Prosocial & 2.03 & -1.36 & 0.19 \\ 
+		RspWhite:toiletpaper:NONE  &  RspChinese:toiletpaper:NONE & -2.53 & -2.5 & -1.84 \\ 
+		RspWhite:toiletpaper:Defensive  &  RspChinese:toiletpaper:Defensive & -3.25 & -2.52 & -1.69 \\ 
+		RspWhite:toiletpaper:Prosocial  &  RspChinese:toiletpaper:Prosocial & -2.64 & -2.5 & -3.31 \\ 
+		RspWhite:NmeWhite:toiletpaper:NONE  &  RspChinese:NmeChinese:toiletpaper:NONE & 2.05 & 1.42 & 0.1 \\ 
+		RspWhite:NmeWhite:toiletpaper:Defensive  &  RspChinese:NmeChinese:toiletpaper:Defensive & -2.56 & -4.02 & -2.77 \\ 
+		RspWhite:NmeWhite:toiletpaper:Prosocial  &  RspChinese:NmeChinese:toiletpaper:Prosocial & 0.43 & -1.81 & -1.26 \\ 
+		RspChinese:NmeWhite:toiletpaper:NONE  &  RspWhite:NmeChinese:toiletpaper:NONE & 8.27* & 3.65 & 2.79 \\ 
+		RspChinese:NmeWhite:toiletpaper:Defensive  &  RspWhite:NmeChinese:toiletpaper:Defensive & 9.28. & 2.35 & -1.11 \\ 
+		RspChinese:NmeWhite:toiletpaper:Prosocial  &  RspWhite:NmeChinese:toiletpaper:Prosocial & 3.63 & -0.91 & 1.64 \\ 
+		RspChinese:NmeWhite:toiletpaper:NONE  &  RspChinese:NmeChinese:toiletpaper:NONE & 5.79 & 4.23. & 3.27 \\ 
+		RspChinese:NmeWhite:toiletpaper:Defensive  &  RspChinese:NmeChinese:toiletpaper:Defensive & 6.43 & -1.53 & -0.15 \\ 
+		RspChinese:NmeWhite:toiletpaper:Prosocial  &  RspChinese:NmeChinese:toiletpaper:Prosocial & 2.95 & -1.97 & -1.23 \\ 
+		RspWhite:NmeWhite:toiletpaper:NONE  &  RspWhite:NmeChinese:toiletpaper:NONE & 4.52 & 0.84 & -0.37 \\ 
+		RspWhite:NmeWhite:toiletpaper:Defensive  &  RspWhite:NmeChinese:toiletpaper:Defensive & 0.3 & -0.14 & -3.73. \\ 
+		RspWhite:NmeWhite:toiletpaper:Prosocial  &  RspWhite:NmeChinese:toiletpaper:Prosocial & 1.11 & -0.75 & 1.61 \\ 
+		RspWhite:NmeChinese:toiletpaper:NONE  &  RspChinese:NmeChinese:toiletpaper:NONE & -2.48 & 0.58 & 0.47 \\ 
+		RspWhite:NmeChinese:toiletpaper:Defensive  &  RspChinese:NmeChinese:toiletpaper:Defensive & -2.86 & -3.88 & 0.96 \\ 
+		RspWhite:NmeChinese:toiletpaper:Prosocial  &  RspChinese:NmeChinese:toiletpaper:Prosocial & -0.68 & -1.06 & -2.87 \\ 
+		RspWhite:NmeWhite:toiletpaper:NONE  &  RspChinese:NmeWhite:toiletpaper:NONE & -3.75 & -2.82 & -3.17 \\ 
+		RspWhite:NmeWhite:toiletpaper:Defensive  &  RspChinese:NmeWhite:toiletpaper:Defensive & -8.98. & -2.49 & -2.62 \\ 
+		RspWhite:NmeWhite:toiletpaper:Prosocial  &  RspChinese:NmeWhite:toiletpaper:Prosocial & -2.52 & 0.16 & -0.03 \\ 
+		NmeWhite:toiletpaper:NONE  &  NmeChinese:toiletpaper:NONE & 5.16* & 2.54. & 1.45 \\ 
+		\hline
+	\end{tabular}}
+	\caption{Mean comparison of Model 9, for  toiletpaper  and White and Chinese name} 
+\end{table}
+
+
+
+
+\part{CatchCovid and demography}
+
+\chapter{Model x, Catch Covid and CovidSkepticism}
+
+
+
+\begin{table}
+	
+	\caption{Model x, Catch Covid and CovidSkepticism}
+	\centering
+	\begin{tabular}[t]{lcccc}
+		\toprule
+		& CatchCov & CovSkep & CatchCov + CovSkep & CatchCov * CovSkep\\
+		\midrule
+		(Intercept) & \num{8.00}*** & \num{28.96}*** & \num{8.00}*** & \num{26.75}***\\
+		CatchCovid & \num{0.56}*** &  & \num{0.56}*** & \\
+		CovidSkepticism &  & \num{-0.11}+ &  & \\
+		SD (Intercept ID) & \num{16.88} & \num{19.89} & \num{16.88} & \num{19.93}\\
+		SD (Observations) & \num{21.20} & \num{22.21} & \num{21.20} & \num{22.21}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.178} & \num{0.003} & \num{0.178} & \num{0.000}\\
+		R2 Cond. & \num{0.497} & \num{0.446} & \num{0.497} & \num{0.446}\\
+		AIC & \num{22199.9} & \num{22526.4} & \num{22199.9} & \num{22523.6}\\
+		BIC & \num{22223.0} & \num{22549.5} & \num{22223.0} & \num{22540.9}\\
+		ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+		RMSE & \num{19.20} & \num{19.98} & \num{19.20} & \num{19.98}\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	
+	\caption{Model x, Catch Covid and CovidSkepticism}
+	\centering
+	\begin{tabular}[t]{lcccc}
+		\toprule
+		& CatchCov & CovSkep & CatchCov + CovSkep & CatchCov * CovSkep\\
+		\midrule
+		(Intercept) & \num{8.00}*** & \num{18.07}*** & \num{7.22} & \num{11.07}\\
+		CatchCovid & \num{0.56}*** &  & \num{0.56}*** & \num{0.42}*\\
+		CovidBelieved &  & \num{0.11}+ & \num{0.01} & \num{-0.04}\\
+		CovidBelievedCatchCovid &  &  &  & \num{0.00}\\
+		SD (Intercept ID) & \num{16.88} & \num{19.89} & \num{16.90} & \num{16.93}\\
+		SD (Observations) & \num{21.20} & \num{22.21} & \num{21.20} & \num{21.19}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.178} & \num{0.003} & \num{0.178} & \num{0.178}\\
+		R2 Cond. & \num{0.497} & \num{0.446} & \num{0.497} & \num{0.498}\\
+		AIC & \num{22199.9} & \num{22526.4} & \num{22205.8} & \num{22217.7}\\
+		BIC & \num{22223.0} & \num{22549.5} & \num{22234.7} & \num{22252.4}\\
+		ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+		RMSE & \num{19.20} & \num{19.98} & \num{19.20} & \num{19.18}\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+\begin{table}
+	
+	\caption{Model x, Catch Covid and CovidSkepticism}
+	\centering
+		\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lccccc}
+		\toprule
+		& CatchCov & CovSkep & CatchCov + CovSkep & CatchCov * CovSkep & CatchCov:CovSkep\\
+		\midrule
+		(Intercept) & \num{8.00}*** & \num{18.07}*** & \num{7.22} & \num{11.07} & \num{9.12}***\\
+		CatchCovid & \num{0.56}*** &  & \num{0.56}*** & \num{0.42}* & \\
+		CovidBelieved &  & \num{0.11}+ & \num{0.01} & \num{-0.04} & \\
+		CovidBelievedCatchCovid &  &  &  & \num{0.00} & \num{0.01}***\\
+		SD (Intercept ID) & \num{16.88} & \num{19.89} & \num{16.90} & \num{16.93} & \num{17.25}\\
+		SD (Observations) & \num{21.20} & \num{22.21} & \num{21.20} & \num{21.19} & \num{21.18}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.178} & \num{0.003} & \num{0.178} & \num{0.178} & \num{0.173}\\
+		R2 Cond. & \num{0.497} & \num{0.446} & \num{0.497} & \num{0.498} & \num{0.503}\\
+		AIC & \num{22199.9} & \num{22526.4} & \num{22205.8} & \num{22217.7} & \num{22224.4}\\
+		BIC & \num{22223.0} & \num{22549.5} & \num{22234.7} & \num{22252.4} & \num{22247.5}\\
+		ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+		RMSE & \num{19.20} & \num{19.98} & \num{19.20} & \num{19.18} & \num{19.16}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+\begin{table}
+	
+	\caption{Model x, Catch Covid and CovidSkepticism}
+	\centering
+			\resizebox{15cm}{!}{
+	\begin{tabular}[t]{lcccccc}
+		\toprule
+		& CatchCov & CovSkep & CatchCov + CovSkep & CatchCov * CovSkep & CatchCov:CovSkep & scaleCatchCov*CovSkep\\
+		\midrule
+		(Intercept) & \num{8.00}*** & \num{18.07}*** & \num{7.22} & \num{11.07} & \num{9.12}*** & \num{26.69}***\\
+		CatchCovid & \num{0.56}*** &  & \num{0.56}*** & \num{0.42}* &  & \\
+		CovidBelieved &  & \num{0.11}+ & \num{0.01} & \num{-0.04} &  & \\
+		CovidBelievedCatchCovid &  &  &  & \num{0.00} & \num{0.01}*** & \\
+		scale(CovidBelieved) &  &  &  &  &  & \num{0.25}\\
+		scale(CatchCovid) &  &  &  &  &  & \num{12.59}***\\
+		scale(CovidBelieved)scale(CatchCovid) &  &  &  &  &  & \num{0.54}\\
+		SD (Intercept ID) & \num{16.88} & \num{19.89} & \num{16.90} & \num{16.93} & \num{17.25} & \num{16.93}\\
+		SD (Observations) & \num{21.20} & \num{22.21} & \num{21.20} & \num{21.19} & \num{21.18} & \num{21.19}\\
+		\midrule
+		Num.Obs. & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396}\\
+		R2 Marg. & \num{0.178} & \num{0.003} & \num{0.178} & \num{0.178} & \num{0.173} & \num{0.178}\\
+		R2 Cond. & \num{0.497} & \num{0.446} & \num{0.497} & \num{0.498} & \num{0.503} & \num{0.498}\\
+		AIC & \num{22199.9} & \num{22526.4} & \num{22205.8} & \num{22217.7} & \num{22224.4} & \num{22194.5}\\
+		BIC & \num{22223.0} & \num{22549.5} & \num{22234.7} & \num{22252.4} & \num{22247.5} & \num{22229.2}\\
+		ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4}\\
+		RMSE & \num{19.20} & \num{19.98} & \num{19.20} & \num{19.18} & \num{19.16} & \num{19.18}\\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+\begin{landscape}
+
+	
+	\begin{table}
+		\caption{Comparison Model Morally Wrong}
+		\centering
+					\resizebox{15cm}{!}{
+		\begin{tabular}[t]{lcccccccccccc}
+			\toprule
+			& Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 & Model 10 & Model 11 & Model 12\\
+			\midrule
+			(Intercept) & \num{22.41}*** & \num{26.75}*** & \num{25.39}*** & \num{24.41}*** & \num{23.12}*** & \num{26.75}*** & \num{22.41}*** & \num{22.12}*** & \num{17.29}*** & \num{17.36}*** & \num{8.00}*** & \num{4.86}+\\
+			V\_Productbabyformula & \num{-6.08}*** &  &  &  &  &  & \num{-6.08}*** & \num{-6.03}*** & \num{-6.04}*** & \num{-6.00}*** &  & \num{-5.57}***\\
+			V\_Productcigarettes & \num{11.72}*** &  &  &  &  &  & \num{11.72}*** & \num{11.78}*** & \num{11.78}*** & \num{11.84}*** &  & \num{8.69}***\\
+			V\_Producttoiletpaper & \num{11.73}*** &  &  &  &  &  & \num{11.73}*** & \num{11.75}*** & \num{11.77}*** & \num{11.79}*** &  & \num{11.38}***\\
+			V\_presentation3Defensive &  & \num{5.79}*** &  &  &  &  & \num{12.64}*** & \num{12.72}*** & \num{12.64}*** & \num{12.72}*** &  & \num{12.50}***\\
+			V\_presentation3Prosocial &  & \num{-12.30}*** &  &  &  &  & \num{-12.11}*** & \num{-12.20}*** & \num{-12.11}*** & \num{-12.19}*** &  & \num{-11.34}***\\
+			V\_RacenamefC &  &  & \num{0.01} &  &  &  &  & \num{-1.27} &  & \num{-1.29} &  & \num{-1.07}\\
+			V\_RacenamefI &  &  & \num{2.17}+ &  &  &  &  & \num{0.88} &  & \num{0.82} &  & \num{0.82}\\
+			V\_RacenamefW &  &  & \num{3.26}* &  &  &  &  & \num{1.41}+ &  & \num{1.33}+ &  & \num{1.21}\\
+			V\_Age &  &  &  & \num{0.06} &  &  &  &  & \num{0.13}* & \num{0.12}* &  & \num{0.05}\\
+			V\_Number &  &  &  &  & \num{1.45}*** &  &  &  &  &  &  & \\
+			V\_JudgeSelf &  &  &  &  &  & \num{2.96}*** &  &  &  &  &  & \\
+			V\_ProductbabyformulaV\_presentation3Defensive &  &  &  &  &  &  & \num{-4.96}* & \num{-4.92}* & \num{-4.96}* & \num{-4.91}* &  & \num{-4.44}*\\
+			V\_ProductcigarettesV\_presentation3Defensive &  &  &  &  &  &  & \num{-12.78}*** & \num{-12.84}*** & \num{-12.79}*** & \num{-12.85}*** &  & \num{-11.52}***\\
+			V\_ProducttoiletpaperV\_presentation3Defensive &  &  &  &  &  &  & \num{-9.78}*** & \num{-9.88}*** & \num{-9.77}*** & \num{-9.86}*** &  & \num{-8.78}***\\
+			V\_ProductbabyformulaV\_presentation3Prosocial &  &  &  &  &  &  & \num{5.41}** & \num{5.36}** & \num{5.40}** & \num{5.35}** &  & \num{5.37}**\\
+			V\_ProductcigarettesV\_presentation3Prosocial &  &  &  &  &  &  & \num{6.04}** & \num{6.10}** & \num{6.05}** & \num{6.11}** &  & \num{7.01}***\\
+			V\_ProducttoiletpaperV\_presentation3Prosocial &  &  &  &  &  &  & \num{-12.19}*** & \num{-12.10}*** & \num{-12.21}*** & \num{-12.12}*** &  & \num{-13.65}***\\
+			CatchCovid &  &  &  &  &  &  &  &  &  &  & \num{0.56}*** & \num{0.48}***\\
+			SD (Intercept ID) & \num{20.41} & \num{19.31} & \num{19.94} & \num{19.92} & \num{19.95} & \num{21.59} & \num{19.47} & \num{19.47} & \num{19.46} & \num{19.46} & \num{16.88} & \num{16.51}\\
+			SD (Observations) & \num{20.38} & \num{21.17} & \num{22.17} & \num{22.22} & \num{22.14} & \num{21.92} & \num{19.80} & \num{19.78} & \num{19.79} & \num{19.77} & \num{21.20} & \num{19.18}\\
+			\midrule
+			Num.Obs. & \num{2396} & \num{4791} & \num{2396} & \num{2396} & \num{2396} & \num{4792} & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{2396} & \num{4791}\\
+			R2 Marg. & \num{0.066} & \num{0.050} & \num{0.002} & \num{0.000} & \num{0.003} & \num{0.002} & \num{0.109} & \num{0.111} & \num{0.110} & \num{0.111} & \num{0.178} & \num{0.249}\\
+			R2 Cond. & \num{0.534} & \num{0.482} & \num{0.448} & \num{0.446} & \num{0.450} & \num{0.494} & \num{0.547} & \num{0.548} & \num{0.548} & \num{0.549} & \num{0.497} & \num{0.569}\\
+			AIC & \num{22211.3} & \num{44067.7} & \num{22513.7} & \num{22528.1} & \num{22512.7} & \num{44493.0} & \num{43493.2} & \num{43483.1} & \num{43494.5} & \num{43485.0} & \num{22199.9} & \num{43062.4}\\
+			BIC & \num{22246.0} & \num{44100.1} & \num{22548.3} & \num{22551.3} & \num{22535.9} & \num{44518.9} & \num{43583.8} & \num{43593.1} & \num{43591.6} & \num{43601.5} & \num{22223.0} & \num{43185.4}\\
+			ICC & \num{0.5} & \num{0.5} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.5} & \num{0.5} & \num{0.5} & \num{0.5} & \num{0.5} & \num{0.4} & \num{0.4}\\
+			RMSE & \num{18.21} & \num{19.98} & \num{19.93} & \num{19.98} & \num{19.91} & \num{20.67} & \num{18.65} & \num{18.62} & \num{18.64} & \num{18.61} & \num{19.20} & \num{18.09}\\
+			\bottomrule
+	\end{tabular}}
+	\end{table}
+	
+\end{landscape}
+\end{document}
