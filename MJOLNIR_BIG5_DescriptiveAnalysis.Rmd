@@ -1,0 +1,161 @@
+---
+title: "MJOLNIR_BIG5_DescriptiveAnalysis"
+author: "Léo HENRY"
+date: "4/19/2022"
+output: html_document
+---
+
+# Packages
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(lavaan)
+library(semTools)
+library(semPlot)
+library(lavaanPlot)
+library(MVN)
+library(MIIVsem)
+options(max.print=2000)
+```
+# SEM on the big 5
+
+## Data
+
+```{r}
+df <- read.csv('./data/mjolnir_clean_v4_AMBI_msr.csv')
+```
+
+## SEM
+
+```{r}
+model <- '
+Neuroticism =~ AMBI_MSR_1_NEO.PI.R_ANXIETY + AMBI_MSR_2_NEO.PI.R_ANGRY.HOSTILITY + AMBI_MSR_3_NEO.PI.R_DEPRESSION + AMBI_MSR_4_NEO.PI.R_SELF.CONSCIOUSNESS + AMBI_MSR_5_NEO.PI.R_IMPULSIVENESS + AMBI_MSR_6_NEO.PI.R_VULNERABILITY
+Extraversion =~ AMBI_MSR_7_NEO.PI.R_WARMTH + AMBI_MSR_8_NEO.PI.R_GREGARIOUSNESS + AMBI_MSR_9_NEO.PI.R_ASSERTIVENESS + AMBI_MSR_10_NEO.PI.R_ACTIVITY + AMBI_MSR_11_NEO.PI.R_EXCITEMENT.SEEKING + AMBI_MSR_12_NEO.PI.R_POSITIVE.EMOTIONS
+Openness =~ AMBI_MSR_13_NEO.PI.R_FANTASY + AMBI_MSR_14_NEO.PI.R_AESTHETICS + AMBI_MSR_15_NEO.PI.R_FEELINGS + AMBI_MSR_16_NEO.PI.R_ACTIONS + AMBI_MSR_17_NEO.PI.R_IDEAS + AMBI_MSR_18_NEO.PI.R_VALUES
+Agreeableness =~ AMBI_MSR_19_NEO.PI.R_TRUST+AMBI_MSR_20_NEO.PI.R_STRAIGHTFORWARDNESS+AMBI_MSR_21_NEO.PI.R_ALTRUISM+AMBI_MSR_22_NEO.PI.R_COMPLIANCE+AMBI_MSR_23_NEO.PI.R_MODESTY+AMBI_MSR_24_NEO.PI.R_TENDER.MINDEDNESS
+Conscientiousness =~ AMBI_MSR_25_NEO.PI.R_COMPETENCE+AMBI_MSR_26_NEO.PI.R_ORDER+AMBI_MSR_27_NEO.PI.R_DUTIFULNESS+AMBI_MSR_28_NEO.PI.R_ACHIEVEMENT.STRIVING+AMBI_MSR_29_NEO.PI.R_SELF.DISCIPLINE+AMBI_MSR_30_NEO.PI.R_DELIBERATION
+'
+```
+
+```{r}
+fit <- cfa(model, data = df, estimator = "ML")
+```
+
+```{r}
+summary(fit, fit.measures=T, standardized=T, rsquare=T) 
+```
+
+```{r}
+reliability(fit)
+```
+
+```{r}
+modindices(fit) %>% arrange(-mi) %>% head(20)
+```
+
+
+```{r}
+semPlot::semPaths(fit, "std", rotation = 2)
+```
+
+## Scoring the big 5 with SEM result
+
+```{r}
+f_semscoring_latent <- function(fit, data, scaled = TRUE){
+  
+  df_sem_estimate <- fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1)
+  v_latent_var <- df_sem_estimate$lhs %>% as_factor %>% levels
+  
+  f_calculate_latent <- function(latent_var){
+    
+    v_obs_var <- df_sem_estimate %>% filter(lhs==latent_var) %>% select(rhs) %>% as_vector()
+    
+    f_calculate_obs <- function(obs_var){
+    
+      res <- scale(data[,obs_var]) * (df_sem_estimate %>% filter(lhs==latent_var, rhs==obs_var) %>% select(est) %>% as_vector())
+      return(res)
+    }
+    
+    res <- map(v_obs_var, function(x){f_calculate_obs(x)}) %>% as_tibble %>% rowSums
+    if(scaled) res <- res %>% scale
+    return(res)
+  }
+  
+  res <- map(v_latent_var,function(x){f_calculate_latent(x)}) %>% as.data.frame
+  colnames(res) <- v_latent_var
+  return(res)
+}
+```
+
+```{r}
+df_score_big5 <- f_semscoring_latent(fit, df, scaled = TRUE)
+df_score_big5
+```
+
+```{r}
+colnames(df_score_big5) <- paste0("AMBI_BIG5_", colnames(df_score_big5))
+df <- cbind(df, df_score_big5)
+```
+
+```{r}
+write.csv(df,"./data/mjolnir_clean_v5_AMBI_BIG5.csv")
+```
+
+
+# Descriptive analysis of the big 5
+
+## Data
+
+```{r}
+df <- read.csv(file = "./data/mjolnir_clean_v5_AMBI_BIG5.csv")
+```
+
+
+## Univaried analysis
+
+```{r}
+map(df[,c(colnames(df) %>% str_detect("^AMBI_BIG5_") %>% which)], function(x){summary(x)})
+```
+
+## Bivaried analysis
+
+```{r}
+v_big5 <- c("AMBI_BIG5_Neuroticism", "AMBI_BIG5_Extraversion", 
+               "AMBI_BIG5_Openness", "AMBI_BIG5_Agreeableness",
+               "AMBI_BIG5_Conscientiousness")
+
+pairs(df[, v_big5])
+
+df_big5_pairs <- combn(v_big5, 2) %>% as_tibble()
+
+map(seq(1,df_big5_pairs %>% length()), 
+    function(x){
+      r <- cor(df[,df_big5_pairs[1,x] %>% as.character()],
+               df[,df_big5_pairs[2,x] %>% as.character()])
+      print(paste0(df_big5_pairs[1,x], " X ", df_big5_pairs[2,x],":  ",round(r,2)))
+      return()
+          })
+```
+
+## Multivaried analysis
+
+```{r}
+res.pca <- PCA(df[,c(colnames(df) %>% str_detect("^AMBI_BIG5_") %>% which)], 
+               quali.sup = df[,c(colnames(df) %>% str_detect("^AMBI_BIG5_") %>% which)],
+               scale.unit=TRUE, ncp=25, graph=T)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
