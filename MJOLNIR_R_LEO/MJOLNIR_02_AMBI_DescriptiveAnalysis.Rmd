@@ -38,6 +38,8 @@ write.csv(df_2,"./data/mjolnir_clean_v4_AMBI_msr.csv")
 rm(df, df_2)
 ```
 
+
+
 # EFA
 
 ```{r}
@@ -178,6 +180,56 @@ rm(df, df_2, df_ambi_cor, df_test, parallel, res, res_df, test, l_helpunderstand
 ```{r}
 df <- read.csv("./data/mjolnir_clean_v4_1_AMBI_EFA.csv")
 ```
+
+```{r}
+dff <- df %>%
+  filter(EXPGRP_TEXT != "Non-Chinese Asian" &
+           !(CONTINENT_BORN_TEXT_1 %in% c("4Tigers and Japan", "Africa", "Middle East",
+                                        "North America", "Oceania", "South America")) &
+           !(is.na(CONTINENT_BORN_TEXT_1)) &
+           !(SEX_TEXT %in% c("Other", "Transgender")) &
+           HH_INCOME_TEXT != "$500,000 or more") %>%
+  gather(AMBI_name,
+         AMBI_res,
+         df %>% colnames() %>% str_detect("^AMBI_MSR") %>% which()) %>%
+  dplyr::select(AMBI_name, AMBI_res, EXPGRP_TEXT) %>%
+  filter(!(str_detect(AMBI_name, "_EFA_"))) %>%
+  mutate(AMBI_name=AMBI_name %>% str_remove("AMBI_MSR_[0-9]{1,3}_[6A-Z]{3,9}_"))
+```
+
+```{r}
+graph <- list()
+for (i in dff$AMBI_name %>% as.factor() %>%levels()) {
+  pwc <- dff %>%
+    filter(AMBI_name==i) %>% 
+    tukey_hsd(AMBI_res ~ EXPGRP_TEXT) %>% 
+    add_xy_position(x = "EXPGRP_TEXT")
+  
+  res.aov <- dff %>%
+    filter(AMBI_name==i) %>% 
+    anova_test(AMBI_res ~ EXPGRP_TEXT)
+  
+  graph[[i]] <- ggpubr::ggboxplot(dff %>% filter(AMBI_name==i), 
+                    x = "EXPGRP_TEXT", y = "AMBI_res") +
+    ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
+    labs(
+      title = i,
+      subtitle = get_test_label(res.aov, detailed = TRUE),
+      caption = get_pwc_label(pwc)
+      )
+}
+
+
+```
+
+
+```{r}
+i <- 40
+pdf("./graphs/01_ALLAMBIPERRACE_40.pdf", width = i, height = i)
+ggpubr::ggarrange(plotlist=graph)
+dev.off()
+```
+
 
 ## EFA
 

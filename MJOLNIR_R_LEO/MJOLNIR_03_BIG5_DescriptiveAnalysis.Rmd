@@ -138,6 +138,40 @@ map(seq(1,df_big5_pairs %>% length()),
           })
 ```
 
+# Boxplot
+
+```{r}
+df %>% 
+  gather(key = "AMBI_BIG5_var", value="AMBI_BIG5_res", df %>% colnames %>% str_detect("^AMBI_BIG5_") %>% which) %>%
+  ggplot(., aes(y=AMBI_BIG5_res, fill=EXPGRP_TEXT)) +
+  geom_boxplot() +
+  facet_wrap(~ AMBI_BIG5_var)
+colnames(df)[colnames(df) %>% str_detect("^AMBI_BIG5_")] 
+lt <- map(colnames(df)[colnames(df) %>% str_detect("^AMBI_BIG5_")],
+    function(x){
+      drun <- data_frame(values = df[,x],
+                         race = df$EXPGRP_TEXT %>% as.factor())
+      res <- list()
+      res[["nom"]] <- x
+      res[["aov"]] <- drun %>% rstatix::anova_test(values ~ race)
+      pwc <- drun %>% rstatix::tukey_hsd(values ~ race)
+      res[["pwc"]] <- pwc
+      res[["drun"]] <- drun
+      pwc <- res[["pwc"]] %>% rstatix::add_xy_position(x = "race")
+      res[["bbplot"]] <- ggpubr::ggboxplot(res[["drun"]], x = "race", y = "values") +
+        ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
+        labs(subtitle = rstatix::get_test_label(res[["aov"]], detailed = TRUE),
+             caption = rstatix::get_pwc_label(pwc),
+             title = x)
+      return(res)})
+
+
+ggpubr::ggarrange(plotlist=lt, labels = c('A', 'B', 'C', 'D', 'E'), nrow = 2, ncol=3)
+
+```
+
+
+
 ## Multivaried analysis
 
 ```{r}
