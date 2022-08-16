@@ -1,0 +1,35 @@
+"0","library(questionr)"
+"0","library(FactoMineR)"
+"0","library(tidyverse)"
+"0","library(psych)"
+"2","
+Attaching package: ‘psych’
+
+"
+"2","The following objects are masked from ‘package:semTools’:
+
+    reliability, skew
+
+"
+"2","The following object is masked from ‘package:lavaan’:
+
+    cor2cov
+
+"
+"2","The following object is masked from ‘package:questionr’:
+
+    describe
+
+"
+"2","The following objects are masked from ‘package:ggplot2’:
+
+    %+%, alpha
+
+"
+"0","library(GPArotation)"
+"0","library(FactoMineR)"
+"0","library(factoextra)"
+"2","Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+"
+"0","library(explor)"
+"0","options(max.print=5001)"

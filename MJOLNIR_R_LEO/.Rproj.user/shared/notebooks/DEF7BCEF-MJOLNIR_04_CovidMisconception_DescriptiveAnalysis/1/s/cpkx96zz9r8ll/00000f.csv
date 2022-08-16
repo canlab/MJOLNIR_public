@@ -1,0 +1,17 @@
+"0","table(df_covmis$EDUCATION_2_TEXT, df_covmis$EXPGRP_TEXT) %>% lprop() %>% xtable::xtable()"
+"1","% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Wed Jun 15 13:17:37 2022
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Chinese & Non-Chinese Asian & White & Total \\ 
+  \hline
+No college degree & 27.17 & 0.72 & 72.10 & 100.00 \\ 
+  College degree & 36.19 & 2.72 & 61.09 & 100.00 \\ 
+  Graduate degree & 44.19 & 4.65 & 51.16 & 100.00 \\ 
+  All & 33.99 & 2.27 & 63.75 & 100.00 \\ 
+   \hline
+\end{tabular}
+\end{table}
+"

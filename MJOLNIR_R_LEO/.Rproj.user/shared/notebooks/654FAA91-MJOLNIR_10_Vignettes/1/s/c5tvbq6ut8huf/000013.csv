@@ -1,0 +1,4 @@
+"0","stargazer::stargazer(mixed.lmer, type = ""text"")
+"
+"2","Error: $ operator not defined for this S4 class
+"

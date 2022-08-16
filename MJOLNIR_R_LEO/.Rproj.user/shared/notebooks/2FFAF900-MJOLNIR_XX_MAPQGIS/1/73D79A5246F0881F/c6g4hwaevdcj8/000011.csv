@@ -1,0 +1,5 @@
+"0","scrapeur(df$LocationLongitude[i], df$LocationLatitude[i])
+"
+"2","Error in if (str_length(long) == 0) { : 
+  missing value where TRUE/FALSE needed
+"

@@ -1,0 +1,5 @@
+"0","ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=DOB_AGE_BRACKET)) +"
+"0","  geom_point() +"
+"0","  geom_smooth(method='lm')"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

@@ -1,0 +1,3 @@
+"0","plot(ggeffect(regm, ""demo_class""))"
+"2","Package `effects` is not available, but needed for `ggeffect()`. Either install package `effects`, or use `ggpredict()`. Calling `ggpredict()` now.FALSE
+"

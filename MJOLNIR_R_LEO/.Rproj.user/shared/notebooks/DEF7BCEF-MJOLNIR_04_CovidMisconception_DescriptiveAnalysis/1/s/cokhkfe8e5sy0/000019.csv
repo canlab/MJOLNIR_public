@@ -1,0 +1,7 @@
+"0","pwc <- pwc %>% add_xy_position(x = ""demo_class"")"
+"0","ggpubr::ggboxplot(df_covmis, x = ""demo_class"", y = ""covqual_class"") +"
+"0","  ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +"
+"0","  labs("
+"0","    subtitle = get_test_label(res.aov, detailed = TRUE),"
+"0","    caption = get_pwc_label(pwc)"
+"0","    )"

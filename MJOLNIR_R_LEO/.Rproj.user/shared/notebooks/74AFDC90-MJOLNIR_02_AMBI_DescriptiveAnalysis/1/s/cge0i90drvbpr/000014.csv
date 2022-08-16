@@ -1,0 +1,10 @@
+"0","df %>%
+  gather(AMBI_name,
+         AMBI_res,
+         df %>% colnames() %>% str_detect(""^AMBI_MSR"") %>% which()) %>%
+  ggplot(aes(y=AMBI_res, fill=EXPGRP_TEXT)) +
+  geom_boxplot() +
+  facet_wrap(~ AMBI_name, ncol = 15)
+"
+"2","Error in FUN(X[[i]], ...) : object 'EXPGRP_TEXT' not found
+"

@@ -1,0 +1,8 @@
+"0","model <- '"
+"0","MJ_2_Self_ ~ MJ_1_Self_"
+"0","MJ_3_Self_ ~ MJ_2_Self_"
+"0","MJ_4_Self_ ~ MJ_3_Self_"
+"0","MJ_3_Self_ ~ MJ_1_Self_"
+"0","MJ_4_Self_ ~ MJ_1_Self_"
+"0","MJ_4_Self_ ~ MJ_2_Self_"
+"0","'"

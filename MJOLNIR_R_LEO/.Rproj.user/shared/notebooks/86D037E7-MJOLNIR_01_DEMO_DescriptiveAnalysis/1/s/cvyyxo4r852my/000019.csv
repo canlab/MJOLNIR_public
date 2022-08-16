@@ -1,0 +1,2 @@
+"0","ggplot(df) +"
+"0","  geom_bar(aes(x = fct_infreq(DOB_YEAR_PERIODE)))"

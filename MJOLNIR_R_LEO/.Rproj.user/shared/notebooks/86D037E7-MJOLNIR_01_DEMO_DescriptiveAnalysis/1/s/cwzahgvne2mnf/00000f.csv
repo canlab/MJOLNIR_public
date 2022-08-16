@@ -1,0 +1,6 @@
+"0","library(questionr)"
+"0","library(FactoMineR)"
+"0","library(tidyverse)"
+"0","library(FactoMineR)"
+"0","library(factoextra)"
+"0","options(max.print=2000)"

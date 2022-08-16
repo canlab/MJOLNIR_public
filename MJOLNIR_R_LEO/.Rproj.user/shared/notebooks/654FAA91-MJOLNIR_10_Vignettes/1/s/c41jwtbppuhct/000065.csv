@@ -1,0 +1,8 @@
+"0","ggplot(dff_q,aes(CatchCovid, MorallyWrong)) +
+  geom_point(color=""grey"") +
+  geom_smooth(method='lm') +
+  ggpubr::stat_regline_equation(label.y = 100, aes(label = ..eq.label..)) +
+  ggpubr::stat_regline_equation(label.y = 95, aes(label = ..rr.label..))
+"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

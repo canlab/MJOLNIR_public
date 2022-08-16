@@ -1,0 +1,6 @@
+"0","f_normfactor <- function(v){"
+"0","  res <- AMBI::f_normalisation(v)"
+"0","  res <- res*3"
+"0","  res <- cut(res, c(0,1,2,3), labels=c('weak','middle','high'))"
+"0","  return(res)"
+"0","}"

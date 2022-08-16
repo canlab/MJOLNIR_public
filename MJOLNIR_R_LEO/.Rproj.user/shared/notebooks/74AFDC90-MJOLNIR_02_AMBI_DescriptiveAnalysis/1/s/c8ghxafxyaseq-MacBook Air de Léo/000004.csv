@@ -1,0 +1,5 @@
+"0","res_df <- factor.scores(df[,c(colnames(df) %>% str_detect(""^AMBI_MSR_"") %>% which)], res, Phi = NULL,
+                        method = ""tenBerge"",
+                        impute = ""none"")
+"
+"2","Matrix was not positive definite, smoothing was done"

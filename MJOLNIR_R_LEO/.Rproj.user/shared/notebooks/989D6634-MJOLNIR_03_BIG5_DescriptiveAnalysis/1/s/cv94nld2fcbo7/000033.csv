@@ -1,0 +1,70 @@
+"0","map(colnames(df)[colnames(df) %>% str_detect(""^AMBI_BIG5_"")],
+    function(x){
+      drun <- data_frame(values = df[,x],
+                         race = df$EXPGRP_TEXT %>% as.factor())
+      res <- list()
+      res[[""nom""]] <- x
+      res[[""aov""]] <- drun %>% rstatix::anova_test(values ~ race)
+      pwc <- drun %>% rstatix::tukey_hsd(values ~ race)
+      res[[""pwc""]] <- pwc
+      res[[""drun""]] <- drun
+      pwc <- res[[""pwc""]] %>% rstatix::add_xy_position(x = ""race"")
+      res[[""bbplot""]] <- ggpubr::ggboxplot(res[[""drun""]], x = ""race"", y = ""values"") +
+        ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
+        labs(subtitle = rstatix::get_test_label(res[[""aov""]], detailed = TRUE),
+             caption = rstatix::get_pwc_label(pwc),
+             title = x)
+      return(res)})
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"1","[[1]]
+"
+"1","[[1]]$nom
+"
+"1","[1]"
+"1"," ""AMBI_BIG5_Neuroticism"""
+"1","
+"
+"1","
+"
+"1","[[1]]$aov
+"
+"1","ANOVA Table (type"
+"1"," "
+"1","II"
+"1"," "
+"1","tests)
+
+"
+"1"," "
+"1"," Effect"
+"1"," DFn"
+"1"," DFd"
+"1","     F"
+"1","     p"
+"1"," p<.05"
+"1","      ges"
+"1","
+1"
+"1","   race"
+"1","   2"
+"1"," 659"
+"1"," 0.177"
+"1"," 0.838"
+"1","      "
+"1"," 0.000536"
+"1","
+"
+"1","
+"
+"1","[[1]]$pwc
+"

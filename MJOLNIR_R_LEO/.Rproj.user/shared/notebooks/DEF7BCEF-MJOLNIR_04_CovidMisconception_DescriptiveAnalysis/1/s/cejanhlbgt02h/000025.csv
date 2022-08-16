@@ -1,0 +1,356 @@
+"1","# weights: "
+"1"," "
+"1","66"
+"1"," ("
+"1",""
+"1","42"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 476.303301
+"
+"1","iter  20 value 458.769836
+"
+"1","iter  30 value 457.522823
+"
+"1","iter  40 value 457.361151
+"
+"1","iter  50 value 457.346844
+"
+"1","final  value 457.346788 
+"
+"1","converged
+"
+"1","
+Step:  AIC="
+"1",""
+"1","998.69"
+"1",""
+"1","
+"
+"1",""
+"1","covqual_class ~ EXPGRP_TEXT + HAS_LIVED_USA + SEX_TEXT + EDUCATION_2_TEXT + "
+"1",""
+"1","
+    DOB_AGE_BRACKET + neuroticism_qual + extraversion_qual + "
+"1",""
+"1","
+    openness_qual + conscientiousness_qual + agreeableness_qual"
+"1",""
+"1","
+
+"
+"1","trying -"
+"1"," "
+"1","EXPGRP_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 482.006351
+"
+"1","iter  20 value 474.009622
+"
+"1","iter  30 value 473.356680
+"
+"1","iter  40 value 473.223026
+"
+"1","iter  50 value 473.217076
+"
+"1","final  value 473.217067 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","HAS_LIVED_USA"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","63"
+"1"," ("
+"1",""
+"1","40"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 469.183596
+"
+"1","iter  20 value 459.957524
+"
+"1","iter  30 value 459.581164
+"
+"1","iter  40 value 459.438291
+"
+"1","iter  50 value 459.432258
+"
+"1","final  value 459.432248 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","SEX_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","57"
+"1"," ("
+"1",""
+"1","36"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 473.679923
+"
+"1","iter  20 value 461.845410
+"
+"1","iter  30 value 461.558145
+"
+"1","final  value 461.555558 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","EDUCATION_2_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 473.796676
+"
+"1","iter  20 value 460.332798
+"
+"1","iter  30 value 459.729631
+"
+"1","iter  40 value 459.593057
+"
+"1","iter  50 value 459.590678
+"
+"1","iter  50 value 459.590675
+"
+"1","iter  50 value 459.590675
+"
+"1","final  value 459.590675 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","DOB_AGE_BRACKET"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 466.226151
+"
+"1","iter  20 value 459.145396
+"
+"1","iter  30 value 458.695891
+"
+"1","iter  40 value 458.577337
+"
+"1","final  value 458.576013 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","neuroticism_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 473.522075
+"
+"1","iter  20 value 461.335725
+"
+"1","iter  30 value 460.831027
+"
+"1","iter  40 value 460.705076
+"
+"1","iter  50 value 460.702321
+"
+"1","final  value 460.702315 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","extraversion_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 469.906274
+"
+"1","iter  20 value 460.960143
+"
+"1","iter  30 value 460.370533
+"
+"1","iter  40 value 460.229655
+"
+"1","iter  50 value 460.225499
+"
+"1","iter  50 value 460.225495
+"
+"1","iter  50 value 460.225495
+"
+"1","final  value 460.225495 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","openness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 479.863015
+"
+"1","iter  20 value 468.860657
+"
+"1","iter  30 value 468.492499
+"
+"1","iter  40 value 468.363461
+"
+"1","iter  50 value 468.359634
+"
+"1","iter  50 value 468.359630
+"
+"1","iter  50 value 468.359630
+"
+"1","final  value 468.359630 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","conscientiousness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 468.075782
+"
+"1","iter  20 value 459.221133
+"
+"1","iter  30 value 458.604919
+"
+"1","iter  40 value 458.482645
+"
+"1","final  value 458.480557 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","agreeableness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 475.102411
+"
+"1","iter  20 value 468.631555
+"
+"1","iter  30 value 468.284388
+"
+"1","iter  40 value 468.176880
+"
+"1","final  value 468.173391 
+"
+"1","converged
+"

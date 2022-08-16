@@ -1,0 +1,2 @@
+"0","write.csv(df_2,""./data/mjolnir_clean_v4_1_AMBI_EFA.csv"")"
+"0","rm(df, df_2, df_ambi_cor, df_test, parallel, res, res_df, test, l_helpunderstandingfactors, f_EFA_testsimple)"

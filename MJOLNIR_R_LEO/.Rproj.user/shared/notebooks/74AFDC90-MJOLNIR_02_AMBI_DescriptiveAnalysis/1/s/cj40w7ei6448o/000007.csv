@@ -1,0 +1,6 @@
+"0","df %>% "
+"0","  mutate(demo_class2 = demo_class %>% as.character() %>% as.factor()) %>%"
+"0","  gather(key = ""AMBI_EFA_var"", value=""AMBI_EFA_res"", df %>% colnames %>% str_detect(""^AMBI_MSR_EFA_"") %>% which) %>%"
+"0","  ggplot(., aes(y=AMBI_EFA_res, fill=demo_class2)) +"
+"0","  geom_boxplot() +"
+"0","  facet_wrap(~ AMBI_EFA_var, ncol = 5)"

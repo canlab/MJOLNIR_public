@@ -1,0 +1,11 @@
+"0","df_2 %>%
+  gather(AMBI_name,
+         AMBI_res,
+         d %>% colnames() %>% str_detect(""^AMBI_MSR"") %>% which()) %>%
+  ggplot(aes(y=AMBI_res, fill=EXPGRP_TEXT)) +
+  geom_boxplot() +
+  facet_wrap(~ AMBI_name, ncol = 15)
+"
+"2","Error in gather(., AMBI_name, AMBI_res, d %>% colnames() %>% str_detect(""^AMBI_MSR"") %>%  : 
+  object 'df_2' not found
+"

@@ -1,0 +1,10 @@
+"0","grph <- df_grph %>%"
+"0","  filter(V_JudgeSelf==0, V_up == 0) %>%"
+"0","  ggplot(aes(x=CovidSkepticism, y=Value)) +"
+"0","  geom_point(alpha=.3, cex=.1) +"
+"0","  geom_smooth(method='lm') +"
+"0","    ggpubr::stat_regline_equation(aes(label = ..eq.label..))+"
+"0","  facet_wrap(~Question)"
+"0","grph"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

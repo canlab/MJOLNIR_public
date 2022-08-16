@@ -1,0 +1,11 @@
+"0","ggcoef_multinom(
+  regm,
+  exponentiate = TRUE
+)
+"
+"2","Warning in sqrt(diag(vc)) :"
+"2"," NaNs produced
+"
+"2","Warning in sqrt(diag(vcov(object))) :"
+"2"," NaNs produced
+"

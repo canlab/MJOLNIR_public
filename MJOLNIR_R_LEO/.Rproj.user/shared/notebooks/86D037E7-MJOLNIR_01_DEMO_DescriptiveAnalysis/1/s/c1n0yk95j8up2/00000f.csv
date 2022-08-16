@@ -1,0 +1,6 @@
+"0","df$CHIN_SPECIFIC_TEXT <- fct_recode(df$CHIN_SPECIFIC %>% as.character,"
+"0","""Mainland Chinese""=""1"",""Taiwanese""=""2"",""Mongolian""=""3"",""Hongkongese""=""4"",""Macanese""=""5"", ""Other""=""6"")"
+"2","Warning:"
+"2"," Unknown levels in `f`: 3, 5
+"
+"0","freq(df$CHIN_SPECIFIC_TEXT)"

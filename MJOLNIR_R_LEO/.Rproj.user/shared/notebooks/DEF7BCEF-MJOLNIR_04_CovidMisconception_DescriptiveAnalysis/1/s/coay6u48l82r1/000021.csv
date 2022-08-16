@@ -1,0 +1,3 @@
+"0","fviz_mfa_var(res.mfa, ""quanti.var"", palette = ""jco"", "
+"0","             col.var.sup = ""violet"", repel = TRUE,"
+"0","             geom = c(""point"", ""text""), legend = ""bottom"")"

@@ -1,0 +1,2 @@
+"0","df <- read.csv(""./data/mjolnir_clean_v6_Covmis.csv"")"
+"0","df$ID <- seq(1:nrow(df))"

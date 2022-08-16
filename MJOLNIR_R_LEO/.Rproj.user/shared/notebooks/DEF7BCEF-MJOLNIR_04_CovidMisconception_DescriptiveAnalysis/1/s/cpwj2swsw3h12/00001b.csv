@@ -1,0 +1,2 @@
+"0","df_covmis$cov_class <- res.hcpc$data.clust$clust"
+"0","freq(df_covmis$cov_class)"

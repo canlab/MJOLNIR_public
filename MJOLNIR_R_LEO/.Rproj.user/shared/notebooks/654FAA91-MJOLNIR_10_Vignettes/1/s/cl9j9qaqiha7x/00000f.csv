@@ -1,0 +1,7 @@
+"0","dff %>% "
+"0","  filter(V_Number==1, V_Question==""JudgeOther_1"") %>%"
+"0","  ggplot(aes(x=V_up, y=vignette_result)) +"
+"0","  geom_point() +"
+"0","  geom_smooth(method = ""lm"")"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

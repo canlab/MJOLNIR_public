@@ -1,0 +1,301 @@
+"1","# weights: "
+"1"," "
+"1","60"
+"1"," ("
+"1",""
+"1","38"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 468.075782
+"
+"1","iter  20 value 459.221133
+"
+"1","iter  30 value 458.604919
+"
+"1","iter  40 value 458.482645
+"
+"1","final  value 458.480557 
+"
+"1","converged
+"
+"1","
+Step:  AIC="
+"1",""
+"1","992.96"
+"1",""
+"1","
+"
+"1",""
+"1","covqual_class ~ EXPGRP_TEXT + HAS_LIVED_USA + SEX_TEXT + EDUCATION_2_TEXT + "
+"1",""
+"1","
+    DOB_AGE_BRACKET + neuroticism_qual + extraversion_qual + "
+"1",""
+"1","
+    openness_qual + agreeableness_qual"
+"1",""
+"1","
+
+"
+"1","trying -"
+"1"," "
+"1","EXPGRP_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","54"
+"1"," ("
+"1",""
+"1","34"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 480.713401
+"
+"1","iter  20 value 475.574541
+"
+"1","iter  30 value 475.215263
+"
+"1","iter  40 value 475.117600
+"
+"1","final  value 475.116554 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","HAS_LIVED_USA"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","57"
+"1"," ("
+"1",""
+"1","36"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 467.414353
+"
+"1","iter  20 value 461.171583
+"
+"1","iter  30 value 460.870733
+"
+"1","iter  40 value 460.800107
+"
+"1","final  value 460.799382 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","SEX_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","51"
+"1"," ("
+"1",""
+"1","32"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 469.313577
+"
+"1","iter  20 value 462.959865
+"
+"1","iter  30 value 462.867221
+"
+"1","final  value 462.866384 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","EDUCATION_2_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","54"
+"1"," ("
+"1",""
+"1","34"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 467.076000
+"
+"1","iter  20 value 460.974808
+"
+"1","iter  30 value 460.611621
+"
+"1","iter  40 value 460.555945
+"
+"1","final  value 460.555680 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","DOB_AGE_BRACKET"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","54"
+"1"," ("
+"1",""
+"1","34"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 466.950035
+"
+"1","iter  20 value 460.136328
+"
+"1","iter  30 value 459.802518
+"
+"1","iter  40 value 459.742465
+"
+"1","final  value 459.742009 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","neuroticism_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","54"
+"1"," ("
+"1",""
+"1","34"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 468.436171
+"
+"1","iter  20 value 462.311018
+"
+"1","iter  30 value 461.959446
+"
+"1","iter  40 value 461.905995
+"
+"1","final  value 461.905669 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","extraversion_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","54"
+"1"," ("
+"1",""
+"1","34"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 467.590649
+"
+"1","iter  20 value 462.070815
+"
+"1","iter  30 value 461.706140
+"
+"1","iter  40 value 461.629205
+"
+"1","final  value 461.628842 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","openness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","54"
+"1"," ("
+"1",""
+"1","34"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 475.750647
+"
+"1","iter  20 value 469.702561
+"
+"1","iter  30 value 469.386659
+"
+"1","iter  40 value 469.285657
+"
+"1","final  value 469.284755 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","agreeableness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","54"
+"1"," ("
+"1",""
+"1","34"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 474.373455
+"
+"1","iter  20 value 469.811080
+"
+"1","iter  30 value 469.517946
+"
+"1","iter  40 value 469.454180
+"
+"1","final  value 469.453810 
+"
+"1","converged
+"

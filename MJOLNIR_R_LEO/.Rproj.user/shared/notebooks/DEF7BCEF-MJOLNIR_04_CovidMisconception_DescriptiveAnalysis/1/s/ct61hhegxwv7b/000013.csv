@@ -1,0 +1,6 @@
+"0","df_mean_per_cat <- df_covmis %>%"
+"0","  select(matches(""^covmis_"")) %>%"
+"0","  mutate(covmis_cat=df_covmis$covqual_class) %>%"
+"0","  group_by(covmis_cat) %>%"
+"0","  summarise_all(mean)"
+"0","df_mean_per_cat"

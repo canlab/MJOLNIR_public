@@ -1,0 +1,5 @@
+"0","df_covmis$covqual_class <- relevel(df_covmis$covqual_class %>% as.factor(), ""2"")
+"
+"2","Error in relevel.factor(df_covmis$covqual_class %>% as.factor(), ""2"") : 
+  'ref' must be an existing level
+"

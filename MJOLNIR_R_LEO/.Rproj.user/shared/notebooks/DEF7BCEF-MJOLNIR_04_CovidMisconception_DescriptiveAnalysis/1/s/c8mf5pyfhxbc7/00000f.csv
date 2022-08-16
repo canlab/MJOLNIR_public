@@ -1,0 +1,4 @@
+"0","res.aov <- anova_test(CovidSkepticismnorm ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HH_INCOME_TEXT2 + SEX_TEXT + EDUCATION_2_TEXT + DOB_AGE_BRACKET + AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Conscientiousness + AMBI_BIG5_Agreeableness, data = df_covmis2)"
+"2","Error in anova_test(CovidSkepticismnorm ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 +  : 
+  could not find function ""anova_test""
+"

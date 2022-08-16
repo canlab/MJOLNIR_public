@@ -1,0 +1,4 @@
+"0",""
+"0","df_covmis2 %>%"
+"0","  dplyr::select(agreeableness_qual) %>%"
+"0","  freq()"

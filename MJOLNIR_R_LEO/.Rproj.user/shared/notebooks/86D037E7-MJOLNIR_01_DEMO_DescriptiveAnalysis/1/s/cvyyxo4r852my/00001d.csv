@@ -1,0 +1,7 @@
+"0","ggplot(df, aes(HH_INCOME_TEXT, 2020-DOB_YEAR)) +"
+"0","  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))"
+"2","Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm) :"
+"2","
+ "
+"2"," collapsing to unique 'x' values
+"

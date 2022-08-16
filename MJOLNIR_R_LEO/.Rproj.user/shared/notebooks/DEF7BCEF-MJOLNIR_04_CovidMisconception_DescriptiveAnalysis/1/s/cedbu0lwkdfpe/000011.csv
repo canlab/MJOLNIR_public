@@ -1,0 +1,9 @@
+"0","which(is.na(df_covmis2 %>% select(EXPGRP_TEXT, CONTINENT_BORN_TEXT_1, HAS_LIVED_USA, SEX_TEXT,
+             age_education, neuroticism_qual, extraversion_qual, openness_qual, 
+             conscientiousness_qual, agreeableness_qual)), arr.ind=TRUE)
+"
+"1","    "
+"1"," row"
+"1"," col"
+"1","
+"

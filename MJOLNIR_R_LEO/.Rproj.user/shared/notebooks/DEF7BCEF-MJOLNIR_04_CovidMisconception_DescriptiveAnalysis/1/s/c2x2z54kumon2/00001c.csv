@@ -1,0 +1,8 @@
+"0","res.mfa <- MFA(df_covmis %>% dplyr::select(matches(""^covmis"")) %>% rename_with(function(x){str_remove(x,""^covmis_[A-z]{3,4}_"")}),
+               group = c(5,4,4,3,3,3),
+               type=c(""s"",""s"",""s"",""s"",""s"",""s""),
+               name.group = c(""att"",""conspiracy"",""origin"",""politics"",""coverage"",""antivaccin""))
+"
+"2","Error in MFA(df_covmis %>% dplyr::select(matches(""^covmis"")) %>% rename_with(function(x) { : 
+  not convenient group definition
+"

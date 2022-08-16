@@ -1,0 +1,10 @@
+"0","write.csv(df_City, file = ""./data/./data/mjolnir_clean_v7_GPS.csv"")
+"
+"2","Warning in file(file, ifelse(append, ""a"", ""w"")) :"
+"2","
+ "
+"2"," cannot open file './data/./data/mjolnir_clean_v7_GPS.csv': No such file or directory
+"
+"2","Error in file(file, ifelse(append, ""a"", ""w"")) : 
+  cannot open the connection
+"

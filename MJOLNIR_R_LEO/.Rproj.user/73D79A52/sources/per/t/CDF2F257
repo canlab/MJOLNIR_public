@@ -1,0 +1,28 @@
+{
+    "id": "CDF2F257",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1657058053214.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "id": "0919ffd19e9744709fda0b7bba324a64",
+        "name": "r",
+        "title": "r",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 0,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1657058053214,
+    "read_only": false,
+    "read_only_alternatives": []
+}

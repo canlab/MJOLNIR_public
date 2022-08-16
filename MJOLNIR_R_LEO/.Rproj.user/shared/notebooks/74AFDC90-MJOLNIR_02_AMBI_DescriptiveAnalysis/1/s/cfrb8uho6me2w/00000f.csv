@@ -1,0 +1,1886 @@
+"0","test <- map(seq(5,30,1),"
+"0","            function(y){"
+"0","              res.efa <- fa(r = df_ambi_cor, scores = ""tenBerge"","
+"0","                   nfactors = y, rotate= ""bentlerT"", fm=""uls"")"
+"0","              res.f <- map(seq(0.1, 0.9, 0.1),"
+"0","                           function(x){"
+"0","                              r <- f_EFA_testsimple(res.efa$loadings, x)"
+"0","                              res <- (r$n_factor_perc + r$n_load_perc)/2"
+"0","                              return(res)"
+"0","                            }) %>% as_vector"
+"0","              return(res.f)"
+"0","            })"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined.
+Chi square is based upon observed residuals.
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 5 | Cutoff: 0.1
+    - Loadings not simple: 198 | 0.98
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 5 | Cutoff: 0.2
+    - Loadings not simple: 171 | 0.84
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 5 | Cutoff: 0.3
+    - Loadings not simple: 99 | 0.49
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 5 | Cutoff: 0.4
+    - Loadings not simple: 49 | 0.24
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 5 | Cutoff: 0.5
+    - Loadings not simple: 41 | 0.2
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 5 | Cutoff: 0.6
+    - Loadings not simple: 77 | 0.38
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 5 | Cutoff: 0.7
+    - Loadings not simple: 118 | 0.58
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 5 | Cutoff: 0.8
+    - Loadings not simple: 168 | 0.83
+    - Factors not simple:  2 | 0.4"
+"1","
+Nb Factors: 5 | Cutoff: 0.9
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  5 | 1"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined.
+Chi square is based upon observed residuals.
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 6 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 6 | Cutoff: 0.2
+    - Loadings not simple: 169 | 0.83
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 6 | Cutoff: 0.3
+    - Loadings not simple: 111 | 0.55
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 6 | Cutoff: 0.4
+    - Loadings not simple: 48 | 0.24
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 6 | Cutoff: 0.5
+    - Loadings not simple: 38 | 0.19
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 6 | Cutoff: 0.6
+    - Loadings not simple: 75 | 0.37
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 6 | Cutoff: 0.7
+    - Loadings not simple: 116 | 0.57
+    - Factors not simple:  1 | 0.17"
+"1","
+Nb Factors: 6 | Cutoff: 0.8
+    - Loadings not simple: 172 | 0.85
+    - Factors not simple:  3 | 0.5"
+"1","
+Nb Factors: 6 | Cutoff: 0.9
+    - Loadings not simple: 200 | 0.99
+    - Factors not simple:  5 | 0.83"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined.
+Chi square is based upon observed residuals.
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 7 | Cutoff: 0.1
+    - Loadings not simple: 197 | 0.97
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 7 | Cutoff: 0.2
+    - Loadings not simple: 170 | 0.84
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 7 | Cutoff: 0.3
+    - Loadings not simple: 110 | 0.54
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 7 | Cutoff: 0.4
+    - Loadings not simple: 61 | 0.3
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 7 | Cutoff: 0.5
+    - Loadings not simple: 43 | 0.21
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 7 | Cutoff: 0.6
+    - Loadings not simple: 76 | 0.37
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 7 | Cutoff: 0.7
+    - Loadings not simple: 117 | 0.58
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 7 | Cutoff: 0.8
+    - Loadings not simple: 163 | 0.8
+    - Factors not simple:  2 | 0.29"
+"1","
+Nb Factors: 7 | Cutoff: 0.9
+    - Loadings not simple: 202 | 1
+    - Factors not simple:  6 | 0.86"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined.
+Chi square is based upon observed residuals.
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 8 | Cutoff: 0.1
+    - Loadings not simple: 201 | 0.99
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 8 | Cutoff: 0.2
+    - Loadings not simple: 176 | 0.87
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 8 | Cutoff: 0.3
+    - Loadings not simple: 120 | 0.59
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 8 | Cutoff: 0.4
+    - Loadings not simple: 64 | 0.32
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 8 | Cutoff: 0.5
+    - Loadings not simple: 35 | 0.17
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 8 | Cutoff: 0.6
+    - Loadings not simple: 73 | 0.36
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 8 | Cutoff: 0.7
+    - Loadings not simple: 109 | 0.54
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 8 | Cutoff: 0.8
+    - Loadings not simple: 172 | 0.85
+    - Factors not simple:  5 | 0.62"
+"1","
+Nb Factors: 8 | Cutoff: 0.9
+    - Loadings not simple: 196 | 0.97
+    - Factors not simple:  6 | 0.75"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined.
+Chi square is based upon observed residuals.
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 9 | Cutoff: 0.1
+    - Loadings not simple: 199 | 0.98
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 9 | Cutoff: 0.2
+    - Loadings not simple: 175 | 0.86
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 9 | Cutoff: 0.3
+    - Loadings not simple: 118 | 0.58
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 9 | Cutoff: 0.4
+    - Loadings not simple: 52 | 0.26
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 9 | Cutoff: 0.5
+    - Loadings not simple: 36 | 0.18
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 9 | Cutoff: 0.6
+    - Loadings not simple: 63 | 0.31
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 9 | Cutoff: 0.7
+    - Loadings not simple: 112 | 0.55
+    - Factors not simple:  1 | 0.11"
+"1","
+Nb Factors: 9 | Cutoff: 0.8
+    - Loadings not simple: 172 | 0.85
+    - Factors not simple:  5 | 0.56"
+"1","
+Nb Factors: 9 | Cutoff: 0.9
+    - Loadings not simple: 196 | 0.97
+    - Factors not simple:  8 | 0.89"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined.
+Chi square is based upon observed residuals.
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 10 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 10 | Cutoff: 0.2
+    - Loadings not simple: 174 | 0.86
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 10 | Cutoff: 0.3
+    - Loadings not simple: 113 | 0.56
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 10 | Cutoff: 0.4
+    - Loadings not simple: 57 | 0.28
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 10 | Cutoff: 0.5
+    - Loadings not simple: 29 | 0.14
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 10 | Cutoff: 0.6
+    - Loadings not simple: 57 | 0.28
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 10 | Cutoff: 0.7
+    - Loadings not simple: 106 | 0.52
+    - Factors not simple:  1 | 0.1"
+"1","
+Nb Factors: 10 | Cutoff: 0.8
+    - Loadings not simple: 163 | 0.8
+    - Factors not simple:  5 | 0.5"
+"1","
+Nb Factors: 10 | Cutoff: 0.9
+    - Loadings not simple: 194 | 0.96
+    - Factors not simple:  8 | 0.8"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 11 | Cutoff: 0.1
+    - Loadings not simple: 200 | 0.99
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 11 | Cutoff: 0.2
+    - Loadings not simple: 174 | 0.86
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 11 | Cutoff: 0.3
+    - Loadings not simple: 113 | 0.56
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 11 | Cutoff: 0.4
+    - Loadings not simple: 57 | 0.28
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 11 | Cutoff: 0.5
+    - Loadings not simple: 27 | 0.13
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 11 | Cutoff: 0.6
+    - Loadings not simple: 53 | 0.26
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 11 | Cutoff: 0.7
+    - Loadings not simple: 100 | 0.49
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 11 | Cutoff: 0.8
+    - Loadings not simple: 163 | 0.8
+    - Factors not simple:  5 | 0.45"
+"1","
+Nb Factors: 11 | Cutoff: 0.9
+    - Loadings not simple: 196 | 0.97
+    - Factors not simple:  10 | 0.91"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 12 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 12 | Cutoff: 0.2
+    - Loadings not simple: 186 | 0.92
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 12 | Cutoff: 0.3
+    - Loadings not simple: 125 | 0.62
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 12 | Cutoff: 0.4
+    - Loadings not simple: 65 | 0.32
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 12 | Cutoff: 0.5
+    - Loadings not simple: 37 | 0.18
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 12 | Cutoff: 0.6
+    - Loadings not simple: 56 | 0.28
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 12 | Cutoff: 0.7
+    - Loadings not simple: 117 | 0.58
+    - Factors not simple:  1 | 0.08"
+"1","
+Nb Factors: 12 | Cutoff: 0.8
+    - Loadings not simple: 169 | 0.83
+    - Factors not simple:  8 | 0.67"
+"1","
+Nb Factors: 12 | Cutoff: 0.9
+    - Loadings not simple: 197 | 0.97
+    - Factors not simple:  10 | 0.83"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 13 | Cutoff: 0.1
+    - Loadings not simple: 202 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 13 | Cutoff: 0.2
+    - Loadings not simple: 180 | 0.89
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 13 | Cutoff: 0.3
+    - Loadings not simple: 125 | 0.62
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 13 | Cutoff: 0.4
+    - Loadings not simple: 62 | 0.31
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 13 | Cutoff: 0.5
+    - Loadings not simple: 23 | 0.11
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 13 | Cutoff: 0.6
+    - Loadings not simple: 61 | 0.3
+    - Factors not simple:  1 | 0.08"
+"1","
+Nb Factors: 13 | Cutoff: 0.7
+    - Loadings not simple: 106 | 0.52
+    - Factors not simple:  3 | 0.23"
+"1","
+Nb Factors: 13 | Cutoff: 0.8
+    - Loadings not simple: 168 | 0.83
+    - Factors not simple:  6 | 0.46"
+"1","
+Nb Factors: 13 | Cutoff: 0.9
+    - Loadings not simple: 195 | 0.96
+    - Factors not simple:  11 | 0.85"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 14 | Cutoff: 0.1
+    - Loadings not simple: 202 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 14 | Cutoff: 0.2
+    - Loadings not simple: 182 | 0.9
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 14 | Cutoff: 0.3
+    - Loadings not simple: 127 | 0.63
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 14 | Cutoff: 0.4
+    - Loadings not simple: 64 | 0.32
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 14 | Cutoff: 0.5
+    - Loadings not simple: 35 | 0.17
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 14 | Cutoff: 0.6
+    - Loadings not simple: 57 | 0.28
+    - Factors not simple:  1 | 0.07"
+"1","
+Nb Factors: 14 | Cutoff: 0.7
+    - Loadings not simple: 109 | 0.54
+    - Factors not simple:  5 | 0.36"
+"1","
+Nb Factors: 14 | Cutoff: 0.8
+    - Loadings not simple: 161 | 0.79
+    - Factors not simple:  6 | 0.43"
+"1","
+Nb Factors: 14 | Cutoff: 0.9
+    - Loadings not simple: 194 | 0.96
+    - Factors not simple:  12 | 0.86"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 15 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 15 | Cutoff: 0.2
+    - Loadings not simple: 181 | 0.89
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 15 | Cutoff: 0.3
+    - Loadings not simple: 133 | 0.66
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 15 | Cutoff: 0.4
+    - Loadings not simple: 69 | 0.34
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 15 | Cutoff: 0.5
+    - Loadings not simple: 33 | 0.16
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 15 | Cutoff: 0.6
+    - Loadings not simple: 66 | 0.33
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 15 | Cutoff: 0.7
+    - Loadings not simple: 120 | 0.59
+    - Factors not simple:  4 | 0.27"
+"1","
+Nb Factors: 15 | Cutoff: 0.8
+    - Loadings not simple: 165 | 0.81
+    - Factors not simple:  7 | 0.47"
+"1","
+Nb Factors: 15 | Cutoff: 0.9
+    - Loadings not simple: 196 | 0.97
+    - Factors not simple:  13 | 0.87"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 16 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 16 | Cutoff: 0.2
+    - Loadings not simple: 187 | 0.92
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 16 | Cutoff: 0.3
+    - Loadings not simple: 129 | 0.64
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 16 | Cutoff: 0.4
+    - Loadings not simple: 67 | 0.33
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 16 | Cutoff: 0.5
+    - Loadings not simple: 35 | 0.17
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 16 | Cutoff: 0.6
+    - Loadings not simple: 62 | 0.31
+    - Factors not simple:  3 | 0.19"
+"1","
+Nb Factors: 16 | Cutoff: 0.7
+    - Loadings not simple: 114 | 0.56
+    - Factors not simple:  5 | 0.31"
+"1","
+Nb Factors: 16 | Cutoff: 0.8
+    - Loadings not simple: 162 | 0.8
+    - Factors not simple:  9 | 0.56"
+"1","
+Nb Factors: 16 | Cutoff: 0.9
+    - Loadings not simple: 196 | 0.97
+    - Factors not simple:  14 | 0.88"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 17 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 17 | Cutoff: 0.2
+    - Loadings not simple: 185 | 0.91
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 17 | Cutoff: 0.3
+    - Loadings not simple: 138 | 0.68
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 17 | Cutoff: 0.4
+    - Loadings not simple: 70 | 0.34
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 17 | Cutoff: 0.5
+    - Loadings not simple: 36 | 0.18
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 17 | Cutoff: 0.6
+    - Loadings not simple: 63 | 0.31
+    - Factors not simple:  1 | 0.06"
+"1","
+Nb Factors: 17 | Cutoff: 0.7
+    - Loadings not simple: 119 | 0.59
+    - Factors not simple:  7 | 0.41"
+"1","
+Nb Factors: 17 | Cutoff: 0.8
+    - Loadings not simple: 163 | 0.8
+    - Factors not simple:  8 | 0.47"
+"1","
+Nb Factors: 17 | Cutoff: 0.9
+    - Loadings not simple: 199 | 0.98
+    - Factors not simple:  15 | 0.88"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 18 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 18 | Cutoff: 0.2
+    - Loadings not simple: 183 | 0.9
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 18 | Cutoff: 0.3
+    - Loadings not simple: 136 | 0.67
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 18 | Cutoff: 0.4
+    - Loadings not simple: 65 | 0.32
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 18 | Cutoff: 0.5
+    - Loadings not simple: 34 | 0.17
+    - Factors not simple:  1 | 0.06"
+"1","
+Nb Factors: 18 | Cutoff: 0.6
+    - Loadings not simple: 59 | 0.29
+    - Factors not simple:  2 | 0.11"
+"1","
+Nb Factors: 18 | Cutoff: 0.7
+    - Loadings not simple: 112 | 0.55
+    - Factors not simple:  7 | 0.39"
+"1","
+Nb Factors: 18 | Cutoff: 0.8
+    - Loadings not simple: 166 | 0.82
+    - Factors not simple:  9 | 0.5"
+"1","
+Nb Factors: 18 | Cutoff: 0.9
+    - Loadings not simple: 200 | 0.99
+    - Factors not simple:  17 | 0.94"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 19 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 19 | Cutoff: 0.2
+    - Loadings not simple: 187 | 0.92
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 19 | Cutoff: 0.3
+    - Loadings not simple: 140 | 0.69
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 19 | Cutoff: 0.4
+    - Loadings not simple: 78 | 0.38
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 19 | Cutoff: 0.5
+    - Loadings not simple: 34 | 0.17
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 19 | Cutoff: 0.6
+    - Loadings not simple: 59 | 0.29
+    - Factors not simple:  4 | 0.21"
+"1","
+Nb Factors: 19 | Cutoff: 0.7
+    - Loadings not simple: 116 | 0.57
+    - Factors not simple:  8 | 0.42"
+"1","
+Nb Factors: 19 | Cutoff: 0.8
+    - Loadings not simple: 166 | 0.82
+    - Factors not simple:  10 | 0.53"
+"1","
+Nb Factors: 19 | Cutoff: 0.9
+    - Loadings not simple: 199 | 0.98
+    - Factors not simple:  17 | 0.89"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 20 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 20 | Cutoff: 0.2
+    - Loadings not simple: 188 | 0.93
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 20 | Cutoff: 0.3
+    - Loadings not simple: 136 | 0.67
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 20 | Cutoff: 0.4
+    - Loadings not simple: 69 | 0.34
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 20 | Cutoff: 0.5
+    - Loadings not simple: 37 | 0.18
+    - Factors not simple:  1 | 0.05"
+"1","
+Nb Factors: 20 | Cutoff: 0.6
+    - Loadings not simple: 57 | 0.28
+    - Factors not simple:  5 | 0.25"
+"1","
+Nb Factors: 20 | Cutoff: 0.7
+    - Loadings not simple: 114 | 0.56
+    - Factors not simple:  9 | 0.45"
+"1","
+Nb Factors: 20 | Cutoff: 0.8
+    - Loadings not simple: 163 | 0.8
+    - Factors not simple:  12 | 0.6"
+"1","
+Nb Factors: 20 | Cutoff: 0.9
+    - Loadings not simple: 197 | 0.97
+    - Factors not simple:  18 | 0.9"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 21 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 21 | Cutoff: 0.2
+    - Loadings not simple: 188 | 0.93
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 21 | Cutoff: 0.3
+    - Loadings not simple: 140 | 0.69
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 21 | Cutoff: 0.4
+    - Loadings not simple: 71 | 0.35
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 21 | Cutoff: 0.5
+    - Loadings not simple: 39 | 0.19
+    - Factors not simple:  1 | 0.05"
+"1","
+Nb Factors: 21 | Cutoff: 0.6
+    - Loadings not simple: 58 | 0.29
+    - Factors not simple:  6 | 0.29"
+"1","
+Nb Factors: 21 | Cutoff: 0.7
+    - Loadings not simple: 111 | 0.55
+    - Factors not simple:  9 | 0.43"
+"1","
+Nb Factors: 21 | Cutoff: 0.8
+    - Loadings not simple: 163 | 0.8
+    - Factors not simple:  13 | 0.62"
+"1","
+Nb Factors: 21 | Cutoff: 0.9
+    - Loadings not simple: 198 | 0.98
+    - Factors not simple:  19 | 0.9"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 22 | Cutoff: 0.1
+    - Loadings not simple: 202 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 22 | Cutoff: 0.2
+    - Loadings not simple: 185 | 0.91
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 22 | Cutoff: 0.3
+    - Loadings not simple: 132 | 0.65
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 22 | Cutoff: 0.4
+    - Loadings not simple: 76 | 0.37
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 22 | Cutoff: 0.5
+    - Loadings not simple: 34 | 0.17
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 22 | Cutoff: 0.6
+    - Loadings not simple: 73 | 0.36
+    - Factors not simple:  5 | 0.23"
+"1","
+Nb Factors: 22 | Cutoff: 0.7
+    - Loadings not simple: 121 | 0.6
+    - Factors not simple:  8 | 0.36"
+"1","
+Nb Factors: 22 | Cutoff: 0.8
+    - Loadings not simple: 157 | 0.77
+    - Factors not simple:  13 | 0.59"
+"1","
+Nb Factors: 22 | Cutoff: 0.9
+    - Loadings not simple: 198 | 0.98
+    - Factors not simple:  21 | 0.95"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in GPForth(L, Tmat = Tmat, normalize = normalize, eps = eps, maxit = maxit,  :"
+"2","
+ "
+"2"," convergence not obtained in GPForth. 1000 iterations used.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 23 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 23 | Cutoff: 0.2
+    - Loadings not simple: 191 | 0.94
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 23 | Cutoff: 0.3
+    - Loadings not simple: 135 | 0.67
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 23 | Cutoff: 0.4
+    - Loadings not simple: 79 | 0.39
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 23 | Cutoff: 0.5
+    - Loadings not simple: 35 | 0.17
+    - Factors not simple:  1 | 0.04"
+"1","
+Nb Factors: 23 | Cutoff: 0.6
+    - Loadings not simple: 79 | 0.39
+    - Factors not simple:  7 | 0.3"
+"1","
+Nb Factors: 23 | Cutoff: 0.7
+    - Loadings not simple: 119 | 0.59
+    - Factors not simple:  9 | 0.39"
+"1","
+Nb Factors: 23 | Cutoff: 0.8
+    - Loadings not simple: 162 | 0.8
+    - Factors not simple:  15 | 0.65"
+"1","
+Nb Factors: 23 | Cutoff: 0.9
+    - Loadings not simple: 200 | 0.99
+    - Factors not simple:  22 | 0.96"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 24 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 24 | Cutoff: 0.2
+    - Loadings not simple: 188 | 0.93
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 24 | Cutoff: 0.3
+    - Loadings not simple: 145 | 0.71
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 24 | Cutoff: 0.4
+    - Loadings not simple: 79 | 0.39
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 24 | Cutoff: 0.5
+    - Loadings not simple: 45 | 0.22
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 24 | Cutoff: 0.6
+    - Loadings not simple: 72 | 0.35
+    - Factors not simple:  7 | 0.29"
+"1","
+Nb Factors: 24 | Cutoff: 0.7
+    - Loadings not simple: 119 | 0.59
+    - Factors not simple:  9 | 0.38"
+"1","
+Nb Factors: 24 | Cutoff: 0.8
+    - Loadings not simple: 163 | 0.8
+    - Factors not simple:  15 | 0.62"
+"1","
+Nb Factors: 24 | Cutoff: 0.9
+    - Loadings not simple: 200 | 0.99
+    - Factors not simple:  22 | 0.92"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 25 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 25 | Cutoff: 0.2
+    - Loadings not simple: 177 | 0.87
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 25 | Cutoff: 0.3
+    - Loadings not simple: 126 | 0.62
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 25 | Cutoff: 0.4
+    - Loadings not simple: 64 | 0.32
+    - Factors not simple:  1 | 0.04"
+"1","
+Nb Factors: 25 | Cutoff: 0.5
+    - Loadings not simple: 44 | 0.22
+    - Factors not simple:  2 | 0.08"
+"1","
+Nb Factors: 25 | Cutoff: 0.6
+    - Loadings not simple: 72 | 0.35
+    - Factors not simple:  8 | 0.32"
+"1","
+Nb Factors: 25 | Cutoff: 0.7
+    - Loadings not simple: 119 | 0.59
+    - Factors not simple:  12 | 0.48"
+"1","
+Nb Factors: 25 | Cutoff: 0.8
+    - Loadings not simple: 154 | 0.76
+    - Factors not simple:  16 | 0.64"
+"1","
+Nb Factors: 25 | Cutoff: 0.9
+    - Loadings not simple: 193 | 0.95
+    - Factors not simple:  23 | 0.92"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in GPForth(L, Tmat = Tmat, normalize = normalize, eps = eps, maxit = maxit,  :"
+"2","
+ "
+"2"," convergence not obtained in GPForth. 1000 iterations used.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 26 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 26 | Cutoff: 0.2
+    - Loadings not simple: 180 | 0.89
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 26 | Cutoff: 0.3
+    - Loadings not simple: 129 | 0.64
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 26 | Cutoff: 0.4
+    - Loadings not simple: 72 | 0.35
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 26 | Cutoff: 0.5
+    - Loadings not simple: 45 | 0.22
+    - Factors not simple:  2 | 0.08"
+"1","
+Nb Factors: 26 | Cutoff: 0.6
+    - Loadings not simple: 69 | 0.34
+    - Factors not simple:  9 | 0.35"
+"1","
+Nb Factors: 26 | Cutoff: 0.7
+    - Loadings not simple: 122 | 0.6
+    - Factors not simple:  14 | 0.54"
+"1","
+Nb Factors: 26 | Cutoff: 0.8
+    - Loadings not simple: 158 | 0.78
+    - Factors not simple:  17 | 0.65"
+"1","
+Nb Factors: 26 | Cutoff: 0.9
+    - Loadings not simple: 194 | 0.96
+    - Factors not simple:  24 | 0.92"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in GPForth(L, Tmat = Tmat, normalize = normalize, eps = eps, maxit = maxit,  :"
+"2","
+ "
+"2"," convergence not obtained in GPForth. 1000 iterations used.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 27 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 27 | Cutoff: 0.2
+    - Loadings not simple: 182 | 0.9
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 27 | Cutoff: 0.3
+    - Loadings not simple: 139 | 0.68
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 27 | Cutoff: 0.4
+    - Loadings not simple: 76 | 0.37
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 27 | Cutoff: 0.5
+    - Loadings not simple: 43 | 0.21
+    - Factors not simple:  3 | 0.11"
+"1","
+Nb Factors: 27 | Cutoff: 0.6
+    - Loadings not simple: 75 | 0.37
+    - Factors not simple:  9 | 0.33"
+"1","
+Nb Factors: 27 | Cutoff: 0.7
+    - Loadings not simple: 122 | 0.6
+    - Factors not simple:  12 | 0.44"
+"1","
+Nb Factors: 27 | Cutoff: 0.8
+    - Loadings not simple: 160 | 0.79
+    - Factors not simple:  17 | 0.63"
+"1","
+Nb Factors: 27 | Cutoff: 0.9
+    - Loadings not simple: 196 | 0.97
+    - Factors not simple:  25 | 0.93"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in GPForth(L, Tmat = Tmat, normalize = normalize, eps = eps, maxit = maxit,  :"
+"2","
+ "
+"2"," convergence not obtained in GPForth. 1000 iterations used.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 28 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 28 | Cutoff: 0.2
+    - Loadings not simple: 191 | 0.94
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 28 | Cutoff: 0.3
+    - Loadings not simple: 142 | 0.7
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 28 | Cutoff: 0.4
+    - Loadings not simple: 85 | 0.42
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 28 | Cutoff: 0.5
+    - Loadings not simple: 43 | 0.21
+    - Factors not simple:  3 | 0.11"
+"1","
+Nb Factors: 28 | Cutoff: 0.6
+    - Loadings not simple: 75 | 0.37
+    - Factors not simple:  8 | 0.29"
+"1","
+Nb Factors: 28 | Cutoff: 0.7
+    - Loadings not simple: 124 | 0.61
+    - Factors not simple:  15 | 0.54"
+"1","
+Nb Factors: 28 | Cutoff: 0.8
+    - Loadings not simple: 163 | 0.8
+    - Factors not simple:  19 | 0.68"
+"1","
+Nb Factors: 28 | Cutoff: 0.9
+    - Loadings not simple: 196 | 0.97
+    - Factors not simple:  26 | 0.93"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in GPForth(L, Tmat = Tmat, normalize = normalize, eps = eps, maxit = maxit,  :"
+"2","
+ "
+"2"," convergence not obtained in GPForth. 1000 iterations used.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 29 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 29 | Cutoff: 0.2
+    - Loadings not simple: 188 | 0.93
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 29 | Cutoff: 0.3
+    - Loadings not simple: 136 | 0.67
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 29 | Cutoff: 0.4
+    - Loadings not simple: 80 | 0.39
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 29 | Cutoff: 0.5
+    - Loadings not simple: 42 | 0.21
+    - Factors not simple:  3 | 0.1"
+"1","
+Nb Factors: 29 | Cutoff: 0.6
+    - Loadings not simple: 70 | 0.34
+    - Factors not simple:  13 | 0.45"
+"1","
+Nb Factors: 29 | Cutoff: 0.7
+    - Loadings not simple: 118 | 0.58
+    - Factors not simple:  16 | 0.55"
+"1","
+Nb Factors: 29 | Cutoff: 0.8
+    - Loadings not simple: 160 | 0.79
+    - Factors not simple:  19 | 0.66"
+"1","
+Nb Factors: 29 | Cutoff: 0.9
+    - Loadings not simple: 197 | 0.97
+    - Factors not simple:  27 | 0.93"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in GPForth(L, Tmat = Tmat, normalize = normalize, eps = eps, maxit = maxit,  :"
+"2","
+ "
+"2"," convergence not obtained in GPForth. 1000 iterations used.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","
+Nb Factors: 30 | Cutoff: 0.1
+    - Loadings not simple: 203 | 1
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 30 | Cutoff: 0.2
+    - Loadings not simple: 184 | 0.91
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 30 | Cutoff: 0.3
+    - Loadings not simple: 135 | 0.67
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 30 | Cutoff: 0.4
+    - Loadings not simple: 78 | 0.38
+    - Factors not simple:  0 | 0"
+"1","
+Nb Factors: 30 | Cutoff: 0.5
+    - Loadings not simple: 41 | 0.2
+    - Factors not simple:  4 | 0.13"
+"1","
+Nb Factors: 30 | Cutoff: 0.6
+    - Loadings not simple: 72 | 0.35
+    - Factors not simple:  14 | 0.47"
+"1","
+Nb Factors: 30 | Cutoff: 0.7
+    - Loadings not simple: 119 | 0.59
+    - Factors not simple:  17 | 0.57"
+"1","
+Nb Factors: 30 | Cutoff: 0.8
+    - Loadings not simple: 154 | 0.76
+    - Factors not simple:  20 | 0.67"
+"1","
+Nb Factors: 30 | Cutoff: 0.9
+    - Loadings not simple: 194 | 0.96
+    - Factors not simple:  28 | 0.93"

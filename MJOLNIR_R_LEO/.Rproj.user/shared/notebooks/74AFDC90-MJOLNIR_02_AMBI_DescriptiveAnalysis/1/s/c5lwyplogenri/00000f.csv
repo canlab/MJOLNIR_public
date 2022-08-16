@@ -1,0 +1,5 @@
+"0","egg::ggarrange(plotlist=graph, widths = c(14,13))
+"
+"2","Error in UseMethod(""ggplot_build"") : 
+  no applicable method for 'ggplot_build' applied to an object of class ""list""
+"

@@ -1,0 +1,20 @@
+"0","dff <- dff %>%
+  mutate(V_up = case_when(V_Update ~ 1,
+                          !(V_Update) ~ 0),
+         V_presentation2 = case_when(V_Update ~ case_when(str_detect(V_Presentation, ""Defensive"") ~ 0,
+                                                          str_detect(V_Presentation, ""Prosocial"") ~ 2),
+                                     !(V_Update) ~ 1),
+         V_presentation3 = case_when(V_Update ~ case_when(str_detect(V_Presentation, ""Defensive"") ~ ""Defensive"",
+                                                          str_detect(V_Presentation, ""Prosocial"") ~ ""Prosocial""),
+                                     !(V_Update) ~ ""NONE"") %>%
+           relevel(""NONE""))
+"
+"1","[1m[33mError[39m in [38;5;232m`mutate()`[39m:[22m
+[38;5;232m[33m![38;5;232m Problem while computing `V_presentation3 = ... %>% relevel(""NONE"")`.[39m
+[1mCaused by error in [38;5;232m`relevel.default()`[39m:[22m
+[33m![39m 'relevel' only for (unordered) factors
+Backtrace:
+[90m  1. [39mdff %>% ...
+[90m  9. [39m[1mstats[22m:::relevel.default(., ""NONE"")
+[90m 10. [39m[1mbase[22m::stop(""'relevel' only for (unordered) factors"")
+"

@@ -1,0 +1,2 @@
+"0","df_covmis$covqual_class <- factor(df_covmis$covqual_class, c(""1"",""2"",""3""))"
+"0","freq(df_covmis$covqual_class)"

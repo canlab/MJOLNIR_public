@@ -1,0 +1,6 @@
+"0","# 1. Open jpeg file"
+"0","pdf(""./mixedmodel/graphs/Model/Model07_covidskepticism.pdf"", width = 10, height = 5)"
+"0","# 2. Create the plot"
+"0","grph"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

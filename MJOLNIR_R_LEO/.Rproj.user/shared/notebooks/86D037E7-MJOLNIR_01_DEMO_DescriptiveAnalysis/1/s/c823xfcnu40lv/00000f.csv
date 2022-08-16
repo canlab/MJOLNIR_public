@@ -1,0 +1,3 @@
+"0","df$EXPGRP_TEXT <- fct_recode(df$EXPGRP %>% as.character,"
+"0","""White""=""1"",""Chinese""=""2"",""Non-Chinese Asian""=""3"")"
+"0","freq(df$EXPGRP_TEXT)"

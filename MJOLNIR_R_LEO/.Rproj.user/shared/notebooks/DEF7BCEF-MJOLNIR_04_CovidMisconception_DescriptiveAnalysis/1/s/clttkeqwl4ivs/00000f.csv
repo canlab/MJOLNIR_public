@@ -1,0 +1,42 @@
+"0","library(ordinal)"
+"2","
+Attaching package: ‘ordinal’
+
+"
+"2","The following objects are masked from ‘package:lme4’:
+
+    ranef, VarCorr
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    slice
+
+"
+"0","library(nnet)"
+"0","library(GGally)"
+"2","Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+"
+"2","
+Attaching package: ‘GGally’
+
+"
+"2","The following object is masked from ‘package:emmeans’:
+
+    pigs
+
+"
+"0","library(gtsummary)"
+"0","library(ggeffects)"
+"0","library(rstatix)"
+"2","
+Attaching package: ‘rstatix’
+
+"
+"2","The following object is masked from ‘package:stats’:
+
+    filter
+
+"

@@ -1,0 +1,218 @@
+"1","# weights: "
+"1"," "
+"1","45"
+"1"," ("
+"1",""
+"1","28"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 470.231811
+"
+"1","iter  20 value 463.989649
+"
+"1","iter  30 value 463.947544
+"
+"1","final  value 463.947516 
+"
+"1","converged
+"
+"1","
+Step:  AIC="
+"1",""
+"1","983.9"
+"1",""
+"1","
+"
+"1",""
+"1","covqual_class ~ EXPGRP_TEXT + HAS_LIVED_USA + EDUCATION_2_TEXT + "
+"1",""
+"1","
+    neuroticism_qual + extraversion_qual + openness_qual + agreeableness_qual"
+"1",""
+"1","
+
+"
+"1","trying -"
+"1"," "
+"1","EXPGRP_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","39"
+"1"," ("
+"1",""
+"1","24"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 485.022400
+"
+"1","iter  20 value 482.589677
+"
+"1","final  value 482.570082 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","HAS_LIVED_USA"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","42"
+"1"," ("
+"1",""
+"1","26"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 473.972602
+"
+"1","iter  20 value 466.540777
+"
+"1","iter  30 value 466.486440
+"
+"1","iter  30 value 466.486438
+"
+"1","iter  30 value 466.486438
+"
+"1","final  value 466.486438 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","EDUCATION_2_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","39"
+"1"," ("
+"1",""
+"1","24"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 471.321804
+"
+"1","iter  20 value 467.003348
+"
+"1","final  value 466.990444 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","neuroticism_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","39"
+"1"," ("
+"1",""
+"1","24"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 472.893712
+"
+"1","iter  20 value 468.651939
+"
+"1","final  value 468.633049 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","extraversion_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","39"
+"1"," ("
+"1",""
+"1","24"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 475.366755
+"
+"1","iter  20 value 467.669826
+"
+"1","final  value 467.635714 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","openness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","39"
+"1"," ("
+"1",""
+"1","24"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 479.544315
+"
+"1","iter  20 value 474.993304
+"
+"1","final  value 474.952664 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","agreeableness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","39"
+"1"," ("
+"1",""
+"1","24"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 482.410024
+"
+"1","iter  20 value 476.468661
+"
+"1","final  value 476.446333 
+"
+"1","converged
+"

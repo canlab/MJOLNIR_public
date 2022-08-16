@@ -1,0 +1,10 @@
+"0","dff.means.comp %>%
+  filter(!str_detect(name, ""Indian|Black""), str_detect(name,""cigarettes"")) %>%
+  arrange(name) %>%
+  select(MorallyWrong, CatchCovid, TransmitCovid) %>%
+  mutate(rownames(.)=rownames(.))
+"
+"2","Error: unexpected '=' in:
+""  select(MorallyWrong, CatchCovid, TransmitCovid) %>%
+  mutate(rownames(.)=""
+"

@@ -1,0 +1,19 @@
+"0","df_covmis2 %>%
+  gather(key = ""BIG5_var"", value=""BIG5_res"", df_covmis %>% colnames %>% str_detect(""BIG5"") %>% which) %>%
+  ggplot(aes(BIG5_res, CovidSkepticism)) +
+    facet_wrap(~BIG5_var) +
+    geom_point(color=""grey"") +
+    geom_smooth(method='lm')+
+    ggpubr::stat_regline_equation(label.y = 100, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 90, aes(label = ..rr.label..)) +
+    ggpmisc::stat_fit_glance(method = 'lm',
+                       method.args = list(formula = formula),
+                       geom = 'text',
+                       aes(label = paste(""p = "", signif(..p.value.., digits = 3), sep = """")),
+                       label.x.npc = 'left', size = 3)
+"
+"2","Warning:"
+"2"," Ignoring unknown parameters: label.x.npc
+"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

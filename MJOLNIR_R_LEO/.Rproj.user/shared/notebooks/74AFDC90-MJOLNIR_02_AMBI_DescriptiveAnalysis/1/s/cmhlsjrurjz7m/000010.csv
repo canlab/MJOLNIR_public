@@ -1,0 +1,53 @@
+"0","parallel <- fa.parallel(df[,c(colnames(df) %>% str_detect(""^AMBI_MSR_"") %>% which)],"
+"0","                        fm = ""minres"", fa = ""fa"")"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined.
+Chi square is based upon observed residuals.
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","In factor.scores, the correlation matrix is singular, an approximation is used
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"1","Parallel analysis suggests that "
+"1","the number of factors = "
+"1"," "
+"1","18"
+"1"," "
+"1"," and the number of components = "
+"1"," "
+"1","NA"
+"1"," "
+"1","
+"

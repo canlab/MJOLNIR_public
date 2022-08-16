@@ -1,0 +1,31 @@
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}{stars}""), statistic = c(),
+             output = ""latex"", title = ""Scenario 1, Product without update"") 
+"
+"1","\begin{table}
+
+\caption{Scenario 1, Product without update}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+  & MorrallyWrong & CatchCovid & TransmitCovid\\
+\midrule
+(Intercept) & \num{22.41}*** & \num{32.15}*** & \num{31.65}***\\
+V\_Productbabyformula & \num{-6.08}*** & \num{-0.94} & \num{-0.43}\\
+V\_Productcigarettes & \num{11.72}*** & \num{6.48}*** & \num{5.30}***\\
+V\_Producttoiletpaper & \num{11.73}*** & \num{0.79} & \num{1.30}*\\
+SD (Intercept ID) & \num{20.41} & \num{19.48} & \num{20.45}\\
+SD (Observations) & \num{20.38} & \num{11.32} & \num{11.28}\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.066} & \num{0.016} & \num{0.009}\\
+R2 Cond. & \num{0.534} & \num{0.752} & \num{0.769}\\
+AIC & \num{22211.3} & \num{19960.2} & \num{20001.5}\\
+BIC & \num{22246.0} & \num{19994.9} & \num{20036.2}\\
+ICC & \num{0.5} & \num{0.7} & \num{0.8}\\
+RMSE & \num{18.21} & \num{9.92} & \num{9.87}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

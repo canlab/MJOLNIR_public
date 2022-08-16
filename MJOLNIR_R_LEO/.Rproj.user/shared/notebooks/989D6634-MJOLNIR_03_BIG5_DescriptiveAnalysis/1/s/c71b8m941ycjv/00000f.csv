@@ -1,0 +1,2 @@
+"0","colnames(df_score_big5) <- paste0(""AMBI_BIG5_"", colnames(df_score_big5))"
+"0","df <- cbind(df, df_score_big5)"

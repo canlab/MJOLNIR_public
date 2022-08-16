@@ -1,0 +1,22 @@
+"0","  r <- map(mixed.lmers, difflsmeans) %>%
+    map(r, function(x){
+    r <- x %>%
+      mutate(p = `Pr(>|t|)`,
+             star = case_when(p < 0.001 ~ ""***"",
+                                              p < 0.01 ~ ""**"",
+                                              p < 0.05 ~ ""*"",
+                                              p < 0.1 ~ ""."", 
+                                              TRUE ~ """"),
+             res = paste0(Estimate, star)) %>%
+      select(res)
+    #colnames(r) <- c(name(x))
+    return(r)
+  }) 
+"
+"1","[1m[33mError[39m in [38;5;232m`stop_bad_length()`[39m:[22m
+[33m![39m Index 1 must have length 1, not 2
+Backtrace:
+[90m 1. [39mmap(mixed.lmers, difflsmeans) %>% ...
+[90m 5. [39m[1mpurrr[22m:::stop_bad_element_length(...)
+[90m 6. [39mpurrr:::stop_bad_length(...)
+"

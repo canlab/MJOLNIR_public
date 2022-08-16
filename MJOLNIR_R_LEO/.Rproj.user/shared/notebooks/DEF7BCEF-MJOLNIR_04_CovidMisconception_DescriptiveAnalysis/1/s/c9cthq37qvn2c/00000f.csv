@@ -1,0 +1,4 @@
+"0","reg <- glm(covqual_class_2 ~ EXPGRP_TEXT + HAS_LIVED_USA + openness_qual, "
+"0","           data = df_covmis2, "
+"0","           family = binomial(logit))"
+"0","ggcoef_model(reg, exponentiate = TRUE)"

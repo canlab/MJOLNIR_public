@@ -1,0 +1,2 @@
+"0","res.pca <- PCA(df_covmis %>% dplyr::select(matches(""^covmis_cnsp"")),"
+"0","               scale.unit=TRUE, ncp=25, graph=T)"

@@ -1,0 +1,185 @@
+"1","# weights: "
+"1"," "
+"1","39"
+"1"," ("
+"1",""
+"1","24"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 471.321804
+"
+"1","iter  20 value 467.003348
+"
+"1","final  value 466.990444 
+"
+"1","converged
+"
+"1","
+Step:  AIC="
+"1",""
+"1","981.98"
+"1",""
+"1","
+"
+"1",""
+"1","covqual_class ~ EXPGRP_TEXT + HAS_LIVED_USA + neuroticism_qual + "
+"1",""
+"1","
+    extraversion_qual + openness_qual + agreeableness_qual"
+"1",""
+"1","
+
+"
+"1","trying -"
+"1"," "
+"1","EXPGRP_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","33"
+"1"," ("
+"1",""
+"1","20"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 489.150703
+"
+"1","iter  20 value 487.391804
+"
+"1","final  value 487.383516 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","HAS_LIVED_USA"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","36"
+"1"," ("
+"1",""
+"1","22"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 477.377240
+"
+"1","iter  20 value 469.976309
+"
+"1","final  value 469.943756 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","neuroticism_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","33"
+"1"," ("
+"1",""
+"1","20"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 474.911609
+"
+"1","iter  20 value 471.470110
+"
+"1","final  value 471.465553 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","extraversion_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","33"
+"1"," ("
+"1",""
+"1","20"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 476.402111
+"
+"1","iter  20 value 470.388840
+"
+"1","final  value 470.381790 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","openness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","33"
+"1"," ("
+"1",""
+"1","20"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 482.098263
+"
+"1","iter  20 value 478.371906
+"
+"1","final  value 478.366797 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","agreeableness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","33"
+"1"," ("
+"1",""
+"1","20"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 485.621098
+"
+"1","iter  20 value 480.607089
+"
+"1","final  value 480.602495 
+"
+"1","converged
+"

@@ -1,0 +1,4 @@
+"0","write.csv(df_GPS_2, file = ""./data/coordoneesgpsscrap2.csv"")
+"
+"2","Error in is.data.frame(x) : object 'df_GPS_2' not found
+"

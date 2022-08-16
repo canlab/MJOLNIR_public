@@ -1,0 +1,25 @@
+{
+    "id": "ABBC305B",
+    "path": null,
+    "project_path": null,
+    "type": "r_code_browser",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1658334031212.0,
+    "source_on_save": false,
+    "relative_order": 8,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "context": ".GlobalEnv:::difflmeansmodelcomp"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 8679950708959372644,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1658334031212,
+    "read_only": false,
+    "read_only_alternatives": []
+}

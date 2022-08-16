@@ -1,0 +1,6 @@
+"0",""
+"0","dff %>% "
+"0","  filter(V_Question==""JudgeOther_1"") %>%"
+"0","  ggplot(aes(x=interaction(EXPGRP_TEXT,CONTINENT_BORN_TEXT_1), y=vignette_result, fill=interaction(EXPGRP_TEXT,CONTINENT_BORN_TEXT_1))) +"
+"0","  geom_boxplot()+ "
+"0","  theme(axis.text.x = element_text(angle = 45, vjust=1, hjust=1)) "

@@ -1,0 +1,4 @@
+"0","df_2 <- calculate_AMBI(df, var_name = ""aliases"")"
+"2","Error in calculate_AMBI(df, var_name = ""aliases"") : 
+  could not find function ""calculate_AMBI""
+"

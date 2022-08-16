@@ -1,0 +1,13 @@
+"0","# Package"
+"0","library(questionr)"
+"0","library(tidyverse)"
+"0","library(ggpubr)"
+"0","library(rstatix)"
+"0","library(emmeans)"
+"0","library(extrafont)"
+"0","library(here)"
+"0","library(car) # test Anova et Reg lin"
+"0","library(lme4) # modèle mixte"
+"2","Error: package or namespace load failed for ‘lme4’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ there is no package called ‘nloptr’
+"

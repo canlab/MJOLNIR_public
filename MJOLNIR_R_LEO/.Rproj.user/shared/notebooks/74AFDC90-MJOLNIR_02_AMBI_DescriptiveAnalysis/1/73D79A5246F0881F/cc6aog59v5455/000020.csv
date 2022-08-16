@@ -1,0 +1,11 @@
+"0","graph <- ggpubr::ggboxplot(dff %>% filter(AMBI_name==""VIRTUOUS""), 
+                  x = ""EXPGRP_TEXT"", y = ""AMBI_res"") +
+  ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
+  labs(
+    title = ""VIRTUOUS""
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+"
+"2","Error: unexpected symbol in:
+""    title = ""VIRTUOUS""
+    subtitle""
+"

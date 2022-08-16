@@ -1,0 +1,5 @@
+"0","df_covmis3$CONTINENT_BORN_TEXT_1 <- df_covmis3$CONTINENT_BORN_TEXT_1 %>% as.character %>% as.factor %>% freq()
+"
+"2","Error in `$<-.data.frame`(`*tmp*`, CONTINENT_BORN_TEXT_1, value = list( : 
+  replacement has 4 rows, data has 599
+"

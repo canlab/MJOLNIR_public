@@ -1,0 +1,5 @@
+"0","df_covmis$covqual_class_2 <- fct_recode(df_covmis$covqual_class %>% as.character,"
+"0","          ""Believers""=""1"","
+"0","          ""Believers""=""2"","
+"0","          ""Skeptics""=""3"")"
+"0","freq(df_covmis$covqual_class_2)"

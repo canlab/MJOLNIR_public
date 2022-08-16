@@ -1,0 +1,10 @@
+"0","d <- df %>%
+  left_join(df_City, by='ID')
+"
+"1","[1m[33mError[39m in [38;5;232m`left_join()`[39m:[22m
+[38;5;232m[33m![38;5;232m Join columns must be present in data.
+[31m✖[38;5;232m Problem with `ID`.[39m
+Backtrace:
+[90m 1. [39mdf %>% left_join(df_City, by = ""ID"")
+[90m 3. [39m[1mdplyr[22m:::left_join.data.frame(., df_City, by = ""ID"")
+"

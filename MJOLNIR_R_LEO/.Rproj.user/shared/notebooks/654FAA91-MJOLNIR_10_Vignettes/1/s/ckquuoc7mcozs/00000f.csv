@@ -1,0 +1,3 @@
+"0","write.csv(dff,""./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_1.csv"")"
+"0","write.csv(dff_2,""./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.csv"")"
+"0","dff <- read.csv(""./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.csv"")"

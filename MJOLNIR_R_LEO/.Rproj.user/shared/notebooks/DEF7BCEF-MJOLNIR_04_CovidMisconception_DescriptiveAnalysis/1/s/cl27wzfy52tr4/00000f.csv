@@ -1,0 +1,11 @@
+"0","regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + DOB_YEAR_PERIODE + SEX_TEXT + EDUCATION_2_TEXT + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, 
+                 data = df_covmis %>%
+                   filter(EXPGRP_TEXT != ""Non-Chinese Asian"" &
+                            !(CONTINENT_BORN_TEXT_1 %in% c(""4Tigers and Japan"", ""Africa"", ""Middle East"",
+                                                           ""North America"", ""Oceania"", ""South America"")) &
+                            !(is.na(CONTINENT_BORN_TEXT_1)) &
+                            !(SEX_TEXT %in% c(""Other"", ""Transgender"")) &
+                            HH_INCOME_TEXT != ""$500,000 or more""))
+"
+"2","Error in eval(predvars, data, env) : object 'EDUCATION_2_TEXT' not found
+"
