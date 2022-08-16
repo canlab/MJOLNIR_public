@@ -821,7 +821,7 @@ dff_q <- dff_q %>%
 dff_q$EXPGRP_TEXT %>% freq
 
 ```
-##### Hypothesis models
+#### Hypothesis models
 
 ###### H1a
 
@@ -863,9 +863,9 @@ mixed.lmers <- list(
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H1a") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a") 
 ```
 
 
@@ -896,9 +896,9 @@ mixed.lmers <- list(
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H1a-2") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-2") 
 ```
 
 
@@ -931,9 +931,9 @@ mixed.lmers <- list(
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H1a-3") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
 ```
 
 ###### H2a
@@ -993,9 +993,9 @@ mixed.lmers <- list(
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H2a") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a") 
 ```
 
 
@@ -1018,9 +1018,9 @@ mixed.lmers <- list(
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + V_Product*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H2a-2") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-2") 
 ```
 
 ```{r}
@@ -1042,9 +1042,9 @@ mixed.lmers <- list(
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + V_ProductMor*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H2a-3") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-3") 
 ```
 
 ###### H2b
@@ -1076,9 +1076,9 @@ mixed.lmers <- list(
   "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H2b") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b") 
 ```
 
 
@@ -1107,9 +1107,9 @@ mixed.lmers <- list(
   "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + V_Product*V_Racenamef + (1|ID),
           data = dff_q2))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H2b-2") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-2") 
 ```
 
 ```{r}
@@ -1137,9 +1137,9 @@ mixed.lmers <- list(
   "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q2))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H2b-3") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-3") 
 ```
 
 ###### H2c
@@ -1157,9 +1157,9 @@ mixed.lmers <- list(
   "Prod2levelCross" = lmer(MorallyWrong_other ~ MorallyWrong_self * V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q2))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H2c") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
 ```
 
 ###### H3a
@@ -1223,9 +1223,9 @@ mixed.lmers <- list(
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H3a") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a") 
 ```
 
 ```{r}
@@ -1247,9 +1247,9 @@ mixed.lmers <- list(
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef +(1|ID),
           data = dff_q3))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H3a-2") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-2") 
 ```
 
 
@@ -1272,12 +1272,1121 @@ mixed.lmers <- list(
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + V_Presentation*V_ProductMor*V_Racenamef +(1|ID),
           data = dff_q3))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
-             output = "latex", title = "Model H3a-3") 
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
 ```
 
 ###### H3b
+
+
+
+```{r}
+dff_q3_self <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette)
+  
+k <-  c()
+
+for (i in colnames(dff_q3_self)) {
+  if(is.na(dff_q3_self[1,i])|is.na(dff_q3_self[5,i])){
+    print(i)
+    k <- c(k,i)
+  }else{
+    if(dff_q3_self[1,i] != dff_q3_self[5,i]){
+      print(i)
+      k <- c(k,i)
+    }
+  }
+}
+  
+```
+
+
+```{r}
+dff_q3_self <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette) %>%
+  mutate(CCPre_Post=CatchCovid_Pre-CatchCovid_Post,
+         TCPre_Post=TransmitCovid_Pre-TransmitCovid_Post,
+         MWPre_Post=MorallyWrong_Pre-MorallyWrong_Post)
+
+
+dff_q3_self$V_Presentation <- relevel(dff_q3_self$V_Presentation %>% as.factor, "Prosocial")
+
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3_self),
+  "CC C path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC A path" = lmer(TCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3_self),
+  "TC C path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3b") 
+```
+
+
+#### EXPGRP 2*whites
+
+###### H1a
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CatchCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C' path" = lmer(CatchCovid ~ MorallyWrong + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC A path" = lmer(TransmitCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a") 
+```
+
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CatchCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C' path" = lmer(CatchCovid ~ MorallyWrong + RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC A path" = lmer(TransmitCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age   + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age   + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + RaceContResp*V_Product*V_Racenamef + V_Age   + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-2") 
+```
+
+
+```{r}
+dff_q$V_ProductMor <- ifelse(dff_q$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CatchCovid ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C path" = lmer(MorallyWrong ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C' path" = lmer(CatchCovid ~ MorallyWrong + RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC A path" = lmer(TransmitCovid ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C path" = lmer(MorallyWrong ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
+```
+
+###### H2a
+
+
+```{r}
+dff_q2 <-  dff_q %>%
+  mutate(V_JudgeSelf = ifelse(V_JudgeSelf==1, "self", "other")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Self, Question, V_JudgeSelf) %>%
+  spread(Question_Self, Vignette)
+
+k <-  c()
+
+for (i in colnames(dff_q2)) {
+  if(is.na(dff_q2[2,i])|is.na(dff_q2[1,i])){
+    print(i)
+    k <- c(k,i)
+  }else{
+    if(dff_q2[2,i] != dff_q2[1,i]){
+      print(i)
+      k <- c(k,i)
+    }
+  }
+}
+```
+
+
+```{r}
+dff_q2 <-  dff_q %>%
+  mutate(V_JudgeSelf = ifelse(V_JudgeSelf==1, "self", "other")) %>%
+  select(-k[1:(length(k)-6)]) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Self, Question, V_JudgeSelf) %>%
+  spread(Question_Self, Vignette) %>%
+  mutate(MWOther_Self = MorallyWrong_other-MorallyWrong_self,
+         CCOther_Self = CatchCovid_other-CatchCovid_self,
+         TCOther_Self = TransmitCovid_other-TransmitCovid_self)
+
+
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "CC C path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "TC A path" = lmer(TCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "TC C path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a") 
+```
+
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ (1|ID),
+          data = dff_q2),
+  "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "CC C path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ (1|ID),
+          data = dff_q2),
+  "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + (1|ID),
+          data = dff_q2),
+  "TC A path" = lmer(TCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + (1|ID),
+          data = dff_q2),
+  "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "TC C path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age  + (1|ID),
+          data = dff_q2),
+  "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age  + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-2") 
+```
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CCOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+          data = dff_q2),
+  "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "CC C path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+          data = dff_q2),
+  "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + RaceContResp*V_ProductMor*V_Racenamef + V_Age + (1|ID),
+          data = dff_q2),
+  "TC A path" = lmer(TCOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + (1|ID),
+          data = dff_q2),
+  "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "TC C path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
+          data = dff_q2),
+  "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + RaceContResp*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-3") 
+```
+
+###### H2b
+
+
+
+```{r}
+mixed.lmers <- list(
+  "MW A path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B2 path" = lmer(MWOther_Self ~ TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self+ (1|ID),
+          data = dff_q2),
+  "MW B4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW C1 path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType+ (1|ID),
+          data = dff_q2),
+  "MW C2 path" = lmer(TCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW C'1 path" = lmer(MWOther_Self ~ CCOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW C'2 path" = lmer(MWOther_Self ~ TCOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW C'3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b") 
+```
+
+
+```{r}
+mixed.lmers <- list(
+  "MW A path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B2 path" = lmer(MWOther_Self ~ TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self+ (1|ID),
+          data = dff_q2),
+  "MW B4 path" = lmer(MWOther_Self ~ RaceContResp*CCOther_Self*TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW C1 path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW C2 path" = lmer(TCOther_Self ~ RaceContResp*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW C'1 path" = lmer(MWOther_Self ~ CCOther_Self + RaceContResp*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'2 path" = lmer(MWOther_Self ~ TCOther_Self + RaceContResp*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self + RaceContResp*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + RaceContResp*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-2") 
+```
+
+```{r}
+mixed.lmers <- list(
+  "MW A path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B2 path" = lmer(MWOther_Self ~ TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self+ (1|ID),
+          data = dff_q2),
+  "MW B4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW C1 path" = lmer(CCOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW C2 path" = lmer(TCOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW C'1 path" = lmer(MWOther_Self ~ CCOther_Self + RaceContResp*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'2 path" = lmer(MWOther_Self ~ TCOther_Self + RaceContResp*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self + RaceContResp*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + RaceContResp*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-3") 
+```
+
+###### H2c
+
+```{r}
+mixed.lmers <- list(
+  "Other~Self" = lmer(MorallyWrong_other ~ MorallyWrong_self + (1|ID),
+          data = dff_q2),
+  "AllProd" = lmer(MorallyWrong_other ~ MorallyWrong_self + RaceContResp*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "AllProdCross" = lmer(MorallyWrong_other ~ MorallyWrong_self * RaceContResp*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "Prod2level" = lmer(MorallyWrong_other ~ MorallyWrong_self + RaceContResp*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "Prod2levelCross" = lmer(MorallyWrong_other ~ MorallyWrong_self * RaceContResp*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
+```
+
+###### H3a
+
+```{r}
+dff_q3 <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette)
+  
+k <-  c()
+
+for (i in colnames(dff_q3)) {
+  if(is.na(dff_q3[1,i])|is.na(dff_q3[5,i])){
+    print(i)
+    k <- c(k,i)
+  }else{
+    if(dff_q3[1,i] != dff_q3[5,i]){
+      print(i)
+      k <- c(k,i)
+    }
+  }
+}
+  
+```
+
+
+```{r}
+dff_q3 <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette) %>%
+  mutate(CCPre_Post=CatchCovid_Pre-CatchCovid_Post,
+         TCPre_Post=TransmitCovid_Pre-TransmitCovid_Post,
+         MWPre_Post=MorallyWrong_Pre-MorallyWrong_Post)
+
+
+dff_q3$V_Presentation <- relevel(dff_q3$V_Presentation %>% as.factor, "Prosocial")
+
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "CC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "TC A path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "TC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a") 
+```
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + (1|ID),
+          data = dff_q3),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "CC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + (1|ID),
+          data = dff_q3),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q3),
+  "TC A path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q3),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "TC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef +  (1|ID),
+          data = dff_q3),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef +(1|ID),
+          data = dff_q3))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-2") 
+```
+
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q3),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "CC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q3),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q3),
+  "TC A path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q3),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "TC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef +  (1|ID),
+          data = dff_q3),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_ProductMor*V_Racenamef +(1|ID),
+          data = dff_q3))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
+```
+
+###### H3b
+
+
+
+```{r}
+dff_q3_self <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette)
+  
+k <-  c()
+
+for (i in colnames(dff_q3_self)) {
+  if(is.na(dff_q3_self[1,i])|is.na(dff_q3_self[5,i])){
+    print(i)
+    k <- c(k,i)
+  }else{
+    if(dff_q3_self[1,i] != dff_q3_self[5,i]){
+      print(i)
+      k <- c(k,i)
+    }
+  }
+}
+  
+```
+
+
+```{r}
+dff_q3_self <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette) %>%
+  mutate(CCPre_Post=CatchCovid_Pre-CatchCovid_Post,
+         TCPre_Post=TransmitCovid_Pre-TransmitCovid_Post,
+         MWPre_Post=MorallyWrong_Pre-MorallyWrong_Post)
+
+
+dff_q3_self$V_Presentation <- relevel(dff_q3_self$V_Presentation %>% as.factor, "Prosocial")
+
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3_self),
+  "CC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC A path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3_self),
+  "TC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3b") 
+```
+
+
+
+#### EXPGRP 1*whites
+
+
+###### H1a
+
+```{r}
+dff_q <- dff_q %>%
+  mutate(V_Racenamef = case_when(V_Racename_EXPGRP_Product_Presentation %>% str_detect("^W_") ~ "White",
+                                 V_Racename_EXPGRP_Product_Presentation %>% str_detect("^B_") ~ "Black",
+                                 V_Racename_EXPGRP_Product_Presentation %>% str_detect("^C_") ~ "Chinese",
+                                 V_Racename_EXPGRP_Product_Presentation%>% str_detect("^I_") ~ "Indian"))
+dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "babyformula")
+dff_q$V_Racenamef <- relevel(dff_q$V_Racenamef %>% as.factor, "White")
+dff_q$V_Location <- dff_q$V_Location %>% as.factor()
+dff_q$V_StoreType <- dff_q$V_StoreType %>% as.factor()
+dff_q$V_Framing <- dff_q$V_Framing %>% as.factor()
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C' path" = lmer(CatchCovid ~ MorallyWrong + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC A path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a") 
+```
+
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C' path" = lmer(CatchCovid ~ MorallyWrong + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC A path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age   + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age   + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C' path" = lmer(TransmitCovid ~ EXPGRP_TEXT*MorallyWrong + V_Product*V_Racenamef + V_Age   + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-2") 
+```
+
+
+```{r}
+dff_q$V_ProductMor <- ifelse(dff_q$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CC C' path" = lmer(CatchCovid ~ MorallyWrong + EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC A path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
+```
+
+###### H2a
+
+
+```{r}
+dff_q2 <-  dff_q %>%
+  mutate(V_JudgeSelf = ifelse(V_JudgeSelf==1, "self", "other")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Self, Question, V_JudgeSelf) %>%
+  spread(Question_Self, Vignette)
+
+k <-  c()
+
+for (i in colnames(dff_q2)) {
+  if(is.na(dff_q2[2,i])|is.na(dff_q2[1,i])){
+    print(i)
+    k <- c(k,i)
+  }else{
+    if(dff_q2[2,i] != dff_q2[1,i]){
+      print(i)
+      k <- c(k,i)
+    }
+  }
+}
+```
+
+
+```{r}
+dff_q2 <-  dff_q %>%
+  mutate(V_JudgeSelf = ifelse(V_JudgeSelf==1, "self", "other")) %>%
+  select(-k[1:(length(k)-6)]) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Self, Question, V_JudgeSelf) %>%
+  spread(Question_Self, Vignette) %>%
+  mutate(MWOther_Self = MorallyWrong_other-MorallyWrong_self,
+         CCOther_Self = CatchCovid_other-CatchCovid_self,
+         TCOther_Self = TransmitCovid_other-TransmitCovid_self)
+
+
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "CC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "TC A path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "TC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a") 
+```
+
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ (1|ID),
+          data = dff_q2),
+  "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "CC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ (1|ID),
+          data = dff_q2),
+  "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + (1|ID),
+          data = dff_q2),
+  "TC A path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + (1|ID),
+          data = dff_q2),
+  "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "TC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + (1|ID),
+          data = dff_q2),
+  "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-2") 
+```
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+          data = dff_q2),
+  "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "CC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+          data = dff_q2),
+  "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + (1|ID),
+          data = dff_q2),
+  "TC A path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + (1|ID),
+          data = dff_q2),
+  "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
+          data = dff_q2),
+  "TC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
+          data = dff_q2),
+  "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-3") 
+```
+
+###### H2b
+
+
+
+```{r}
+mixed.lmers <- list(
+  "MW A path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B2 path" = lmer(MWOther_Self ~ TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self+ (1|ID),
+          data = dff_q2),
+  "MW B4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW C1 path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType+ (1|ID),
+          data = dff_q2),
+  "MW C2 path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW C'1 path" = lmer(MWOther_Self ~ CCOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW C'2 path" = lmer(MWOther_Self ~ TCOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW C'3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2),
+  "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b") 
+```
+
+
+```{r}
+mixed.lmers <- list(
+  "MW A path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B2 path" = lmer(MWOther_Self ~ TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self+ (1|ID),
+          data = dff_q2),
+  "MW B4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW C1 path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW C2 path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW C'1 path" = lmer(MWOther_Self ~ CCOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'2 path" = lmer(MWOther_Self ~ TCOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-2") 
+```
+
+```{r}
+mixed.lmers <- list(
+  "MW A path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B2 path" = lmer(MWOther_Self ~ TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW B3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self+ (1|ID),
+          data = dff_q2),
+  "MW B4 path" = lmer(MWOther_Self ~ EXPGRP_TEXT*CCOther_Self*TCOther_Self + (1|ID),
+          data = dff_q2),
+  "MW C1 path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW C2 path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "MW C'1 path" = lmer(MWOther_Self ~ CCOther_Self + EXPGRP_TEXT*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'2 path" = lmer(MWOther_Self ~ TCOther_Self + EXPGRP_TEXT*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'3 path" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self + EXPGRP_TEXT*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q2),
+  "MW C'4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + EXPGRP_TEXT*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-3") 
+```
+
+###### H2c
+
+```{r}
+mixed.lmers <- list(
+  "Other~Self" = lmer(MorallyWrong_other ~ MorallyWrong_self + (1|ID),
+          data = dff_q2),
+  "AllProd" = lmer(MorallyWrong_other ~ MorallyWrong_self + EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "AllProdCross" = lmer(MorallyWrong_other ~ MorallyWrong_self * EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "Prod2level" = lmer(MorallyWrong_other ~ MorallyWrong_self + EXPGRP_TEXT*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2),
+  "Prod2levelCross" = lmer(MorallyWrong_other ~ MorallyWrong_self * EXPGRP_TEXT*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q2))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
+```
+
+###### H3a
+
+```{r}
+dff_q3 <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette)
+  
+k <-  c()
+
+for (i in colnames(dff_q3)) {
+  if(is.na(dff_q3[1,i])|is.na(dff_q3[5,i])){
+    print(i)
+    k <- c(k,i)
+  }else{
+    if(dff_q3[1,i] != dff_q3[5,i]){
+      print(i)
+      k <- c(k,i)
+    }
+  }
+}
+  
+```
+
+
+```{r}
+dff_q3 <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette) %>%
+  mutate(CCPre_Post=CatchCovid_Pre-CatchCovid_Post,
+         TCPre_Post=TransmitCovid_Pre-TransmitCovid_Post,
+         MWPre_Post=MorallyWrong_Pre-MorallyWrong_Post)
+
+
+dff_q3$V_Presentation <- relevel(dff_q3$V_Presentation %>% as.factor, "Prosocial")
+
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "CC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "TC A path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "TC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a") 
+```
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + (1|ID),
+          data = dff_q3),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "CC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + (1|ID),
+          data = dff_q3),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q3),
+  "TC A path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef  + (1|ID),
+          data = dff_q3),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "TC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef +  (1|ID),
+          data = dff_q3),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef +(1|ID),
+          data = dff_q3))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-2") 
+```
+
+
+```{r}
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q3),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "CC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+          data = dff_q3),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q3),
+  "TC A path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
+          data = dff_q3),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3),
+  "TC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef +  (1|ID),
+          data = dff_q3),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef +(1|ID),
+          data = dff_q3))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
+```
+
+###### H3b
+
+
+
+```{r}
+dff_q3_self <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette)
+  
+k <-  c()
+
+for (i in colnames(dff_q3_self)) {
+  if(is.na(dff_q3_self[1,i])|is.na(dff_q3_self[5,i])){
+    print(i)
+    k <- c(k,i)
+  }else{
+    if(dff_q3_self[1,i] != dff_q3_self[5,i]){
+      print(i)
+      k <- c(k,i)
+    }
+  }
+}
+  
+```
+
+
+```{r}
+dff_q3_self <- dff_q %>%
+  filter(V_JudgeSelf==0) %>%
+  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
+  gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  unite(Question_Update, Question, V_up) %>%
+  spread(Question_Update, Vignette) %>%
+  mutate(CCPre_Post=CatchCovid_Pre-CatchCovid_Post,
+         TCPre_Post=TransmitCovid_Pre-TransmitCovid_Post,
+         MWPre_Post=MorallyWrong_Pre-MorallyWrong_Post)
+
+
+dff_q3_self$V_Presentation <- relevel(dff_q3_self$V_Presentation %>% as.factor, "Prosocial")
+
+
+mixed.lmers <- list(
+  "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3_self),
+  "CC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC A path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
+          data = dff_q3_self),
+  "TC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self),
+  "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+          data = dff_q3_self))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
+             output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),
+             title = "Model H3b") 
+```
+
 
 ### WE ARE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -1339,8 +2448,8 @@ mixed.lmers <- list(
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
              output = "latex", title = "Model 1, Product without update") 
 get_estimates(mixed.lmers[[1]])
 ```
@@ -2182,8 +3291,8 @@ mixed.lmers <- list(
           data = dff_q %>%
             filter(V_JudgeSelf==0)))
       
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
              output = "latex", title = "Model 3.2, Product and Update presentation Experience group") 
 ```
 
@@ -2517,8 +3626,8 @@ mixed.lmers <- list(
             filter(V_JudgeSelf==0)))
 
 
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
              output = "latex", title = "Model 1, Product without update") 
 ```
 
@@ -2842,8 +3951,8 @@ mixed.lmers <- list(
 modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
              output = "latex", title = "Model 5, Race Respondant") 
 
-modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("t={statistic}, se={std.error}",
-                                   "p={p.value}, df={df.error}"),
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
+                                   "{p.value} [{df.error}]"),
              output = "latex", title = "Model 1, Product without update") 
 ```
 

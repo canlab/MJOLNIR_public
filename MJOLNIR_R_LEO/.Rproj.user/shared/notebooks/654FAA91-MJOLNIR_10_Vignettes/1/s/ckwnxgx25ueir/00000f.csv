@@ -1,0 +1,377 @@
+"0","dff_q3 <- dff_q %>%"
+"0","  filter(V_JudgeSelf==0) %>%"
+"0","  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%"
+"0","  mutate(V_up=ifelse(V_up==1, ""Post"", ""Pre"")) %>%"
+"0","  gather(Question, Vignette, c(""MorallyWrong"", ""CatchCovid"", ""TransmitCovid"")) %>%"
+"0","  unite(Question_Update, Question, V_up) %>%"
+"0","  spread(Question_Update, Vignette) %>%"
+"0","  mutate(CCPre_Post=CatchCovid_Pre-CatchCovid_Post,"
+"0","         TCPre_Post=TransmitCovid_Pre-TransmitCovid_Post,"
+"0","         MWPre_Post=MorallyWrong_Pre-MorallyWrong_Post)"
+"0",""
+"0",""
+"0","dff_q3$V_Presentation <- relevel(dff_q3$V_Presentation %>% as.factor, ""Prosocial"")"
+"0",""
+"0",""
+"0","mixed.lmers <- list("
+"0","  ""CC A path"" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),"
+"0","          data = dff_q3),"
+"0","  ""CC B path"" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),"
+"0","          data = dff_q3),"
+"0","  ""CC C path"" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),"
+"0","          data = dff_q3),"
+"0","  ""CC C' path"" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),"
+"0","          data = dff_q3),"
+"0","  ""TC A path"" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),"
+"0","          data = dff_q3),"
+"0","  ""TC B path"" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),"
+"0","          data = dff_q3),"
+"0","  ""TC C path"" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),"
+"0","          data = dff_q3),"
+"0","  ""TC C' path"" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),"
+"0","          data = dff_q3))"
+"2","boundary (singular) fit: see help('isSingular')
+"
+"2","boundary (singular) fit: see help('isSingular')
+"
+"0","      "
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}[{conf.low},{conf.high}]{stars}""), statistic = c(""{statistic} [{std.error}]"","
+"0","                                   ""{p.value} [{df.error}]""),"
+"0","             output = ""latex"", notes = c(""Estimate [95ConfInterval]"", ""t, [std.error]"",""p.value, [df.error]""),title = ""Model H3a"") "
+"1","[31mRandom effect variances not available. Returned R2 does not account for random effects.
+[39m"
+"1","[31mRandom effect variances not available. Returned R2 does not account for random effects.
+[39m"
+"1","\begin{table}
+
+\caption{Model H3a}
+\centering
+\begin{tabular}[t]{lcccccccc}
+\toprule
+  & CC A path & CC B path & CC C path & CC C' path & TC A path & TC B path & TC C path & TC C' path\\
+\midrule
+(Intercept) & \num{0.83}[\num{-4.83},\num{6.48}] & \num{1.08}[\num{0.58},\num{1.59}]*** & \num{14.30}[\num{3.45},\num{25.15}]** & \num{-0.08}[\num{-5.70},\num{5.54}] & \num{2.70}[\num{-3.25},\num{8.66}] & \num{0.85}[\num{0.32},\num{1.37}]** & \num{14.30}[\num{3.45},\num{25.15}]** & \num{1.27}[\num{-4.60},\num{7.14}]\\
+ & \num{0.29} [\num{2.88}] & \num{4.19} [\num{0.26}] & \num{2.58} [\num{5.53}] & \num{-0.03} [\num{2.87}] & \num{0.89} [\num{3.03}] & \num{3.13} [\num{0.27}] & \num{2.58} [\num{5.53}] & \num{0.43} [\num{2.99}]\\
+ & \num{0.77} [\num{2292.00}] & \num{0.00} [\num{2392.00}] & \num{0.01} [\num{2292.00}] & \num{0.98} [\num{2291.00}] & \num{0.37} [\num{2292.00}] & \num{0.00} [\num{2392.00}] & \num{0.01} [\num{2292.00}] & \num{0.67} [\num{2291.00}]\\
+RaceContRespNonAmWhite & \num{-4.63}[\num{-11.10},\num{1.84}] &  & \num{-3.45}[\num{-15.85},\num{8.95}] & \num{-4.41}[\num{-10.83},\num{2.02}] & \num{-2.63}[\num{-9.44},\num{4.18}] &  & \num{-3.45}[\num{-15.85},\num{8.95}] & \num{-2.29}[\num{-9.00},\num{4.41}]\\
+ & \num{-1.40} [\num{3.30}] &  & \num{-0.55} [\num{6.32}] & \num{-1.35} [\num{3.28}] & \num{-0.76} [\num{3.47}] &  & \num{-0.55} [\num{6.32}] & \num{-0.67} [\num{3.42}]\\
+ & \num{0.16} [\num{2292.00}] &  & \num{0.59} [\num{2292.00}] & \num{0.18} [\num{2291.00}] & \num{0.45} [\num{2292.00}] &  & \num{0.59} [\num{2292.00}] & \num{0.50} [\num{2291.00}]\\
+RaceContRespWhiteAmerican & \num{1.14}[\num{-4.80},\num{7.08}] &  & \num{-6.44}[\num{-17.83},\num{4.95}] & \num{1.59}[\num{-4.31},\num{7.49}] & \num{0.79}[\num{-5.46},\num{7.05}] &  & \num{-6.44}[\num{-17.83},\num{4.95}] & \num{1.51}[\num{-4.65},\num{7.67}]\\
+ & \num{0.38} [\num{3.03}] &  & \num{-1.11} [\num{5.81}] & \num{0.53} [\num{3.01}] & \num{0.25} [\num{3.19}] &  & \num{-1.11} [\num{5.81}] & \num{0.48} [\num{3.14}]\\
+ & \num{0.71} [\num{2292.00}] &  & \num{0.27} [\num{2292.00}] & \num{0.60} [\num{2291.00}] & \num{0.80} [\num{2292.00}] &  & \num{0.27} [\num{2292.00}] & \num{0.63} [\num{2291.00}]\\
+V\_PresentationDefensive & \num{0.33}[\num{-6.48},\num{7.15}] &  & \num{-16.61}[\num{-29.69},\num{-3.54}]* & \num{1.37}[\num{-5.41},\num{8.14}] & \num{-0.77}[\num{-7.94},\num{6.40}] &  & \num{-16.61}[\num{-29.69},\num{-3.54}]* & \num{0.88}[\num{-6.20},\num{7.95}]\\
+ & \num{0.10} [\num{3.48}] &  & \num{-2.49} [\num{6.67}] & \num{0.40} [\num{3.46}] & \num{-0.21} [\num{3.66}] &  & \num{-2.49} [\num{6.67}] & \num{0.24} [\num{3.61}]\\
+ & \num{0.92} [\num{2292.00}] &  & \num{0.01} [\num{2292.00}] & \num{0.69} [\num{2291.00}] & \num{0.83} [\num{2292.00}] &  & \num{0.01} [\num{2292.00}] & \num{0.81} [\num{2291.00}]\\
+V\_Productcigarettes & \num{0.59}[\num{-5.51},\num{6.69}] &  & \num{-1.96}[\num{-13.68},\num{9.75}] & \num{0.74}[\num{-5.32},\num{6.80}] & \num{-3.40}[\num{-9.82},\num{3.02}] &  & \num{-1.96}[\num{-13.68},\num{9.75}] & \num{-3.16}[\num{-9.49},\num{3.17}]\\
+ & \num{0.19} [\num{3.11}] &  & \num{-0.33} [\num{5.97}] & \num{0.24} [\num{3.09}] & \num{-1.04} [\num{3.28}] &  & \num{-0.33} [\num{5.97}] & \num{-0.98} [\num{3.23}]\\
+ & \num{0.85} [\num{2292.00}] &  & \num{0.74} [\num{2292.00}] & \num{0.81} [\num{2291.00}] & \num{0.30} [\num{2292.00}] &  & \num{0.74} [\num{2292.00}] & \num{0.33} [\num{2291.00}]\\
+V\_Producthardwaresupplies & \num{0.01}[\num{-6.21},\num{6.22}] &  & \num{5.31}[\num{-6.62},\num{17.23}] & \num{-0.31}[\num{-6.48},\num{5.86}] & \num{-2.63}[\num{-9.17},\num{3.92}] &  & \num{5.31}[\num{-6.62},\num{17.23}] & \num{-3.12}[\num{-9.56},\num{3.32}]\\
+ & \num{0.00} [\num{3.17}] &  & \num{0.87} [\num{6.08}] & \num{-0.10} [\num{3.15}] & \num{-0.79} [\num{3.34}] &  & \num{0.87} [\num{6.08}] & \num{-0.95} [\num{3.29}]\\
+ & \num{1.00} [\num{2292.00}] &  & \num{0.38} [\num{2292.00}] & \num{0.92} [\num{2291.00}] & \num{0.43} [\num{2292.00}] &  & \num{0.38} [\num{2292.00}] & \num{0.34} [\num{2291.00}]\\
+V\_Producttoiletpaper & \num{1.66}[\num{-4.60},\num{7.92}] &  & \num{13.36}[\num{1.34},\num{25.39}]* & \num{0.82}[\num{-5.41},\num{7.04}] & \num{-0.74}[\num{-7.33},\num{5.85}] &  & \num{13.36}[\num{1.34},\num{25.39}]* & \num{-2.02}[\num{-8.52},\num{4.48}]\\
+ & \num{0.52} [\num{3.19}] &  & \num{2.18} [\num{6.13}] & \num{0.26} [\num{3.17}] & \num{-0.22} [\num{3.36}] &  & \num{2.18} [\num{6.13}] & \num{-0.61} [\num{3.31}]\\
+ & \num{0.60} [\num{2292.00}] &  & \num{0.03} [\num{2292.00}] & \num{0.80} [\num{2291.00}] & \num{0.83} [\num{2292.00}] &  & \num{0.03} [\num{2292.00}] & \num{0.54} [\num{2291.00}]\\
+V\_RacenamefBlack & \num{-0.23}[\num{-6.49},\num{6.03}] &  & \num{-0.44}[\num{-12.46},\num{11.58}] & \num{-0.21}[\num{-6.43},\num{6.01}] & \num{1.20}[\num{-5.39},\num{7.80}] &  & \num{-0.44}[\num{-12.46},\num{11.58}] & \num{1.24}[\num{-5.25},\num{7.74}]\\
+ & \num{-0.07} [\num{3.19}] &  & \num{-0.07} [\num{6.13}] & \num{-0.07} [\num{3.17}] & \num{0.36} [\num{3.36}] &  & \num{-0.07} [\num{6.13}] & \num{0.38} [\num{3.31}]\\
+ & \num{0.94} [\num{2292.00}] &  & \num{0.94} [\num{2292.00}] & \num{0.95} [\num{2291.00}] & \num{0.72} [\num{2292.00}] &  & \num{0.94} [\num{2292.00}] & \num{0.71} [\num{2291.00}]\\
+V\_RacenamefChinese & \num{-0.94}[\num{-7.65},\num{5.78}] &  & \num{-5.34}[\num{-18.23},\num{7.54}] & \num{-0.55}[\num{-7.22},\num{6.12}] & \num{0.32}[\num{-6.75},\num{7.39}] &  & \num{-5.34}[\num{-18.23},\num{7.54}] & \num{0.93}[\num{-6.03},\num{7.89}]\\
+ & \num{-0.27} [\num{3.42}] &  & \num{-0.81} [\num{6.57}] & \num{-0.16} [\num{3.40}] & \num{0.09} [\num{3.60}] &  & \num{-0.81} [\num{6.57}] & \num{0.26} [\num{3.55}]\\
+ & \num{0.78} [\num{2292.00}] &  & \num{0.42} [\num{2292.00}] & \num{0.87} [\num{2291.00}] & \num{0.93} [\num{2292.00}] &  & \num{0.42} [\num{2292.00}] & \num{0.79} [\num{2291.00}]\\
+V\_RacenamefIndian & \num{0.15}[\num{-6.31},\num{6.61}] &  & \num{-2.60}[\num{-15.00},\num{9.80}] & \num{0.31}[\num{-6.10},\num{6.73}] & \num{-1.46}[\num{-8.26},\num{5.35}] &  & \num{-2.60}[\num{-15.00},\num{9.80}] & \num{-1.19}[\num{-7.89},\num{5.51}]\\
+ & \num{0.04} [\num{3.30}] &  & \num{-0.41} [\num{6.32}] & \num{0.10} [\num{3.27}] & \num{-0.42} [\num{3.47}] &  & \num{-0.41} [\num{6.32}] & \num{-0.35} [\num{3.42}]\\
+ & \num{0.96} [\num{2292.00}] &  & \num{0.68} [\num{2292.00}] & \num{0.92} [\num{2291.00}] & \num{0.67} [\num{2292.00}] &  & \num{0.68} [\num{2292.00}] & \num{0.73} [\num{2291.00}]\\
+V\_Age & \num{0.02}[\num{-0.07},\num{0.10}] &  & \num{-0.07}[\num{-0.24},\num{0.09}] & \num{0.02}[\num{-0.06},\num{0.11}] & \num{-0.02}[\num{-0.11},\num{0.07}] &  & \num{-0.07}[\num{-0.24},\num{0.09}] & \num{-0.01}[\num{-0.10},\num{0.08}]\\
+ & \num{0.40} [\num{0.04}] &  & \num{-0.88} [\num{0.08}] & \num{0.51} [\num{0.04}] & \num{-0.44} [\num{0.05}] &  & \num{-0.88} [\num{0.08}] & \num{-0.29} [\num{0.05}]\\
+ & \num{0.69} [\num{2292.00}] &  & \num{0.38} [\num{2292.00}] & \num{0.61} [\num{2291.00}] & \num{0.66} [\num{2292.00}] &  & \num{0.38} [\num{2292.00}] & \num{0.77} [\num{2291.00}]\\
+V\_Locationinthecity & \num{0.81}[\num{-0.33},\num{1.95}] &  & \num{0.81}[\num{-1.38},\num{2.99}] & \num{0.76}[\num{-0.37},\num{1.89}] & \num{1.27}[\num{0.07},\num{2.47}]* &  & \num{0.81}[\num{-1.38},\num{2.99}] & \num{1.21}[\num{0.03},\num{2.39}]*\\
+ & \num{1.39} [\num{0.58}] &  & \num{0.72} [\num{1.11}] & \num{1.32} [\num{0.58}] & \num{2.07} [\num{0.61}] &  & \num{0.72} [\num{1.11}] & \num{2.01} [\num{0.60}]\\
+ & \num{0.17} [\num{2292.00}] &  & \num{0.47} [\num{2292.00}] & \num{0.19} [\num{2291.00}] & \num{0.04} [\num{2292.00}] &  & \num{0.47} [\num{2292.00}] & \num{0.04} [\num{2291.00}]\\
+V\_Locationnearby & \num{-0.01}[\num{-1.17},\num{1.14}] &  & \num{-1.09}[\num{-3.30},\num{1.13}] & \num{0.06}[\num{-1.09},\num{1.21}] & \num{0.31}[\num{-0.90},\num{1.53}] &  & \num{-1.09}[\num{-3.30},\num{1.13}] & \num{0.43}[\num{-0.77},\num{1.63}]\\
+ & \num{-0.02} [\num{0.59}] &  & \num{-0.96} [\num{1.13}] & \num{0.10} [\num{0.58}] & \num{0.50} [\num{0.62}] &  & \num{-0.96} [\num{1.13}] & \num{0.71} [\num{0.61}]\\
+ & \num{0.98} [\num{2292.00}] &  & \num{0.33} [\num{2292.00}] & \num{0.92} [\num{2291.00}] & \num{0.61} [\num{2292.00}] &  & \num{0.33} [\num{2292.00}] & \num{0.48} [\num{2291.00}]\\
+V\_StoreTypedepartmentstore & \num{0.94}[\num{-0.21},\num{2.08}] &  & \num{1.39}[\num{-0.81},\num{3.60}] & \num{0.83}[\num{-0.31},\num{1.98}] & \num{0.65}[\num{-0.55},\num{1.86}] &  & \num{1.39}[\num{-0.81},\num{3.60}] & \num{0.50}[\num{-0.69},\num{1.69}]\\
+ & \num{1.60} [\num{0.59}] &  & \num{1.24} [\num{1.12}] & \num{1.43} [\num{0.58}] & \num{1.06} [\num{0.62}] &  & \num{1.24} [\num{1.12}] & \num{0.82} [\num{0.61}]\\
+ & \num{0.11} [\num{2292.00}] &  & \num{0.22} [\num{2292.00}] & \num{0.15} [\num{2291.00}] & \num{0.29} [\num{2292.00}] &  & \num{0.22} [\num{2292.00}] & \num{0.41} [\num{2291.00}]\\
+V\_StoreTypesupermarket & \num{0.91}[\num{-0.23},\num{2.04}] &  & \num{0.99}[\num{-1.20},\num{3.17}] & \num{0.84}[\num{-0.29},\num{1.97}] & \num{1.35}[\num{0.15},\num{2.55}]* &  & \num{0.99}[\num{-1.20},\num{3.17}] & \num{1.25}[\num{0.07},\num{2.43}]*\\
+ & \num{1.56} [\num{0.58}] &  & \num{0.89} [\num{1.11}] & \num{1.46} [\num{0.58}] & \num{2.21} [\num{0.61}] &  & \num{0.89} [\num{1.11}] & \num{2.08} [\num{0.60}]\\
+ & \num{0.12} [\num{2292.00}] &  & \num{0.38} [\num{2292.00}] & \num{0.14} [\num{2291.00}] & \num{0.03} [\num{2292.00}] &  & \num{0.38} [\num{2292.00}] & \num{0.04} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensive & \num{1.96}[\num{-7.60},\num{11.51}] &  & \num{-3.92}[\num{-22.24},\num{14.40}] & \num{2.22}[\num{-7.27},\num{11.70}] & \num{2.00}[\num{-8.06},\num{12.05}] &  & \num{-3.92}[\num{-22.24},\num{14.40}] & \num{2.37}[\num{-7.54},\num{12.27}]\\
+ & \num{0.40} [\num{4.87}] &  & \num{-0.42} [\num{9.34}] & \num{0.46} [\num{4.84}] & \num{0.39} [\num{5.13}] &  & \num{-0.42} [\num{9.34}] & \num{0.47} [\num{5.05}]\\
+ & \num{0.69} [\num{2292.00}] &  & \num{0.67} [\num{2292.00}] & \num{0.65} [\num{2291.00}] & \num{0.70} [\num{2292.00}] &  & \num{0.67} [\num{2292.00}] & \num{0.64} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensive & \num{-3.47}[\num{-12.55},\num{5.61}] &  & \num{6.48}[\num{-10.94},\num{23.91}] & \num{-3.90}[\num{-12.92},\num{5.12}] & \num{0.85}[\num{-8.71},\num{10.41}] &  & \num{6.48}[\num{-10.94},\num{23.91}] & \num{0.16}[\num{-9.26},\num{9.57}]\\
+ & \num{-0.75} [\num{4.63}] &  & \num{0.73} [\num{8.89}] & \num{-0.85} [\num{4.60}] & \num{0.17} [\num{4.87}] &  & \num{0.73} [\num{8.89}] & \num{0.03} [\num{4.80}]\\
+ & \num{0.45} [\num{2292.00}] &  & \num{0.47} [\num{2292.00}] & \num{0.40} [\num{2291.00}] & \num{0.86} [\num{2292.00}] &  & \num{0.47} [\num{2292.00}] & \num{0.97} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_Productcigarettes & \num{7.70}[\num{-1.54},\num{16.93}] &  & \num{-5.57}[\num{-23.29},\num{12.15}] & \num{8.03}[\num{-1.14},\num{17.20}]+ & \num{7.31}[\num{-2.41},\num{17.03}] &  & \num{-5.57}[\num{-23.29},\num{12.15}] & \num{7.86}[\num{-1.71},\num{17.43}]\\
+ & \num{1.63} [\num{4.71}] &  & \num{-0.62} [\num{9.04}] & \num{1.72} [\num{4.68}] & \num{1.48} [\num{4.96}] &  & \num{-0.62} [\num{9.04}] & \num{1.61} [\num{4.88}]\\
+ & \num{0.10} [\num{2292.00}] &  & \num{0.54} [\num{2292.00}] & \num{0.09} [\num{2291.00}] & \num{0.14} [\num{2292.00}] &  & \num{0.54} [\num{2292.00}] & \num{0.11} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_Productcigarettes & \num{2.02}[\num{-6.33},\num{10.37}] &  & \num{3.23}[\num{-12.79},\num{19.25}] & \num{1.72}[\num{-6.57},\num{10.01}] & \num{4.87}[\num{-3.92},\num{13.66}] &  & \num{3.23}[\num{-12.79},\num{19.25}] & \num{4.39}[\num{-4.27},\num{13.05}]\\
+ & \num{0.47} [\num{4.26}] &  & \num{0.40} [\num{8.17}] & \num{0.41} [\num{4.23}] & \num{1.09} [\num{4.48}] &  & \num{0.40} [\num{8.17}] & \num{0.99} [\num{4.41}]\\
+ & \num{0.64} [\num{2292.00}] &  & \num{0.69} [\num{2292.00}] & \num{0.68} [\num{2291.00}] & \num{0.28} [\num{2292.00}] &  & \num{0.69} [\num{2292.00}] & \num{0.32} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_Producthardwaresupplies & \num{3.19}[\num{-5.52},\num{11.89}] &  & \num{6.67}[\num{-10.05},\num{23.38}] & \num{2.74}[\num{-5.91},\num{11.39}] & \num{3.04}[\num{-6.13},\num{12.20}] &  & \num{6.67}[\num{-10.05},\num{23.38}] & \num{2.40}[\num{-6.63},\num{11.43}]\\
+ & \num{0.72} [\num{4.44}] &  & \num{0.78} [\num{8.52}] & \num{0.62} [\num{4.41}] & \num{0.65} [\num{4.67}] &  & \num{0.78} [\num{8.52}] & \num{0.52} [\num{4.60}]\\
+ & \num{0.47} [\num{2292.00}] &  & \num{0.43} [\num{2292.00}] & \num{0.53} [\num{2291.00}] & \num{0.52} [\num{2292.00}] &  & \num{0.43} [\num{2292.00}] & \num{0.60} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_Producthardwaresupplies & \num{-3.25}[\num{-11.68},\num{5.17}] &  & \num{-5.33}[\num{-21.51},\num{10.85}] & \num{-2.97}[\num{-11.34},\num{5.40}] & \num{1.38}[\num{-7.49},\num{10.25}] &  & \num{-5.33}[\num{-21.51},\num{10.85}] & \num{1.83}[\num{-6.91},\num{10.57}]\\
+ & \num{-0.76} [\num{4.30}] &  & \num{-0.65} [\num{8.25}] & \num{-0.69} [\num{4.27}] & \num{0.31} [\num{4.52}] &  & \num{-0.65} [\num{8.25}] & \num{0.41} [\num{4.46}]\\
+ & \num{0.45} [\num{2292.00}] &  & \num{0.52} [\num{2292.00}] & \num{0.49} [\num{2291.00}] & \num{0.76} [\num{2292.00}] &  & \num{0.52} [\num{2292.00}] & \num{0.68} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_Producttoiletpaper & \num{4.65}[\num{-4.86},\num{14.17}] &  & \num{5.82}[\num{-12.44},\num{24.08}] & \num{4.26}[\num{-5.19},\num{13.71}] & \num{1.53}[\num{-8.48},\num{11.55}] &  & \num{5.82}[\num{-12.44},\num{24.08}] & \num{0.89}[\num{-8.97},\num{10.75}]\\
+ & \num{0.96} [\num{4.85}] &  & \num{0.63} [\num{9.31}] & \num{0.88} [\num{4.82}] & \num{0.30} [\num{5.11}] &  & \num{0.63} [\num{9.31}] & \num{0.18} [\num{5.03}]\\
+ & \num{0.34} [\num{2292.00}] &  & \num{0.53} [\num{2292.00}] & \num{0.38} [\num{2291.00}] & \num{0.76} [\num{2292.00}] &  & \num{0.53} [\num{2292.00}] & \num{0.86} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_Producttoiletpaper & \num{-6.16}[\num{-14.59},\num{2.28}] &  & \num{9.07}[\num{-7.12},\num{25.25}] & \num{-6.77}[\num{-15.15},\num{1.61}] & \num{-1.73}[\num{-10.60},\num{7.15}] &  & \num{9.07}[\num{-7.12},\num{25.25}] & \num{-2.71}[\num{-11.45},\num{6.04}]\\
+ & \num{-1.43} [\num{4.30}] &  & \num{1.10} [\num{8.26}] & \num{-1.58} [\num{4.27}] & \num{-0.38} [\num{4.53}] &  & \num{1.10} [\num{8.26}] & \num{-0.61} [\num{4.46}]\\
+ & \num{0.15} [\num{2292.00}] &  & \num{0.27} [\num{2292.00}] & \num{0.11} [\num{2291.00}] & \num{0.70} [\num{2292.00}] &  & \num{0.27} [\num{2292.00}] & \num{0.54} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_Productcigarettes & \num{1.25}[\num{-8.05},\num{10.55}] &  & \num{12.64}[\num{-5.20},\num{30.48}] & \num{0.48}[\num{-8.76},\num{9.72}] & \num{2.60}[\num{-7.18},\num{12.39}] &  & \num{12.64}[\num{-5.20},\num{30.48}] & \num{1.36}[\num{-8.29},\num{11.00}]\\
+ & \num{0.26} [\num{4.74}] &  & \num{1.39} [\num{9.10}] & \num{0.10} [\num{4.71}] & \num{0.52} [\num{4.99}] &  & \num{1.39} [\num{9.10}] & \num{0.28} [\num{4.92}]\\
+ & \num{0.79} [\num{2292.00}] &  & \num{0.16} [\num{2292.00}] & \num{0.92} [\num{2291.00}] & \num{0.60} [\num{2292.00}] &  & \num{0.16} [\num{2292.00}] & \num{0.78} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_Producthardwaresupplies & \num{-2.55}[\num{-12.04},\num{6.95}] &  & \num{-14.61}[\num{-32.83},\num{3.61}] & \num{-1.62}[\num{-11.05},\num{7.81}] & \num{-1.92}[\num{-11.91},\num{8.07}] &  & \num{-14.61}[\num{-32.83},\num{3.61}] & \num{-0.47}[\num{-10.31},\num{9.38}]\\
+ & \num{-0.53} [\num{4.84}] &  & \num{-1.57} [\num{9.29}] & \num{-0.34} [\num{4.81}] & \num{-0.38} [\num{5.09}] &  & \num{-1.57} [\num{9.29}] & \num{-0.09} [\num{5.02}]\\
+ & \num{0.60} [\num{2292.00}] &  & \num{0.12} [\num{2292.00}] & \num{0.74} [\num{2291.00}] & \num{0.71} [\num{2292.00}] &  & \num{0.12} [\num{2292.00}] & \num{0.93} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_Producttoiletpaper & \num{-2.79}[\num{-11.95},\num{6.38}] &  & \num{-11.33}[\num{-28.92},\num{6.26}] & \num{-2.07}[\num{-11.17},\num{7.03}] & \num{1.72}[\num{-7.93},\num{11.36}] &  & \num{-11.33}[\num{-28.92},\num{6.26}] & \num{2.76}[\num{-6.74},\num{12.26}]\\
+ & \num{-0.60} [\num{4.67}] &  & \num{-1.26} [\num{8.97}] & \num{-0.45} [\num{4.64}] & \num{0.35} [\num{4.92}] &  & \num{-1.26} [\num{8.97}] & \num{0.57} [\num{4.85}]\\
+ & \num{0.55} [\num{2292.00}] &  & \num{0.21} [\num{2292.00}] & \num{0.66} [\num{2291.00}] & \num{0.73} [\num{2292.00}] &  & \num{0.21} [\num{2292.00}] & \num{0.57} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_RacenamefBlack & \num{3.70}[\num{-5.57},\num{12.98}] &  & \num{-0.90}[\num{-18.69},\num{16.90}] & \num{3.80}[\num{-5.41},\num{13.00}] & \num{0.79}[\num{-8.97},\num{10.55}] &  & \num{-0.90}[\num{-18.69},\num{16.90}] & \num{1.02}[\num{-8.59},\num{10.64}]\\
+ & \num{0.78} [\num{4.73}] &  & \num{-0.10} [\num{9.07}] & \num{0.81} [\num{4.70}] & \num{0.16} [\num{4.98}] &  & \num{-0.10} [\num{9.07}] & \num{0.21} [\num{4.90}]\\
+ & \num{0.43} [\num{2292.00}] &  & \num{0.92} [\num{2292.00}] & \num{0.42} [\num{2291.00}] & \num{0.87} [\num{2292.00}] &  & \num{0.92} [\num{2292.00}] & \num{0.83} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_RacenamefBlack & \num{-4.17}[\num{-12.53},\num{4.20}] &  & \num{-1.99}[\num{-18.05},\num{14.07}] & \num{-4.08}[\num{-12.39},\num{4.23}] & \num{-4.54}[\num{-13.34},\num{4.27}] &  & \num{-1.99}[\num{-18.05},\num{14.07}] & \num{-4.41}[\num{-13.09},\num{4.26}]\\
+ & \num{-0.98} [\num{4.27}] &  & \num{-0.24} [\num{8.19}] & \num{-0.96} [\num{4.24}] & \num{-1.01} [\num{4.49}] &  & \num{-0.24} [\num{8.19}] & \num{-1.00} [\num{4.42}]\\
+ & \num{0.33} [\num{2292.00}] &  & \num{0.81} [\num{2292.00}] & \num{0.34} [\num{2291.00}] & \num{0.31} [\num{2292.00}] &  & \num{0.81} [\num{2292.00}] & \num{0.32} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_RacenamefChinese & \num{2.31}[\num{-7.59},\num{12.21}] &  & \num{3.34}[\num{-15.66},\num{22.33}] & \num{2.03}[\num{-7.80},\num{11.87}] & \num{1.86}[\num{-8.56},\num{12.28}] &  & \num{3.34}[\num{-15.66},\num{22.33}] & \num{1.48}[\num{-8.78},\num{11.75}]\\
+ & \num{0.46} [\num{5.05}] &  & \num{0.34} [\num{9.69}] & \num{0.41} [\num{5.01}] & \num{0.35} [\num{5.31}] &  & \num{0.34} [\num{9.69}] & \num{0.28} [\num{5.23}]\\
+ & \num{0.65} [\num{2292.00}] &  & \num{0.73} [\num{2292.00}] & \num{0.68} [\num{2291.00}] & \num{0.73} [\num{2292.00}] &  & \num{0.73} [\num{2292.00}] & \num{0.78} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_RacenamefChinese & \num{-0.24}[\num{-9.21},\num{8.74}] &  & \num{6.71}[\num{-10.50},\num{23.92}] & \num{-0.75}[\num{-9.66},\num{8.16}] & \num{-2.06}[\num{-11.50},\num{7.38}] &  & \num{6.71}[\num{-10.50},\num{23.92}] & \num{-2.87}[\num{-12.17},\num{6.43}]\\
+ & \num{-0.05} [\num{4.57}] &  & \num{0.76} [\num{8.78}] & \num{-0.17} [\num{4.54}] & \num{-0.43} [\num{4.81}] &  & \num{0.76} [\num{8.78}] & \num{-0.61} [\num{4.74}]\\
+ & \num{0.96} [\num{2292.00}] &  & \num{0.44} [\num{2292.00}] & \num{0.87} [\num{2291.00}] & \num{0.67} [\num{2292.00}] &  & \num{0.44} [\num{2292.00}] & \num{0.54} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_RacenamefIndian & \num{5.07}[\num{-3.99},\num{14.13}] &  & \num{6.28}[\num{-11.10},\num{23.66}] & \num{4.70}[\num{-4.30},\num{13.69}] & \num{3.95}[\num{-5.59},\num{13.48}] &  & \num{6.28}[\num{-11.10},\num{23.66}] & \num{3.39}[\num{-6.00},\num{12.78}]\\
+ & \num{1.10} [\num{4.62}] &  & \num{0.71} [\num{8.86}] & \num{1.02} [\num{4.59}] & \num{0.81} [\num{4.86}] &  & \num{0.71} [\num{8.86}] & \num{0.71} [\num{4.79}]\\
+ & \num{0.27} [\num{2292.00}] &  & \num{0.48} [\num{2292.00}] & \num{0.31} [\num{2291.00}] & \num{0.42} [\num{2292.00}] &  & \num{0.48} [\num{2292.00}] & \num{0.48} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_RacenamefIndian & \num{-0.09}[\num{-8.59},\num{8.41}] &  & \num{4.70}[\num{-11.62},\num{21.01}] & \num{-0.41}[\num{-8.85},\num{8.03}] & \num{-0.36}[\num{-9.31},\num{8.59}] &  & \num{4.70}[\num{-11.62},\num{21.01}] & \num{-0.88}[\num{-9.69},\num{7.93}]\\
+ & \num{-0.02} [\num{4.34}] &  & \num{0.56} [\num{8.32}] & \num{-0.10} [\num{4.31}] & \num{-0.08} [\num{4.56}] &  & \num{0.56} [\num{8.32}] & \num{-0.20} [\num{4.49}]\\
+ & \num{0.98} [\num{2292.00}] &  & \num{0.57} [\num{2292.00}] & \num{0.92} [\num{2291.00}] & \num{0.94} [\num{2292.00}] &  & \num{0.57} [\num{2292.00}] & \num{0.84} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_RacenamefBlack & \num{-1.54}[\num{-10.77},\num{7.68}] &  & \num{-8.17}[\num{-25.87},\num{9.53}] & \num{-0.98}[\num{-10.14},\num{8.18}] & \num{-4.29}[\num{-14.00},\num{5.42}] &  & \num{-8.17}[\num{-25.87},\num{9.53}] & \num{-3.46}[\num{-13.02},\num{6.10}]\\
+ & \num{-0.33} [\num{4.70}] &  & \num{-0.91} [\num{9.02}] & \num{-0.21} [\num{4.67}] & \num{-0.87} [\num{4.95}] &  & \num{-0.91} [\num{9.02}] & \num{-0.71} [\num{4.88}]\\
+ & \num{0.74} [\num{2292.00}] &  & \num{0.37} [\num{2292.00}] & \num{0.83} [\num{2291.00}] & \num{0.39} [\num{2292.00}] &  & \num{0.37} [\num{2292.00}] & \num{0.48} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_RacenamefChinese & \num{-4.57}[\num{-13.81},\num{4.68}] &  & \num{3.44}[\num{-14.29},\num{21.18}] & \num{-4.82}[\num{-14.00},\num{4.36}] & \num{-3.60}[\num{-13.33},\num{6.13}] &  & \num{3.44}[\num{-14.29},\num{21.18}] & \num{-4.04}[\num{-13.62},\num{5.54}]\\
+ & \num{-0.97} [\num{4.71}] &  & \num{0.38} [\num{9.04}] & \num{-1.03} [\num{4.68}] & \num{-0.73} [\num{4.96}] &  & \num{0.38} [\num{9.04}] & \num{-0.83} [\num{4.89}]\\
+ & \num{0.33} [\num{2292.00}] &  & \num{0.70} [\num{2292.00}] & \num{0.30} [\num{2291.00}] & \num{0.47} [\num{2292.00}] &  & \num{0.70} [\num{2292.00}] & \num{0.41} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_RacenamefIndian & \num{-1.16}[\num{-10.83},\num{8.50}] &  & \num{-0.83}[\num{-19.36},\num{17.71}] & \num{-1.10}[\num{-10.69},\num{8.50}] & \num{-0.86}[\num{-11.03},\num{9.31}] &  & \num{-0.83}[\num{-19.36},\num{17.71}] & \num{-0.76}[\num{-10.78},\num{9.26}]\\
+ & \num{-0.24} [\num{4.93}] &  & \num{-0.09} [\num{9.45}] & \num{-0.22} [\num{4.89}] & \num{-0.17} [\num{5.19}] &  & \num{-0.09} [\num{9.45}] & \num{-0.15} [\num{5.11}]\\
+ & \num{0.81} [\num{2292.00}] &  & \num{0.93} [\num{2292.00}] & \num{0.82} [\num{2291.00}] & \num{0.87} [\num{2292.00}] &  & \num{0.93} [\num{2292.00}] & \num{0.88} [\num{2291.00}]\\
+V\_ProductcigarettesV\_RacenamefBlack & \num{-2.68}[\num{-11.51},\num{6.15}] &  & \num{-4.20}[\num{-21.08},\num{12.68}] & \num{-2.39}[\num{-11.16},\num{6.38}] & \num{-1.90}[\num{-11.20},\num{7.40}] &  & \num{-4.20}[\num{-21.08},\num{12.68}] & \num{-1.47}[\num{-10.62},\num{7.69}]\\
+ & \num{-0.59} [\num{4.50}] &  & \num{-0.49} [\num{8.61}] & \num{-0.53} [\num{4.47}] & \num{-0.40} [\num{4.74}] &  & \num{-0.49} [\num{8.61}] & \num{-0.31} [\num{4.67}]\\
+ & \num{0.55} [\num{2292.00}] &  & \num{0.63} [\num{2292.00}] & \num{0.59} [\num{2291.00}] & \num{0.69} [\num{2292.00}] &  & \num{0.63} [\num{2292.00}] & \num{0.75} [\num{2291.00}]\\
+V\_ProducthardwaresuppliesV\_RacenamefBlack & \num{1.78}[\num{-7.47},\num{11.03}] &  & \num{-4.01}[\num{-21.64},\num{13.63}] & \num{2.02}[\num{-7.16},\num{11.20}] & \num{0.77}[\num{-8.97},\num{10.51}] &  & \num{-4.01}[\num{-21.64},\num{13.63}] & \num{1.18}[\num{-8.41},\num{10.76}]\\
+ & \num{0.38} [\num{4.72}] &  & \num{-0.45} [\num{8.99}] & \num{0.43} [\num{4.68}] & \num{0.16} [\num{4.97}] &  & \num{-0.45} [\num{8.99}] & \num{0.24} [\num{4.89}]\\
+ & \num{0.71} [\num{2292.00}] &  & \num{0.66} [\num{2292.00}] & \num{0.67} [\num{2291.00}] & \num{0.88} [\num{2292.00}] &  & \num{0.66} [\num{2292.00}] & \num{0.81} [\num{2291.00}]\\
+V\_ProducttoiletpaperV\_RacenamefBlack & \num{-2.21}[\num{-11.25},\num{6.83}] &  & \num{-2.88}[\num{-20.17},\num{14.40}] & \num{-2.01}[\num{-10.99},\num{6.96}] & \num{-5.53}[\num{-15.05},\num{3.98}] &  & \num{-2.88}[\num{-20.17},\num{14.40}] & \num{-5.22}[\num{-14.59},\num{4.15}]\\
+ & \num{-0.48} [\num{4.61}] &  & \num{-0.33} [\num{8.81}] & \num{-0.44} [\num{4.58}] & \num{-1.14} [\num{4.85}] &  & \num{-0.33} [\num{8.81}] & \num{-1.09} [\num{4.78}]\\
+ & \num{0.63} [\num{2292.00}] &  & \num{0.74} [\num{2292.00}] & \num{0.66} [\num{2291.00}] & \num{0.25} [\num{2292.00}] &  & \num{0.74} [\num{2292.00}] & \num{0.27} [\num{2291.00}]\\
+V\_ProductcigarettesV\_RacenamefChinese & \num{1.55}[\num{-7.80},\num{10.89}] &  & \num{3.16}[\num{-14.77},\num{21.10}] & \num{1.26}[\num{-8.02},\num{10.54}] & \num{6.38}[\num{-3.45},\num{16.22}] &  & \num{3.16}[\num{-14.77},\num{21.10}] & \num{5.99}[\num{-3.70},\num{15.67}]\\
+ & \num{0.32} [\num{4.77}] &  & \num{0.35} [\num{9.15}] & \num{0.27} [\num{4.73}] & \num{1.27} [\num{5.02}] &  & \num{0.35} [\num{9.15}] & \num{1.21} [\num{4.94}]\\
+ & \num{0.75} [\num{2292.00}] &  & \num{0.73} [\num{2292.00}] & \num{0.79} [\num{2291.00}] & \num{0.20} [\num{2292.00}] &  & \num{0.73} [\num{2292.00}] & \num{0.23} [\num{2291.00}]\\
+V\_ProducthardwaresuppliesV\_RacenamefChinese & \num{2.01}[\num{-7.14},\num{11.17}] &  & \num{0.69}[\num{-16.88},\num{18.26}] & \num{1.92}[\num{-7.17},\num{11.01}] & \num{5.20}[\num{-4.44},\num{14.84}] &  & \num{0.69}[\num{-16.88},\num{18.26}] & \num{5.10}[\num{-4.39},\num{14.59}]\\
+ & \num{0.43} [\num{4.67}] &  & \num{0.08} [\num{8.96}] & \num{0.41} [\num{4.64}] & \num{1.06} [\num{4.91}] &  & \num{0.08} [\num{8.96}] & \num{1.05} [\num{4.84}]\\
+ & \num{0.67} [\num{2292.00}] &  & \num{0.94} [\num{2292.00}] & \num{0.68} [\num{2291.00}] & \num{0.29} [\num{2292.00}] &  & \num{0.94} [\num{2292.00}] & \num{0.29} [\num{2291.00}]\\
+V\_ProducttoiletpaperV\_RacenamefChinese & \num{-9.14}[\num{-18.41},\num{0.14}]+ &  & \num{4.34}[\num{-13.46},\num{22.15}] & \num{-9.49}[\num{-18.70},\num{-0.28}]* & \num{-6.03}[\num{-15.79},\num{3.73}] &  & \num{4.34}[\num{-13.46},\num{22.15}] & \num{-6.57}[\num{-16.18},\num{3.05}]\\
+ & \num{-1.93} [\num{4.73}] &  & \num{0.48} [\num{9.08}] & \num{-2.02} [\num{4.70}] & \num{-1.21} [\num{4.98}] &  & \num{0.48} [\num{9.08}] & \num{-1.34} [\num{4.90}]\\
+ & \num{0.05} [\num{2292.00}] &  & \num{0.63} [\num{2292.00}] & \num{0.04} [\num{2291.00}] & \num{0.23} [\num{2292.00}] &  & \num{0.63} [\num{2292.00}] & \num{0.18} [\num{2291.00}]\\
+V\_ProductcigarettesV\_RacenamefIndian & \num{1.19}[\num{-7.54},\num{9.92}] &  & \num{0.90}[\num{-15.78},\num{17.59}] & \num{1.10}[\num{-7.57},\num{9.77}] & \num{0.20}[\num{-8.99},\num{9.40}] &  & \num{0.90}[\num{-15.78},\num{17.59}] & \num{0.03}[\num{-9.02},\num{9.08}]\\
+ & \num{0.27} [\num{4.45}] &  & \num{0.11} [\num{8.51}] & \num{0.25} [\num{4.42}] & \num{0.04} [\num{4.69}] &  & \num{0.11} [\num{8.51}] & \num{0.01} [\num{4.61}]\\
+ & \num{0.79} [\num{2292.00}] &  & \num{0.92} [\num{2292.00}] & \num{0.80} [\num{2291.00}] & \num{0.97} [\num{2292.00}] &  & \num{0.92} [\num{2292.00}] & \num{1.00} [\num{2291.00}]\\
+V\_ProducthardwaresuppliesV\_RacenamefIndian & \num{6.55}[\num{-2.43},\num{15.53}] &  & \num{3.49}[\num{-13.72},\num{20.69}] & \num{6.33}[\num{-2.58},\num{15.25}] & \num{9.32}[\num{-0.14},\num{18.77}]+ &  & \num{3.49}[\num{-13.72},\num{20.69}] & \num{9.03}[\num{-0.28},\num{18.34}]+\\
+ & \num{1.43} [\num{4.58}] &  & \num{0.40} [\num{8.77}] & \num{1.39} [\num{4.55}] & \num{1.93} [\num{4.82}] &  & \num{0.40} [\num{8.77}] & \num{1.90} [\num{4.75}]\\
+ & \num{0.15} [\num{2292.00}] &  & \num{0.69} [\num{2292.00}] & \num{0.16} [\num{2291.00}] & \num{0.05} [\num{2292.00}] &  & \num{0.69} [\num{2292.00}] & \num{0.06} [\num{2291.00}]\\
+V\_ProducttoiletpaperV\_RacenamefIndian & \num{-8.13}[\num{-17.12},\num{0.87}]+ &  & \num{4.72}[\num{-12.46},\num{21.91}] & \num{-8.39}[\num{-17.32},\num{0.54}]+ & \num{-3.23}[\num{-12.70},\num{6.24}] &  & \num{4.72}[\num{-12.46},\num{21.91}] & \num{-3.66}[\num{-12.98},\num{5.66}]\\
+ & \num{-1.77} [\num{4.59}] &  & \num{0.54} [\num{8.76}] & \num{-1.84} [\num{4.55}] & \num{-0.67} [\num{4.83}] &  & \num{0.54} [\num{8.76}] & \num{-0.77} [\num{4.75}]\\
+ & \num{0.08} [\num{2292.00}] &  & \num{0.59} [\num{2292.00}] & \num{0.07} [\num{2291.00}] & \num{0.50} [\num{2292.00}] &  & \num{0.59} [\num{2292.00}] & \num{0.44} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_Productcigarettes & \num{-8.35}[\num{-21.77},\num{5.07}] &  & \num{6.75}[\num{-19.00},\num{32.50}] & \num{-8.76}[\num{-22.09},\num{4.56}] & \num{-7.37}[\num{-21.49},\num{6.76}] &  & \num{6.75}[\num{-19.00},\num{32.50}] & \num{-7.93}[\num{-21.84},\num{5.98}]\\
+ & \num{-1.22} [\num{6.84}] &  & \num{0.51} [\num{13.13}] & \num{-1.29} [\num{6.80}] & \num{-1.02} [\num{7.20}] &  & \num{0.51} [\num{13.13}] & \num{-1.12} [\num{7.09}]\\
+ & \num{0.22} [\num{2292.00}] &  & \num{0.61} [\num{2292.00}] & \num{0.20} [\num{2291.00}] & \num{0.31} [\num{2292.00}] &  & \num{0.61} [\num{2292.00}] & \num{0.26} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_Productcigarettes & \num{-0.14}[\num{-12.81},\num{12.53}] &  & \num{-6.58}[\num{-30.90},\num{17.73}] & \num{0.29}[\num{-12.29},\num{12.87}] & \num{-0.89}[\num{-14.23},\num{12.44}] &  & \num{-6.58}[\num{-30.90},\num{17.73}] & \num{-0.20}[\num{-13.33},\num{12.94}]\\
+ & \num{-0.02} [\num{6.46}] &  & \num{-0.53} [\num{12.40}] & \num{0.05} [\num{6.42}] & \num{-0.13} [\num{6.80}] &  & \num{-0.53} [\num{12.40}] & \num{-0.03} [\num{6.70}]\\
+ & \num{0.98} [\num{2292.00}] &  & \num{0.60} [\num{2292.00}] & \num{0.96} [\num{2291.00}] & \num{0.90} [\num{2292.00}] &  & \num{0.60} [\num{2292.00}] & \num{0.98} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_Producthardwaresupplies & \num{-1.92}[\num{-15.57},\num{11.73}] &  & \num{2.80}[\num{-23.40},\num{29.00}] & \num{-2.14}[\num{-15.70},\num{11.42}] & \num{-3.23}[\num{-17.60},\num{11.14}] &  & \num{2.80}[\num{-23.40},\num{29.00}] & \num{-3.64}[\num{-17.79},\num{10.51}]\\
+ & \num{-0.28} [\num{6.96}] &  & \num{0.21} [\num{13.36}] & \num{-0.31} [\num{6.91}] & \num{-0.44} [\num{7.33}] &  & \num{0.21} [\num{13.36}] & \num{-0.50} [\num{7.22}]\\
+ & \num{0.78} [\num{2292.00}] &  & \num{0.83} [\num{2292.00}] & \num{0.76} [\num{2291.00}] & \num{0.66} [\num{2292.00}] &  & \num{0.83} [\num{2292.00}] & \num{0.61} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_Producthardwaresupplies & \num{3.91}[\num{-8.76},\num{16.58}] &  & \num{1.54}[\num{-22.79},\num{25.86}] & \num{3.84}[\num{-8.74},\num{16.42}] & \num{-1.51}[\num{-14.85},\num{11.83}] &  & \num{1.54}[\num{-22.79},\num{25.86}] & \num{-1.67}[\num{-14.81},\num{11.46}]\\
+ & \num{0.60} [\num{6.46}] &  & \num{0.12} [\num{12.40}] & \num{0.60} [\num{6.42}] & \num{-0.22} [\num{6.80}] &  & \num{0.12} [\num{12.40}] & \num{-0.25} [\num{6.70}]\\
+ & \num{0.55} [\num{2292.00}] &  & \num{0.90} [\num{2292.00}] & \num{0.55} [\num{2291.00}] & \num{0.82} [\num{2292.00}] &  & \num{0.90} [\num{2292.00}] & \num{0.80} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_Producttoiletpaper & \num{0.01}[\num{-13.30},\num{13.31}] &  & \num{6.08}[\num{-19.46},\num{31.62}] & \num{-0.34}[\num{-13.56},\num{12.87}] & \num{-1.40}[\num{-15.41},\num{12.60}] &  & \num{6.08}[\num{-19.46},\num{31.62}] & \num{-1.86}[\num{-15.66},\num{11.93}]\\
+ & \num{0.00} [\num{6.79}] &  & \num{0.47} [\num{13.02}] & \num{-0.05} [\num{6.74}] & \num{-0.20} [\num{7.14}] &  & \num{0.47} [\num{13.02}] & \num{-0.26} [\num{7.03}]\\
+ & \num{1.00} [\num{2292.00}] &  & \num{0.64} [\num{2292.00}] & \num{0.96} [\num{2291.00}] & \num{0.84} [\num{2292.00}] &  & \num{0.64} [\num{2292.00}] & \num{0.79} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_Producttoiletpaper & \num{7.93}[\num{-4.42},\num{20.29}] &  & \num{-9.22}[\num{-32.94},\num{14.50}] & \num{8.55}[\num{-3.72},\num{20.82}] & \num{-2.67}[\num{-15.67},\num{10.34}] &  & \num{-9.22}[\num{-32.94},\num{14.50}] & \num{-1.67}[\num{-14.48},\num{11.14}]\\
+ & \num{1.26} [\num{6.30}] &  & \num{-0.76} [\num{12.09}] & \num{1.37} [\num{6.26}] & \num{-0.40} [\num{6.63}] &  & \num{-0.76} [\num{12.09}] & \num{-0.26} [\num{6.53}]\\
+ & \num{0.21} [\num{2292.00}] &  & \num{0.45} [\num{2292.00}] & \num{0.17} [\num{2291.00}] & \num{0.69} [\num{2292.00}] &  & \num{0.45} [\num{2292.00}] & \num{0.80} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_RacenamefBlack & \num{-1.37}[\num{-14.60},\num{11.86}] &  & \num{11.77}[\num{-13.61},\num{37.15}] & \num{-2.22}[\num{-15.36},\num{10.91}] & \num{1.37}[\num{-12.56},\num{15.29}] &  & \num{11.77}[\num{-13.61},\num{37.15}] & \num{-0.01}[\num{-13.73},\num{13.70}]\\
+ & \num{-0.20} [\num{6.75}] &  & \num{0.91} [\num{12.94}] & \num{-0.33} [\num{6.70}] & \num{0.19} [\num{7.10}] &  & \num{0.91} [\num{12.94}] & \num{0.00} [\num{6.99}]\\
+ & \num{0.84} [\num{2292.00}] &  & \num{0.36} [\num{2292.00}] & \num{0.74} [\num{2291.00}] & \num{0.85} [\num{2292.00}] &  & \num{0.36} [\num{2292.00}] & \num{1.00} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_RacenamefBlack & \num{7.21}[\num{-5.26},\num{19.68}] &  & \num{7.86}[\num{-16.07},\num{31.79}] & \num{6.68}[\num{-5.70},\num{19.07}] & \num{2.48}[\num{-10.65},\num{15.60}] &  & \num{7.86}[\num{-16.07},\num{31.79}] & \num{1.65}[\num{-11.28},\num{14.58}]\\
+ & \num{1.13} [\num{6.36}] &  & \num{0.64} [\num{12.20}] & \num{1.06} [\num{6.32}] & \num{0.37} [\num{6.69}] &  & \num{0.64} [\num{12.20}] & \num{0.25} [\num{6.59}]\\
+ & \num{0.26} [\num{2292.00}] &  & \num{0.52} [\num{2292.00}] & \num{0.29} [\num{2291.00}] & \num{0.71} [\num{2292.00}] &  & \num{0.52} [\num{2292.00}] & \num{0.80} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_RacenamefChinese & \num{4.33}[\num{-9.42},\num{18.09}] &  & \num{3.61}[\num{-22.77},\num{30.00}] & \num{4.15}[\num{-9.51},\num{17.80}] & \num{0.72}[\num{-13.76},\num{15.20}] &  & \num{3.61}[\num{-22.77},\num{30.00}] & \num{0.43}[\num{-13.83},\num{14.69}]\\
+ & \num{0.62} [\num{7.01}] &  & \num{0.27} [\num{13.45}] & \num{0.60} [\num{6.96}] & \num{0.10} [\num{7.38}] &  & \num{0.27} [\num{13.45}] & \num{0.06} [\num{7.27}]\\
+ & \num{0.54} [\num{2292.00}] &  & \num{0.79} [\num{2292.00}] & \num{0.55} [\num{2291.00}] & \num{0.92} [\num{2292.00}] &  & \num{0.79} [\num{2292.00}] & \num{0.95} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_RacenamefChinese & \num{7.95}[\num{-4.54},\num{20.43}] &  & \num{-13.94}[\num{-37.89},\num{10.01}] & \num{8.87}[\num{-3.53},\num{21.27}] & \num{2.58}[\num{-10.56},\num{15.72}] &  & \num{-13.94}[\num{-37.89},\num{10.01}] & \num{4.04}[\num{-8.91},\num{16.98}]\\
+ & \num{1.25} [\num{6.37}] &  & \num{-1.14} [\num{12.21}] & \num{1.40} [\num{6.32}] & \num{0.38} [\num{6.70}] &  & \num{-1.14} [\num{12.21}] & \num{0.61} [\num{6.60}]\\
+ & \num{0.21} [\num{2292.00}] &  & \num{0.25} [\num{2292.00}] & \num{0.16} [\num{2291.00}] & \num{0.70} [\num{2292.00}] &  & \num{0.25} [\num{2292.00}] & \num{0.54} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_RacenamefIndian & \num{-4.88}[\num{-18.20},\num{8.43}] &  & \num{-6.44}[\num{-31.98},\num{19.10}] & \num{-4.50}[\num{-17.73},\num{8.72}] & \num{-5.07}[\num{-19.08},\num{8.94}] &  & \num{-6.44}[\num{-31.98},\num{19.10}] & \num{-4.52}[\num{-18.32},\num{9.28}]\\
+ & \num{-0.72} [\num{6.79}] &  & \num{-0.49} [\num{13.02}] & \num{-0.67} [\num{6.74}] & \num{-0.71} [\num{7.15}] &  & \num{-0.49} [\num{13.02}] & \num{-0.64} [\num{7.04}]\\
+ & \num{0.47} [\num{2292.00}] &  & \num{0.62} [\num{2292.00}] & \num{0.50} [\num{2291.00}] & \num{0.48} [\num{2292.00}] &  & \num{0.62} [\num{2292.00}] & \num{0.52} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_RacenamefIndian & \num{0.33}[\num{-12.64},\num{13.31}] &  & \num{-1.77}[\num{-26.66},\num{23.13}] & \num{0.49}[\num{-12.40},\num{13.38}] & \num{0.40}[\num{-13.26},\num{14.06}] &  & \num{-1.77}[\num{-26.66},\num{23.13}] & \num{0.62}[\num{-12.84},\num{14.07}]\\
+ & \num{0.05} [\num{6.62}] &  & \num{-0.14} [\num{12.70}] & \num{0.07} [\num{6.57}] & \num{0.06} [\num{6.97}] &  & \num{-0.14} [\num{12.70}] & \num{0.09} [\num{6.86}]\\
+ & \num{0.96} [\num{2292.00}] &  & \num{0.89} [\num{2292.00}] & \num{0.94} [\num{2291.00}] & \num{0.95} [\num{2292.00}] &  & \num{0.89} [\num{2292.00}] & \num{0.93} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProductcigarettesV\_RacenamefBlack & \num{-7.93}[\num{-21.18},\num{5.33}] &  & \num{5.18}[\num{-20.15},\num{30.50}] & \num{-8.32}[\num{-21.47},\num{4.84}] & \num{-4.10}[\num{-18.05},\num{9.85}] &  & \num{5.18}[\num{-20.15},\num{30.50}] & \num{-4.83}[\num{-18.56},\num{8.91}]\\
+ & \num{-1.17} [\num{6.76}] &  & \num{0.40} [\num{12.92}] & \num{-1.24} [\num{6.71}] & \num{-0.58} [\num{7.11}] &  & \num{0.40} [\num{12.92}] & \num{-0.69} [\num{7.00}]\\
+ & \num{0.24} [\num{2292.00}] &  & \num{0.69} [\num{2292.00}] & \num{0.22} [\num{2291.00}] & \num{0.56} [\num{2292.00}] &  & \num{0.69} [\num{2292.00}] & \num{0.49} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProductcigarettesV\_RacenamefBlack & \num{4.33}[\num{-7.71},\num{16.38}] &  & \num{-0.71}[\num{-23.72},\num{22.31}] & \num{4.45}[\num{-7.51},\num{16.41}] & \num{1.05}[\num{-11.63},\num{13.73}] &  & \num{-0.71}[\num{-23.72},\num{22.31}] & \num{1.27}[\num{-11.22},\num{13.75}]\\
+ & \num{0.71} [\num{6.14}] &  & \num{-0.06} [\num{11.74}] & \num{0.73} [\num{6.10}] & \num{0.16} [\num{6.47}] &  & \num{-0.06} [\num{11.74}] & \num{0.20} [\num{6.37}]\\
+ & \num{0.48} [\num{2292.00}] &  & \num{0.95} [\num{2292.00}] & \num{0.47} [\num{2291.00}] & \num{0.87} [\num{2292.00}] &  & \num{0.95} [\num{2292.00}] & \num{0.84} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProducthardwaresuppliesV\_RacenamefBlack & \num{-2.63}[\num{-15.67},\num{10.42}] &  & \num{-3.28}[\num{-28.18},\num{21.62}] & \num{-2.43}[\num{-15.38},\num{10.52}] & \num{0.40}[\num{-13.34},\num{14.13}] &  & \num{-3.28}[\num{-28.18},\num{21.62}] & \num{0.51}[\num{-13.01},\num{14.03}]\\
+ & \num{-0.39} [\num{6.65}] &  & \num{-0.26} [\num{12.70}] & \num{-0.37} [\num{6.61}] & \num{0.06} [\num{7.01}] &  & \num{-0.26} [\num{12.70}] & \num{0.07} [\num{6.90}]\\
+ & \num{0.69} [\num{2292.00}] &  & \num{0.80} [\num{2292.00}] & \num{0.71} [\num{2291.00}] & \num{0.95} [\num{2292.00}] &  & \num{0.80} [\num{2292.00}] & \num{0.94} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProducthardwaresuppliesV\_RacenamefBlack & \num{5.02}[\num{-7.65},\num{17.69}] &  & \num{5.81}[\num{-18.37},\num{30.00}] & \num{4.71}[\num{-7.87},\num{17.29}] & \num{1.77}[\num{-11.57},\num{15.12}] &  & \num{5.81}[\num{-18.37},\num{30.00}] & \num{1.24}[\num{-11.90},\num{14.37}]\\
+ & \num{0.78} [\num{6.46}] &  & \num{0.47} [\num{12.33}] & \num{0.73} [\num{6.42}] & \num{0.26} [\num{6.80}] &  & \num{0.47} [\num{12.33}] & \num{0.18} [\num{6.70}]\\
+ & \num{0.44} [\num{2292.00}] &  & \num{0.64} [\num{2292.00}] & \num{0.46} [\num{2291.00}] & \num{0.79} [\num{2292.00}] &  & \num{0.64} [\num{2292.00}] & \num{0.85} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProducttoiletpaperV\_RacenamefBlack & \num{-8.30}[\num{-21.81},\num{5.21}] &  & \num{13.19}[\num{-12.63},\num{39.02}] & \num{-9.13}[\num{-22.55},\num{4.29}] & \num{-0.42}[\num{-14.64},\num{13.81}] &  & \num{13.19}[\num{-12.63},\num{39.02}] & \num{-1.79}[\num{-15.80},\num{12.22}]\\
+ & \num{-1.20} [\num{6.89}] &  & \num{1.00} [\num{13.17}] & \num{-1.33} [\num{6.84}] & \num{-0.06} [\num{7.25}] &  & \num{1.00} [\num{13.17}] & \num{-0.25} [\num{7.14}]\\
+ & \num{0.23} [\num{2292.00}] &  & \num{0.32} [\num{2292.00}] & \num{0.18} [\num{2291.00}] & \num{0.95} [\num{2292.00}] &  & \num{0.32} [\num{2292.00}] & \num{0.80} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProducttoiletpaperV\_RacenamefBlack & \num{7.61}[\num{-4.57},\num{19.78}] &  & \num{-5.46}[\num{-28.73},\num{17.81}] & \num{8.00}[\num{-4.09},\num{20.08}] & \num{8.91}[\num{-3.91},\num{21.72}] &  & \num{-5.46}[\num{-28.73},\num{17.81}] & \num{9.51}[\num{-3.11},\num{22.12}]\\
+ & \num{1.23} [\num{6.21}] &  & \num{-0.46} [\num{11.87}] & \num{1.30} [\num{6.16}] & \num{1.36} [\num{6.53}] &  & \num{-0.46} [\num{11.87}] & \num{1.48} [\num{6.43}]\\
+ & \num{0.22} [\num{2292.00}] &  & \num{0.65} [\num{2292.00}] & \num{0.19} [\num{2291.00}] & \num{0.17} [\num{2292.00}] &  & \num{0.65} [\num{2292.00}] & \num{0.14} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProductcigarettesV\_RacenamefChinese & \num{-5.70}[\num{-19.25},\num{7.86}] &  & \num{7.40}[\num{-18.61},\num{33.42}] & \num{-6.08}[\num{-19.54},\num{7.38}] & \num{-11.66}[\num{-25.93},\num{2.61}] &  & \num{7.40}[\num{-18.61},\num{33.42}] & \num{-12.40}[\num{-26.46},\num{1.65}]+\\
+ & \num{-0.82} [\num{6.91}] &  & \num{0.56} [\num{13.27}] & \num{-0.89} [\num{6.86}] & \num{-1.60} [\num{7.28}] &  & \num{0.56} [\num{13.27}] & \num{-1.73} [\num{7.17}]\\
+ & \num{0.41} [\num{2292.00}] &  & \num{0.58} [\num{2292.00}] & \num{0.38} [\num{2291.00}] & \num{0.11} [\num{2292.00}] &  & \num{0.58} [\num{2292.00}] & \num{0.08} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProductcigarettesV\_RacenamefChinese & \num{-3.33}[\num{-15.89},\num{9.23}] &  & \num{-10.37}[\num{-34.47},\num{13.73}] & \num{-2.52}[\num{-14.99},\num{9.95}] & \num{-7.11}[\num{-20.32},\num{6.11}] &  & \num{-10.37}[\num{-34.47},\num{13.73}] & \num{-5.92}[\num{-18.93},\num{7.10}]\\
+ & \num{-0.52} [\num{6.40}] &  & \num{-0.84} [\num{12.29}] & \num{-0.40} [\num{6.36}] & \num{-1.05} [\num{6.74}] &  & \num{-0.84} [\num{12.29}] & \num{-0.89} [\num{6.64}]\\
+ & \num{0.60} [\num{2292.00}] &  & \num{0.40} [\num{2292.00}] & \num{0.69} [\num{2291.00}] & \num{0.29} [\num{2292.00}] &  & \num{0.40} [\num{2292.00}] & \num{0.37} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProducthardwaresuppliesV\_RacenamefChinese & \num{1.30}[\num{-12.17},\num{14.78}] &  & \num{3.28}[\num{-22.59},\num{29.14}] & \num{1.21}[\num{-12.17},\num{14.59}] & \num{-4.39}[\num{-18.58},\num{9.79}] &  & \num{3.28}[\num{-22.59},\num{29.14}] & \num{-4.64}[\num{-18.61},\num{9.34}]\\
+ & \num{0.19} [\num{6.87}] &  & \num{0.25} [\num{13.19}] & \num{0.18} [\num{6.82}] & \num{-0.61} [\num{7.23}] &  & \num{0.25} [\num{13.19}] & \num{-0.65} [\num{7.12}]\\
+ & \num{0.85} [\num{2292.00}] &  & \num{0.80} [\num{2292.00}] & \num{0.86} [\num{2291.00}] & \num{0.54} [\num{2292.00}] &  & \num{0.80} [\num{2292.00}] & \num{0.52} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProducthardwaresuppliesV\_RacenamefChinese & \num{0.92}[\num{-11.56},\num{13.39}] &  & \num{0.87}[\num{-23.07},\num{24.81}] & \num{0.94}[\num{-11.45},\num{13.32}] & \num{-6.86}[\num{-19.99},\num{6.27}] &  & \num{0.87}[\num{-23.07},\num{24.81}] & \num{-6.86}[\num{-19.79},\num{6.06}]\\
+ & \num{0.14} [\num{6.36}] &  & \num{0.07} [\num{12.21}] & \num{0.15} [\num{6.31}] & \num{-1.02} [\num{6.69}] &  & \num{0.07} [\num{12.21}] & \num{-1.04} [\num{6.59}]\\
+ & \num{0.89} [\num{2292.00}] &  & \num{0.94} [\num{2292.00}] & \num{0.88} [\num{2291.00}] & \num{0.31} [\num{2292.00}] &  & \num{0.94} [\num{2292.00}] & \num{0.30} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProducttoiletpaperV\_RacenamefChinese & \num{4.79}[\num{-9.04},\num{18.63}] &  & \num{-2.69}[\num{-29.24},\num{23.87}] & \num{5.11}[\num{-8.63},\num{18.85}] & \num{2.32}[\num{-12.24},\num{16.89}] &  & \num{-2.69}[\num{-29.24},\num{23.87}] & \num{2.84}[\num{-11.51},\num{17.18}]\\
+ & \num{0.68} [\num{7.06}] &  & \num{-0.20} [\num{13.54}] & \num{0.73} [\num{7.01}] & \num{0.31} [\num{7.43}] &  & \num{-0.20} [\num{13.54}] & \num{0.39} [\num{7.31}]\\
+ & \num{0.50} [\num{2292.00}] &  & \num{0.84} [\num{2292.00}] & \num{0.47} [\num{2291.00}] & \num{0.75} [\num{2292.00}] &  & \num{0.84} [\num{2292.00}] & \num{0.70} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProducttoiletpaperV\_RacenamefChinese & \num{8.09}[\num{-4.41},\num{20.59}] &  & \num{-17.93}[\num{-41.93},\num{6.07}] & \num{9.34}[\num{-3.07},\num{21.76}] & \num{4.38}[\num{-8.77},\num{17.54}] &  & \num{-17.93}[\num{-41.93},\num{6.07}] & \num{6.40}[\num{-6.56},\num{19.36}]\\
+ & \num{1.27} [\num{6.37}] &  & \num{-1.47} [\num{12.24}] & \num{1.48} [\num{6.33}] & \num{0.65} [\num{6.71}] &  & \num{-1.47} [\num{12.24}] & \num{0.97} [\num{6.61}]\\
+ & \num{0.20} [\num{2292.00}] &  & \num{0.14} [\num{2292.00}] & \num{0.14} [\num{2291.00}] & \num{0.51} [\num{2292.00}] &  & \num{0.14} [\num{2292.00}] & \num{0.33} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProductcigarettesV\_RacenamefIndian & \num{-12.94}[\num{-26.10},\num{0.23}]+ &  & \num{-4.60}[\num{-29.74},\num{20.54}] & \num{-12.69}[\num{-25.76},\num{0.38}]+ & \num{-11.34}[\num{-25.20},\num{2.52}] &  & \num{-4.60}[\num{-29.74},\num{20.54}] & \num{-10.95}[\num{-24.59},\num{2.70}]\\
+ & \num{-1.93} [\num{6.71}] &  & \num{-0.36} [\num{12.82}] & \num{-1.90} [\num{6.66}] & \num{-1.60} [\num{7.07}] &  & \num{-0.36} [\num{12.82}] & \num{-1.57} [\num{6.96}]\\
+ & \num{0.05} [\num{2292.00}] &  & \num{0.72} [\num{2292.00}] & \num{0.06} [\num{2291.00}] & \num{0.11} [\num{2292.00}] &  & \num{0.72} [\num{2292.00}] & \num{0.12} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProductcigarettesV\_RacenamefIndian & \num{-3.75}[\num{-15.74},\num{8.24}] &  & \num{-4.03}[\num{-26.94},\num{18.88}] & \num{-3.41}[\num{-15.32},\num{8.50}] & \num{-0.28}[\num{-12.90},\num{12.35}] &  & \num{-4.03}[\num{-26.94},\num{18.88}] & \num{0.29}[\num{-12.14},\num{12.71}]\\
+ & \num{-0.61} [\num{6.11}] &  & \num{-0.34} [\num{11.68}] & \num{-0.56} [\num{6.07}] & \num{-0.04} [\num{6.44}] &  & \num{-0.34} [\num{11.68}] & \num{0.05} [\num{6.34}]\\
+ & \num{0.54} [\num{2292.00}] &  & \num{0.73} [\num{2292.00}] & \num{0.57} [\num{2291.00}] & \num{0.97} [\num{2292.00}] &  & \num{0.73} [\num{2292.00}] & \num{0.96} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProducthardwaresuppliesV\_RacenamefIndian & \num{-12.31}[\num{-25.09},\num{0.48}]+ &  & \num{-13.02}[\num{-37.47},\num{11.44}] & \num{-11.51}[\num{-24.21},\num{1.18}]+ & \num{-17.29}[\num{-30.75},\num{-3.83}]* &  & \num{-13.02}[\num{-37.47},\num{11.44}] & \num{-16.12}[\num{-29.37},\num{-2.87}]*\\
+ & \num{-1.89} [\num{6.52}] &  & \num{-1.04} [\num{12.47}] & \num{-1.78} [\num{6.47}] & \num{-2.52} [\num{6.86}] &  & \num{-1.04} [\num{12.47}] & \num{-2.38} [\num{6.76}]\\
+ & \num{0.06} [\num{2292.00}] &  & \num{0.30} [\num{2292.00}] & \num{0.08} [\num{2291.00}] & \num{0.01} [\num{2292.00}] &  & \num{0.30} [\num{2292.00}] & \num{0.02} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProducthardwaresuppliesV\_RacenamefIndian & \num{-4.33}[\num{-16.23},\num{7.57}] &  & \num{2.49}[\num{-20.28},\num{25.26}] & \num{-4.48}[\num{-16.30},\num{7.33}] & \num{-8.16}[\num{-20.69},\num{4.37}] &  & \num{2.49}[\num{-20.28},\num{25.26}] & \num{-8.41}[\num{-20.75},\num{3.92}]\\
+ & \num{-0.71} [\num{6.07}] &  & \num{0.21} [\num{11.61}] & \num{-0.74} [\num{6.03}] & \num{-1.28} [\num{6.39}] &  & \num{0.21} [\num{11.61}] & \num{-1.34} [\num{6.29}]\\
+ & \num{0.48} [\num{2292.00}] &  & \num{0.83} [\num{2292.00}] & \num{0.46} [\num{2291.00}] & \num{0.20} [\num{2292.00}] &  & \num{0.83} [\num{2292.00}] & \num{0.18} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_ProducttoiletpaperV\_RacenamefIndian & \num{-6.55}[\num{-19.59},\num{6.50}] &  & \num{-9.21}[\num{-34.12},\num{15.70}] & \num{-5.99}[\num{-18.95},\num{6.96}] & \num{-3.54}[\num{-17.27},\num{10.19}] &  & \num{-9.21}[\num{-34.12},\num{15.70}] & \num{-2.66}[\num{-16.18},\num{10.86}]\\
+ & \num{-0.98} [\num{6.65}] &  & \num{-0.73} [\num{12.70}] & \num{-0.91} [\num{6.60}] & \num{-0.51} [\num{7.00}] &  & \num{-0.73} [\num{12.70}] & \num{-0.39} [\num{6.89}]\\
+ & \num{0.33} [\num{2292.00}] &  & \num{0.47} [\num{2292.00}] & \num{0.36} [\num{2291.00}] & \num{0.61} [\num{2292.00}] &  & \num{0.47} [\num{2292.00}] & \num{0.70} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_ProducttoiletpaperV\_RacenamefIndian & \num{7.27}[\num{-4.88},\num{19.43}] &  & \num{-18.36}[\num{-41.59},\num{4.88}] & \num{8.42}[\num{-3.65},\num{20.50}] & \num{2.55}[\num{-10.25},\num{15.36}] &  & \num{-18.36}[\num{-41.59},\num{4.88}] & \num{4.35}[\num{-8.25},\num{16.96}]\\
+ & \num{1.17} [\num{6.20}] &  & \num{-1.55} [\num{11.85}] & \num{1.37} [\num{6.16}] & \num{0.39} [\num{6.53}] &  & \num{-1.55} [\num{11.85}] & \num{0.68} [\num{6.43}]\\
+ & \num{0.24} [\num{2292.00}] &  & \num{0.12} [\num{2292.00}] & \num{0.17} [\num{2291.00}] & \num{0.70} [\num{2292.00}] &  & \num{0.12} [\num{2292.00}] & \num{0.50} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefBlack & \num{3.84}[\num{-8.97},\num{16.64}] &  & \num{13.08}[\num{-11.46},\num{37.61}] & \num{2.93}[\num{-9.79},\num{15.65}] & \num{6.75}[\num{-6.73},\num{20.23}] &  & \num{13.08}[\num{-11.46},\num{37.61}] & \num{5.41}[\num{-7.87},\num{18.68}]\\
+ & \num{0.59} [\num{6.53}] &  & \num{1.05} [\num{12.51}] & \num{0.45} [\num{6.49}] & \num{0.98} [\num{6.87}] &  & \num{1.05} [\num{12.51}] & \num{0.80} [\num{6.77}]\\
+ & \num{0.56} [\num{2292.00}] &  & \num{0.30} [\num{2292.00}] & \num{0.65} [\num{2291.00}] & \num{0.33} [\num{2292.00}] &  & \num{0.30} [\num{2292.00}] & \num{0.42} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefBlack & \num{-6.98}[\num{-20.20},\num{6.24}] &  & \num{0.29}[\num{-25.01},\num{25.60}] & \num{-7.06}[\num{-20.19},\num{6.07}] & \num{1.54}[\num{-12.38},\num{15.46}] &  & \num{0.29}[\num{-25.01},\num{25.60}] & \num{1.32}[\num{-12.38},\num{15.02}]\\
+ & \num{-1.04} [\num{6.74}] &  & \num{0.02} [\num{12.90}] & \num{-1.05} [\num{6.69}] & \num{0.22} [\num{7.10}] &  & \num{0.02} [\num{12.90}] & \num{0.19} [\num{6.99}]\\
+ & \num{0.30} [\num{2292.00}] &  & \num{0.98} [\num{2292.00}] & \num{0.29} [\num{2291.00}] & \num{0.83} [\num{2292.00}] &  & \num{0.98} [\num{2292.00}] & \num{0.85} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefBlack & \num{5.90}[\num{-7.02},\num{18.82}] &  & \num{6.20}[\num{-18.60},\num{31.00}] & \num{5.50}[\num{-7.33},\num{18.33}] & \num{6.43}[\num{-7.17},\num{20.03}] &  & \num{6.20}[\num{-18.60},\num{31.00}] & \num{5.82}[\num{-7.58},\num{19.22}]\\
+ & \num{0.90} [\num{6.59}] &  & \num{0.49} [\num{12.65}] & \num{0.84} [\num{6.54}] & \num{0.93} [\num{6.94}] &  & \num{0.49} [\num{12.65}] & \num{0.85} [\num{6.83}]\\
+ & \num{0.37} [\num{2292.00}] &  & \num{0.62} [\num{2292.00}] & \num{0.40} [\num{2291.00}] & \num{0.35} [\num{2292.00}] &  & \num{0.62} [\num{2292.00}] & \num{0.39} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefChinese & \num{4.22}[\num{-8.87},\num{17.31}] &  & \num{-7.51}[\num{-32.87},\num{17.84}] & \num{4.70}[\num{-8.30},\num{17.69}] & \num{-2.35}[\num{-16.11},\num{11.41}] &  & \num{-7.51}[\num{-32.87},\num{17.84}] & \num{-1.62}[\num{-15.19},\num{11.95}]\\
+ & \num{0.63} [\num{6.67}] &  & \num{-0.58} [\num{12.93}] & \num{0.71} [\num{6.63}] & \num{-0.34} [\num{7.02}] &  & \num{-0.58} [\num{12.93}] & \num{-0.23} [\num{6.92}]\\
+ & \num{0.53} [\num{2292.00}] &  & \num{0.56} [\num{2292.00}] & \num{0.48} [\num{2291.00}] & \num{0.74} [\num{2292.00}] &  & \num{0.56} [\num{2292.00}] & \num{0.81} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefChinese & \num{3.88}[\num{-9.01},\num{16.78}] &  & \num{2.41}[\num{-22.55},\num{27.36}] & \num{3.76}[\num{-9.04},\num{16.57}] & \num{-1.08}[\num{-14.64},\num{12.48}] &  & \num{2.41}[\num{-22.55},\num{27.36}] & \num{-1.31}[\num{-14.68},\num{12.07}]\\
+ & \num{0.59} [\num{6.58}] &  & \num{0.19} [\num{12.73}] & \num{0.58} [\num{6.53}] & \num{-0.16} [\num{6.92}] &  & \num{0.19} [\num{12.73}] & \num{-0.19} [\num{6.82}]\\
+ & \num{0.55} [\num{2292.00}] &  & \num{0.85} [\num{2292.00}] & \num{0.56} [\num{2291.00}] & \num{0.88} [\num{2292.00}] &  & \num{0.85} [\num{2292.00}] & \num{0.85} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefChinese & \num{12.66}[\num{-0.05},\num{25.36}]+ &  & \num{-3.38}[\num{-28.01},\num{21.25}] & \num{12.94}[\num{0.33},\num{25.56}]* & \num{7.04}[\num{-6.32},\num{20.40}] &  & \num{-3.38}[\num{-28.01},\num{21.25}] & \num{7.57}[\num{-5.61},\num{20.74}]\\
+ & \num{1.95} [\num{6.48}] &  & \num{-0.27} [\num{12.56}] & \num{2.01} [\num{6.44}] & \num{1.03} [\num{6.81}] &  & \num{-0.27} [\num{12.56}] & \num{1.13} [\num{6.72}]\\
+ & \num{0.05} [\num{2292.00}] &  & \num{0.79} [\num{2292.00}] & \num{0.04} [\num{2291.00}] & \num{0.30} [\num{2292.00}] &  & \num{0.79} [\num{2292.00}] & \num{0.26} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefIndian & \num{-2.90}[\num{-16.06},\num{10.26}] &  & \num{4.52}[\num{-20.80},\num{29.83}] & \num{-3.21}[\num{-16.28},\num{9.85}] & \num{-0.11}[\num{-13.96},\num{13.74}] &  & \num{4.52}[\num{-20.80},\num{29.83}] & \num{-0.52}[\num{-14.16},\num{13.12}]\\
+ & \num{-0.43} [\num{6.71}] &  & \num{0.35} [\num{12.91}] & \num{-0.48} [\num{6.66}] & \num{-0.02} [\num{7.06}] &  & \num{0.35} [\num{12.91}] & \num{-0.07} [\num{6.96}]\\
+ & \num{0.67} [\num{2292.00}] &  & \num{0.73} [\num{2292.00}] & \num{0.63} [\num{2291.00}] & \num{0.99} [\num{2292.00}] &  & \num{0.73} [\num{2292.00}] & \num{0.94} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefIndian & \num{-9.27}[\num{-22.51},\num{3.96}] &  & \num{-3.55}[\num{-28.97},\num{21.87}] & \num{-9.08}[\num{-22.22},\num{4.07}] & \num{-8.62}[\num{-22.55},\num{5.31}] &  & \num{-3.55}[\num{-28.97},\num{21.87}] & \num{-8.45}[\num{-22.18},\num{5.27}]\\
+ & \num{-1.37} [\num{6.75}] &  & \num{-0.27} [\num{12.96}] & \num{-1.35} [\num{6.70}] & \num{-1.21} [\num{7.10}] &  & \num{-0.27} [\num{12.96}] & \num{-1.21} [\num{7.00}]\\
+ & \num{0.17} [\num{2292.00}] &  & \num{0.78} [\num{2292.00}] & \num{0.18} [\num{2291.00}] & \num{0.23} [\num{2292.00}] &  & \num{0.78} [\num{2292.00}] & \num{0.23} [\num{2291.00}]\\
+V\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefIndian & \num{7.96}[\num{-5.11},\num{21.02}] &  & \num{-1.39}[\num{-26.55},\num{23.77}] & \num{8.03}[\num{-4.94},\num{21.01}] & \num{0.97}[\num{-12.78},\num{14.71}] &  & \num{-1.39}[\num{-26.55},\num{23.77}] & \num{1.12}[\num{-12.42},\num{14.66}]\\
+ & \num{1.19} [\num{6.66}] &  & \num{-0.11} [\num{12.83}] & \num{1.21} [\num{6.62}] & \num{0.14} [\num{7.01}] &  & \num{-0.11} [\num{12.83}] & \num{0.16} [\num{6.91}]\\
+ & \num{0.23} [\num{2292.00}] &  & \num{0.91} [\num{2292.00}] & \num{0.22} [\num{2291.00}] & \num{0.89} [\num{2292.00}] &  & \num{0.91} [\num{2292.00}] & \num{0.87} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefBlack & \num{5.66}[\num{-13.04},\num{24.36}] &  & \num{-19.62}[\num{-55.49},\num{16.25}] & \num{6.96}[\num{-11.62},\num{25.53}] & \num{-2.01}[\num{-21.69},\num{17.68}] &  & \num{-19.62}[\num{-55.49},\num{16.25}] & \num{0.03}[\num{-19.36},\num{19.42}]\\
+ & \num{0.59} [\num{9.54}] &  & \num{-1.07} [\num{18.29}] & \num{0.73} [\num{9.47}] & \num{-0.20} [\num{10.04}] &  & \num{-1.07} [\num{18.29}] & \num{0.00} [\num{9.89}]\\
+ & \num{0.55} [\num{2292.00}] &  & \num{0.28} [\num{2292.00}] & \num{0.46} [\num{2291.00}] & \num{0.84} [\num{2292.00}] &  & \num{0.28} [\num{2292.00}] & \num{1.00} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefBlack & \num{-7.67}[\num{-25.22},\num{9.87}] &  & \num{-7.68}[\num{-41.36},\num{26.00}] & \num{-7.11}[\num{-24.53},\num{10.31}] & \num{-4.82}[\num{-23.29},\num{13.64}] &  & \num{-7.68}[\num{-41.36},\num{26.00}] & \num{-3.99}[\num{-22.18},\num{14.20}]\\
+ & \num{-0.86} [\num{8.95}] &  & \num{-0.45} [\num{17.17}] & \num{-0.80} [\num{8.88}] & \num{-0.51} [\num{9.42}] &  & \num{-0.45} [\num{17.17}] & \num{-0.43} [\num{9.27}]\\
+ & \num{0.39} [\num{2292.00}] &  & \num{0.65} [\num{2292.00}] & \num{0.42} [\num{2291.00}] & \num{0.61} [\num{2292.00}] &  & \num{0.65} [\num{2292.00}] & \num{0.67} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefBlack & \num{8.31}[\num{-10.57},\num{27.18}] &  & \num{3.66}[\num{-32.52},\num{39.84}] & \num{8.26}[\num{-10.48},\num{27.00}] & \num{-0.58}[\num{-20.44},\num{19.29}] &  & \num{3.66}[\num{-32.52},\num{39.84}] & \num{-0.35}[\num{-19.92},\num{19.21}]\\
+ & \num{0.86} [\num{9.62}] &  & \num{0.20} [\num{18.45}] & \num{0.86} [\num{9.56}] & \num{-0.06} [\num{10.13}] &  & \num{0.20} [\num{18.45}] & \num{-0.04} [\num{9.98}]\\
+ & \num{0.39} [\num{2292.00}] &  & \num{0.84} [\num{2292.00}] & \num{0.39} [\num{2291.00}] & \num{0.95} [\num{2292.00}] &  & \num{0.84} [\num{2292.00}] & \num{0.97} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefBlack & \num{-2.14}[\num{-20.02},\num{15.75}] &  & \num{3.07}[\num{-31.20},\num{37.33}] & \num{-2.29}[\num{-20.04},\num{15.47}] & \num{-1.66}[\num{-20.49},\num{17.16}] &  & \num{3.07}[\num{-31.20},\num{37.33}] & \num{-1.72}[\num{-20.26},\num{16.82}]\\
+ & \num{-0.23} [\num{9.12}] &  & \num{0.18} [\num{17.47}] & \num{-0.25} [\num{9.06}] & \num{-0.17} [\num{9.60}] &  & \num{0.18} [\num{17.47}] & \num{-0.18} [\num{9.45}]\\
+ & \num{0.81} [\num{2292.00}] &  & \num{0.86} [\num{2292.00}] & \num{0.80} [\num{2291.00}] & \num{0.86} [\num{2292.00}] &  & \num{0.86} [\num{2292.00}] & \num{0.86} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefBlack & \num{-1.12}[\num{-20.04},\num{17.81}] &  & \num{-22.63}[\num{-58.94},\num{13.68}] & \num{0.39}[\num{-18.41},\num{19.19}] & \num{-1.24}[\num{-21.16},\num{18.68}] &  & \num{-22.63}[\num{-58.94},\num{13.68}] & \num{1.16}[\num{-18.47},\num{20.78}]\\
+ & \num{-0.12} [\num{9.65}] &  & \num{-1.22} [\num{18.52}] & \num{0.04} [\num{9.59}] & \num{-0.12} [\num{10.16}] &  & \num{-1.22} [\num{18.52}] & \num{0.12} [\num{10.01}]\\
+ & \num{0.91} [\num{2292.00}] &  & \num{0.22} [\num{2292.00}] & \num{0.97} [\num{2291.00}] & \num{0.90} [\num{2292.00}] &  & \num{0.22} [\num{2292.00}] & \num{0.91} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefBlack & \num{-12.08}[\num{-29.53},\num{5.36}] &  & \num{1.18}[\num{-32.31},\num{34.67}] & \num{-12.16}[\num{-29.48},\num{5.15}] & \num{-1.58}[\num{-19.94},\num{16.78}] &  & \num{1.18}[\num{-32.31},\num{34.67}] & \num{-1.66}[\num{-19.74},\num{16.42}]\\
+ & \num{-1.36} [\num{8.89}] &  & \num{0.07} [\num{17.08}] & \num{-1.38} [\num{8.83}] & \num{-0.17} [\num{9.36}] &  & \num{0.07} [\num{17.08}] & \num{-0.18} [\num{9.22}]\\
+ & \num{0.17} [\num{2292.00}] &  & \num{0.94} [\num{2292.00}] & \num{0.17} [\num{2291.00}] & \num{0.87} [\num{2292.00}] &  & \num{0.94} [\num{2292.00}] & \num{0.86} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefChinese & \num{-2.38}[\num{-21.36},\num{16.60}] &  & \num{-14.49}[\num{-51.22},\num{22.24}] & \num{-1.48}[\num{-20.33},\num{17.37}] & \num{9.41}[\num{-10.55},\num{29.37}] &  & \num{-14.49}[\num{-51.22},\num{22.24}] & \num{10.91}[\num{-8.77},\num{30.58}]\\
+ & \num{-0.25} [\num{9.68}] &  & \num{-0.77} [\num{18.73}] & \num{-0.15} [\num{9.61}] & \num{0.92} [\num{10.18}] &  & \num{-0.77} [\num{18.73}] & \num{1.09} [\num{10.03}]\\
+ & \num{0.81} [\num{2292.00}] &  & \num{0.44} [\num{2292.00}] & \num{0.88} [\num{2291.00}] & \num{0.36} [\num{2292.00}] &  & \num{0.44} [\num{2292.00}] & \num{0.28} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefChinese & \num{-6.26}[\num{-23.81},\num{11.30}] &  & \num{23.89}[\num{-10.12},\num{57.89}] & \num{-7.76}[\num{-25.20},\num{9.68}] & \num{4.12}[\num{-14.34},\num{22.58}] &  & \num{23.89}[\num{-10.12},\num{57.89}] & \num{1.83}[\num{-16.37},\num{20.04}]\\
+ & \num{-0.70} [\num{8.95}] &  & \num{1.38} [\num{17.34}] & \num{-0.87} [\num{8.89}] & \num{0.44} [\num{9.41}] &  & \num{1.38} [\num{17.34}] & \num{0.20} [\num{9.28}]\\
+ & \num{0.48} [\num{2292.00}] &  & \num{0.17} [\num{2292.00}] & \num{0.38} [\num{2291.00}] & \num{0.66} [\num{2292.00}] &  & \num{0.17} [\num{2292.00}] & \num{0.84} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefChinese & \num{-7.51}[\num{-26.75},\num{11.73}] &  & \num{-2.70}[\num{-39.91},\num{34.50}] & \num{-7.40}[\num{-26.50},\num{11.71}] & \num{3.65}[\num{-16.58},\num{23.88}] &  & \num{-2.70}[\num{-39.91},\num{34.50}] & \num{3.91}[\num{-16.03},\num{23.86}]\\
+ & \num{-0.77} [\num{9.81}] &  & \num{-0.14} [\num{18.97}] & \num{-0.76} [\num{9.74}] & \num{0.35} [\num{10.32}] &  & \num{-0.14} [\num{18.97}] & \num{0.38} [\num{10.17}]\\
+ & \num{0.44} [\num{2292.00}] &  & \num{0.89} [\num{2292.00}] & \num{0.45} [\num{2291.00}] & \num{0.72} [\num{2292.00}] &  & \num{0.89} [\num{2292.00}] & \num{0.70} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefChinese & \num{-7.11}[\num{-24.68},\num{10.45}] &  & \num{10.29}[\num{-23.72},\num{44.30}] & \num{-7.78}[\num{-25.23},\num{9.67}] & \num{8.05}[\num{-10.42},\num{26.53}] &  & \num{10.29}[\num{-23.72},\num{44.30}] & \num{7.12}[\num{-11.10},\num{25.33}]\\
+ & \num{-0.79} [\num{8.96}] &  & \num{0.59} [\num{17.34}] & \num{-0.87} [\num{8.90}] & \num{0.86} [\num{9.42}] &  & \num{0.59} [\num{17.34}] & \num{0.77} [\num{9.29}]\\
+ & \num{0.43} [\num{2292.00}] &  & \num{0.55} [\num{2292.00}] & \num{0.38} [\num{2291.00}] & \num{0.39} [\num{2292.00}] &  & \num{0.55} [\num{2292.00}] & \num{0.44} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefChinese & \num{-12.77}[\num{-31.51},\num{5.98}] &  & \num{-6.53}[\num{-42.86},\num{29.81}] & \num{-12.55}[\num{-31.17},\num{6.06}] & \num{-4.46}[\num{-24.17},\num{15.24}] &  & \num{-6.53}[\num{-42.86},\num{29.81}] & \num{-4.24}[\num{-23.67},\num{15.19}]\\
+ & \num{-1.34} [\num{9.56}] &  & \num{-0.35} [\num{18.53}] & \num{-1.32} [\num{9.49}] & \num{-0.44} [\num{10.05}] &  & \num{-0.35} [\num{18.53}] & \num{-0.43} [\num{9.91}]\\
+ & \num{0.18} [\num{2292.00}] &  & \num{0.72} [\num{2292.00}] & \num{0.19} [\num{2291.00}] & \num{0.66} [\num{2292.00}] &  & \num{0.72} [\num{2292.00}] & \num{0.67} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefChinese & \num{-13.15}[\num{-30.47},\num{4.17}] &  & \num{25.85}[\num{-7.72},\num{59.42}] & \num{-14.86}[\num{-32.07},\num{2.35}]+ & \num{-1.40}[\num{-19.61},\num{16.82}] &  & \num{25.85}[\num{-7.72},\num{59.42}] & \num{-4.16}[\num{-22.13},\num{13.81}]\\
+ & \num{-1.49} [\num{8.83}] &  & \num{1.51} [\num{17.12}] & \num{-1.69} [\num{8.78}] & \num{-0.15} [\num{9.29}] &  & \num{1.51} [\num{17.12}] & \num{-0.45} [\num{9.16}]\\
+ & \num{0.14} [\num{2292.00}] &  & \num{0.13} [\num{2292.00}] & \num{0.09} [\num{2291.00}] & \num{0.88} [\num{2292.00}] &  & \num{0.13} [\num{2292.00}] & \num{0.65} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefIndian & \num{15.69}[\num{-3.19},\num{34.58}] &  & \num{-0.47}[\num{-36.78},\num{35.83}] & \num{15.78}[\num{-2.98},\num{34.54}]+ & \num{14.58}[\num{-5.29},\num{34.46}] &  & \num{-0.47}[\num{-36.78},\num{35.83}] & \num{14.60}[\num{-4.98},\num{34.18}]\\
+ & \num{1.63} [\num{9.63}] &  & \num{-0.03} [\num{18.51}] & \num{1.65} [\num{9.56}] & \num{1.44} [\num{10.14}] &  & \num{-0.03} [\num{18.51}] & \num{1.46} [\num{9.98}]\\
+ & \num{0.10} [\num{2292.00}] &  & \num{0.98} [\num{2292.00}] & \num{0.10} [\num{2291.00}] & \num{0.15} [\num{2292.00}] &  & \num{0.98} [\num{2292.00}] & \num{0.14} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProductcigarettesV\_RacenamefIndian & \num{6.16}[\num{-11.78},\num{24.10}] &  & \num{-5.94}[\num{-40.45},\num{28.57}] & \num{6.53}[\num{-11.28},\num{24.34}] & \num{-2.50}[\num{-21.38},\num{16.38}] &  & \num{-5.94}[\num{-40.45},\num{28.57}] & \num{-1.95}[\num{-20.54},\num{16.65}]\\
+ & \num{0.67} [\num{9.15}] &  & \num{-0.34} [\num{17.60}] & \num{0.72} [\num{9.08}] & \num{-0.26} [\num{9.63}] &  & \num{-0.34} [\num{17.60}] & \num{-0.21} [\num{9.48}]\\
+ & \num{0.50} [\num{2292.00}] &  & \num{0.74} [\num{2292.00}] & \num{0.47} [\num{2291.00}] & \num{0.80} [\num{2292.00}] &  & \num{0.74} [\num{2292.00}] & \num{0.84} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefIndian & \num{11.56}[\num{-7.46},\num{30.58}] &  & \num{17.37}[\num{-19.15},\num{53.88}] & \num{10.54}[\num{-8.35},\num{29.43}] & \num{23.97}[\num{3.95},\num{43.99}]* &  & \num{17.37}[\num{-19.15},\num{53.88}] & \num{22.57}[\num{2.85},\num{42.29}]*\\
+ & \num{1.19} [\num{9.70}] &  & \num{0.93} [\num{18.62}] & \num{1.09} [\num{9.63}] & \num{2.35} [\num{10.21}] &  & \num{0.93} [\num{18.62}] & \num{2.24} [\num{10.06}]\\
+ & \num{0.23} [\num{2292.00}] &  & \num{0.35} [\num{2292.00}] & \num{0.27} [\num{2291.00}] & \num{0.02} [\num{2292.00}] &  & \num{0.35} [\num{2292.00}] & \num{0.02} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProducthardwaresuppliesV\_RacenamefIndian & \num{11.09}[\num{-6.71},\num{28.89}] &  & \num{7.15}[\num{-27.01},\num{41.31}] & \num{10.59}[\num{-7.09},\num{28.27}] & \num{12.63}[\num{-6.11},\num{31.37}] &  & \num{7.15}[\num{-27.01},\num{41.31}] & \num{12.02}[\num{-6.43},\num{30.48}]\\
+ & \num{1.22} [\num{9.08}] &  & \num{0.41} [\num{17.42}] & \num{1.17} [\num{9.01}] & \num{1.32} [\num{9.55}] &  & \num{0.41} [\num{17.42}] & \num{1.28} [\num{9.41}]\\
+ & \num{0.22} [\num{2292.00}] &  & \num{0.68} [\num{2292.00}] & \num{0.24} [\num{2291.00}] & \num{0.19} [\num{2292.00}] &  & \num{0.68} [\num{2292.00}] & \num{0.20} [\num{2291.00}]\\
+RaceContRespNonAmWhiteV\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefIndian & \num{7.21}[\num{-11.49},\num{25.90}] &  & \num{3.15}[\num{-32.76},\num{39.07}] & \num{7.02}[\num{-11.55},\num{25.58}] & \num{8.25}[\num{-11.43},\num{27.92}] &  & \num{3.15}[\num{-32.76},\num{39.07}] & \num{7.94}[\num{-11.44},\num{27.32}]\\
+ & \num{0.76} [\num{9.53}] &  & \num{0.17} [\num{18.31}] & \num{0.74} [\num{9.47}] & \num{0.82} [\num{10.03}] &  & \num{0.17} [\num{18.31}] & \num{0.80} [\num{9.88}]\\
+ & \num{0.45} [\num{2292.00}] &  & \num{0.86} [\num{2292.00}] & \num{0.46} [\num{2291.00}] & \num{0.41} [\num{2292.00}] &  & \num{0.86} [\num{2292.00}] & \num{0.42} [\num{2291.00}]\\
+RaceContRespWhiteAmericanV\_PresentationDefensiveV\_ProducttoiletpaperV\_RacenamefIndian & \num{-3.56}[\num{-21.31},\num{14.18}] &  & \num{16.29}[\num{-17.83},\num{50.40}] & \num{-4.63}[\num{-22.26},\num{12.99}] & \num{3.39}[\num{-15.28},\num{22.07}] &  & \num{16.29}[\num{-17.83},\num{50.40}] & \num{1.73}[\num{-16.67},\num{20.13}]\\
+ & \num{-0.39} [\num{9.05}] &  & \num{0.94} [\num{17.40}] & \num{-0.52} [\num{8.99}] & \num{0.36} [\num{9.52}] &  & \num{0.94} [\num{17.40}] & \num{0.18} [\num{9.38}]\\
+ & \num{0.69} [\num{2292.00}] &  & \num{0.35} [\num{2292.00}] & \num{0.61} [\num{2291.00}] & \num{0.72} [\num{2292.00}] &  & \num{0.35} [\num{2292.00}] & \num{0.85} [\num{2291.00}]\\
+MWPre\_Post &  & \num{0.06}[\num{0.04},\num{0.07}]*** &  & \num{0.06}[\num{0.04},\num{0.08}]*** &  & \num{0.08}[\num{0.06},\num{0.10}]*** &  & \num{0.10}[\num{0.08},\num{0.12}]***\\
+ &  & \num{6.03} [\num{0.01}] &  & \num{5.82} [\num{0.01}] &  & \num{8.20} [\num{0.01}] &  & \num{8.63} [\num{0.01}]\\
+ &  & \num{0.00} [\num{2392.00}] &  & \num{0.00} [\num{2291.00}] &  & \num{0.00} [\num{2392.00}] &  & \num{0.00} [\num{2291.00}]\\
+SD (Intercept ID) & \num{2.85} & \num{2.97} & \num{0.00} & \num{2.81} & \num{3.16} & \num{3.15} & \num{0.00} & \num{2.93}\\
+SD (Observations) & \num{11.09} & \num{11.08} & \num{21.86} & \num{11.01} & \num{11.64} & \num{11.51} & \num{21.86} & \num{11.50}\\
+\midrule
+Num.Obs. & \num{2395} & \num{2396} & \num{2395} & \num{2395} & \num{2395} & \num{2396} & \num{2395} & \num{2395}\\
+R2 Marg. & \num{0.057} & \num{0.015} & \num{0.241} & \num{0.070} & \num{0.045} & \num{0.027} & \num{0.241} & \num{0.074}\\
+R2 Cond. & \num{0.115} & \num{0.081} &  & \num{0.126} & \num{0.111} & \num{0.094} &  & \num{0.130}\\
+AIC & \num{18230.6} & \num{18491.7} & \num{21211.8} & \num{18206.2} & \num{18467.4} & \num{18676.9} & \num{21211.8} & \num{18403.3}\\
+BIC & \num{18826.1} & \num{18514.8} & \num{21807.2} & \num{18807.5} & \num{19062.9} & \num{18700.0} & \num{21807.2} & \num{19004.6}\\
+ICC & \num{0.1} & \num{0.1} &  & \num{0.1} & \num{0.1} & \num{0.1} &  & \num{0.1}\\
+RMSE & \num{10.56} & \num{10.76} & \num{21.40} & \num{10.49} & \num{11.06} & \num{11.16} & \num{21.40} & \num{10.95}\\
+\bottomrule
+\multicolumn{9}{l}{\rule{0pt}{1em}p.value, [df.error]}\\
+\multicolumn{9}{l}{\rule{0pt}{1em}t, [std.error]}\\
+\multicolumn{9}{l}{\rule{0pt}{1em}Estimate [95ConfInterval]}\\
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

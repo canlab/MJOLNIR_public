@@ -1,8 +1,0 @@
-"0","set.seed(321)"
-"0","grph <- df_grph %>%"
-"0","  filter(V_JudgeSelf==0, !(is.na(V_presentation3))) %>%"
-"0","  ggplot(aes(y=Value)) +"
-"0","  geom_boxplot(aes(x=V_Product, fill=V_presentation3)) +"
-"0","  xlab(""Presentation"") +"
-"0","  facet_wrap(~Question, ncol=1)"
-"0","grph"
