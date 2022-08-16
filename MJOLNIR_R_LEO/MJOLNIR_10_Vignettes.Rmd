@@ -332,7 +332,7 @@ dff$DOB_AGE <- 2020-dff$DOB_YEAR
 
 ```{r}
 dff_2 <- dff %>%
-  select(-matches("^clean_V|^V[1-4].[1-2]|^covmis_|^AMBI_MSR_[0-9]{1,3}|^AMBI_[0-9]{1,3}|^AMBI_W[0-9]|^FL_172"))
+  dplyr::select(-matches("^clean_V|^V[1-4].[1-2]|^covmis_|^AMBI_MSR_[0-9]{1,3}|^AMBI_[0-9]{1,3}|^AMBI_W[0-9]|^FL_172"))
 ```
 
 
@@ -391,17 +391,25 @@ dff %>%
   mutate(vn = vignette_result^car::powerTransform(vignette_result+0.000000001)$lambda) %>%
   .$vn %>%
   shapiro.test()
+```
 
+
+```{r}
 dff %>% 
   filter(V_Question=="JudgeOther_1") %>%
   mutate(vn = vignette_result^car::powerTransform(vignette_result+0.000000001)$lambda) %>%
   dplyr::select(vn) %>%
-  hist()
+  ggplot(aes(x=vn)) +
+  geom_histogram(binwidth=0.1,color="black", fill="white")
+```
 
+
+```{r}
 dff %>% 
   filter(V_Question=="JudgeOther_1") %>%
   dplyr::select(vignette_result) %>%
-  hist()
+  ggplot(aes(x=vignette_result)) +
+  geom_histogram(binwidth=1,color="black", fill="white")
 ```
 
 pb our data is really not normal.
@@ -576,8 +584,8 @@ summary(mixed.lmer2)
 
 ```{r}
 dff_q <- dff %>%
-  select(-vignette_name, -V_Question, -X) %>%
-  select(-matches(".y$")) %>%
+  dplyr::select(-matches("vignette_name|V_Question$|^X$")) %>%
+  dplyr::select(-matches(".y$")) %>%
   tidyr::spread(V_Questionnb, vignette_result)
 ```
 
@@ -799,10 +807,14 @@ dff_q <- dff_q %>%
 
 dff_q %>%
   dplyr::select(vnMorallyWrong) %>%
-  hist()
+  ggplot(aes(x=vnMorallyWrong)) +
+  geom_histogram(binwidth=0.05,color="black", fill="white")
+
 dff_q %>%
   dplyr::select(MorallyWrong) %>%
-  hist()
+  ggplot(aes(x=MorallyWrong)) +
+  geom_histogram(binwidth=1,color="black", fill="white")
+  
 dff_q$MorallyWrong %>% cut(c(0,10,50,100), include.lowest = T) %>% freq
 ```
 
@@ -835,7 +847,8 @@ dff_q <- dff_q %>%
   mutate(V_Racenamef = case_when(V_Racename_EXPGRP_Product_Presentation %>% str_detect("^W_") ~ "White",
                                  V_Racename_EXPGRP_Product_Presentation %>% str_detect("^B_") ~ "Black",
                                  V_Racename_EXPGRP_Product_Presentation %>% str_detect("^C_") ~ "Chinese",
-                                 V_Racename_EXPGRP_Product_Presentation%>% str_detect("^I_") ~ "Indian"))
+                                 V_Racename_EXPGRP_Product_Presentation%>% str_detect("^I_") ~ "Indian")) %>%
+  dplyr::select(-vnMorallyWrong)
 dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "babyformula")
 dff_q$V_Racenamef <- relevel(dff_q$V_Racenamef %>% as.factor, "White")
 dff_q$V_Location <- dff_q$V_Location %>% as.factor()
@@ -967,10 +980,12 @@ for (i in colnames(dff_q2)) {
 ```
 
 
+
+
 ```{r}
 dff_q2 <-  dff_q %>%
   mutate(V_JudgeSelf = ifelse(V_JudgeSelf==1, "self", "other")) %>%
-  select(-k[1:(length(k)-6)]) %>%
+  dplyr::select(-k[1:(length(k)-6)]) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Self, Question, V_JudgeSelf) %>%
   spread(Question_Self, Vignette) %>%
@@ -1197,7 +1212,7 @@ for (i in colnames(dff_q3)) {
 ```{r}
 dff_q3 <- dff_q %>%
   filter(V_JudgeSelf==0) %>%
-  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  dplyr::select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
   mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Update, Question, V_up) %>%
@@ -1314,7 +1329,7 @@ for (i in colnames(dff_q3_self)) {
 ```{r}
 dff_q3_self <- dff_q %>%
   filter(V_JudgeSelf==0) %>%
-  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  dplyr::select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
   mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Update, Question, V_up) %>%
@@ -1484,7 +1499,7 @@ for (i in colnames(dff_q2)) {
 ```{r}
 dff_q2 <-  dff_q %>%
   mutate(V_JudgeSelf = ifelse(V_JudgeSelf==1, "self", "other")) %>%
-  select(-k[1:(length(k)-6)]) %>%
+  dplyr::select(-k[1:(length(k)-6)]) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Self, Question, V_JudgeSelf) %>%
   spread(Question_Self, Vignette) %>%
@@ -1711,7 +1726,7 @@ for (i in colnames(dff_q3)) {
 ```{r}
 dff_q3 <- dff_q %>%
   filter(V_JudgeSelf==0) %>%
-  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  dplyr::select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
   mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Update, Question, V_up) %>%
@@ -1828,7 +1843,7 @@ for (i in colnames(dff_q3_self)) {
 ```{r}
 dff_q3_self <- dff_q %>%
   filter(V_JudgeSelf==0) %>%
-  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  dplyr::select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
   mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Update, Question, V_up) %>%
@@ -2011,7 +2026,7 @@ for (i in colnames(dff_q2)) {
 ```{r}
 dff_q2 <-  dff_q %>%
   mutate(V_JudgeSelf = ifelse(V_JudgeSelf==1, "self", "other")) %>%
-  select(-k[1:(length(k)-6)]) %>%
+  dplyr::select(-k[1:(length(k)-6)]) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Self, Question, V_JudgeSelf) %>%
   spread(Question_Self, Vignette) %>%
@@ -2238,7 +2253,7 @@ for (i in colnames(dff_q3)) {
 ```{r}
 dff_q3 <- dff_q %>%
   filter(V_JudgeSelf==0) %>%
-  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  dplyr::select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
   mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Update, Question, V_up) %>%
@@ -2355,7 +2370,7 @@ for (i in colnames(dff_q3_self)) {
 ```{r}
 dff_q3_self <- dff_q %>%
   filter(V_JudgeSelf==0) %>%
-  select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
+  dplyr::select(-k[1:(length(k)-6)], -V_Timeperquestionqual) %>%
   mutate(V_up=ifelse(V_up==1, "Post", "Pre")) %>%
   gather(Question, Vignette, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   unite(Question_Update, Question, V_up) %>%
@@ -2393,12 +2408,36 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
-### WE ARE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 
 
 ##### 0 Test variable controle
+
+```{r}
+difflmeansmodelcomp <- function(listlmermodels){
+  l_r <- map(listlmermodels, difflsmeans)
+  l_r <- map(names(l_r), function(x){
+    df_r2 <- l_r[[x]] %>%
+      mutate(p = `Pr(>|t|)`,
+             star = case_when(p < 0.001 ~ "***",
+                                              p < 0.01 ~ "**",
+                                              p < 0.05 ~ "*",
+                                              p < 0.1 ~ ".", 
+                                              TRUE ~ ""),
+             res = paste0(round(Estimate,2), star),
+             comparison = rownames(l_r[[x]])) %>%
+      dplyr::select(comparison, res) %>%
+      as_tibble()
+    colnames(df_r2) <- c("comparison", x)
+    return(df_r2)
+  }) 
+  df_r <- purrr::reduce(l_r, full_join) %>% as.data.frame()
+  rownames(df_r) <-  df_r$comparison
+  df_r <-  df_r %>% dplyr::select(-comparison)
+  return(df_r)
+}
+```
 
 ```{r}
 dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "hardwaresupplies")
@@ -2497,32 +2536,6 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = 
 ```{r}
 map(mixed.lmers, function(x){car::leveneTest(residuals(x) ~ dff_q %>% filter(V_JudgeSelf==0, V_up==0) %>% .$V_Product)})
 ```
-
-```{r}
-difflmeansmodelcomp <- function(listlmermodels){
-  l_r <- map(listlmermodels, difflsmeans)
-  l_r <- map(names(l_r), function(x){
-    df_r2 <- l_r[[x]] %>%
-      mutate(p = `Pr(>|t|)`,
-             star = case_when(p < 0.001 ~ "***",
-                                              p < 0.01 ~ "**",
-                                              p < 0.05 ~ "*",
-                                              p < 0.1 ~ ".", 
-                                              TRUE ~ ""),
-             res = paste0(round(Estimate,2), star),
-             comparison = rownames(l_r[[x]])) %>%
-      select(comparison, res) %>%
-      as_tibble()
-    colnames(df_r2) <- c("comparison", x)
-    return(df_r2)
-  }) 
-  df_r <- purrr::reduce(l_r, full_join) %>% as.data.frame()
-  rownames(df_r) <-  df_r$comparison
-  df_r <-  df_r %>% select(-comparison)
-  return(df_r)
-}
-```
-
 
 
 ```{r}
@@ -2674,7 +2687,7 @@ dff.means.comp <- dff.means %>%
          p2V_Up=str_extract(p2, "V_Product[A-z]{1,}") %>%
            str_remove("V_Product")) %>%
   filter(is.na(p1V_Name)|is.na(p1V_Up)|p1V_Up==p2V_Up&p1V_Name!=p2V_Name) %>%
-  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
+  dplyr::select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
 
 rownames(dff.means.comp) <-str_remove_all(rownames(dff.means.comp), "V_Product|EXPGRP_TEXT")
 xtable::xtable(dff.means) 
@@ -2748,7 +2761,7 @@ dff.means.comp <- dff.means %>%
          p2V_Up=str_extract(p2, "V_Product[A-z]{1,}") %>%
            str_remove("V_Product")) %>%
   filter(is.na(p1V_Name)|is.na(p1V_Up)|p1V_Up==p2V_Up&p1V_Name!=p2V_Name) %>%
-  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
+  dplyr::select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
 
 rownames(dff.means.comp) <-str_remove_all(rownames(dff.means.comp), "V_Product|RaceContResp")
 xtable::xtable(dff.means) 
@@ -2808,10 +2821,10 @@ dff_q$ID_Q_JS <- paste0(dff_q$ID_Q, "_", dff_q$V_JudgeSelf) %>% as.factor()
   # For each question we compare post and pre update
   # Finnally we join with our main data base
 dff_q <- dff_q %>%
-  select("ID_Q_JS", "V_up", "CatchCovid", "MorallyWrong", "TransmitCovid") %>%
+  dplyr::select("ID_Q_JS", "V_up", "CatchCovid", "MorallyWrong", "TransmitCovid") %>%
   gather(Question, Value, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
   mutate(Q_Up = paste0(Question, "_", V_up)) %>%
-  select(-V_up, -Question) %>%
+  dplyr::select(-V_up, -Question) %>%
   spread(Q_Up, Value) %>%
   mutate(CatchCovid_Change = case_when(CatchCovid_0<CatchCovid_1~1,
                                        CatchCovid_0>CatchCovid_1~-1,
@@ -2822,7 +2835,7 @@ dff_q <- dff_q %>%
          TransmitCovid_Change = case_when(TransmitCovid_0<TransmitCovid_1~1,
                                        TransmitCovid_0>TransmitCovid_1~-1,
                                        TransmitCovid_0==TransmitCovid_1~0)) %>%
-  select(ID_Q_JS, matches("Change$")) %>%
+  dplyr::select(ID_Q_JS, matches("Change$")) %>%
   right_join(dff_q, by="ID_Q_JS")
 ```
 
@@ -3649,7 +3662,7 @@ grph
 
 
 ```{r}
-interactions::interact_plot(mixed.lmers[["Ctch*TrnsmtModel"]], pred=ScaledCatchCovid, modx= ScaledTransmitCovid, interval = T)
+interactions::interact_plot(mixed.lmers[["CC~MW*TCModel"]], pred=ScaledMorallyWrong, modx= ScaledTransmitCovid, interval = T)
 ```
 
 
@@ -4061,7 +4074,7 @@ dff.means <- dff.means %>%
   mutate(name=rownames(.) %>% factor(levels=arrangeorder)) %>%
   filter(!(is.na(name))) %>%
   arrange(name) %>%
-  select(-name)
+  dplyr::select(-name)
 
 xtable::xtable(dff.means) 
 ```
@@ -4095,7 +4108,7 @@ f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT <-  function(c_WHICHPRODUCT){
   rownames_to_column(var = "k") %>%
   mutate(comp1 = str_extract(name, "[A-z0-9:]{1,} "),
          comp2 = str_extract(name, " [A-z0-9:]{1,}")) %>%
-  select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
+  dplyr::select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
   xtable::xtable(caption = paste("Mean comparison of Model 9, for ", c_WHICHPRODUCT, " and White and Chinese name")) %>%
   print(include.rownames=FALSE)
   return()
@@ -4214,7 +4227,7 @@ dff.means <- dff.means %>%
   mutate(name=rownames(.) %>% factor(levels=arrangeorder)) %>%
   filter(!(is.na(name))) %>%
   arrange(name) %>%
-  select(-name)
+  dplyr::select(-name)
 
 xtable::xtable(dff.means) 
 ```
@@ -4248,7 +4261,7 @@ f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT <-  function(c_WHICHPRODUCT){
   rownames_to_column(var = "k") %>%
   mutate(comp1 = str_extract(name, "[A-z0-9:]{1,} "),
          comp2 = str_extract(name, " [A-z0-9:]{1,}")) %>%
-  select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
+  dplyr::select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
   xtable::xtable(caption = paste("Mean comparison of Model 9, for ", c_WHICHPRODUCT, " and White and Chinese name")) %>%
   print(include.rownames=FALSE)
   return()
@@ -4423,7 +4436,7 @@ dff.means.comp <- dff.means %>%
          p2V_Up=str_extract(p2, ":[A-z]{1,}") %>%
            str_remove(":"),) %>%
   filter(is.na(p1V_Name)|is.na(p1V_Up)|p1V_Up==p2V_Up|p1V_Name==p2V_Name) %>%
-  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
+  dplyr::select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
 dff.means.comp %>% xtable::xtable()
 ```
 
@@ -4613,7 +4626,7 @@ dff.means.comp <- dff.means %>%
          p2V_Rs=str_extract(p2, "Resp[A-z]{1,}") %>%
            str_remove("Resp")) %>%
   filter(is.na(p1V_Name)|is.na(p1V_Up)|is.na(p1V_Rs)|p1V_Up==p2V_Up|p1V_Name==p2V_Name|p1V_Rs==p2V_Rs) %>%
-  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name, -p1V_Rs, -p2V_Rs)
+  dplyr::select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name, -p1V_Rs, -p2V_Rs)
 dff.means.comp %>% xtable::xtable()
 ```
 
@@ -4680,7 +4693,7 @@ dff.means.comp <- dff.means %>%
          p2V_Rs=str_extract(p2, "Resp[A-z]{1,}") %>%
            str_remove("Resp")) %>%
   filter(is.na(p1V_Name)|is.na(p1V_Up)|is.na(p1V_Rs)|p1V_Up==p2V_Up|p1V_Name==p2V_Name|p1V_Rs==p2V_Rs) %>%
-  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name, -p1V_Rs, -p2V_Rs)
+  dplyr::select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name, -p1V_Rs, -p2V_Rs)
 dff.means.comp %>% xtable::xtable()
 ```
 
@@ -4769,7 +4782,7 @@ f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT <-  function(c_WHICHPRODUCT){
   rownames_to_column(var = "k") %>%
   mutate(comp1 = str_extract(name, "[A-z0-9:]{1,} "),
          comp2 = str_extract(name, " [A-z0-9:]{1,}")) %>%
-  select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
+  dplyr::select(comp1, comp2) %>%
   xtable::xtable(caption = paste("Mean comparison of Model 9, for ", c_WHICHPRODUCT, " and White and Chinese name")) %>%
   print(include.rownames=FALSE)
   return()
@@ -4836,7 +4849,7 @@ dff.means.comp <- dff.means %>%
          p2V_Up=str_extract(p2, ":[A-z]{1,}") %>%
            str_remove(":"),) %>%
   filter(is.na(p1V_Name)|is.na(p1V_Up)|p1V_Up==p2V_Up|p1V_Name==p2V_Name) %>%
-  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
+  dplyr::select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
 dff.means.comp %>% xtable::xtable()
 ```
 
@@ -5138,7 +5151,7 @@ f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT <-  function(c_WHICHPRODUCT){
   rownames_to_column(var = "k") %>%
   mutate(comp1 = str_extract(name, "[A-z0-9:]{1,} "),
          comp2 = str_extract(name, " [A-z0-9:]{1,}")) %>%
-  select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
+  dplyr::select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
   xtable::xtable(caption = paste("Mean comparison of Model 9, for ", c_WHICHPRODUCT, " and White and Chinese name")) %>%
   print(include.rownames=FALSE)
   return()
@@ -5383,7 +5396,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = 
 ```{r}
 dff_q %>%
   filter(V_JudgeSelf==0, !(is.na(V_presentation3))) %>%
-  select(ID_Q) %>% freq()
+  dplyr::select(ID_Q) %>% freq()
 ```
 
 
@@ -5453,13 +5466,13 @@ dff_sem <- dff_q %>%
          V_Self2 = case_when(V_JudgeSelf==1~"Self",
                                V_JudgeSelf==0~"Other"),
          V_Number_up = paste(V_Number, V_Self2, V_Update2, sep="_")) %>%
-  select(V_Number_up, MorallyWrong,ResponseId) %>%
+  dplyr::select(V_Number_up, MorallyWrong,ResponseId) %>%
   tidyr::spread(V_Number_up, MorallyWrong)
 ```
 
 ```{r}
 dff_sem[c(1:16),] %>%
-  select(matches("^MJ_"))
+  dplyr::select(matches("^MJ_"))
 ```
 
 
