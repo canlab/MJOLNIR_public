@@ -1,0 +1,5 @@
+"0","res.aov <- rstatix::anova_test(CovidSkepticismnorm ~ demo_class + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, data = df_covmis)
+"
+"2","Error in `[.data.frame`(.args$data, , model.variables) : 
+  undefined columns selected
+"

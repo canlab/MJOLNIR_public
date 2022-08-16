@@ -1,0 +1,11 @@
+"0","for (li in lt) {
+  pwc <- li[[""pwc""]] %>% add_xy_position(x = ""group"")
+  ggboxplot(li[[""drun""]], x = ""race"", y = ""value"") +
+        stat_pvalue_manual(pwc, hide.ns = TRUE) +
+        labs(subtitle = get_test_label(res[[""aov""]], detailed = TRUE),
+             caption = get_pwc_label(pwc))
+}
+"
+"2","Error in stop_ifnot_class(stat.test, .class = names(allowed.tests)) : 
+  object 'res' not found
+"

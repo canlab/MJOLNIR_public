@@ -1,0 +1,6 @@
+"0","ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=EXPGRP_TEXT)) +
+  geom_point() +
+  geom_smooth(method='lm')
+"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

@@ -1,0 +1,5 @@
+"0","fviz_mfa_var(res_mfa_quali, ""quali.var"", palette = ""jco"", "
+"0","             col.var.sup = ""violet"", repel = TRUE)"
+"2","Warning:"
+"2"," ggrepel: 35 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+"

@@ -1,0 +1,5 @@
+"0","tbl_regression(regm, exponentiate = TRUE)"
+"2","[36mℹ[39m Multinomial models have a different underlying structure than the models
+gtsummary was designed for. Other gtsummary functions designed to work with
+[32m[32mtbl_regression[32m[39m objects may yield unexpected results.
+"

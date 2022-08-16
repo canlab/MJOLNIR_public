@@ -1,0 +1,4 @@
+"0","df %>% select(matches(""^COV((ATT)|(CONSP)|(ORIGIN)|(POLITICS)|(COVERAGE)|(ANTIVACC)|(MEDSKEP))""))"
+"2","Error in select(., matches(""^COV((ATT)|(CONSP)|(ORIGIN)|(POLITICS)|(COVERAGE)|(ANTIVACC)|(MEDSKEP))"")) : 
+  unused argument (matches(""^COV((ATT)|(CONSP)|(ORIGIN)|(POLITICS)|(COVERAGE)|(ANTIVACC)|(MEDSKEP))""))
+"

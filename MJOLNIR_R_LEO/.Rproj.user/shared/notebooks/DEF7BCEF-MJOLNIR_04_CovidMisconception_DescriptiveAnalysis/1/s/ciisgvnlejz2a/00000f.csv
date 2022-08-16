@@ -1,0 +1,49 @@
+"0","library(questionr)"
+"0","library(FactoMineR)"
+"0","library(tidyverse)"
+"0","library(lavaan)"
+"2","This is lavaan 0.6-11
+lavaan is FREE software! Please report any bugs.
+"
+"2","
+Attaching package: ‘lavaan’
+
+"
+"2","The following object is masked from ‘package:psych’:
+
+    cor2cov
+
+"
+"0","library(semTools)"
+"2"," 
+"
+"2","###############################################################################
+"
+"2","This is semTools 0.5-6
+"
+"2","All users of R (or SEM) are invited to submit functions or ideas for functions.
+"
+"2","###############################################################################
+"
+"2","
+Attaching package: ‘semTools’
+
+"
+"2","The following objects are masked from ‘package:psych’:
+
+    reliability, skew
+
+"
+"2","The following object is masked from ‘package:readr’:
+
+    clipboard
+
+"
+"0","library(lavaanPlot)"
+"0","library(MVN)"
+"0","library(MIIVsem)"
+"2","This is MIIVsem 0.5.8
+"
+"2","MIIVsem is BETA software! Please report any bugs.
+"
+"0","options(max.print=2000)"

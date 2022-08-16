@@ -1,0 +1,2 @@
+"0","fit <- cfa(model, data = df_covmis, estimator = ""ML"")"
+"0","semPlot::semPaths(fit)"

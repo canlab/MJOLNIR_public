@@ -1,0 +1,26 @@
+"0","regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + DOB_AGE_BRACKET + SEX_TEXT + EDUCATION_2_TEXT + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, 
+                 data = df_covmis3)
+"
+"1","# weights: "
+"1"," "
+"1","84"
+"1"," ("
+"1",""
+"1","54"
+"1",""
+"1"," variable)
+"
+"1","initial  value 653.674312 
+"
+"1","iter  10 value 455.560483
+"
+"1","iter  20 value 412.189925
+"
+"1","iter  30 value 407.606910
+"
+"1","iter  40 value 407.574939
+"
+"1","final  value 407.574894 
+"
+"1","converged
+"

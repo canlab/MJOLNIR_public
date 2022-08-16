@@ -1,0 +1,50 @@
+"0","dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, ""babyformula"")"
+"0","mixed.lmers <- list("
+"0","  ""MorallyWrong"" = lmer(MorallyWrong ~ V_Product*V_presentation3 + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0)),"
+"0","  ""CatchCovid"" = lmer(CatchCovid ~ V_Product*V_presentation3 + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0)),"
+"0","  ""TransmitCovid"" = lmer(TransmitCovid ~ V_Product*V_presentation3 + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0)))"
+"0","      "
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}{stars}""), statistic = c(),"
+"0","             output = ""latex"", title = ""Model 3, Product and Update presentation"") "
+"1","\begin{table}
+
+\caption{Model 3, Product and Update presentation}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+  & MorallyWrong & CatchCovid & TransmitCovid\\
+\midrule
+(Intercept) & \num{16.33}*** & \num{31.21}*** & \num{31.22}***\\
+V\_Producthardwaresupplies & \num{6.08}*** & \num{0.94} & \num{0.43}\\
+V\_Productcigarettes & \num{17.79}*** & \num{7.42}*** & \num{5.72}***\\
+V\_Producttoiletpaper & \num{17.80}*** & \num{1.73}** & \num{1.73}**\\
+V\_presentation3Defensive & \num{7.67}*** & \num{-0.63} & \num{-0.76}\\
+V\_presentation3Prosocial & \num{-6.71}*** & \num{-1.73}* & \num{-2.26}**\\
+V\_ProducthardwaresuppliesV\_presentation3Defensive & \num{4.96}* & \num{0.99} & \num{1.50}\\
+V\_ProductcigarettesV\_presentation3Defensive & \num{-7.81}*** & \num{-1.64} & \num{-1.61}\\
+V\_ProducttoiletpaperV\_presentation3Defensive & \num{-4.82}* & \num{-1.09} & \num{-0.65}\\
+V\_ProducthardwaresuppliesV\_presentation3Prosocial & \num{-5.41}** & \num{0.04} & \num{0.63}\\
+V\_ProductcigarettesV\_presentation3Prosocial & \num{0.63} & \num{-1.98}+ & \num{0.53}\\
+V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-17.60}*** & \num{3.03}** & \num{2.87}*\\
+SD (Intercept ID) & \num{19.47} & \num{19.95} & \num{20.68}\\
+SD (Observations) & \num{19.80} & \num{10.55} & \num{10.81}\\
+\midrule
+Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+R2 Marg. & \num{0.109} & \num{0.014} & \num{0.009}\\
+R2 Cond. & \num{0.547} & \num{0.785} & \num{0.788}\\
+AIC & \num{43493.2} & \num{38204.8} & \num{38450.6}\\
+BIC & \num{43583.8} & \num{38295.4} & \num{38541.2}\\
+ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+RMSE & \num{18.65} & \num{9.88} & \num{10.12}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

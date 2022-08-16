@@ -1,0 +1,50 @@
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}[{conf.low},{conf.high}]{stars}""), statistic = c(""t={statistic}, se={std.error}"",
+                                   ""p={p.value}, df={df.error}""),
+             output = ""latex"", title = ""Model 1, Product without update"") 
+"
+"1","\begin{table}
+
+\caption{Model 1, Product without update}
+\centering
+\begin{tabular}[t]{lcccccc}
+\toprule
+  & CC\textasciitilde{}MW Model & CC\textasciitilde{}MW\&TCModel & CC\textasciitilde{}MW*TCModel & TC\textasciitilde{}MWModel & TC\textasciitilde{}CC\&MWModel & TC\textasciitilde{}CC*MWModel\\
+\midrule
+(Intercept) & \num{33.30}[\num{31.78},\num{34.82}]*** & \num{31.98}[\num{31.37},\num{32.58}]*** & \num{32.06}[\num{31.45},\num{32.67}]*** & \num{32.86}[\num{31.29},\num{34.42}]*** & \num{31.76}[\num{31.13},\num{32.40}]*** & \num{31.72}[\num{31.07},\num{32.37}]***\\
+ & t=\num{43.02}, se=\num{0.77} & t=\num{104.07}, se=\num{0.31} & t=\num{102.82}, se=\num{0.31} & t=\num{41.25}, se=\num{0.80} & t=\num{97.55}, se=\num{0.33} & t=\num{95.67}, se=\num{0.33}\\
+ & p=\num{0.00}, df=\num{4788.00} & p=\num{0.00}, df=\num{4787.00} & p=\num{0.00}, df=\num{4786.00} & p=\num{0.00}, df=\num{4788.00} & p=\num{0.00}, df=\num{4787.00} & p=\num{0.00}, \vphantom{1} df=\num{4786.00}\\
+ScaledMorallyWrong & \num{4.49}[\num{4.07},\num{4.92}]*** & \num{1.13}[\num{0.80},\num{1.46}]*** & \num{1.21}[\num{0.86},\num{1.57}]*** & \num{4.86}[\num{4.43},\num{5.29}]*** & \num{1.82}[\num{1.49},\num{2.16}]*** & \num{1.78}[\num{1.42},\num{2.13}]***\\
+ & t=\num{20.79}, se=\num{0.22} & t=\num{6.65}, se=\num{0.17} & t=\num{6.69}, se=\num{0.18} & t=\num{22.32}, se=\num{0.22} & t=\num{10.64}, se=\num{0.17} & t=\num{9.83}, se=\num{0.18}\\
+ & p=\num{0.00}, df=\num{4788.00} & p=\num{0.00}, df=\num{4787.00} & p=\num{0.00}, df=\num{4786.00} & p=\num{0.00}, df=\num{4788.00} & p=\num{0.00}, df=\num{4787.00} & p=\num{0.00}, df=\num{4786.00}\\
+ScaledTransmitCovid &  & \num{17.19}[\num{16.75},\num{17.63}]*** & \num{17.24}[\num{16.80},\num{17.68}]*** &  &  & \\
+ &  & t=\num{76.67}, se=\num{0.22} & t=\num{76.55}, se=\num{0.23} &  &  & \\
+ &  & p=\num{0.00}, df=\num{4787.00} & p=\num{0.00}, df=\num{4786.00} &  &  & \\
+ScaledMorallyWrongScaledTransmitCovid &  &  & \num{-0.19}[\num{-0.48},\num{0.09}] &  &  & \\
+ &  &  & t=\num{-1.32}, se=\num{0.15} &  &  & \\
+ &  &  & p=\num{0.19}, df=\num{4786.00} &  &  & \\
+ScaledCatchCovid &  &  &  &  & \num{16.84}[\num{16.40},\num{17.28}]*** & \num{16.81}[\num{16.37},\num{17.25}]***\\
+ &  &  &  &  & t=\num{75.14}, se=\num{0.22} & t=\num{74.51}, se=\num{0.23}\\
+ &  &  &  &  & p=\num{0.00}, df=\num{4787.00} & p=\num{0.00}, df=\num{4786.00}\\
+ScaledCatchCovidScaledMorallyWrong &  &  &  &  &  & \num{0.12}[\num{-0.17},\num{0.40}]\\
+ &  &  &  &  &  & t=\num{0.78}, se=\num{0.15}\\
+ &  &  &  &  &  & p=\num{0.43}, df=\num{4786.00}\\
+SD (Intercept ID) & \num{18.58} & \num{6.93} & \num{6.88} & \num{19.13} & \num{7.41} & \num{7.42}\\
+ & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, \vphantom{1} se=\\
+ & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, \vphantom{1} df=\\
+SD (Observations) & \num{10.49} & \num{8.18} & \num{8.19} & \num{10.56} & \num{8.24} & \num{8.24}\\
+ & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se=\\
+ & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df=\\
+\midrule
+Num.Obs. & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792}\\
+R2 Marg. & \num{0.040} & \num{0.730} & \num{0.732} & \num{0.044} & \num{0.719} & \num{0.718}\\
+R2 Cond. & \num{0.768} & \num{0.843} & \num{0.843} & \num{0.777} & \num{0.845} & \num{0.844}\\
+AIC & \num{38088.5} & \num{34896.1} & \num{34898.4} & \num{38176.7} & \num{35029.4} & \num{35032.7}\\
+BIC & \num{38114.4} & \num{34928.5} & \num{34937.3} & \num{38202.6} & \num{35061.7} & \num{35071.6}\\
+ICC & \num{0.8} & \num{0.4} & \num{0.4} & \num{0.8} & \num{0.4} & \num{0.4}\\
+RMSE & \num{9.84} & \num{7.73} & \num{7.74} & \num{9.90} & \num{7.78} & \num{7.78}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

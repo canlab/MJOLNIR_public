@@ -1,0 +1,42 @@
+"0","dff_q$EXPGRP_TEXT <- relevel(dff_q$EXPGRP_TEXT %>% as.factor, ""White"")"
+"0",""
+"0",""
+"0","mixed.lmers <- list("
+"0","  ""MorallyWrong"" = lmer(MorallyWrong ~ EXPGRP_TEXT + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)),"
+"0","  ""CatchCovid"" = lmer(CatchCovid ~ EXPGRP_TEXT + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)),"
+"0","  ""TransmitCovid"" = lmer(TransmitCovid ~ EXPGRP_TEXT + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)))"
+"0","      "
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}{stars}""), statistic = c(),"
+"0","             output = ""latex"", title = ""Model 5, Race Respondant"") "
+"1","\begin{table}
+
+\caption{Model 5, Race Respondant}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+  & MorallyWrong & CatchCovid & TransmitCovid\\
+\midrule
+(Intercept) & \num{25.93}*** & \num{32.84}*** & \num{32.59}***\\
+EXPGRP\_TEXTChinese & \num{2.52} & \num{2.73} & \num{1.85}\\
+SD (Intercept ID) & \num{19.91} & \num{19.38} & \num{20.41}\\
+SD (Observations) & \num{22.21} & \num{11.79} & \num{11.57}\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.002} & \num{0.003} & \num{0.001}\\
+R2 Cond. & \num{0.446} & \num{0.731} & \num{0.757}\\
+AIC & \num{22520.8} & \num{20103.6} & \num{20089.4}\\
+BIC & \num{22543.9} & \num{20126.7} & \num{20112.6}\\
+ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+RMSE & \num{19.98} & \num{10.35} & \num{10.14}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

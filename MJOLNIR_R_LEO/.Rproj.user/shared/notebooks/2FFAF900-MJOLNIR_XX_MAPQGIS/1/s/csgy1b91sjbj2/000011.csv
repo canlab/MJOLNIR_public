@@ -1,0 +1,5 @@
+"0","scrapeur(df$LocationLongitude[1], df$LocationLatitude[1])
+"
+"2","Error in scrapeur(df$LocationLongitude[1], df$LocationLatitude[1]) : 
+  could not find function ""scrapeur""
+"

@@ -1,0 +1,2 @@
+"0","df$demo_class <- res.hcpc$data.clust$clust"
+"0","freq(df$demo_class)"

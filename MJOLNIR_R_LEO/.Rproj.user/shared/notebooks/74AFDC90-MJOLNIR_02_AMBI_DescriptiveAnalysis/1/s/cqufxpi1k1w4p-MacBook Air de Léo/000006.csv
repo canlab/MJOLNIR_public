@@ -1,0 +1,6 @@
+"0","test <- f_EFA_testsimple(res$loadings,0.5)
+"
+"1","
+Nb Factors: 13 | Cutoff: 0.5
+    - Loadings not simple: 23 | 0.11
+    - Factors not simple:  0 | 0"

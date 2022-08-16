@@ -1,0 +1,5 @@
+"0","map(df_test, function(x){c(min(x), (x==min(x)) %>% which())}) %>% as_vector %>% min()"
+"1","[1]"
+"1"," 0.055"
+"1","
+"

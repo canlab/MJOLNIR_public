@@ -1,0 +1,4 @@
+"0","df_covmis$covqual_class <-  df_covmis$covqual_class %>%"
+"0","  as.character() %>%"
+"0","  as.numeric()"
+"0","ggpubr::ggboxplot(df_covmis, x=""demo_class"", y=""covqual_class"")"

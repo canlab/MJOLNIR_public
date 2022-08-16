@@ -1,0 +1,7 @@
+"0","dff %>% 
+  filter(V_Question==""JudgeOther_1"") %>%
+  dplyr::select(vignette_result) %>%
+  hist()
+"
+"2","Error in hist.default(.) : 'x' must be numeric
+"

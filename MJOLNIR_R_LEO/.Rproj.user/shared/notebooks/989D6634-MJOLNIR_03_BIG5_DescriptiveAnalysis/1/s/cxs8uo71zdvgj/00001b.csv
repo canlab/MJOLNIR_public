@@ -1,0 +1,5 @@
+"0","res.pca <- PCA(df[,c(colnames(df) %>% str_detect(""^AMBI_BIG5_"") %>% which)], "
+"0","               quali.sup = df[,c(colnames(df) %>% str_detect(""^AMBI_BIG5_"") %>% which)],"
+"0","               scale.unit=TRUE, ncp=25, graph=T)"
+"2","Error in .subset(x, j) : invalid subscript type 'list'
+"

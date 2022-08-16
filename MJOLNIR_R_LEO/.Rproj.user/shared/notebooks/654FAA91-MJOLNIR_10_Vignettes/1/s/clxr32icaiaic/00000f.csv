@@ -1,0 +1,45 @@
+"0","mixed.lmers <- list("
+"0","  ""MorallyWrong"" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Racenamef + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)),"
+"0","  ""CatchCovid"" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Racenamef + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)),"
+"0","  ""TransmitCovid"" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Racenamef + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)))"
+"0","      "
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}{stars}""), statistic = c(),"
+"0","             output = ""latex"", title = ""Model 5, Race Respondant and name"") "
+"1","\begin{table}
+
+\caption{Model 5, Race Respondant and name}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+  & MorallyWrong & CatchCovid & TransmitCovid\\
+\midrule
+(Intercept) & \num{26.99}*** & \num{33.48}*** & \num{33.77}***\\
+EXPGRP\_TEXTChinese & \num{5.10}* & \num{2.71} & \num{1.28}\\
+V\_RacenamefBlack & \num{-2.06} & \num{-1.01} & \num{-1.67}*\\
+V\_RacenamefChinese & \num{-1.74} & \num{-0.75} & \num{-1.15}\\
+V\_RacenamefIndian & \num{-0.43} & \num{-0.79} & \num{-1.93}*\\
+EXPGRP\_TEXTChineseV\_RacenamefBlack & \num{-3.68} & \num{0.46} & \num{0.81}\\
+EXPGRP\_TEXTChineseV\_RacenamefChinese & \num{-4.64}+ & \num{-0.98} & \num{0.51}\\
+EXPGRP\_TEXTChineseV\_RacenamefIndian & \num{-2.04} & \num{0.59} & \num{0.96}\\
+SD (Intercept ID) & \num{19.93} & \num{19.38} & \num{20.41}\\
+SD (Observations) & \num{22.17} & \num{11.80} & \num{11.56}\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.005} & \num{0.004} & \num{0.002}\\
+R2 Cond. & \num{0.449} & \num{0.731} & \num{0.758}\\
+AIC & \num{22502.7} & \num{20101.8} & \num{20084.6}\\
+BIC & \num{22560.5} & \num{20159.6} & \num{20142.4}\\
+ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+RMSE & \num{19.91} & \num{10.34} & \num{10.12}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

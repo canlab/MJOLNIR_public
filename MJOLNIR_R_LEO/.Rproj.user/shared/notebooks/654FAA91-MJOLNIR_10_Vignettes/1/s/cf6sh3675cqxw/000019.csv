@@ -1,0 +1,62 @@
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}[{conf.low},{conf.high}]{stars}""), statistic = c(""t={statistic}, se={std.error}"",
+                                   ""p={p.value}, df={df.error}""),
+             output = ""latex"", title = ""Model 1, Product without update"") 
+"
+"1","\begin{table}
+
+\caption{Model 1, Product without update}
+\centering
+\begin{tabular}[t]{lccccccccccccccc}
+\toprule
+  & MW Number & MW Age & MW Location & MW Store Type & MW Framing & CC Number & CC Age & CC Location & CC Store Type & CC Framing & TC Number & TC Age & TC Location & TC Store Type & TC Framing\\
+\midrule
+(Intercept) & \num{23.12}[\num{20.42},\num{25.82}]*** & \num{24.41}[\num{16.83},\num{31.99}]*** & \num{27.11}[\num{24.79},\num{29.42}]*** & \num{25.66}[\num{23.36},\num{27.97}]*** & \num{25.45}[\num{22.96},\num{27.94}]*** & \num{35.51}[\num{33.58},\num{37.45}]*** & \num{28.16}[\num{23.85},\num{32.47}]*** & \num{33.67}[\num{31.87},\num{35.47}]*** & \num{32.84}[\num{31.04},\num{34.63}]*** & \num{33.86}[\num{32.00},\num{35.73}]*** & \num{35.23}[\num{33.24},\num{37.22}]*** & \num{29.23}[\num{24.95},\num{33.50}]*** & \num{33.27}[\num{31.41},\num{35.13}]*** & \num{32.83}[\num{30.98},\num{34.69}]*** & \num{34.18}[\num{32.26},\num{36.11}]***\\
+ & t=\num{16.81}, se=\num{1.38} & t=\num{6.32}, se=\num{3.87} & t=\num{22.96}, se=\num{1.18} & t=\num{21.86}, se=\num{1.17} & t=\num{20.06}, se=\num{1.27} & t=\num{35.96}, se=\num{0.99} & t=\num{12.81}, se=\num{2.20} & t=\num{36.69}, se=\num{0.92} & t=\num{35.91}, se=\num{0.91} & t=\num{35.57}, se=\num{0.95} & t=\num{34.74}, se=\num{1.01} & t=\num{13.40}, se=\num{2.18} & t=\num{35.05}, se=\num{0.95} & t=\num{34.67}, se=\num{0.95} & t=\num{34.83}, se=\num{0.98}\\
+ & p=\num{0.00}, df=\num{2392.00} & p=\num{0.00}, df=\num{2392.00} & p=\num{0.00}, df=\num{2391.00} & p=\num{0.00}, df=\num{2391.00} & p=\num{0.00}, df=\num{2390.00} & p=\num{0.00}, df=\num{2392.00} & p=\num{0.00}, df=\num{2392.00} & p=\num{0.00}, df=\num{2391.00} & p=\num{0.00}, df=\num{2391.00} & p=\num{0.00}, df=\num{2390.00} & p=\num{0.00}, df=\num{2392.00} & p=\num{0.00}, df=\num{2392.00} & p=\num{0.00}, df=\num{2391.00} & p=\num{0.00}, df=\num{2391.00} & p=\num{0.00}, df=\num{2390.00}\\
+V\_Number & \num{1.45}[\num{0.66},\num{2.25}]*** &  &  &  &  & \num{-0.71}[\num{-1.13},\num{-0.29}]*** &  &  &  &  & \num{-0.82}[\num{-1.23},\num{-0.40}]*** &  &  &  & \\
+ & t=\num{3.59}, se=\num{0.40} &  &  &  &  & t=\num{-3.31}, se=\num{0.21} &  &  &  &  & t=\num{-3.87}, se=\num{0.21} &  &  &  & \\
+ & p=\num{0.00}, df=\num{2392.00} &  &  &  &  & p=\num{0.00}, df=\num{2392.00} &  &  &  &  & p=\num{0.00}, df=\num{2392.00} &  &  &  & \\
+V\_Age &  & \num{0.06}[\num{-0.12},\num{0.24}] &  &  &  &  & \num{0.14}[\num{0.04},\num{0.24}]** &  &  &  &  & \num{0.10}[\num{0.00},\num{0.20}]* &  &  & \\
+ &  & t=\num{0.62}, se=\num{0.09} &  &  &  &  & t=\num{2.74}, se=\num{0.05} &  &  &  &  & t=\num{1.98}, se=\num{0.05} &  &  & \\
+ &  & p=\num{0.53}, df=\num{2392.00} &  &  &  &  & p=\num{0.01}, df=\num{2392.00} &  &  &  &  & p=\num{0.05}, df=\num{2392.00} &  &  & \\
+V\_Locationinthecity &  &  & \num{0.16}[\num{-2.27},\num{2.58}] &  &  &  &  & \num{0.49}[\num{-0.83},\num{1.81}] &  &  &  &  & \num{0.28}[\num{-1.02},\num{1.58}] &  & \\
+ &  &  & t=\num{0.13}, se=\num{1.24} &  &  &  &  & t=\num{0.73}, se=\num{0.67} &  &  &  &  & t=\num{0.42}, se=\num{0.66} &  & \\
+ &  &  & p=\num{0.90}, df=\num{2391.00} &  &  &  &  & p=\num{0.46}, df=\num{2391.00} &  &  &  &  & p=\num{0.67}, df=\num{2391.00} &  & \\
+V\_Locationnearby &  &  & \num{-1.26}[\num{-3.72},\num{1.19}] &  &  &  &  & \num{-0.32}[\num{-1.66},\num{1.01}] &  &  &  &  & \num{-0.55}[\num{-1.86},\num{0.76}] &  & \\
+ &  &  & t=\num{-1.01}, se=\num{1.25} &  &  &  &  & t=\num{-0.47}, se=\num{0.68} &  &  &  &  & t=\num{-0.82}, se=\num{0.67} &  & \\
+ &  &  & p=\num{0.31}, df=\num{2391.00} &  &  &  &  & p=\num{0.64}, df=\num{2391.00} &  &  &  &  & p=\num{0.41}, df=\num{2391.00} &  & \\
+V\_StoreTypedepartmentstore &  &  &  & \num{1.13}[\num{-1.30},\num{3.56}] &  &  &  &  & \num{1.10}[\num{-0.22},\num{2.42}] &  &  &  &  & \num{-0.05}[\num{-1.34},\num{1.25}] & \\
+ &  &  &  & t=\num{0.92}, se=\num{1.24} &  &  &  &  & t=\num{1.64}, se=\num{0.67} &  &  &  &  & t=\num{-0.07}, se=\num{0.66} & \\
+ &  &  &  & p=\num{0.36}, df=\num{2391.00} &  &  &  &  & p=\num{0.10}, df=\num{2391.00} &  &  &  &  & p=\num{0.95}, df=\num{2391.00} & \\
+V\_StoreTypesupermarket &  &  &  & \num{2.12}[\num{-0.31},\num{4.54}]+ &  &  &  &  & \num{1.57}[\num{0.25},\num{2.90}]* &  &  &  &  & \num{1.10}[\num{-0.20},\num{2.40}]+ & \\
+ &  &  &  & t=\num{1.71}, se=\num{1.24} &  &  &  &  & t=\num{2.34}, se=\num{0.67} &  &  &  &  & t=\num{1.66}, se=\num{0.66} & \\
+ &  &  &  & p=\num{0.09}, df=\num{2391.00} &  &  &  &  & p=\num{0.02}, df=\num{2391.00} &  &  &  &  & p=\num{0.10}, df=\num{2391.00} & \\
+V\_FramingExplain &  &  &  &  & \num{1.97}[\num{-0.79},\num{4.74}] &  &  &  &  & \num{0.24}[\num{-1.26},\num{1.75}] &  &  &  &  & \num{-1.09}[\num{-2.57},\num{0.38}]\\
+ &  &  &  &  & t=\num{1.40}, se=\num{1.41} &  &  &  &  & t=\num{0.32}, se=\num{0.77} &  &  &  &  & t=\num{-1.45}, se=\num{0.75}\\
+ &  &  &  &  & p=\num{0.16}, df=\num{2390.00} &  &  &  &  & p=\num{0.75}, df=\num{2390.00} &  &  &  &  & p=\num{0.15}, df=\num{2390.00}\\
+V\_FramingStrike up &  &  &  &  & \num{2.77}[\num{-0.03},\num{5.57}]+ &  &  &  &  & \num{-0.76}[\num{-2.29},\num{0.77}] &  &  &  &  & \num{-1.36}[\num{-2.86},\num{0.14}]+\\
+ &  &  &  &  & t=\num{1.94}, se=\num{1.43} &  &  &  &  & t=\num{-0.98}, se=\num{0.78} &  &  &  &  & t=\num{-1.78}, se=\num{0.76}\\
+ &  &  &  &  & p=\num{0.05}, df=\num{2390.00} &  &  &  &  & p=\num{0.33}, df=\num{2390.00} &  &  &  &  & p=\num{0.07}, df=\num{2390.00}\\
+V\_FramingWave &  &  &  &  & \num{0.48}[\num{-2.34},\num{3.29}] &  &  &  &  & \num{-0.03}[\num{-1.56},\num{1.51}] &  &  &  &  & \num{-1.58}[\num{-3.08},\num{-0.07}]*\\
+ &  &  &  &  & t=\num{0.33}, se=\num{1.44} &  &  &  &  & t=\num{-0.04}, se=\num{0.78} &  &  &  &  & t=\num{-2.05}, se=\num{0.77}\\
+ &  &  &  &  & p=\num{0.74}, df=\num{2390.00} &  &  &  &  & p=\num{0.97}, df=\num{2390.00} &  &  &  &  & p=\num{0.04}, df=\num{2390.00}\\
+SD (Intercept ID) & \num{19.95} & \num{19.92} & \num{19.93} & \num{19.91} & \num{19.90} & \num{19.41} & \num{19.40} & \num{19.40} & \num{19.39} & \num{19.39} & \num{20.41} & \num{20.40} & \num{20.41} & \num{20.41} & \num{20.41}\\
+ & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, \vphantom{1} se=\\
+ & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, \vphantom{1} df=\\
+SD (Observations) & \num{22.14} & \num{22.22} & \num{22.21} & \num{22.21} & \num{22.21} & \num{11.76} & \num{11.77} & \num{11.79} & \num{11.78} & \num{11.80} & \num{11.52} & \num{11.56} & \num{11.57} & \num{11.56} & \num{11.56}\\
+ & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se=\\
+ & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df=\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.003} & \num{0.000} & \num{0.000} & \num{0.001} & \num{0.001} & \num{0.001} & \num{0.001} & \num{0.000} & \num{0.001} & \num{0.000} & \num{0.002} & \num{0.001} & \num{0.000} & \num{0.001} & \num{0.001}\\
+R2 Cond. & \num{0.450} & \num{0.446} & \num{0.446} & \num{0.446} & \num{0.446} & \num{0.732} & \num{0.731} & \num{0.730} & \num{0.730} & \num{0.730} & \num{0.759} & \num{0.757} & \num{0.757} & \num{0.757} & \num{0.757}\\
+AIC & \num{22512.7} & \num{22528.1} & \num{22521.8} & \num{22520.4} & \num{22517.8} & \num{20099.2} & \num{20105.6} & \num{20107.6} & \num{20103.4} & \num{20107.8} & \num{20079.8} & \num{20093.8} & \num{20092.2} & \num{20089.9} & \num{20089.2}\\
+BIC & \num{22535.9} & \num{22551.3} & \num{22550.7} & \num{22549.3} & \num{22552.5} & \num{20122.3} & \num{20128.7} & \num{20136.5} & \num{20132.3} & \num{20142.5} & \num{20103.0} & \num{20116.9} & \num{20121.1} & \num{20118.8} & \num{20123.9}\\
+ICC & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.4} & \num{0.7} & \num{0.7} & \num{0.7} & \num{0.7} & \num{0.7} & \num{0.8} & \num{0.8} & \num{0.8} & \num{0.8} & \num{0.8}\\
+RMSE & \num{19.91} & \num{19.98} & \num{19.97} & \num{19.97} & \num{19.97} & \num{10.32} & \num{10.33} & \num{10.35} & \num{10.34} & \num{10.35} & \num{10.10} & \num{10.13} & \num{10.14} & \num{10.13} & \num{10.13}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

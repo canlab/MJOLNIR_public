@@ -1,0 +1,5 @@
+"0","dff_q <- dff %>%"
+"0","  select(-vignette_name, -V_Question) %>%"
+"0","  tidyr::spread(V_Questionnb, vignette_result)"
+"0",""
+"0",""

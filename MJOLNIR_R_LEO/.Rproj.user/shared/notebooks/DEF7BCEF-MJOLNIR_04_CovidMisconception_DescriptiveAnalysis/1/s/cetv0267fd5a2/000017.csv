@@ -1,0 +1,6 @@
+"0",""
+"0","df_covmis %>% "
+"0","  gather(key = ""Covmis_var"", value=""Covmis_res"", df_covmis %>% colnames %>% str_detect(""^covmis"") %>% which) %>%"
+"0","  ggplot(., aes(y=Covmis_res, x= cov_class, fill=cov_class)) +"
+"0","  geom_boxplot() +"
+"0","  facet_wrap(~ Covmis_var, ncol = 5)"

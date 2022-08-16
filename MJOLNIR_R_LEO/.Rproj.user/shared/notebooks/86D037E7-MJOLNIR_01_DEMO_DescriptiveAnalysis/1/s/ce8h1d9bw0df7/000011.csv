@@ -1,0 +1,2 @@
+"0",""
+"0","df %>% filter(DOB_YEAR_PERIODE != ""(1995,2005]"") %>% select(EDUCATION_1_TEXT) %>% freq"

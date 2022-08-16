@@ -1,0 +1,9 @@
+"0","formula <- y ~ x    "
+"0","dff_q %>%"
+"0","  ggplot(aes(V_Number, MorallyWrong)) +"
+"0","    geom_point(alpha=.3, cex=.5) +"
+"0","    geom_smooth(method='lm', color=""red"")+"
+"0","  ggpubr::stat_regline_equation(aes(label = ..eq.label..))"
+"2","Error in dff_q %>% ggplot(aes(V_Number, MorallyWrong)) : 
+  could not find function ""%>%""
+"

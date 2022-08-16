@@ -1,0 +1,17 @@
+"0","  r <- map(mixed.lmers, difflsmeans) %>%
+    map(function(x){
+    r <- x %>%
+      mutate(p = `Pr(>|t|)`,
+             star = case_when(p < 0.001 ~ ""***"",
+                                              p < 0.01 ~ ""**"",
+                                              p < 0.05 ~ ""*"",
+                                              p < 0.1 ~ ""."", 
+                                              TRUE ~ """"),
+             res = paste0(Estimate, star)) %>%
+      select(res)
+    colnames(r) <- c(name(x))
+    return(r)
+  }) 
+"
+"2","Error in name(x) : could not find function ""name""
+"

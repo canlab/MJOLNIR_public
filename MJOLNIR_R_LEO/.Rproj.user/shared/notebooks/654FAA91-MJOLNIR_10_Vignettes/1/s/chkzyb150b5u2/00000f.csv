@@ -1,0 +1,51 @@
+"0","dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, ""toiletpaper"")"
+"0","mixed.lmers <- list("
+"0","  ""MorallyWrong"" = lmer(MorallyWrong ~ V_Product*V_presentation3 + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0)),"
+"0","  ""CatchCovid"" = lmer(CatchCovid ~ V_Product*V_presentation3 + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0)),"
+"0","  ""TransmitCovid"" = lmer(TransmitCovid ~ V_Product*V_presentation3 + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0)))"
+"0","      "
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}{stars}""), statistic = c(),"
+"0","             output = ""latex"", title = ""Model 3, Product and Update presentation"") "
+"1","\begin{table}
+
+\caption{Model 3, Product and Update presentation}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+  & MorallyWrong & CatchCovid & TransmitCovid\\
+\midrule
+(Intercept) & \num{34.14}*** & \num{32.94}*** & \num{32.95}***\\
+V\_Productcigarettes & \num{-0.01} & \num{5.69}*** & \num{3.99}***\\
+V\_Productbabyformula & \num{-17.80}*** & \num{-1.73}** & \num{-1.73}**\\
+V\_Producthardwaresupplies & \num{-11.73}*** & \num{-0.79} & \num{-1.30}*\\
+V\_presentation3Defensive & \num{2.85}* & \num{-1.72}* & \num{-1.41}+\\
+V\_presentation3Prosocial & \num{-24.30}*** & \num{1.30}+ & \num{0.61}\\
+V\_ProductcigarettesV\_presentation3Defensive & \num{-2.99} & \num{-0.56} & \num{-0.96}\\
+V\_ProductbabyformulaV\_presentation3Defensive & \num{4.82}* & \num{1.09} & \num{0.65}\\
+V\_ProducthardwaresuppliesV\_presentation3Defensive & \num{9.78}*** & \num{2.08}+ & \num{2.15}+\\
+V\_ProductcigarettesV\_presentation3Prosocial & \num{18.23}*** & \num{-5.00}*** & \num{-2.33}*\\
+V\_ProductbabyformulaV\_presentation3Prosocial & \num{17.60}*** & \num{-3.03}** & \num{-2.87}*\\
+V\_ProducthardwaresuppliesV\_presentation3Prosocial & \num{12.19}*** & \num{-2.99}** & \num{-2.23}*\\
+SD (Intercept ID) & \num{19.47} & \num{19.95} & \num{20.68}\\
+SD (Observations) & \num{19.80} & \num{10.55} & \num{10.81}\\
+\midrule
+Num.Obs. & \num{4791} & \num{4791} & \num{4791}\\
+R2 Marg. & \num{0.109} & \num{0.014} & \num{0.009}\\
+R2 Cond. & \num{0.547} & \num{0.785} & \num{0.788}\\
+AIC & \num{43493.2} & \num{38204.8} & \num{38450.6}\\
+BIC & \num{43583.8} & \num{38295.4} & \num{38541.2}\\
+ICC & \num{0.5} & \num{0.8} & \num{0.8}\\
+RMSE & \num{18.65} & \num{9.88} & \num{10.12}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"
+"0","dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, ""hardwaresupplies"")"

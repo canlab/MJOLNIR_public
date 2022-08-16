@@ -1,0 +1,25 @@
+"0","dff.means <- difflmeansmodelcomp(mixed.lmers)"
+"1","[38;5;232mJoining, by = ""comparison""[39m
+"
+"1","[38;5;232mJoining, by = ""comparison""[39m
+"
+"0","rownames(dff.means) <-str_remove_all(rownames(dff.means), ""V_Racenamef"")"
+"0","xtable::xtable(dff.means) "
+"1","% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Fri Jul  8 16:57:25 2022
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlll}
+  \hline
+ & MorallyWrong & CatchCovid & TransmitCovid \\ 
+  \hline
+White - Black & 3.26* & 0.87 & 1.41* \\ 
+  White - Chinese & 3.25* & 1.07 & 0.98 \\ 
+  White - Indian & 1.09 & 0.59 & 1.62* \\ 
+  Black - Chinese & -0.01 & 0.2 & -0.43 \\ 
+  Black - Indian & -2.17. & -0.27 & 0.21 \\ 
+  Chinese - Indian & -2.15. & -0.47 & 0.64 \\ 
+   \hline
+\end{tabular}
+\end{table}
+"

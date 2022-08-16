@@ -1,0 +1,20 @@
+"0","dff.means <- difflmeansmodelcomp(mixed.lmers)"
+"1","[38;5;232mJoining, by = ""comparison""[39m
+"
+"1","[38;5;232mJoining, by = ""comparison""[39m
+"
+"0","rownames(dff.means) <-str_remove_all(rownames(dff.means), ""EXPGRP_TEXT"")"
+"0","xtable::xtable(dff.means) "
+"1","% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Fri Jul  8 16:58:14 2022
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlll}
+  \hline
+ & MorallyWrong & CatchCovid & TransmitCovid \\ 
+  \hline
+White - Chinese & -2.52 & -2.73 & -1.85 \\ 
+   \hline
+\end{tabular}
+\end{table}
+"

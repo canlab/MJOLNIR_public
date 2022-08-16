@@ -1,0 +1,6 @@
+"0","str_length(df$LocationLatitude[i] %>% as.character())==0
+"
+"1","[1]"
+"1"," NA"
+"1","
+"

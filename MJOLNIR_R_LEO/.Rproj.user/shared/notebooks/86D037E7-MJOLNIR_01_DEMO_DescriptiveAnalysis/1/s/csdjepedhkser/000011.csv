@@ -1,0 +1,6 @@
+"0","df$SEX_TEXT <- fct_recode(df$SEX %>% as.character,"
+"0","          ""Male""=""1"","
+"0","          ""Female""=""2"","
+"0","          ""Transgender""=""3"","
+"0","          ""Other""=""4"")"
+"0","freq(df$SEX_TEXT)"

@@ -1,0 +1,3 @@
+"0","df$DOB_YEAR <- df$DOB_3 + 1900"
+"0","df$DOB_YEAR_PERIODE <- df$DOB_YEAR %>% cut(breaks = c(1945,1955,1965,1975,1985,1995,2005))"
+"0","df$DOB_YEAR_PERIODE %>% freq"

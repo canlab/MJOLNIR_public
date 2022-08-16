@@ -1,0 +1,35 @@
+\contentsline {part}{I\hspace {1em}Hypothesis Model}{3}{}%
+\contentsline {section}{\numberline {0.1}H1a}{4}{}%
+\contentsline {section}{\numberline {0.2}H2a}{4}{}%
+\contentsline {section}{\numberline {0.3}h2b}{4}{}%
+\contentsline {section}{\numberline {0.4}H2c}{4}{}%
+\contentsline {section}{\numberline {0.5}H3a}{4}{}%
+\contentsline {part}{II\hspace {1em}Test Variable controle}{17}{}%
+\contentsline {part}{III\hspace {1em}Scenario}{21}{}%
+\contentsline {chapter}{\numberline {1}Model 1 - Product}{22}{}%
+\contentsline {section}{\numberline {1.1}other}{22}{}%
+\contentsline {section}{\numberline {1.2}self}{26}{}%
+\contentsline {section}{\numberline {1.3}comparaison}{27}{}%
+\contentsline {chapter}{\numberline {2}Model 2 - Update}{29}{}%
+\contentsline {section}{\numberline {2.1}other}{29}{}%
+\contentsline {section}{\numberline {2.2}self}{32}{}%
+\contentsline {section}{\numberline {2.3}comparaison}{33}{}%
+\contentsline {chapter}{\numberline {3}Model 3 - Product*Presentation}{36}{}%
+\contentsline {section}{\numberline {3.1}self}{44}{}%
+\contentsline {section}{\numberline {3.2}comparaison}{45}{}%
+\contentsline {chapter}{\numberline {4}Model 4 - SpillingEffect}{46}{}%
+\contentsline {chapter}{\numberline {5}Model 4.2 - SpillingEffect Crossed}{48}{}%
+\contentsline {chapter}{\numberline {6}Model 4 - SpillingEffect, Product, Update}{51}{}%
+\contentsline {chapter}{\numberline {7}Model 5 - EXPGRP, SpillingEffect, Product, Update}{53}{}%
+\contentsline {chapter}{\numberline {8}Model Summary}{58}{}%
+\contentsline {part}{IV\hspace {1em}Some Racial Demography and Covid Beliefs}{60}{}%
+\contentsline {chapter}{\numberline {9}Model 4 - Race Name}{61}{}%
+\contentsline {chapter}{\numberline {10}Model 5 - Race Respondant}{63}{}%
+\contentsline {chapter}{\numberline {11}Model 6 - Race Respondant and Name}{67}{}%
+\contentsline {chapter}{\numberline {12}Model 6.2 - CovidSkepticism}{72}{}%
+\contentsline {chapter}{\numberline {13}Model 7 - CovidSkepticism}{83}{}%
+\contentsline {chapter}{\numberline {14}Model 8 - CovidSkepticism, race name and race respondant}{85}{}%
+\contentsline {part}{V\hspace {1em}Scenario and demography}{91}{}%
+\contentsline {chapter}{\numberline {15}Model 4 - Race Name}{92}{}%
+\contentsline {part}{VI\hspace {1em}CatchCovid and demography}{101}{}%
+\contentsline {chapter}{\numberline {16}Model x, Catch Covid and CovidSkepticism}{102}{}%

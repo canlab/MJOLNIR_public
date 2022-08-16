@@ -1,0 +1,3041 @@
+---
+title: "vignettes"
+output: html_document
+date: '2022-05-19'
+---
+
+# Package
+
+```{r}
+library("plyr")
+library("lattice")
+library("ggplot2")
+library("dplyr")
+library("readr")
+library("rmarkdown")
+library("Rmisc")
+library("devtools")
+library("gghalves")
+library(tidyverse)
+library(questionr)
+library(modelsummary)
+library(lme4)
+library(lmerTest)
+library(emmeans)
+```
+
+# Data import
+
+```{r setup, include=FALSE}
+df <- read.csv("./data/mjolnir_clean_v7_GPS.csv")
+```
+
+# Stata Preparation
+
+We want a database with only the data on the vignettes and the Update
+
+```{r}
+d <- df %>% dplyr::select(ID, matches("^V"))
+d$ID <- seq(1:nrow(df))
+```
+
+We want to put all the vignette result under the same variable. However we have a lot of NA due to the fact that each vignettes is different according to race.
+
+```{r}
+df_V <- d %>%
+  # We gather all the result of all the vignette under the same variables
+  gather(vignette_name, 
+         vignette_result, 
+         d %>% colnames() %>% str_detect("^V[1-4].[0-9](_[A-Z]|)_Judge(Other|Self)_[0-9]$") %>% which()) %>%
+  # we get rid off the NA in vignette results (which happens because there is a variable for each race name even though participants have answered according to only one race)
+  filter(!(is.na(vignette_result))) %>%
+  # we create variables from the name to get the vignet number, the race of the name, if it's an Update or not and what's the Question
+  mutate(V_Number=vignette_name %>% str_extract("[0-9]"),
+         V_Racename=vignette_name %>% str_extract("[WIBC]"),
+         V_Update=vignette_name %>% str_detect("^V[0-9].2"),
+         V_Question=vignette_name %>% str_extract("Judge(Other|Self)_[0-9]$"))
+
+# We now have to complete the race name for the Update because they do not have the race of the name in the name of the variable (ex: V1.2_JudgeOther_1 and not V1.1_W_JudgeOther_1)
+df_V <- df_V %>% 
+  # we select the rows that do not have a Racename (typically the Updates)
+  filter(is.na(V_Racename)) %>%
+  # we create a unique ID for each of the four vignette based on the vignette number and the participant ID
+  mutate(IDD = paste0(ID, '_', V_Number)) %>%
+  dplyr::select(IDD, V_Update, V_Racename) %>%
+  # we join the database of the lines without Racenames with those with race names according to the uniaue ID of the vignette, so that we have the race name for each vignette for each participants
+  inner_join(df_V %>% 
+               filter(!(is.na(V_Racename))) %>%
+               mutate(IDD = paste0(ID, '_', V_Number)) %>%
+               dplyr::select(IDD, V_Update, V_Racename),
+               by="IDD") %>%
+  # we gather the information and create a new unique ID for each vignette, Update and participants so that we have the race of the name according to the participants ID, Vignette number and Update or not
+  gather(nu, V_Update, c(2,4)) %>%
+  dplyr::select(IDD, V_Racename.y, V_Update) %>%
+  mutate(IDD = paste0(IDD, "_", V_Update),
+         V_Racenamef = V_Racename.y) %>%
+  dplyr::select(IDD, V_Racenamef) %>%
+  # we get ride of the doubloons
+  distinct(IDD, V_Racenamef, .keep_all = TRUE) %>%
+  # we join or database so that we always have the race of the name
+  inner_join(df_V %>%
+               mutate(IDD = paste0(ID, '_', V_Number, "_", V_Update)),
+             by = "IDD")
+```
+
+Now we want to have for each lines a variable that indicate what was the element n  (the product, the location, the age, the store type,the framing or the presentation) for each variables
+First we need to rename certain variable
+
+```{r}
+df_V <- df_V %>%
+  cbind(
+    df_V %>% 
+      dplyr::select(matches("V[0-9]_Location"))%>%
+      map_dfc(function(x){
+        fct_recode(x,
+             "anotherpartoftown"="in another part of town",
+              "inthecity"="in the city")
+      }) %>%
+      rename_with(function(x){paste0("clean_",x)}),
+    df_V %>% 
+      dplyr::select(matches("V[0-9]_Age"))%>%
+      rename_with(function(x){paste0("clean_",x)}),
+    df_V %>% 
+      dplyr::select(matches("V[0-9]_Product"))%>%
+      map_dfc(function(x){
+        fct_recode(x,
+             "babyformula"="baby formula",
+              "hardwaresupplies"="hardware supplies",
+              "toiletpaper"="toilet paper")
+      }) %>%
+      rename_with(function(x){paste0("clean_",x)}),
+    df_V %>% 
+      dplyr::select(matches("V[0-9]_StoreType")) %>%
+      map_dfc(function(x){
+        fct_recode(x,
+             "conveniencestore"="convenience store",
+              "departmentstore"="department store",
+              "supermarket"="supermarket")
+      }) %>%
+      rename_with(function(x){paste0("clean_",x)}),
+    df_V %>% 
+      dplyr::select(matches("V[0-9]_Framing")) %>%
+      map_dfc(function(x){
+        fct_recode(x,
+             "Anticipating"="Anticipating your reaction, they explain that they are buying a large amount of",
+              "Explain"="They explain to you that they are buying a large amount of",
+              "Strike up"="They happen to strike up a conversation with you, explaining to you that they are buying a large amount of",
+              "Wave"="They wave to you and say that they are buying a large amount of")
+      }) %>%
+      rename_with(function(x){paste0("clean_",x)}),
+    df_V %>% 
+      dplyr::select(matches("V[0-9]_Presentation")) %>%
+      map_dfc(function(x){
+        fct_recode(x,
+              "Defensive"="even though they already have hardware supplies at home, it pays to be cautious",
+              "Defensive"="even though they already have some at home, it pays to be cautious",
+              "Prosocial"="their aged parents are prone to panic attacks while staying indoors and the cigarettes will keep them calm",
+              "Prosocial"="their house has poor insulation and their roof is leaking, which is not safe for their family who are spending all of their time indoors",
+              "Prosocial"="they are out of formula and their baby cannot eat otherwise",
+              "Defensive"="they are stocking up for what they expect to be an anxiety-ridden couple of months",
+              "Prosocial"="theyu0081Ere donating the toilet paper to a local homeless shelter")
+      }) %>%
+      rename_with(function(x){paste0("clean_",x)})
+    )
+
+```
+
+```{r}
+df_V %>%
+  dplyr::select(matches("^V[.A-z0-9_]{1,}TIME")) %>%
+  colnames()
+
+df_V %>%
+  dplyr::select(matches("V1.1_[A-Z]_TIME_P1_(Last|First).Click")) 
+```
+
+
+Now we only have to use a case_when to signal that when the vignette number is x, the element n in the variable V[x]_[n]
+
+```{r}
+df_V <- df_V %>%
+  mutate(V_Product = case_when(V_Number==1 ~ clean_V1_Product,
+                               V_Number==2 ~ clean_V2_Product,
+                               V_Number==3 ~ clean_V3_Product,
+                               V_Number==4 ~ clean_V4_Product),
+         V_Location = case_when(V_Number==1 ~ clean_V1_Location,
+                               V_Number==2 ~ clean_V2_Location,
+                               V_Number==3 ~ clean_V3_Location,
+                               V_Number==4 ~ clean_V4_Location),
+         V_Age = case_when(V_Number==1 ~ clean_V1_Age,
+                               V_Number==2 ~ clean_V2_Age,
+                               V_Number==3 ~ clean_V3_Age,
+                               V_Number==4 ~ clean_V4_Age),
+         V_StoreType = case_when(V_Number==1 ~ clean_V1_StoreType,
+                               V_Number==2 ~ clean_V2_StoreType,
+                               V_Number==3 ~ clean_V3_StoreType,
+                               V_Number==4 ~ clean_V4_StoreType),
+         V_Framing = case_when(V_Number==1 ~ clean_V1_Framing,
+                               V_Number==2 ~ clean_V2_Framing,
+                               V_Number==3 ~ clean_V3_Framing,
+                               V_Number==4 ~ clean_V4_Framing),
+         V_Presentation = case_when(V_Number==1 ~ clean_V1_Presentation,
+                               V_Number==2 ~ clean_V2_Presentation,
+                               V_Number==3 ~ clean_V3_Presentation,
+                               V_Number==4 ~ clean_V4_Presentation)
+         ) 
+```
+
+We then repeat the same process to determine for each question the time people spend on the section.
+
+```{r}
+df_V <- df_V %>%
+  mutate(V_FirstClick = case_when(V_Number==1 ~ case_when(str_detect(V_Question, "Other") ~ case_when(V_Update ~ V1.2_TIME_P1_First.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V1.1_W_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "I" ~ V1.1_I_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "B" ~ V1.1_B_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "C" ~ V1.1_C_TIME_P1_First.Click)),
+                                                          str_detect(V_Question, "Self") ~ case_when(V_Update ~ V1.2_TIME_P2_First.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V1.1_W_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "I" ~ V1.1_I_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "B" ~ V1.1_B_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "C" ~ V1.1_C_TIME_P2_First.Click))),
+                               V_Number==2 ~ case_when(str_detect(V_Question, "Other") ~ case_when(V_Update ~ V2.2_TIME_P1_First.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V2.1_W_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "I" ~ V2.1_I_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "B" ~ V2.1_B_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "C" ~ V2.1_C_TIME_P1_First.Click)),
+                                                          str_detect(V_Question, "Self") ~ case_when(V_Update ~ V2.2_TIME_P2_First.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V2.1_W_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "I" ~ V2.1_I_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "B" ~ V2.1_B_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "C" ~ V2.1_C_TIME_P2_First.Click))),
+                               V_Number==3 ~ case_when(str_detect(V_Question, "Other") ~ case_when(V_Update ~ V3.2_TIME_P1_First.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V3.1_W_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "I" ~ V3.1_I_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "B" ~ V3.1_B_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "C" ~ V3.1_C_TIME_P1_First.Click)),
+                                                          str_detect(V_Question, "Self") ~ case_when(V_Update ~ V3.2_TIME_P2_First.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V3.1_W_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "I" ~ V3.1_I_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "B" ~ V3.1_B_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "C" ~ V3.1_C_TIME_P2_First.Click))),
+                               V_Number==4 ~ case_when(str_detect(V_Question, "Other") ~ case_when(V_Update ~ V4.2_TIME_P1_First.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V4.1_W_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "I" ~ V4.1_I_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "B" ~ V4.1_B_TIME_P1_First.Click,
+                                                                                                                            V_Racenamef == "C" ~ V4.1_C_TIME_P1_First.Click)),
+                                                          str_detect(V_Question, "Self") ~ case_when(V_Update ~ V4.2_TIME_P2_First.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V4.1_W_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "I" ~ V4.1_I_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "B" ~ V4.1_B_TIME_P2_First.Click,
+                                                                                                                            V_Racenamef == "C" ~ V4.1_C_TIME_P2_First.Click)))),
+        V_LastClick = case_when(V_Number==1 ~ case_when(str_detect(V_Question, "Other") ~ case_when(V_Update ~ V1.2_TIME_P1_Last.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V1.1_W_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "I" ~ V1.1_I_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "B" ~ V1.1_B_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "C" ~ V1.1_C_TIME_P1_Last.Click)),
+                                                          str_detect(V_Question, "Self") ~ case_when(V_Update ~ V1.2_TIME_P2_Last.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V1.1_W_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "I" ~ V1.1_I_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "B" ~ V1.1_B_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "C" ~ V1.1_C_TIME_P2_Last.Click))),
+                               V_Number==2 ~ case_when(str_detect(V_Question, "Other") ~ case_when(V_Update ~ V2.2_TIME_P1_Last.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V2.1_W_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "I" ~ V2.1_I_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "B" ~ V2.1_B_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "C" ~ V2.1_C_TIME_P1_Last.Click)),
+                                                          str_detect(V_Question, "Self") ~ case_when(V_Update ~ V2.2_TIME_P2_Last.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V2.1_W_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "I" ~ V2.1_I_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "B" ~ V2.1_B_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "C" ~ V2.1_C_TIME_P2_Last.Click))),
+                               V_Number==3 ~ case_when(str_detect(V_Question, "Other") ~ case_when(V_Update ~ V3.2_TIME_P1_Last.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V3.1_W_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "I" ~ V3.1_I_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "B" ~ V3.1_B_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "C" ~ V3.1_C_TIME_P1_Last.Click)),
+                                                          str_detect(V_Question, "Self") ~ case_when(V_Update ~ V3.2_TIME_P2_Last.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V3.1_W_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "I" ~ V3.1_I_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "B" ~ V3.1_B_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "C" ~ V3.1_C_TIME_P2_Last.Click))),
+                               V_Number==4 ~ case_when(str_detect(V_Question, "Other") ~ case_when(V_Update ~ V4.2_TIME_P1_Last.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V4.1_W_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "I" ~ V4.1_I_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "B" ~ V4.1_B_TIME_P1_Last.Click,
+                                                                                                                            V_Racenamef == "C" ~ V4.1_C_TIME_P1_Last.Click)),
+                                                          str_detect(V_Question, "Self") ~ case_when(V_Update ~ V4.2_TIME_P2_Last.Click,
+                                                                                                    !(V_Update) ~ case_when(V_Racenamef == "W" ~ V4.1_W_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "I" ~ V4.1_I_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "B" ~ V4.1_B_TIME_P2_Last.Click,
+                                                                                                                            V_Racenamef == "C" ~ V4.1_C_TIME_P2_Last.Click)))),
+        V_Timepersection = V_LastClick - V_FirstClick,
+        V_Timeperquestion = V_Timepersection / 3,
+        V_Timeperquestionqual = V_Timeperquestion %>% cut(c(0,1,2,3,5,10,815))
+        )
+
+df_V$V_Timeperquestionqual %>% freq()
+```
+
+We join with the rest of the data
+
+```{r}
+dff <- df %>%
+  inner_join(df_V, by="ID") %>%
+  filter(EXPGRP_TEXT != "Non-Chinese Asian" &
+           !(CONTINENT_BORN_TEXT_1 %in% c("4Tigers and Japan", "Africa", "Middle East",
+                                        "North America", "Oceania", "South America")) &
+           !(is.na(CONTINENT_BORN_TEXT_1)) &
+           !(SEX_TEXT %in% c("Other", "Transgender")) &
+           HH_INCOME_TEXT != "$500,000 or more") 
+```
+
+### modification for amalysis
+
+```{r}
+
+dff$V_Location <- relevel(dff$V_Location %>% as.factor(), "nearby")
+dff$V_Racenamef <- relevel(dff$V_Racenamef %>% as.factor(), "W")
+dff$V_Product <- relevel(dff$V_Product %>% as.factor(), "hardwaresupplies")
+dff$EXPGRP_TEXT <- relevel(dff$EXPGRP_TEXT %>% as.factor(), "White")
+dff <- dff %>%
+  mutate(V_up = case_when(V_Update ~ 1,
+                          !(V_Update) ~ 0),
+         V_presentation2 = case_when(V_Update ~ case_when(str_detect(V_Presentation, "Defensive") ~ 0,
+                                                          str_detect(V_Presentation, "Prosocial") ~ 2),
+                                     !(V_Update) ~ 1),
+         V_presentation3 = case_when(V_Update ~ case_when(str_detect(V_Presentation, "Defensive") ~ "Defensive",
+                                                          str_detect(V_Presentation, "Prosocial") ~ "Prosocial"),
+                                     !(V_Update) ~ "NONE") %>%
+           as.factor %>%
+           relevel("NONE"),
+         V_Number = V_Number %>% as.character() %>% as.numeric(),
+         V_JudgeSelf = ifelse(str_detect(V_Question, "JudgeSelf"), 1, 0),
+         V_Questionnb = case_when(str_detect(V_Question, "_1") ~ "CatchCovid",
+                                  str_detect(V_Question, "_2") ~ "TransmitCovid",
+                                  str_detect(V_Question, "_4") ~ "TransmitCovid",
+                                  str_detect(V_Question, "_3") ~ "MorallyWrong",
+                                  str_detect(V_Question, "_5") ~ "MorallyWrong"))
+
+dff <- dff %>%
+  mutate(V_Racename_EXPGRP_Product_Presentation = paste0(V_Racenamef, '_',
+                                                         EXPGRP_TEXT, '_',
+                                                         V_Product, '_',
+                                                         V_Presentation) %>% 
+           as.factor %>%
+           relevel("W_White_hardwaresupplies_Defensive"))
+
+dff$CONTINENT_BORN_TEXT_1 <- relevel(dff$CONTINENT_BORN_TEXT_1 %>% as.factor, "USA")
+dff$DOB_AGE <- 2020-dff$DOB_YEAR
+```
+
+```{r}
+dff_2 <- dff %>%
+  select(-matches("^clean_V|^V[1-4].[1-2]|^covmis_|^AMBI_MSR_[0-9]{1,3}|^AMBI_[0-9]{1,3}|^AMBI_W[0-9]|^FL_172"))
+```
+
+
+```{r}
+write.csv(dff,"./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_1.csv")
+write.csv(dff_2,"./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.csv")
+dff <- read.csv("./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.csv")
+```
+
+
+## JudgeOther_1
+
+```{r}
+reg <- lm(vignette_result ~ V_Update, data = df_V %>%
+  dplyr::select(vignette_name, vignette_result, V_Number,V_Racename,V_Update,V_Question) %>%
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+summary(reg)
+```
+
+
+
+```{r}
+reg <- lm(vignette_result ~ V_Update + V_Racenamef + V_Location + V_Age + V_Product + V_StoreType + V_Framing + EXPGRP_TEXT, 
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
+summary(reg)
+```
+
+```{r}
+reg <- lm(vignette_result ~ V_Update + V_Racenamef + V_Location + V_Age + V_Product + V_StoreType + V_Framing + EXPGRP_TEXT, 
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
+summary(reg)
+```
+
+```{r}
+reg <- lm(vignette_result ~ V_Update + V_Racenamef:EXPGRP_TEXT + V_Location + V_Age + V_Product + V_StoreType + V_Framing, 
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
+summary(reg)
+```
+
+
+
+
+```{r}
+reg <- lm(vignette_result ~  V_Location + V_Age + V_Racenamef * EXPGRP_TEXT * V_Product * V_Presentation + V_StoreType + V_Framing, 
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1", V_Update == T))
+summary(reg)
+```
+
+
+```{r}
+dff %>% 
+  filter(V_Question=="JudgeOther_1") %>%
+  mutate(vn = vignette_result^car::powerTransform(vignette_result+0.000000001)$lambda) %>%
+  .$vn %>%
+  shapiro.test()
+
+dff %>% 
+  filter(V_Question=="JudgeOther_1") %>%
+  mutate(vn = vignette_result^car::powerTransform(vignette_result+0.000000001)$lambda) %>%
+  dplyr::select(vn) %>%
+  hist()
+
+dff %>% 
+  filter(V_Question=="JudgeOther_1") %>%
+  dplyr::select(vignette_result) %>%
+  hist()
+```
+
+pb our data is really not normal.
+
+## Mixed effect Model
+
+```{r}
+library(lme4)
+library(lmerTest)
+library(emmeans)
+```
+
+
+```{r}
+basic.lm <- lm(vignette_result ~ V_up, 
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
+summary(basic.lm)
+```
+
+```{r}
+dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1") %>%
+  ggplot(aes(x=V_up, y=vignette_result)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+
+```{r}
+plot(basic.lm, which = 1)
+```
+
+```{r}
+plot(basic.lm, which = 2)
+```
+
+V_Location + V_Age + V_Product + V_StoreType + V_Framing
+```{r}
+dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1") %>%
+  ggplot(aes(x=EXPGRP_TEXT, y=vignette_result, fill=EXPGRP_TEXT)) +
+  ggdist::stat_halfeye(
+    adjust = 0.5,
+    justification=-.2,
+    .width = 0,
+    point_colour=NA
+  ) +
+  geom_boxplot(
+    width=.12,
+    outlier.color = NA,
+    alpha=.5
+  ) +
+  ggdist::stat_dots(
+    side="left",
+    justification=1.1,
+    binwidth=.25
+  )
+boxplot(vignette_result ~ EXPGRP_TEXT, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+boxplot(vignette_result ~ CONTINENT_BORN_TEXT_1, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+
+dff %>% 
+  filter(V_Question=="JudgeOther_1") %>%
+  ggplot(aes(x=interaction(EXPGRP_TEXT,CONTINENT_BORN_TEXT_1), y=vignette_result, fill=interaction(EXPGRP_TEXT,CONTINENT_BORN_TEXT_1))) +
+  geom_boxplot()+ 
+  theme(axis.text.x = element_text(angle = 45, vjust=1, hjust=1)) 
+
+
+boxplot(vignette_result ~ V_Product, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+boxplot(vignette_result ~ V_Location, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+boxplot(vignette_result ~ V_Age, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+boxplot(vignette_result ~ V_Racenamef, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+boxplot(vignette_result ~ V_StoreType, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+boxplot(vignette_result ~ V_Framing, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+boxplot(vignette_result ~ ID, 
+        data = dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1"))
+```
+
+```{r}
+d_verif <- dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1") %>%
+  group_by(ID) %>%
+  summarise(sdres = sd(vignette_result),
+            timeres = mean(V_Timeperquestion)) %>%
+  mutate(dif = sdres %>% cut(c(0, 0.0001,1,5,10,50,100), include.lowest = T),
+         time = timeres %>% cut(c(0,1,2,3,5,10,815)))
+
+table(d_verif$dif, d_verif$time) %>% lprop
+```
+#### model
+
+```{r}
+mixed.lmer <- lmer(vignette_result ~ V_up + (1|V_Product) + (1|V_Product:V_Presentation) + (1|ID),
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
+summary(mixed.lmer)
+
+mixed.lmer2 <- lmer(vignette_result ~ V_Update + V_Product + V_Update:V_Product:V_presentation3 + (1|ID),
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
+summary(mixed.lmer)
+```
+
+
+```{r}
+plot(mixed.lmer)
+```
+
+```{r}
+qqnorm(resid(mixed.lmer))
+qqline(resid(mixed.lmer))
+```
+
+
+```{r}
+dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1") %>%
+  ggplot(aes(x = V_up, y = vignette_result, colour = ID)) +
+  facet_grid( ~ V_Product) +
+  geom_point() +
+  theme_classic() +
+  geom_line(data = cbind(dff %>% 
+                           filter(V_Number==1, V_Question=="JudgeOther_1"), 
+                         pred = predict(mixed.lmer)), aes(y = pred)) +
+  theme(legend.position = "none")
+```
+
+
+
+```{r}
+emmeans(mixed.lmer2, ~ V_Update + V_Update:V_Product:V_presentation3)
+```
+
+
+```{r}
+mixed.lmer <- lmer(vignette_result ~ V_presentation3 * V_Product + (1|ID),
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
+mixed.lmer %>% summary()
+ls_means(mixed.lmer, ddf = c("Satterthwaite"))
+```
+
+
+```{r}
+difflsmeans(mixed.lmer)
+```
+
+
+# Model on all the db
+
+```{r}
+mixed.lmer2 <- lmer(vignette_result ~ V_up + V_Product + V_Number + V_JudgeSelf + V_Questionnb + V_up:V_Product:V_presentation3 + (1|ID),
+          data = dff)
+summary(mixed.lmer2)
+```
+
+## Questions to each other
+
+
+```{r}
+dff_q <- dff %>%
+  select(-vignette_name, -V_Question, -X) %>%
+  select(-matches(".y$")) %>%
+  tidyr::spread(V_Questionnb, vignette_result)
+```
+
+
+```{r}
+lm(MorallyWrong ~ CatchCovid,data = dff_q) %>% summary()
+lm(TransmitCovid ~ CatchCovid,data = dff_q) %>% summary()
+
+
+ggplot(dff_q,aes(CatchCovid, MorallyWrong)) +
+  geom_point(color="grey") +
+  geom_smooth(method='lm') +
+  ggpubr::stat_regline_equation(label.y = 100, aes(label = ..eq.label..)) +
+  ggpubr::stat_regline_equation(label.y = 95, aes(label = ..rr.label..))
+
+ggplot(dff_q,aes(TransmitCovid, MorallyWrong)) +
+  geom_point(color="grey") +
+  geom_smooth(method='lm')+
+  ggpubr::stat_regline_equation(label.y = 100, aes(label = ..eq.label..)) +
+  ggpubr::stat_regline_equation(label.y = 95, aes(label = ..rr.label..))
+
+formula <- y ~ x    
+dff_q %>%
+  mutate(V_Number=V_Number%>% as.factor()) %>%
+  ggplot(aes(CatchCovid, TransmitCovid,  color=V_Number)) +
+    geom_point(alpha=.3, cex=.1) +
+    geom_smooth(method='lm')+
+  ggpubr::stat_regline_equation(aes(label = ..eq.label..))
+```
+
+```{r}
+mixed.lmer2 <- lmer(TransmitCovid ~ CatchCovid * V_Number + (1|ID),
+          data = dff_q)
+summary(mixed.lmer2)
+```
+
+
+
+```{r}
+ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=CONTINENT_BORN_TEXT_1)) +
+  geom_point(alpha=.3, cex=.1) +
+  geom_smooth(method='lm') +
+    ggpubr::stat_regline_equation(aes(label = ..eq.label..)) 
+```
+
+```{r}
+ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=EXPGRP_TEXT)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r}
+ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=DOB_AGE_BRACKET)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+
+```{r}
+ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=EDUCATION_2_TEXT)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+
+```{r}
+ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=covqual_class_2)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r}
+ggplot(dff_q %>%
+         mutate(CovidSkepticism_ = CovidSkepticism %>% cut(c(-1,20,40, 60 ,80))),aes(x=CatchCovid, y=MorallyWrong, color=CovidSkepticism_)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r}
+ggplot(dff_q %>%
+         gather(BIG5_name, 
+                BIG5_res,
+                dff_q %>% colnames() %>% str_detect("^AMBI_BIG5_") %>% which()) %>%
+         mutate(BIG5_res_ = BIG5_res %>% cut(c(-4,-1,1,4))), 
+       aes(x=CatchCovid, y=MorallyWrong, color=BIG5_res_)) +
+  facet_wrap(~BIG5_name, ncol = 2) +
+  geom_point(size=0.1) +
+  geom_smooth(method='lm')
+```
+
+```{r}
+ggplot(dff_q %>%
+         mutate(V_JudgeSelf_=V_JudgeSelf %>% as.factor),
+       aes(x=CatchCovid, y=MorallyWrong, color=V_JudgeSelf_)) +
+  facet_wrap(~EXPGRP_TEXT) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r}
+ggplot(dff_q  %>%
+         mutate(V_up_=V_up %>% as.factor),
+       aes(x=CatchCovid, y=MorallyWrong, color=V_up_)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r}
+ggplot(dff_q  %>%
+         mutate(V_up_=V_up %>% as.factor),
+       aes(x=CatchCovid, y=MorallyWrong, color=V_presentation3)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+
+```{r}
+ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_Racenamef)) +
+  facet_wrap(~EXPGRP_TEXT) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+
+```{r}
+ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_Product)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+
+```{r}
+ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_presentation3)) +
+  facet_wrap(~ V_Product) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+
+```{r}
+ggplot(dff_q %>%
+         mutate(V_Number_=V_Number %>% as.factor()),
+       aes(x=CatchCovid, y=MorallyWrong, color=V_Number_)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+
+### Mixed model with catchcovid
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ CONTINENT_BORN_TEXT_1 + CatchCovid + (1|ID),
+          data = dff_q )
+summary(mixed.lmer)
+```
+
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ CatchCovid + CONTINENT_BORN_TEXT_1 + EDUCATION_2_TEXT + DOB_AGE + EXPGRP_TEXT + (1|ID),
+          data = dff_q )
+summary(mixed.lmer) 
+```
+
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ CatchCovid + CovidSkepticism + (1|ID),
+          data = dff_q )
+summary(mixed.lmer) 
+```
+
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Agreeableness + AMBI_BIG5_Conscientiousness + CatchCovid + (1|ID),
+          data = dff_q )
+summary(mixed.lmer) 
+```
+
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ V_Racenamef + V_Age + V_JudgeSelf + V_Location + V_Framing + V_Timeperquestion + CatchCovid*V_presentation3*V_Product*V_Number + (1|ID),
+          data = dff_q )
+summary(mixed.lmer) 
+```
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ CovidSkepticism + CONTINENT_BORN_TEXT_1 + EDUCATION_2_TEXT + DOB_AGE + EXPGRP_TEXT*V_Racenamef + AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Agreeableness + AMBI_BIG5_Conscientiousness + V_Age + V_JudgeSelf + V_Location + V_Framing + V_Timeperquestion + CatchCovid*V_presentation3*V_Product*V_Number + (1|ID),
+          data = dff_q )
+summary(mixed.lmer) 
+```
+
+
+
+```{r}
+difflsmeans(mixed.lmer)
+```
+
+
+## Only Model
+
+
+```{r}
+write.csv(dff_q, file="./data/mjolnir_databaseforModel.csv")
+dff_q <- read.csv("./data/mjolnir_databaseforModel.csv")
+```
+
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ V_presentation3 + (1|V_JudgeSelf/ID),
+          data = dff_q )
+summary(mixed.lmer) 
+```
+
+
+```{r}
+dff_q <- dff_q %>%
+  mutate(vnMorallyWrong = MorallyWrong^car::powerTransform(MorallyWrong+0.000000001)$lambda)
+
+dff_q %>%
+  dplyr::select(vnMorallyWrong) %>%
+  hist()
+dff_q %>%
+  dplyr::select(MorallyWrong) %>%
+  hist()
+dff_q$MorallyWrong %>% cut(c(0,10,50,100), include.lowest = T) %>% freq
+```
+
+
+
+#### Scenarios
+
+##### 0 Test variable controle
+
+```{r}
+dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "hardwaresupplies")
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Number + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Age + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Location + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "MorallyWrong" = lmer(MorallyWrong ~ V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Framing + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Number + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Age + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Location + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Framing + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Number + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Age + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Location + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_StoreType + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Framing + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 1, Product without update") 
+```
+
+
+
+##### 1 Product
+
+
+```{r}
+dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "hardwaresupplies")
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 1, Product without update") 
+```
+
+```{r}
+map(mixed.lmers, function(x){car::leveneTest(residuals(x) ~ dff_q %>% filter(V_JudgeSelf==0, V_up==0) %>% .$V_Product)})
+```
+
+```{r}
+difflmeansmodelcomp <- function(listlmermodels){
+  l_r <- map(listlmermodels, difflsmeans)
+  l_r <- map(names(l_r), function(x){
+    df_r2 <- l_r[[x]] %>%
+      mutate(p = `Pr(>|t|)`,
+             star = case_when(p < 0.001 ~ "***",
+                                              p < 0.01 ~ "**",
+                                              p < 0.05 ~ "*",
+                                              p < 0.1 ~ ".", 
+                                              TRUE ~ ""),
+             res = paste0(round(Estimate,2), star),
+             comparison = rownames(l_r[[x]])) %>%
+      select(comparison, res) %>%
+      as_tibble()
+    colnames(df_r2) <- c("comparison", x)
+    return(df_r2)
+  }) 
+  df_r <- purrr::reduce(l_r, full_join) %>% as.data.frame()
+  rownames(df_r) <-  df_r$comparison
+  df_r <-  df_r %>% select(-comparison)
+  return(df_r)
+}
+```
+
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "V_Product")
+xtable::xtable(dff.means) 
+```
+
+```{r}
+grph <- dff_q %>%
+  filter(V_JudgeSelf==0, V_up==0) %>%
+  gather(Question, Value, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+   mutate(x = case_when(V_Product=="hardwaresupplies"~1,
+                       V_Product=="babyformula"~2,
+                       V_Product=="cigarettes"~3,
+                       V_Product=="toiletpaper"~4),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value, x=x)) +
+  geom_point(aes(x=xj, color = V_Product), size = .1) +
+  geom_half_boxplot(aes(x=x, y = Value, color = V_Product), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x, y = Value, color = V_Product), position = position_nudge(x = -.3), side = "l") +
+  scale_x_continuous(breaks=c(1,2,3,4), labels=c("hardwaresupplies", "babyformula", "cigarettes", "toiletpaper")) +
+  xlab("Product")+
+facet_wrap(~Question, nrow=1)
+grph
+```
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model01_product.pdf", width = 10, height = 10)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+###### 1.2 Product self
+
+
+```{r}
+mixed.lmers.self <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1, V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1, V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1, V_up==0)))
+      
+modelsummary(mixed.lmers.self, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 1.2, Product without update - self") 
+```
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers.self)
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "V_Product")
+xtable::xtable(dff.means) 
+```
+
+```{r}
+grph <- dff_q %>%
+  filter(V_JudgeSelf==1, V_up==0) %>%
+  gather(Question, Value, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+   mutate(x = case_when(V_Product=="hardwaresupplies"~1,
+                       V_Product=="babyformula"~2,
+                       V_Product=="cigarettes"~3,
+                       V_Product=="toiletpaper"~4),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value, x=x)) +
+  geom_point(aes(x=xj, color = V_Product), size = .1) +
+  geom_half_boxplot(aes(x=x, y = Value, color = V_Product), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x, y = Value, color = V_Product), position = position_nudge(x = -.3), side = "l") +
+  scale_x_continuous(breaks=c(1,2,3,4), labels=c("hardwaresupplies", "babyformula", "cigarettes", "toiletpaper")) +
+  xlab("Product")+
+facet_wrap(~Question, nrow=2)
+grph
+```
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model01.2_product.pdf", width = 10, height = 10)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+###### 1.3 comparaison
+
+```{r}
+mixed.lmers.self <- list(
+  "selfMorallyWrong" = lmer(MorallyWrong ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1, V_up==0)),
+  "selfCatchCovid" = lmer(CatchCovid ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1, V_up==0)),
+  "selfTransmitCovid" = lmer(TransmitCovid ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1, V_up==0)))
+      
+modelsummary(c(mixed.lmers, mixed.lmers.self), fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 1.2, Product without update - self") 
+```
+
+```{r}
+comp <- c(mixed.lmers, mixed.lmers.self)
+dff.means <- difflmeansmodelcomp(comp)
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "V_Product")
+xtable::xtable(dff.means) 
+```
+
+
+
+###### 1.4 EXPRG*Product
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)))
+      
+modelsummary(c(mixed.lmers), fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Race crossed with product") 
+```
+
+```{r}
+comp <- c(mixed.lmers)
+dff.means <- difflmeansmodelcomp(comp)
+
+dff.means.comp <- dff.means %>%
+  mutate(name=rownames(.),
+         p1=str_extract(name, "[A-z0-9:]{1,} "),
+         p2=str_extract(name, " [A-z0-9:]{1,}"),
+         p1V_Name=str_extract(p1, "EXPGRP_TEXT[A-z]{1,}") %>%
+           str_remove("EXPGRP_TEXT"),
+         p2V_Name=str_extract(p2, "EXPGRP_TEXT[A-z]{1,}") %>%
+           str_remove("EXPGRP_TEXT"),
+         p1V_Up=str_extract(p1, "V_Product[A-z]{1,}") %>%
+           str_remove("V_Product"),
+         p2V_Up=str_extract(p2, "V_Product[A-z]{1,}") %>%
+           str_remove("V_Product")) %>%
+  filter(is.na(p1V_Name)|is.na(p1V_Up)|p1V_Up==p2V_Up&p1V_Name!=p2V_Name) %>%
+  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
+
+rownames(dff.means.comp) <-str_remove_all(rownames(dff.means.comp), "V_Product|EXPGRP_TEXT")
+xtable::xtable(dff.means) 
+
+dff.means.comp %>% xtable::xtable()
+
+```
+
+
+```{r}
+grph <- dff_q %>%
+  filter(V_JudgeSelf==0, V_up==0) %>%
+  gather(Question, Value, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+   mutate(x = case_when(V_Product=="hardwaresupplies"~1,
+                       V_Product=="babyformula"~2,
+                       V_Product=="cigarettes"~3,
+                       V_Product=="toiletpaper"~4),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value, x=x)) +
+  geom_point(aes(x=xj, color = V_Product), size = .1) +
+  geom_half_boxplot(aes(x=x, y = Value, color = V_Product), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x, y = Value, color = V_Product), position = position_nudge(x = -.3), side = "l") +
+  scale_x_continuous(breaks=c(1,2,3,4), labels=c("hardwaresupplies", "babyformula", "cigarettes", "toiletpaper")) +
+  xlab("Product")+
+facet_grid(EXPGRP_TEXT~Question)
+grph
+```
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model01.4_product.race.pdf", width = 10, height = 10)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+##### 2 Presentation
+
+Let's add an information to know for each participants if their answer before the update was inferior to the one after the update
+
+
+```{r}
+dff_q$V_presentation3 <- relevel(dff_q$V_presentation3 %>% as.factor, "NONE")
+dff_q$V_presentation3graph <- relevel(dff_q$V_presentation3 %>% as.factor, "Defensive")
+dff_q$ID_Q <- paste0(dff_q$ID, "_", dff_q$V_Number) %>% as.factor()
+dff_q$ID_Q_JS <- paste0(dff_q$ID_Q, "_", dff_q$V_JudgeSelf) %>% as.factor()
+
+
+# We want to compare preUpdate and postUpdate answers
+  # First we gather all the answer together
+  # Then we add to the key if the value refer to a pre or post update value
+  # Third we create a column for each answer
+  # For each question we compare post and pre update
+  # Finnally we join with our main data base
+dff_q <- dff_q %>%
+  select("ID_Q_JS", "V_up", "CatchCovid", "MorallyWrong", "TransmitCovid") %>%
+  gather(Question, Value, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  mutate(Q_Up = paste0(Question, "_", V_up)) %>%
+  select(-V_up, -Question) %>%
+  spread(Q_Up, Value) %>%
+  mutate(CatchCovid_Change = case_when(CatchCovid_0<CatchCovid_1~1,
+                                       CatchCovid_0>CatchCovid_1~-1,
+                                       CatchCovid_0==CatchCovid_1~0),
+         MorallyWrong_Change = case_when(MorallyWrong_0<MorallyWrong_1~1,
+                                       MorallyWrong_0>MorallyWrong_1~-1,
+                                       MorallyWrong_0==MorallyWrong_1~0),
+         TransmitCovid_Change = case_when(TransmitCovid_0<TransmitCovid_1~1,
+                                       TransmitCovid_0>TransmitCovid_1~-1,
+                                       TransmitCovid_0==TransmitCovid_1~0)) %>%
+  select(ID_Q_JS, matches("Change$")) %>%
+  right_join(dff_q, by="ID_Q_JS")
+```
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 2, Update presentation") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "V_presentation3")
+xtable::xtable(dff.means) 
+```
+
+We create a specific table for the graphs, so that we can have one culumn with the value, one with the key of the question qnd one to determine if the update had a positive or negative impact.
+
+```{r}
+set.seed(321)
+df_grph <- dff_q %>%
+  gather(QuestionPre, ValuePre, c("MorallyWrong", "CatchCovid", "TransmitCovid", 
+                            "MorallyWrong_Change", "CatchCovid_Change", "TransmitCovid_Change")) %>%
+  separate(QuestionPre, c("Question", "Change"), sep="_") %>%
+  mutate(Change=ifelse(is.na(Change),"Value", "Change")) %>%
+  spread(Change, ValuePre)
+
+```
+
+
+```{r}
+grph <- df_grph %>%
+  filter(V_JudgeSelf==0, !(is.na(V_presentation3))) %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_presentation3graph), size = .5) +
+    geom_line(data = . %>% 
+              filter(Change==0), 
+            aes(x=xj, group=ID_Q), color = 'lightgray', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change<0), 
+            aes(x=xj, group=ID_Q), color = 'brown4', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change>0), 
+            aes(x=xj, group=ID_Q), color = 'darkolivegreen3', alpha=.3) +
+  geom_half_boxplot(aes(x=x, y = Value, color = V_presentation3graph), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x, y = Value, color = V_presentation3graph), position = position_nudge(x = -.3), side = "l") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Prosocial"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Defensive"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  scale_x_continuous(breaks=c(1,2,3), labels=c("Defensive", "NONE", "Prosocial")) +
+  xlab("Presentation") +
+  facet_wrap(~Question)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model02_presentation.pdf", width = 10, height = 5)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+###### 2.2 Presentation self
+
+Let's add an information to know for each participants if their answer before the update was inferior to the one after the update
+
+
+```{r}
+dff_q$V_presentation3 <- relevel(dff_q$V_presentation3 %>% as.factor, "NONE")
+
+mixed.lmers.self <- list(
+  "selfMorallyWrong" = lmer(MorallyWrong ~ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1)),
+  "selfCatchCovid" = lmer(CatchCovid ~ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1)),
+  "selfTransmitCovid" = lmer(TransmitCovid ~ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1)))
+      
+modelsummary(mixed.lmers.self, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 2.2, Update presentation - self") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers.self)
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "V_presentation3")
+xtable::xtable(dff.means) 
+```
+
+
+```{r}
+grph <- df_grph %>%
+  filter(V_JudgeSelf==1, !(is.na(V_presentation3))) %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_presentation3graph), size = .5) +
+    geom_line(data = . %>% 
+              filter(Change==0), 
+            aes(x=xj, group=ID_Q), color = 'lightgray', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change<0), 
+            aes(x=xj, group=ID_Q), color = 'brown4', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change>0), 
+            aes(x=xj, group=ID_Q), color = 'darkolivegreen3', alpha=.3) +
+  geom_half_boxplot(aes(x=x, y = Value, color = V_presentation3graph), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x, y = Value, color = V_presentation3graph), position = position_nudge(x = -.3), side = "l") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Prosocial"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Defensive"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  scale_x_continuous(breaks=c(1,2,3), labels=c("Defensive", "NONE", "Prosocial")) +
+  xlab("Presentation") +
+  facet_wrap(~Question)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model02.2_presentationself.pdf", width = 10, height = 5)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+```{r}
+modelsummary(c(mixed.lmers, mixed.lmers.self), fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 2.2, Update presentation - self") 
+```
+
+```{r}
+dff.means <- difflmeansmodelcomp(c(mixed.lmers, mixed.lmers.self))
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "V_presentation3")
+xtable::xtable(dff.means) 
+```
+
+
+##### 3 Product * Presentation
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 3, Product and Update presentation") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "V_presentation3|V_Product")
+xtable::xtable(dff.means) 
+```
+
+```{r}
+set.seed(321)
+grph <- df_grph %>%
+  filter(V_JudgeSelf==0, !(is.na(V_presentation3))) %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_presentation3graph), size = .5) +
+    geom_line(data = . %>% 
+              filter(Change==0), 
+            aes(x=xj, group=ID_Q), color = 'lightgray', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change<0), 
+            aes(x=xj, group=ID_Q), color = 'brown4', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change>0), 
+            aes(x=xj, group=ID_Q), color = 'darkolivegreen3', alpha=.3) +
+  geom_half_boxplot(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.3), side = "l") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Prosocial"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Defensive"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  scale_x_continuous(breaks=c(1,2,3), labels=c("Defensive", "NONE", "Prosocial")) +
+  xlab("Presentation") +
+  facet_grid(V_Product~Question)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model03_presentation.product.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+
+###### 3.2 Product * Presentation
+
+```{r}
+mixed.lmers.self <- list(
+  "selfMorallyWrong" = lmer(MorallyWrong ~ V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1)),
+  "selfCatchCovid" = lmer(CatchCovid ~ V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1)),
+  "selfTransmitCovid" = lmer(TransmitCovid ~ V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==1)))
+      
+modelsummary(mixed.lmers.self, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 3.2, Product and Update presentation - self") 
+```
+
+
+```{r}
+set.seed(321)
+grph <- df_grph %>%
+  filter(V_JudgeSelf==1, !(is.na(V_presentation3))) %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_presentation3graph), size = .5) +
+    geom_line(data = . %>% 
+              filter(Change==0), 
+            aes(x=xj, group=ID_Q), color = 'lightgray', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change<0), 
+            aes(x=xj, group=ID_Q), color = 'brown4', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change>0), 
+            aes(x=xj, group=ID_Q), color = 'darkolivegreen3', alpha=.3) +
+  geom_half_boxplot(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.3), side = "l") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Prosocial"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Defensive"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  scale_x_continuous(breaks=c(1,2,3), labels=c("Defensive", "NONE", "Prosocial")) +
+  xlab("Presentation") +
+  facet_grid(V_Product~Question)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model03.2_presentation.productself.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+###### 3.3 comparison
+
+```{r}
+modelsummary(c(mixed.lmers, mixed.lmers.self), fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 3, Product and Update presentation - comparison") 
+```
+
+
+##### 4 SpillOver
+
+```{r}
+dff_q <- dff_q %>%
+  mutate(ScaledCatchCovid = CatchCovid %>% scale(),
+         ScaledTransmitCovid = TransmitCovid %>% scale())
+
+
+f_helpinterpretorestimate <- function(estimate, variable){
+  r <- estimate / sd(variable)
+  return(r)
+}
+
+
+mixed.lmers <- list(
+  "CatchCovidModel" = lmer(MorallyWrong ~ ScaledCatchCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovidModel" = lmer(MorallyWrong ~ ScaledTransmitCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Ctch&TrnsmtModel" = lmer(MorallyWrong ~ ScaledCatchCovid + ScaledTransmitCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Ctch*TrnsmtModel" = lmer(MorallyWrong ~ ScaledCatchCovid * ScaledTransmitCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+```
+
+```{r}
+f_helpinterpretorestimate(12.29, dff_q$CatchCovid)
+f_helpinterpretorestimate(13.25, dff_q$TransmitCovid)
+f_helpinterpretorestimate(5.4, dff_q$CatchCovid)
+f_helpinterpretorestimate(8.97, dff_q$TransmitCovid)
+f_helpinterpretorestimate(5.03, dff_q$CatchCovid)
+f_helpinterpretorestimate(8.65, dff_q$TransmitCovid)
+```
+
+```{r}
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 1.4 - Spill Over effect") 
+```
+
+
+```{r}
+grph <- dff_q %>%
+  gather(Question, Value, c("CatchCovid", "TransmitCovid")) %>%
+  ggplot(aes(y=MorallyWrong)) +
+  geom_point(aes(x=Value, color=Question), alpha=.3, cex=.1) +
+  geom_smooth(aes(x=Value, color=Question), method='lm')
+grph
+```
+
+
+```{r}
+interactions::interact_plot(mixed.lmers[["Ctch*TrnsmtModel"]], pred=ScaledCatchCovid, modx= ScaledTransmitCovid, interval = T)
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model04_SplillingEffect.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+
+###### 5 Pill Over Update
+
+```{r}
+mixed.lmers <- list(
+  "Spill&UpdateProduct" = lmer(MorallyWrong ~ ScaledCatchCovid*ScaledTransmitCovid + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill*UpdateProduct" = lmer(MorallyWrong ~ ScaledCatchCovid*ScaledTransmitCovid * V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 1.5, Product, Update presentation and Spill Over") 
+```
+
+
+```{r}
+f_helpinterpretorestimate(4.21, dff_q$CatchCovid)
+f_helpinterpretorestimate(8.12, dff_q$TransmitCovid)
+f_helpinterpretorestimate(5.91, dff_q$CatchCovid)
+f_helpinterpretorestimate(7.85, dff_q$TransmitCovid)
+f_helpinterpretorestimate(5.03, dff_q$CatchCovid)
+f_helpinterpretorestimate(8.65, dff_q$TransmitCovid)
+```
+
+```{r}
+interactions::interact_plot(mixed.lmers[["Spill&UpdateProduct"]], 
+                            pred=ScaledCatchCovid, 
+                            modx= ScaledTransmitCovid,
+                            interval = T,
+                            mod2 = V_presentation3)
+```
+
+
+###### 6 Pill Over Update
+
+```{r}
+mixed.lmers <- list(
+  "Ctch*TrnsmtModel" = lmer(MorallyWrong ~ ScaledCatchCovid * ScaledTransmitCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "EXPGRP&Spill&UpdateProduct" = lmer(MorallyWrong ~ EXPGRP_TEXT + ScaledCatchCovid*ScaledTransmitCovid + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill&EXPGRP*UpdateProduct" = lmer(MorallyWrong ~ ScaledCatchCovid*ScaledTransmitCovid * EXPGRP_TEXT*V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill*EXPGRP&UpdateProduct" = lmer(MorallyWrong ~ EXPGRP_TEXT*ScaledCatchCovid*ScaledTransmitCovid + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 1.6, EXPGRP_TEXT, Product, Update presentation and Spill Over") 
+```
+
+
+```{r}
+f_helpinterpretorestimate(4.2, dff_q$CatchCovid)
+f_helpinterpretorestimate(8.12, dff_q$TransmitCovid)
+f_helpinterpretorestimate(5.91, dff_q$CatchCovid)
+f_helpinterpretorestimate(7.85, dff_q$TransmitCovid)
+f_helpinterpretorestimate(5.03, dff_q$CatchCovid)
+f_helpinterpretorestimate(8.65, dff_q$TransmitCovid)
+```
+
+
+
+```{r}
+dff_q %>%
+  filter(V_Product=="cigarettes") %>%
+  mutate(Continent=case_when(CONTINENT_BORN_TEXT_1=="USA"~"USA",
+                             CONTINENT_BORN_TEXT_1!="USA"~"NON-USA")) %>%
+  ggplot(aes(x=CatchCovid, y=MorallyWrong, color=V_presentation3)) +
+  facet_grid(EXPGRP_TEXT~Continent) +
+  geom_point() +
+  geom_smooth(method='lm')
+
+```
+
+
+
+
+
+
+
+
+##### Summary
+
+```{r}
+mixed.lmers <- list(
+  "Product" = lmer(MorallyWrong ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  "Update" = lmer(MorallyWrong ~ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "UpdateProduct" = lmer(MorallyWrong ~ V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill&UpdateProduct" = lmer(MorallyWrong ~ ScaledCatchCovid*ScaledTransmitCovid + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "EXPGRP&Spill&UpdateProduct" = lmer(MorallyWrong ~ EXPGRP_TEXT + ScaledCatchCovid*ScaledTransmitCovid + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 1.6, EXPGRP_TEXT, Product, Update presentation and Spill Over") 
+```
+
+
+###### step
+
+```{r}
+test <- lmer(MorallyWrong ~ EXPGRP_TEXT*ScaledCatchCovid*ScaledTransmitCovid*V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0))
+summary(test)
+```
+
+```{r}
+step(test)
+
+```
+ 
+ 
+
+
+
+
+#### Racial demographics
+
+
+##### 4 Race Name
+
+
+```{r}
+dff_q <- dff_q %>%
+  mutate(V_Racenamef = case_when(V_Racename_EXPGRP_Product_Presentation %>% str_detect("^W_") ~ "White",
+                                 V_Racename_EXPGRP_Product_Presentation %>% str_detect("^B_") ~ "Black",
+                                 V_Racename_EXPGRP_Product_Presentation %>% str_detect("^C_") ~ "Chinese",
+                                 V_Racename_EXPGRP_Product_Presentation%>% str_detect("^I_") ~ "Indian"))
+dff_q$V_Racenamef <- relevel(dff_q$V_Racenamef %>% as.factor, "White")
+
+
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 4, Race Name") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "V_Racenamef")
+xtable::xtable(dff.means) 
+```
+
+
+```{r}
+tibble(test=dff_q$V_Racenamef, test2=dff_q$V_Racenamef %>% as.numeric())
+```
+
+
+```{r}
+set.seed(321)
+grph <- dff_q %>%
+  filter(V_JudgeSelf==0, V_up==0) %>%
+  gather(Question, Value, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  mutate(x = V_Racenamef %>% as.numeric(),
+         xj = jitter(V_Racenamef %>% as.numeric(), amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_Racenamef), size = .5) +
+  geom_half_boxplot(aes(x=V_Racenamef %>% as.numeric(), y = Value, color = V_Racenamef), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=V_Racenamef %>% as.numeric(), y = Value, color = V_Racenamef), position = position_nudge(x = -.3), side = "l") +
+  scale_x_continuous(breaks=c(1,2,3,4), labels=c("White", "Black", "Chinese", "Indian")) +
+  xlab("Race of the Name") +
+  facet_grid(~Question)
+grph
+```
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model04_racename.pdf", width = 10, height = 5)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+##### 5 Race participant
+
+```{r}
+dff_q$EXPGRP_TEXT <- relevel(dff_q$EXPGRP_TEXT %>% as.factor, "White")
+
+
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ EXPGRP_TEXT + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ EXPGRP_TEXT + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ EXPGRP_TEXT + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 5, Race Respondant") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "EXPGRP_TEXT")
+xtable::xtable(dff.means) 
+```
+
+
+```{r}
+tibble(test=dff_q$EXPGRP_TEXT, test2=dff_q$EXPGRP_TEXT %>% as.numeric())
+```
+
+
+```{r}
+set.seed(321)
+grph <- dff_q %>%
+  filter(V_JudgeSelf==0, V_up==0) %>%
+  gather(Question, Value, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  mutate(x = EXPGRP_TEXT %>% as.numeric(),
+         xj = jitter(EXPGRP_TEXT %>% as.numeric(), amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = EXPGRP_TEXT), size = .5) +
+  geom_half_boxplot(aes(x=EXPGRP_TEXT %>% as.numeric(), y = Value, color = EXPGRP_TEXT), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=EXPGRP_TEXT %>% as.numeric(), y = Value, color = EXPGRP_TEXT), position = position_nudge(x = -.3), side = "l") +
+  scale_x_continuous(breaks=c(1,2), labels=c("White","Chinese")) +
+  xlab("Race of the Respondant") +
+  facet_grid(~Question)
+grph
+```
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model05_racerespondant.pdf", width = 10, height = 5)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+##### 6 RaceName * Race participant
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 5, Race Respondant and name") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "EXPGRP_TEXT", "Resp")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+xtable::xtable(dff.means) 
+```
+
+
+```{r}
+tibble(test=dff_q$EXPGRP_TEXT, test2=dff_q$EXPGRP_TEXT %>% as.numeric())
+```
+
+
+```{r}
+set.seed(321)
+grph <- dff_q %>%
+  filter(V_JudgeSelf==0, V_up==0) %>%
+  gather(Question, Value, c("MorallyWrong", "CatchCovid", "TransmitCovid")) %>%
+  mutate(x = V_Racenamef %>% as.numeric(),
+         xj = jitter(V_Racenamef %>% as.numeric(), amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_Racenamef), size = .5) +
+  geom_half_boxplot(aes(x=V_Racenamef %>% as.numeric(), y = Value, color = V_Racenamef), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=V_Racenamef %>% as.numeric(), y = Value, color = V_Racenamef), position = position_nudge(x = -.3), side = "l") +
+  scale_x_continuous(breaks=c(1,2,3,4), labels=c("White", "Black", "Chinese", "Indian")) +
+  xlab("Race of the Name") +
+  facet_grid(EXPGRP_TEXT~Question)
+grph
+```
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model06_racerespondant.racename.pdf", width = 10, height = 5)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+##### 6 RaceName * Update
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Racenamef+V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "MorallyWrongcross" = lmer(MorallyWrong ~ V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Racenamef+V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "CatchCovidcross" = lmer(CatchCovid ~ V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Racenamef+V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovidcross" = lmer(TransmitCovid ~ V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 2.2, Race perceived and Update") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_presentation3", "")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+```
+
+
+```{r}
+dff.means.comp <- dff.means %>%
+  mutate(name=rownames(.),
+         p1=str_extract(name, "[A-z0-9:]{1,} "),
+         p2=str_extract(name, " [A-z0-9:]{1,}"),
+         p1V_Name=str_extract(p1, "Name[A-z]{1,}") %>%
+           str_remove("Name"),
+         p2V_Name=str_extract(p2, "Name[A-z]{1,}") %>%
+           str_remove("Name"),
+         p1V_Up=str_extract(p1, ":[A-z]{1,}") %>%
+           str_remove(":"),
+         p2V_Up=str_extract(p2, ":[A-z]{1,}") %>%
+           str_remove(":"),) %>%
+  filter(is.na(p1V_Name)|is.na(p1V_Up)|p1V_Up==p2V_Up|p1V_Name==p2V_Name) %>%
+  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
+dff.means.comp %>% xtable::xtable()
+```
+
+
+
+```{r}
+set.seed(321)
+grph <- df_grph %>%
+  filter(V_JudgeSelf==0, !(is.na(V_presentation3))) %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_presentation3graph), size = .5) +
+    geom_line(data = . %>% 
+              filter(Change==0), 
+            aes(x=xj, group=ID_Q), color = 'lightgray', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change<0), 
+            aes(x=xj, group=ID_Q), color = 'brown4', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change>0), 
+            aes(x=xj, group=ID_Q), color = 'darkolivegreen3', alpha=.3) +
+  geom_half_boxplot(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.3), side = "l") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Prosocial"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Defensive"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  scale_x_continuous(breaks=c(1,2,3), labels=c("Defensive", "NONE", "Prosocial")) +
+  xlab("Presentation") +
+  facet_grid(V_Racenamef~Question)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model6.2_presentation.racename.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+##### 6 RaceName * Update * SpillOver
+
+```{r}
+mixed.lmers <- list(
+  "Spill&Race" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid+ V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill*Race" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill&Race&Upd" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid+ V_Racenamef + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill*Race&Upd" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill&Race*Upd" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid+ V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill*Race*Upd" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 2.3, SpillOver and Race") 
+```
+
+
+
+```{r}
+grph <- dff_q %>%
+  gather(Question, Value, c("CatchCovid", "TransmitCovid")) %>%
+  ggplot(aes(y=MorallyWrong)) +
+  geom_point(aes(x=Value, color=V_Racenamef), alpha=.3, cex=.1) +
+  geom_smooth(aes(x=Value, color=V_Racenamef), method='lm') +
+  facet_wrap(~Question)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model6.3_spill.racename.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+```{r}
+grph <- dff_q %>%
+  gather(Question, Value, c("CatchCovid", "TransmitCovid")) %>%
+  filter(!(is.na(V_presentation3graph))) %>%
+  ggplot(aes(y=MorallyWrong)) +
+  geom_point(aes(x=Value, color=V_Racenamef), alpha=.3, cex=.1) +
+  geom_smooth(aes(x=Value, color=V_Racenamef), method='lm') +
+  facet_grid(Question~V_presentation3graph)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model6.3.2_spill.racename.update.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+```{r}
+grph <- dff_q %>%
+  gather(Question, Value, c("CatchCovid", "TransmitCovid")) %>%
+  filter(!(is.na(V_presentation3graph))) %>%
+  ggplot(aes(y=MorallyWrong)) +
+  geom_point(aes(x=Value, color=V_presentation3graph), alpha=.3, cex=.1) +
+  geom_smooth(aes(x=Value, color=V_presentation3graph), method='lm') +
+  facet_grid(Question~V_Racenamef)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model6.3.2_spill.racename.update.2.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+##### 6 RaceName * Update * Spill * Race EXP
+
+```{r}
+mixed.lmers <- list(
+    "EXPGRP&Spill*Race&Upd" = lmer(MorallyWrong ~ EXPGRP_TEXT + ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+    "EXPGRP*Race&Spill*Race&Upd" = lmer(MorallyWrong ~ EXPGRP_TEXT + ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + EXPGRP_TEXT:V_Racenamef+ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+    "EXPGRP+Spill*Race&Upd" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Racenamef + ScaledTransmitCovid*ScaledCatchCovid + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+    "EXPGRP*Spill*Race&Upd" = lmer(MorallyWrong ~ EXPGRP_TEXT*ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 2.4, Race perceived and Race Respondant") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_presentation3", "Up")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "EXPGRP_TEXT", "Resp")
+```
+
+
+```{r}
+dff.means.comp <- dff.means %>%
+  mutate(name=rownames(.),
+         p1=str_extract(name, "[A-z0-9:]{1,} "),
+         p2=str_extract(name, " [A-z0-9:]{1,}"),
+         p1V_Name=str_extract(p1, "Name[A-z]{1,}") %>%
+           str_remove("Name"),
+         p2V_Name=str_extract(p2, "Name[A-z]{1,}") %>%
+           str_remove("Name"),
+         p1V_Up=str_extract(p1, "Up[A-z]{1,}") %>%
+           str_remove("Up"),
+         p2V_Up=str_extract(p2, "Up[A-z]{1,}") %>%
+           str_remove("Up"),
+         p1V_Rs=str_extract(p1, "Resp[A-z]{1,}") %>%
+           str_remove("Resp"),
+         p2V_Rs=str_extract(p2, "Resp[A-z]{1,}") %>%
+           str_remove("Resp")) %>%
+  filter(is.na(p1V_Name)|is.na(p1V_Up)|is.na(p1V_Rs)|p1V_Up==p2V_Up|p1V_Name==p2V_Name|p1V_Rs==p2V_Rs) %>%
+  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name, -p1V_Rs, -p2V_Rs)
+dff.means.comp %>% xtable::xtable()
+```
+
+
+
+##### Summary
+
+```{r}
+mixed.lmers <- list(
+   "RcPercvd" = lmer(MorallyWrong ~ V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "Rac&Update" = lmer(MorallyWrong ~ V_Racenamef+V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Rac*Update" = lmer(MorallyWrong ~ V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill&Race" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid+ V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill*Race" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "Spill*Race&Upd" = lmer(MorallyWrong ~ ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "EXPGRP&Spill*Race&Upd" = lmer(MorallyWrong ~ EXPGRP_TEXT + ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+   "EXPGRP*Spill*Race&Upd" = lmer(MorallyWrong ~ EXPGRP_TEXT*ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0))
+  )
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 2's-Summary") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_presentation3", "Up")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "EXPGRP_TEXT", "Resp")
+```
+
+
+```{r}
+dff.means.comp <- dff.means %>%
+  mutate(name=rownames(.),
+         p1=str_extract(name, "[A-z0-9:]{1,} "),
+         p2=str_extract(name, " [A-z0-9:]{1,}"),
+         p1V_Name=str_extract(p1, "Name[A-z]{1,}") %>%
+           str_remove("Name"),
+         p2V_Name=str_extract(p2, "Name[A-z]{1,}") %>%
+           str_remove("Name"),
+         p1V_Up=str_extract(p1, "Up[A-z]{1,}") %>%
+           str_remove("Up"),
+         p2V_Up=str_extract(p2, "Up[A-z]{1,}") %>%
+           str_remove("Up"),
+         p1V_Rs=str_extract(p1, "Resp[A-z]{1,}") %>%
+           str_remove("Resp"),
+         p2V_Rs=str_extract(p2, "Resp[A-z]{1,}") %>%
+           str_remove("Resp")) %>%
+  filter(is.na(p1V_Name)|is.na(p1V_Up)|is.na(p1V_Rs)|p1V_Up==p2V_Up|p1V_Name==p2V_Name|p1V_Rs==p2V_Rs) %>%
+  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name, -p1V_Rs, -p2V_Rs)
+dff.means.comp %>% xtable::xtable()
+```
+
+
+
+###### MODEL 3 final
+
+```{r}
+mixed.lmers <- list(
+   "EXPGRP&Spill&UpdProd" = lmer(MorallyWrong ~ EXPGRP_TEXT + ScaledCatchCovid*ScaledTransmitCovid + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+   "EXPGRPSpillRace&Upd" = lmer(MorallyWrong ~ EXPGRP_TEXT*ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+   "EXPGRPSpillRace&UpdProd" = lmer(MorallyWrong ~  EXPGRP_TEXT*ScaledTransmitCovid*ScaledCatchCovid*V_Racenamef + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+   "Spill&EXPGRPRaceUpdProd" = lmer(MorallyWrong ~  ScaledTransmitCovid*ScaledCatchCovid+EXPGRP_TEXT*V_Racenamef*V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+    
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 3") 
+```
+
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers[c(4)])
+```
+
+
+```{r}
+arrangeorder <-  c("NmeWhite:CHANGEFORPRODUCT:Defensive - NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "NmeWhite:CHANGEFORPRODUCT:Prosocial - NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:CHANGEFORPRODUCT:NONE - RspChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:CHANGEFORPRODUCT:Defensive - RspChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:CHANGEFORPRODUCT:Prosocial - RspChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:NONE - RspChinese:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Defensive - RspChinese:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspChinese:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:NONE - RspWhite:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:Defensive - RspWhite:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspWhite:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:NONE - RspChinese:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:Defensive - RspChinese:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspChinese:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:NONE - RspWhite:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Defensive - RspWhite:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspWhite:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:NmeChinese:CHANGEFORPRODUCT:NONE - RspChinese:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:NmeChinese:CHANGEFORPRODUCT:Defensive - RspChinese:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:NmeChinese:CHANGEFORPRODUCT:Prosocial - RspChinese:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:NONE - RspChinese:NmeWhite:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Defensive - RspChinese:NmeWhite:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspChinese:NmeWhite:CHANGEFORPRODUCT:Prosocial")
+```
+
+
+```{r}
+dff.means.comp <- dff.means %>%
+  mutate(name=rownames(.),
+         p1=str_extract(name, "[A-z0-9:]{1,} "),
+         p2=str_extract(name, " [A-z0-9:]{1,}"),
+         p1V_PP=str_extract(p1, "V_Product[A-z]{1,}:V_presentation3[A-z]{1,}"),
+         p2V_PP=str_extract(p2, "V_Product[A-z]{1,}:V_presentation3[A-z]{1,}")) %>%
+  filter(!is.na(p1V_PP) & p1V_PP==p2V_PP)
+
+```
+
+
+```{r}
+f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT <-  function(c_WHICHPRODUCT){
+  dff.means.comp %>%
+  filter(!str_detect(name, "Indian|Black"), str_detect(name,c_WHICHPRODUCT)) %>%
+  mutate(name = name %>%
+           str_replace_all("EXPGRP_TEXT", "Rsp") %>%
+           str_replace_all("V_Racenamef", "Nme") %>%
+           str_remove_all("V_Product") %>%
+           str_remove_all("V_presentation3")) %>%
+  arrange(match(name, 
+                arrangeorder %>%
+                  str_replace_all("CHANGEFORPRODUCT",
+                                  c_WHICHPRODUCT))) %>%
+  rownames_to_column(var = "k") %>%
+  mutate(comp1 = str_extract(name, "[A-z0-9:]{1,} "),
+         comp2 = str_extract(name, " [A-z0-9:]{1,}")) %>%
+  select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
+  xtable::xtable(caption = paste("Mean comparison of Model 9, for ", c_WHICHPRODUCT, " and White and Chinese name")) %>%
+  print(include.rownames=FALSE)
+  return()
+  }
+```
+
+```{r}
+map(dff_q$V_Product %>% levels(), f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT)
+```
+
+
+
+
+
+
+
+
+##### 6 RaceName * Update
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ V_Racenamef+V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "MorallyWrongcross" = lmer(MorallyWrong ~ V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "CatchCovid" = lmer(CatchCovid ~ V_Racenamef+V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "CatchCovidcross" = lmer(CatchCovid ~ V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ V_Racenamef+V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovidcross" = lmer(TransmitCovid ~ V_Racenamef*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 2.2, Race perceived and Update") 
+```
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_presentation3", "")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+```
+
+
+```{r}
+dff.means.comp <- dff.means %>%
+  mutate(name=rownames(.),
+         p1=str_extract(name, "[A-z0-9:]{1,} "),
+         p2=str_extract(name, " [A-z0-9:]{1,}"),
+         p1V_Name=str_extract(p1, "Name[A-z]{1,}") %>%
+           str_remove("Name"),
+         p2V_Name=str_extract(p2, "Name[A-z]{1,}") %>%
+           str_remove("Name"),
+         p1V_Up=str_extract(p1, ":[A-z]{1,}") %>%
+           str_remove(":"),
+         p2V_Up=str_extract(p2, ":[A-z]{1,}") %>%
+           str_remove(":"),) %>%
+  filter(is.na(p1V_Name)|is.na(p1V_Up)|p1V_Up==p2V_Up|p1V_Name==p2V_Name) %>%
+  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)
+dff.means.comp %>% xtable::xtable()
+```
+
+
+
+```{r}
+set.seed(321)
+grph <- df_grph %>%
+  filter(V_JudgeSelf==0, !(is.na(V_presentation3))) %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_presentation3graph), size = .5) +
+    geom_line(data = . %>% 
+              filter(Change==0), 
+            aes(x=xj, group=ID_Q), color = 'lightgray', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change<0), 
+            aes(x=xj, group=ID_Q), color = 'brown4', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change>0), 
+            aes(x=xj, group=ID_Q), color = 'darkolivegreen3', alpha=.3) +
+  geom_half_boxplot(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.3), side = "l") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Prosocial"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Defensive"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  scale_x_continuous(breaks=c(1,2,3), labels=c("Defensive", "NONE", "Prosocial")) +
+  xlab("Presentation") +
+  facet_grid(V_Racenamef~Question)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model6.2_presentation.racename.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+
+##### 7 Covid Skepticism
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ CovidSkepticism + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ CovidSkepticism + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ CovidSkepticism + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 7, CovidSkepticism") 
+```
+
+```{r}
+grph <- df_grph %>%
+  filter(V_JudgeSelf==0, V_up == 0) %>%
+  ggplot(aes(x=CovidSkepticism, y=Value)) +
+  geom_point(alpha=.3, cex=.1) +
+  geom_smooth(method='lm') +
+    ggpubr::stat_regline_equation(aes(label = ..eq.label..))+
+  facet_wrap(~Question)
+grph
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model07_covidskepticism.pdf", width = 10, height = 5)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+
+##### 8 Covid Skepticism * Race*2
+
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ CovidSkepticism * V_Racenamef * EXPGRP_TEXT + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ CovidSkepticism * V_Racenamef * EXPGRP_TEXT + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ CovidSkepticism * V_Racenamef * EXPGRP_TEXT + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 8, CovidSkepticism, race name and race respondant") 
+```
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "EXPGRP_TEXT", "Resp")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+xtable::xtable(dff.means) 
+```
+
+
+
+
+
+##### 8.5 Covid Skepticism * Race*2
+
+
+```{r}
+dff_q$CONTINENT_BORN_TEXT_1 <- dff_q$CONTINENT_BORN_TEXT_1 %>% as.factor() %>% relevel("USA")
+dff_q$HH_INCOME_TEXT2 <-  dff_q$HH_INCOME_TEXT2 %>% as.factor()
+
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ CovidSkepticism + V_Racenamef * EXPGRP_TEXT + CONTINENT_BORN_TEXT_1:HH_INCOME_TEXT2 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ CovidSkepticism + V_Racenamef * EXPGRP_TEXT + CONTINENT_BORN_TEXT_1:HH_INCOME_TEXT2 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ CovidSkepticism + V_Racenamef * EXPGRP_TEXT + CONTINENT_BORN_TEXT_1:HH_INCOME_TEXT2 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 8, CovidSkepticism, race name and race respondant") 
+```
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "EXPGRP_TEXT", "Resp")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "CONTINENT_BORN_TEXT_1|HH_INCOME_TEXT2")
+xtable::xtable(dff.means) 
+```
+
+```{r}
+dff_q$HH_INCOME_TEXT <- dff_q$HH_INCOME_TEXT %>% as.factor %>% relevel("$30,000 to $50,000")
+
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ CovidSkepticism + V_Racenamef * EXPGRP_TEXT + CONTINENT_BORN_TEXT_1*HH_INCOME_TEXT2 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCovid" = lmer(CatchCovid ~ CovidSkepticism + V_Racenamef * EXPGRP_TEXT + CONTINENT_BORN_TEXT_1*HH_INCOME_TEXT2 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ CovidSkepticism + V_Racenamef * EXPGRP_TEXT + CONTINENT_BORN_TEXT_1*HH_INCOME_TEXT2 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 8, CovidSkepticism, race name and race respondant") 
+```
+
+
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "EXPGRP_TEXT", "Resp")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+rownames(dff.means) <-str_remove_all(rownames(dff.means), "CONTINENT_BORN_TEXT_1|HH_INCOME_TEXT2")
+xtable::xtable(dff.means) 
+```
+
+
+#### Scenario and Demographics
+
+##### 9 product * Presentation * race
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Racenamef*V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "CatchCovid" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Racenamef*V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Racenamef*V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 9, Race Name and Respondant, Product and Update presentation") 
+```
+
+```{r}
+dff_q %>%
+  filter(EXPGRP_TEXT=="Chinese",
+         V_Racenamef=="Black",
+         V_presentation3=="Defensive",
+         V_Product=="toiletpaper")
+```
+
+
+
+```{r}
+set.seed(321)
+grph <- df_grph %>%
+  filter(V_JudgeSelf==0, !(is.na(V_presentation3))) %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = V_presentation3graph), size = .5) +
+    geom_line(data = . %>% 
+              filter(Change==0), 
+            aes(x=xj, group=ID_Q), color = 'lightgray', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change<0), 
+            aes(x=xj, group=ID_Q), color = 'brown4', alpha=.4) +
+  geom_line(data = . %>% 
+              filter(Change>0), 
+            aes(x=xj, group=ID_Q), color = 'darkolivegreen3', alpha=.3) +
+  geom_half_boxplot(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x %>% as.numeric(), y = Value, color = V_presentation3graph), position = position_nudge(x = -.3), side = "l") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Prosocial"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Defensive"),
+              aes(x=x, y=Value), method = "lm", formula = y ~ x, geom = "smooth") +
+  scale_x_continuous(breaks=c(1,2,3), labels=c("Defensive", "NONE", "Prosocial")) +
+  xlab("Presentation") +
+  facet_grid(V_Product+EXPGRP_TEXT+V_Racenamef~Question)
+grph
+```
+
+```{r}
+dff.means <- difflmeansmodelcomp(mixed.lmers)
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "EXPGRP_TEXT", "Resp")
+rownames(dff.means) <-str_replace_all(rownames(dff.means), "V_Racenamef", "Name")
+dff.means
+xtable::xtable(dff.means) 
+```
+
+```{r}
+arrangeorder <-  c("NmeWhite:CHANGEFORPRODUCT:Defensive - NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "NmeWhite:CHANGEFORPRODUCT:Prosocial - NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:CHANGEFORPRODUCT:NONE - RspChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:CHANGEFORPRODUCT:Defensive - RspChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:CHANGEFORPRODUCT:Prosocial - RspChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:NONE - RspChinese:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Defensive - RspChinese:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspChinese:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:NONE - RspWhite:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:Defensive - RspWhite:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspWhite:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:NONE - RspChinese:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:Defensive - RspChinese:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspChinese:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspChinese:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:NONE - RspWhite:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Defensive - RspWhite:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspWhite:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:NmeChinese:CHANGEFORPRODUCT:NONE - RspChinese:NmeChinese:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:NmeChinese:CHANGEFORPRODUCT:Defensive - RspChinese:NmeChinese:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:NmeChinese:CHANGEFORPRODUCT:Prosocial - RspChinese:NmeChinese:CHANGEFORPRODUCT:Prosocial", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:NONE - RspChinese:NmeWhite:CHANGEFORPRODUCT:NONE", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Defensive - RspChinese:NmeWhite:CHANGEFORPRODUCT:Defensive", 
+                   "RspWhite:NmeWhite:CHANGEFORPRODUCT:Prosocial - RspChinese:NmeWhite:CHANGEFORPRODUCT:Prosocial")
+```
+
+
+```{r}
+dff.means.comp <- dff.means %>%
+  mutate(name=rownames(.),
+         p1=str_extract(name, "[A-z0-9:]{1,} "),
+         p2=str_extract(name, " [A-z0-9:]{1,}"),
+         p1V_PP=str_extract(p1, "V_Product[A-z]{1,}:V_presentation3[A-z]{1,}"),
+         p2V_PP=str_extract(p2, "V_Product[A-z]{1,}:V_presentation3[A-z]{1,}")) %>%
+  filter(!is.na(p1V_PP) & p1V_PP==p2V_PP)
+
+```
+
+
+```{r}
+f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT <-  function(c_WHICHPRODUCT){
+  dff.means.comp %>%
+  filter(!str_detect(name, "Indian|Black"), str_detect(name,c_WHICHPRODUCT)) %>%
+  mutate(name = name %>%
+           str_replace_all("EXPGRP_TEXT", "Rsp") %>%
+           str_replace_all("V_Racenamef", "Nme") %>%
+           str_remove_all("V_Product") %>%
+           str_remove_all("V_presentation3")) %>%
+  arrange(match(name, 
+                arrangeorder %>%
+                  str_replace_all("CHANGEFORPRODUCT",
+                                  c_WHICHPRODUCT))) %>%
+  rownames_to_column(var = "k") %>%
+  mutate(comp1 = str_extract(name, "[A-z0-9:]{1,} "),
+         comp2 = str_extract(name, " [A-z0-9:]{1,}")) %>%
+  select(comp1, comp2, MorallyWrong, CatchCovid, TransmitCovid) %>%
+  xtable::xtable(caption = paste("Mean comparison of Model 9, for ", c_WHICHPRODUCT, " and White and Chinese name")) %>%
+  print(include.rownames=FALSE)
+  return()
+  }
+```
+
+```{r}
+map(dff_q$V_Product %>% levels(), f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT)
+```
+
+
+
+```{r}
+dff.means.comp %>%
+  filter(str_detect(name, "EXPGRP_TEXTChinese:V_RacenamefBlack:V_Productcigarettes:V_presentation3Defensive"),
+         str_detect(MorallyWrong, "[*]")) 
+```
+
+
+```{r}
+df_grph %>%
+  filter(V_JudgeSelf==0, 
+         !(is.na(V_presentation3)),
+         Question=="MorallyWrong",
+         V_Product=="cigarettes",
+         !str_detect(V_Racenamef, "Indian|Black")) %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value, x=EXPGRP_TEXT, fill=V_Racenamef)) +
+  geom_boxplot() +
+  facet_wrap(~V_presentation3graph)
+```
+
+
+```{r}
+df_grph %>%
+  filter(V_JudgeSelf==0, 
+         !(is.na(V_presentation3)),
+         Question=="MorallyWrong",
+         V_Product=="cigarettes") %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value, x=EXPGRP_TEXT, fill=V_Racenamef)) +
+  geom_boxplot() +
+  facet_wrap(~V_presentation3graph)
+```
+
+
+```{r}
+df_grph %>%
+  filter(V_JudgeSelf==0, 
+         !(is.na(V_presentation3)),
+         Question=="MorallyWrong",
+         V_Product=="cigarettes") %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value, x=CONTINENT_BORN_TEXT_1, fill=V_Racenamef)) +
+  geom_boxplot() +
+  facet_wrap(EXPGRP_TEXT~V_presentation3graph)
+```
+
+
+```{r}
+set.seed(321)
+grph <- df_grph %>%
+  filter(V_JudgeSelf==0, 
+         !(is.na(V_presentation3)),
+         Question=="MorallyWrong",
+         V_Product=="cigarettes") %>%
+  mutate(x = case_when(V_presentation3graph=="Defensive"~1,
+                       V_presentation3graph=="NONE"~2,
+                       V_presentation3graph=="Prosocial"~3),
+         xj = jitter(x, amount = .09)) %>%
+  ggplot(aes(y=Value)) +
+  geom_point(aes(x=xj, color = EXPGRP_TEXT), size = .5) +
+    geom_line(aes(x=xj, group=ID_Q), color = 'lightgray', alpha=.4) +
+  geom_half_boxplot(aes(x=x %>% as.numeric(), y = Value, fill = V_presentation3graph), position = position_nudge(x = -.25), side = "r",outlier.shape = NA, center = TRUE, errorbar.draw = FALSE, width = .2) +
+  geom_half_violin(aes(x=x %>% as.numeric(), y = Value, fill = V_presentation3graph), position = position_nudge(x = -.3), side = "l") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Prosocial"),
+              aes(x=x, y=Value, color=EXPGRP_TEXT), method = "lm", formula = y ~ x, geom = "smooth") +
+  stat_smooth(data = . %>% filter(V_Presentation == "Defensive"),
+              aes(x=x, y=Value, color=EXPGRP_TEXT), method = "lm", formula = y ~ x, geom = "smooth") +
+  scale_x_continuous(breaks=c(1,2,3), labels=c("Defensive", "NONE", "Prosocial")) +
+  xlab("Presentation") +
+  facet_wrap(~V_Racenamef, ncol=2)
+grph
+```
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/Model03.2_presentation.productself.pdf", width = 10, height = 13)
+# 2. Create the plot
+grph
+# 3. Close the file
+dev.off()
+```
+
+##### 9 product * Presentation + race + spec
+
+
+```{r}
+dff_q <- dff_q %>%
+  mutate(V_rnmeB = case_when(V_Racenamef=="Black"~"Black",
+                             TRUE~"Other") %>%
+           as.factor() %>%
+           relevel("Other"),
+         V_rnmeI = case_when(V_Racenamef=="Indian"~"Indian",
+                             TRUE~"Other") %>%
+           as.factor() %>%
+           relevel("Other"),
+         V_prdctCig = case_when(V_Product=="cigarettes"~"cigarettes",
+                             TRUE~"Other") %>%
+           as.factor() %>%
+           relevel("Other"),
+         V_prdctTp = case_when(V_Product=="toiletpaper"~"toiletpaper",
+                             TRUE~"Other") %>%
+           as.factor() %>%
+           relevel("Other"),
+         V_presD = case_when(V_presentation3=="Defensive"~"Defensive",
+                             TRUE~"Other") %>%
+           as.factor() %>%
+           relevel("Other"),
+          V_presP = case_when(V_presentation3=="Prosocial"~"Prosocial",
+                             TRUE~"Other") %>%
+           as.factor() %>%
+           relevel("Other"))
+
+```
+
+```{r}
+dff_q$V_presP %>% freq()
+```
+
+
+
+```{r}
+mixed.lmers <- list(
+  "MorallyWrong" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Racenamef+V_Product*V_presentation3 + EXPGRP_TEXT:V_rnmeB:V_prdctCig:V_presD + EXPGRP_TEXT:V_rnmeB:V_prdctTp:V_presD + EXPGRP_TEXT:V_rnmeI:V_prdctTp:V_presP + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "CatchCovid" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Racenamef+V_Product*V_presentation3 + EXPGRP_TEXT:V_rnmeB:V_prdctCig:V_presD + EXPGRP_TEXT:V_rnmeB:V_prdctTp:V_presD + EXPGRP_TEXT:V_rnmeI:V_prdctTp:V_presP + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  "TransmitCovid" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Racenamef+V_Product*V_presentation3 + EXPGRP_TEXT:V_rnmeB:V_prdctCig:V_presD + EXPGRP_TEXT:V_rnmeB:V_prdctTp:V_presD + EXPGRP_TEXT:V_rnmeI:V_prdctTp:V_presP + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model 9, Race Name and Respondant, Product and Update presentation") 
+```
+
+##### Presentation
+
+##### Presentation
+
+##### Presentation
+
+
+
+##### 9 Catch Covid and CovidSkepticism
+
+```{r}
+dff_q$CovidBelieved <- 100 - dff_q$CovidSkepticism
+mixed.lmers <- list(
+  "CatchCov" = lmer(MorallyWrong ~ CatchCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CovSkep" = lmer(MorallyWrong ~ CovidBelieved + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCov + CovSkep" = lmer(MorallyWrong ~ CovidBelieved + CatchCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+  "CatchCov * CovSkep" = lmer(MorallyWrong ~ CovidBelieved * CatchCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),  
+  "CatchCov:CovSkep" = lmer(MorallyWrong ~ CovidBelieved:CatchCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)),
+    "scaleCatchCov*CovSkep" = lmer(MorallyWrong ~ scale(CovidBelieved) * scale(CatchCovid) + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0,  V_up==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Model x, Catch Covid and CovidSkepticism") 
+```
+
+##### Comparison Models
+CovidSkepticism + CONTINENT_BORN_TEXT_1 + EDUCATION_2_TEXT + DOB_AGE + EXPGRP_TEXT*V_Racenamef + AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Agreeableness + AMBI_BIG5_Conscientiousness + V_Age + V_JudgeSelf + V_Location + V_Framing + V_Timeperquestion + CatchCovid*V_presentation3*V_Product*V_Number + (1|ID)
+
+```{r}
+mixed.lmers <- list(
+  lmer(MorallyWrong ~ V_Product + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  lmer(MorallyWrong ~ V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  lmer(MorallyWrong ~ V_Racenamef + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  lmer(MorallyWrong ~ V_Age + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  lmer(MorallyWrong ~ V_Number + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  lmer(MorallyWrong ~ V_JudgeSelf + (1|ID),
+          data = dff_q %>%
+            filter(V_up==0)),
+  lmer(MorallyWrong ~ V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  lmer(MorallyWrong ~ V_Racenamef + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  lmer(MorallyWrong ~ V_Age + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  lmer(MorallyWrong ~ V_Racenamef + V_Age + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  lmer(MorallyWrong ~ CatchCovid + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0, V_up==0)),
+  lmer(MorallyWrong ~ CatchCovid + V_Racenamef + V_Age + V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+      
+modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
+             output = "latex", title = "Comparison Model Morally Wrong") 
+```
+
+
+
+```{r}
+dff_q %>%
+  filter(V_JudgeSelf==0, !(is.na(V_presentation3))) %>%
+  select(ID_Q) %>% freq()
+```
+
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ V_Racenamef + (1|V_JudgeSelf/ID),
+          data = dff_q )
+summary(mixed.lmers[[1]]) 
+```
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ V_Number + (1|V_JudgeSelf/ID),
+          data = dff_q )
+summary(mixed.lmer) 
+```
+
+```{r}
+formula <- y ~ x    
+dff_q %>%
+  ggplot(aes(V_Number, MorallyWrong)) +
+    geom_point(alpha=.3, cex=.5) +
+    geom_smooth(method='lm', color="red")+
+  ggpubr::stat_regline_equation(aes(label = ..eq.label..))
+
+dff_q %>%
+  mutate(V_Number = V_Number %>% as.factor()) %>%
+  ggplot(aes(V_Number, MorallyWrong)) +
+    geom_violin()+
+  geom_point(alpha=.3, cex=.5) +
+  ggpubr::stat_regline_equation(aes(label = ..eq.label..))
+
+dff_q %>%
+  mutate(V_Number = V_Number %>% as.factor()) %>%
+  ggplot(aes(V_Number, MorallyWrong)) +
+    geom_boxplot()+
+  ggpubr::stat_regline_equation(aes(label = ..eq.label..))
+```
+
+
+```{r}
+mixed.lmer <- lmer(MorallyWrong ~ V_Racenamef + V_Age + V_Location + V_Framing + V_presentation3*V_Product*V_Number + (1|V_JudgeSelf/ID),
+          data = dff_q )
+summary(mixed.lmer) 
+```
+
+
+
+
+## SEM Evolution Question Morality result with or without update
+
+```{r}
+library(lavaan)
+library(semTools)
+library(lavaanPlot)
+library(MVN)
+library(MIIVsem)
+```
+
+
+```{r}
+dff_sem <- dff_q %>%
+  mutate(V_Number = case_when(V_Number==1~"MJ_1",
+                               V_Number==2~"MJ_2",
+                               V_Number==3~"MJ_3",
+                               V_Number==4~"MJ_4"),
+         V_Update2 = case_when(V_up==1~"Update",
+                               V_up==0~""),
+         V_Self2 = case_when(V_JudgeSelf==1~"Self",
+                               V_JudgeSelf==0~"Other"),
+         V_Number_up = paste(V_Number, V_Self2, V_Update2, sep="_")) %>%
+  select(V_Number_up, MorallyWrong,ResponseId) %>%
+  tidyr::spread(V_Number_up, MorallyWrong)
+```
+
+```{r}
+dff_sem[c(1:16),] %>%
+  select(matches("^MJ_"))
+```
+
+
+```{r}
+map(dff_sem %>% colnames, function(x){
+  k <- all(dff_sem[c(1:16),x]==dff_sem[c(1),x])
+  if(k %>% is.na()){k <- T}else{}
+  if(k){}else{print(x)}
+  })
+```
+
+```{r}
+
+```
+
+
+
+
+
+### without up
+
+```{r}
+model <- '
+MJ_2_Self_ ~ MJ_1_Self_
+MJ_3_Self_ ~ MJ_2_Self_
+MJ_4_Self_ ~ MJ_3_Self_
+MJ_3_Self_ ~ MJ_1_Self_
+MJ_4_Self_ ~ MJ_1_Self_
+MJ_4_Self_ ~ MJ_2_Self_
+'
+```
+
+```{r}
+fit <- cfa(model, data = dff_sem, estimator = "ML")
+```
+
+```{r}
+summary(fit, fit.measures=T, standardized=T, rsquare=T) 
+```
+
+```{r}
+semPlot::semPaths(fit, "std",
+                  layout = "tree2",
+                  rotation = 2)
+```
+
+### With Up
+
+
+```{r}
+model2 <- '
+MJ_1_Self_Update ~ MJ_1_Self_
+MJ_2_Self_ ~ MJ_1_Self_ + MJ_1_Self_Update
+MJ_2_Self_Update ~ MJ_2_Self_
+MJ_3_Self_ ~ MJ_2_Self_ + MJ_2_Self_Update
+MJ_3_Self_Update ~ MJ_3_Self_
+MJ_4_Self_ ~ MJ_3_Self_ + MJ_3_Self_Update
+MJ_4_Self_Update ~ MJ_4_Self_
+'
+```
+
+```{r}
+fit2 <- cfa(model2, data = dff_sem, estimator = "ML")
+```
+
+```{r}
+summary(fit2, fit.measures=T, standardized=T, rsquare=T) 
+```
+
+```{r}
+semPlot::semPaths(fit2, "std",
+                  layout = "tree2",
+                  rotation=2)
+```
+
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

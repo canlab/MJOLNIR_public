@@ -1,0 +1,112 @@
+"0","mixed.lmers <- list("
+"0","  ""MW A path"" = lmer(MWOther_Self ~ V_Product*V_Racenamef + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW B1 path"" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW B2 path"" = lmer(MWOther_Self ~ TCOther_Self + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW B3 path"" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self+ (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW B4 path"" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW C1 path"" = lmer(CCOther_Self ~ V_Product*V_Racenamef + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW C2 path"" = lmer(TCOther_Self ~ V_Product*V_Racenamef + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW C'1 path"" = lmer(MWOther_Self ~ CCOther_Self + V_Product*V_Racenamef  + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW C'2 path"" = lmer(MWOther_Self ~ TCOther_Self + V_Product*V_Racenamef  + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW C'3 path"" = lmer(MWOther_Self ~ CCOther_Self + TCOther_Self + V_Product*V_Racenamef  + (1|ID),"
+"0","          data = dff_q2),"
+"0","  ""MW C'4 path"" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self  + V_Product*V_Racenamef + (1|ID),"
+"0","          data = dff_q2))"
+"0","      "
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}[{conf.low},{conf.high}]{stars}""), statistic = c(""t={statistic}, se={std.error}"","
+"0","                                   ""p={p.value}, df={df.error}""),"
+"0","             output = ""latex"", title = ""Model H2b-2"") "
+"1","\begin{table}
+
+\caption{Model H2b-2}
+\centering
+\begin{tabular}[t]{lccccccccccc}
+\toprule
+  & MW A path & MW B1 path & MW B2 path & MW B3 path & MW B4 path & MW C1 path & MW C2 path & MW C'1 path & MW C'2 path & MW C'3 path & MW C'4 path\\
+\midrule
+(Intercept) & \num{-3.01}[\num{-4.85},\num{-1.16}]** & \num{-2.66}[\num{-3.29},\num{-2.04}]*** & \num{-2.64}[\num{-3.27},\num{-2.01}]*** & \num{-2.60}[\num{-3.23},\num{-1.96}]*** & \num{-2.60}[\num{-3.23},\num{-1.97}]*** & \num{2.70}[\num{1.42},\num{3.98}]*** & \num{4.15}[\num{2.80},\num{5.50}]*** & \num{-2.91}[\num{-4.76},\num{-1.06}]** & \num{-2.85}[\num{-4.70},\num{-1.00}]** & \num{-2.81}[\num{-4.67},\num{-0.96}]** & \num{-2.80}[\num{-4.65},\num{-0.95}]**\\
+ & t=\num{-3.20}, se=\num{0.94} & t=\num{-8.31}, se=\num{0.32} & t=\num{-8.22}, se=\num{0.32} & t=\num{-8.02}, se=\num{0.32} & t=\num{-8.04}, se=\num{0.32} & t=\num{4.15}, se=\num{0.65} & t=\num{6.05}, se=\num{0.69} & t=\num{-3.09}, se=\num{0.94} & t=\num{-3.02}, se=\num{0.94} & t=\num{-2.98}, se=\num{0.94} & t=\num{-2.96}, se=\num{0.94}\\
+ & p=\num{0.00}, df=\num{4774.00} & p=\num{0.00}, df=\num{4788.00} & p=\num{0.00}, df=\num{4788.00} & p=\num{0.00}, df=\num{4787.00} & p=\num{0.00}, df=\num{4786.00} & p=\num{0.00}, df=\num{4774.00} & p=\num{0.00}, df=\num{4774.00} & p=\num{0.00}, df=\num{4773.00} & p=\num{0.00}, df=\num{4773.00} & p=\num{0.00}, df=\num{4772.00} & p=\num{0.00}, df=\num{4771.00}\\
+V\_Productcigarettes & \num{-0.17}[\num{-2.75},\num{2.40}] &  &  &  &  & \num{1.43}[\num{-0.30},\num{3.17}] & \num{0.13}[\num{-1.66},\num{1.92}] & \num{-0.13}[\num{-2.71},\num{2.44}] & \num{-0.18}[\num{-2.75},\num{2.40}] & \num{-0.14}[\num{-2.72},\num{2.43}] & \num{-0.15}[\num{-2.73},\num{2.42}]\\
+ & t=\num{-0.13}, se=\num{1.31} &  &  &  &  & t=\num{1.62}, se=\num{0.88} & t=\num{0.14}, se=\num{0.91} & t=\num{-0.10}, se=\num{1.31} & t=\num{-0.13}, se=\num{1.31} & t=\num{-0.11}, se=\num{1.31} & t=\num{-0.12}, se=\num{1.31}\\
+ & p=\num{0.89}, df=\num{4774.00} &  &  &  &  & p=\num{0.10}, df=\num{4774.00} & p=\num{0.89}, df=\num{4774.00} & p=\num{0.92}, df=\num{4773.00} & p=\num{0.89}, df=\num{4773.00} & p=\num{0.91}, df=\num{4772.00} & p=\num{0.91}, df=\num{4771.00}\\
+V\_Producthardwaresupplies & \num{1.57}[\num{-0.98},\num{4.12}] &  &  &  &  & \num{-0.22}[\num{-1.93},\num{1.50}] & \num{-0.42}[\num{-2.19},\num{1.35}] & \num{1.57}[\num{-0.98},\num{4.12}] & \num{1.55}[\num{-1.00},\num{4.10}] & \num{1.55}[\num{-1.00},\num{4.10}] & \num{1.49}[\num{-1.06},\num{4.04}]\\
+ & t=\num{1.21}, se=\num{1.30} &  &  &  &  & t=\num{-0.25}, se=\num{0.87} & t=\num{-0.47}, se=\num{0.90} & t=\num{1.20}, se=\num{1.30} & t=\num{1.19}, se=\num{1.30} & t=\num{1.19}, se=\num{1.30} & t=\num{1.15}, se=\num{1.30}\\
+ & p=\num{0.23}, df=\num{4774.00} &  &  &  &  & p=\num{0.80}, df=\num{4774.00} & p=\num{0.64}, df=\num{4774.00} & p=\num{0.23}, df=\num{4773.00} & p=\num{0.23}, df=\num{4773.00} & p=\num{0.23}, df=\num{4772.00} & p=\num{0.25}, df=\num{4771.00}\\
+V\_Producttoiletpaper & \num{-0.15}[\num{-2.68},\num{2.38}] &  &  &  &  & \num{-0.24}[\num{-1.94},\num{1.46}] & \num{-1.15}[\num{-2.90},\num{0.61}] & \num{-0.16}[\num{-2.69},\num{2.37}] & \num{-0.20}[\num{-2.72},\num{2.33}] & \num{-0.19}[\num{-2.72},\num{2.34}] & \num{-0.22}[\num{-2.74},\num{2.31}]\\
+ & t=\num{-0.12}, se=\num{1.29} &  &  &  &  & t=\num{-0.28}, se=\num{0.87} & t=\num{-1.28}, se=\num{0.90} & t=\num{-0.12}, se=\num{1.29} & t=\num{-0.15}, se=\num{1.29} & t=\num{-0.15}, se=\num{1.29} & t=\num{-0.17}, se=\num{1.29}\\
+ & p=\num{0.91}, df=\num{4774.00} &  &  &  &  & p=\num{0.78}, df=\num{4774.00} & p=\num{0.20}, df=\num{4774.00} & p=\num{0.90}, df=\num{4773.00} & p=\num{0.88}, df=\num{4773.00} & p=\num{0.88}, df=\num{4772.00} & p=\num{0.87}, df=\num{4771.00}\\
+V\_RacenamefBlack & \num{0.31}[\num{-2.22},\num{2.85}] &  &  &  &  & \num{0.45}[\num{-1.26},\num{2.15}] & \num{-0.77}[\num{-2.53},\num{0.99}] & \num{0.33}[\num{-2.20},\num{2.86}] & \num{0.28}[\num{-2.26},\num{2.81}] & \num{0.30}[\num{-2.24},\num{2.83}] & \num{0.30}[\num{-2.23},\num{2.84}]\\
+ & t=\num{0.24}, se=\num{1.29} &  &  &  &  & t=\num{0.51}, se=\num{0.87} & t=\num{-0.86}, se=\num{0.90} & t=\num{0.26}, se=\num{1.29} & t=\num{0.21}, se=\num{1.29} & t=\num{0.23}, se=\num{1.29} & t=\num{0.23}, se=\num{1.29}\\
+ & p=\num{0.81}, df=\num{4774.00} &  &  &  &  & p=\num{0.61}, df=\num{4774.00} & p=\num{0.39}, df=\num{4774.00} & p=\num{0.80}, df=\num{4773.00} & p=\num{0.83}, df=\num{4773.00} & p=\num{0.82}, df=\num{4772.00} & p=\num{0.82}, df=\num{4771.00}\\
+V\_RacenamefChinese & \num{0.34}[\num{-2.21},\num{2.90}] &  &  &  &  & \num{-0.64}[\num{-2.36},\num{1.08}] & \num{-1.26}[\num{-3.04},\num{0.51}] & \num{0.32}[\num{-2.24},\num{2.87}] & \num{0.29}[\num{-2.26},\num{2.85}] & \num{0.28}[\num{-2.27},\num{2.84}] & \num{0.26}[\num{-2.29},\num{2.82}]\\
+ & t=\num{0.26}, se=\num{1.30} &  &  &  &  & t=\num{-0.73}, se=\num{0.88} & t=\num{-1.39}, se=\num{0.91} & t=\num{0.24}, se=\num{1.30} & t=\num{0.23}, se=\num{1.30} & t=\num{0.22}, se=\num{1.30} & t=\num{0.20}, se=\num{1.30}\\
+ & p=\num{0.79}, df=\num{4774.00} &  &  &  &  & p=\num{0.46}, df=\num{4774.00} & p=\num{0.16}, df=\num{4774.00} & p=\num{0.81}, df=\num{4773.00} & p=\num{0.82}, df=\num{4773.00} & p=\num{0.83}, df=\num{4772.00} & p=\num{0.84}, df=\num{4771.00}\\
+V\_RacenamefIndian & \num{-0.93}[\num{-3.49},\num{1.64}] &  &  &  &  & \num{-0.39}[\num{-2.11},\num{1.33}] & \num{-2.40}[\num{-4.18},\num{-0.63}]** & \num{-0.94}[\num{-3.51},\num{1.62}] & \num{-1.02}[\num{-3.58},\num{1.55}] & \num{-1.01}[\num{-3.57},\num{1.56}] & \num{-1.03}[\num{-3.60},\num{1.53}]\\
+ & t=\num{-0.71}, se=\num{1.31} &  &  &  &  & t=\num{-0.45}, se=\num{0.88} & t=\num{-2.65}, se=\num{0.91} & t=\num{-0.72}, se=\num{1.31} & t=\num{-0.78}, se=\num{1.31} & t=\num{-0.77}, se=\num{1.31} & t=\num{-0.79}, se=\num{1.31}\\
+ & p=\num{0.48}, df=\num{4774.00} &  &  &  &  & p=\num{0.65}, df=\num{4774.00} & p=\num{0.01}, df=\num{4774.00} & p=\num{0.47}, df=\num{4773.00} & p=\num{0.44}, df=\num{4773.00} & p=\num{0.44}, df=\num{4772.00} & p=\num{0.43}, df=\num{4771.00}\\
+V\_ProductcigarettesV\_RacenamefBlack & \num{-2.59}[\num{-6.27},\num{1.09}] &  &  &  &  & \num{-1.66}[\num{-4.15},\num{0.83}] & \num{-0.06}[\num{-2.64},\num{2.52}] & \num{-2.64}[\num{-6.32},\num{1.04}] & \num{-2.57}[\num{-6.25},\num{1.10}] & \num{-2.61}[\num{-6.29},\num{1.07}] & \num{-2.64}[\num{-6.32},\num{1.04}]\\
+ & t=\num{-1.38}, se=\num{1.88} &  &  &  &  & t=\num{-1.31}, se=\num{1.27} & t=\num{-0.05}, se=\num{1.31} & t=\num{-1.41}, se=\num{1.88} & t=\num{-1.37}, se=\num{1.88} & t=\num{-1.39}, se=\num{1.88} & t=\num{-1.41}, se=\num{1.88}\\
+ & p=\num{0.17}, df=\num{4774.00} &  &  &  &  & p=\num{0.19}, df=\num{4774.00} & p=\num{0.96}, df=\num{4774.00} & p=\num{0.16}, df=\num{4773.00} & p=\num{0.17}, df=\num{4773.00} & p=\num{0.16}, df=\num{4772.00} & p=\num{0.16}, df=\num{4771.00}\\
+V\_ProducthardwaresuppliesV\_RacenamefBlack & \num{-0.32}[\num{-3.99},\num{3.36}] &  &  &  &  & \num{-0.62}[\num{-3.11},\num{1.88}] & \num{0.30}[\num{-2.28},\num{2.89}] & \num{-0.35}[\num{-4.02},\num{3.33}] & \num{-0.29}[\num{-3.97},\num{3.38}] & \num{-0.32}[\num{-4.00},\num{3.36}] & \num{-0.27}[\num{-3.94},\num{3.41}]\\
+ & t=\num{-0.17}, se=\num{1.88} &  &  &  &  & t=\num{-0.48}, se=\num{1.27} & t=\num{0.23}, se=\num{1.32} & t=\num{-0.19}, se=\num{1.88} & t=\num{-0.16}, se=\num{1.87} & t=\num{-0.17}, se=\num{1.88} & t=\num{-0.14}, se=\num{1.88}\\
+ & p=\num{0.87}, df=\num{4774.00} &  &  &  &  & p=\num{0.63}, df=\num{4774.00} & p=\num{0.82}, df=\num{4774.00} & p=\num{0.85}, df=\num{4773.00} & p=\num{0.88}, df=\num{4773.00} & p=\num{0.86}, df=\num{4772.00} & p=\num{0.89}, df=\num{4771.00}\\
+V\_ProducttoiletpaperV\_RacenamefBlack & \num{-0.08}[\num{-3.75},\num{3.60}] &  &  &  &  & \num{0.01}[\num{-2.48},\num{2.49}] & \num{1.25}[\num{-1.32},\num{3.83}] & \num{-0.08}[\num{-3.75},\num{3.59}] & \num{-0.03}[\num{-3.70},\num{3.65}] & \num{-0.04}[\num{-3.71},\num{3.63}] & \num{-0.05}[\num{-3.73},\num{3.62}]\\
+ & t=\num{-0.04}, se=\num{1.87} &  &  &  &  & t=\num{0.00}, se=\num{1.27} & t=\num{0.95}, se=\num{1.31} & t=\num{-0.04}, se=\num{1.87} & t=\num{-0.01}, se=\num{1.87} & t=\num{-0.02}, se=\num{1.87} & t=\num{-0.03}, se=\num{1.87}\\
+ & p=\num{0.97}, df=\num{4774.00} &  &  &  &  & p=\num{1.00}, df=\num{4774.00} & p=\num{0.34}, df=\num{4774.00} & p=\num{0.97}, df=\num{4773.00} & p=\num{0.99}, df=\num{4773.00} & p=\num{0.98}, df=\num{4772.00} & p=\num{0.98}, df=\num{4771.00}\\
+V\_ProductcigarettesV\_RacenamefChinese & \num{-1.01}[\num{-4.68},\num{2.67}] &  &  &  &  & \num{-1.33}[\num{-3.83},\num{1.16}] & \num{-0.13}[\num{-2.71},\num{2.46}] & \num{-1.04}[\num{-4.72},\num{2.64}] & \num{-1.00}[\num{-4.68},\num{2.68}] & \num{-1.03}[\num{-4.70},\num{2.65}] & \num{-1.02}[\num{-4.69},\num{2.66}]\\
+ & t=\num{-0.54}, se=\num{1.88} &  &  &  &  & t=\num{-1.05}, se=\num{1.27} & t=\num{-0.09}, se=\num{1.32} & t=\num{-0.55}, se=\num{1.88} & t=\num{-0.53}, se=\num{1.88} & t=\num{-0.55}, se=\num{1.88} & t=\num{-0.54}, se=\num{1.88}\\
+ & p=\num{0.59}, df=\num{4774.00} &  &  &  &  & p=\num{0.30}, df=\num{4774.00} & p=\num{0.92}, df=\num{4774.00} & p=\num{0.58}, df=\num{4773.00} & p=\num{0.59}, df=\num{4773.00} & p=\num{0.58}, df=\num{4772.00} & p=\num{0.59}, df=\num{4771.00}\\
+V\_ProducthardwaresuppliesV\_RacenamefChinese & \num{-0.15}[\num{-3.86},\num{3.56}] &  &  &  &  & \num{0.07}[\num{-2.44},\num{2.58}] & \num{-0.19}[\num{-2.79},\num{2.42}] & \num{-0.14}[\num{-3.85},\num{3.57}] & \num{-0.15}[\num{-3.86},\num{3.56}] & \num{-0.15}[\num{-3.86},\num{3.56}] & \num{-0.07}[\num{-3.78},\num{3.65}]\\
+ & t=\num{-0.08}, se=\num{1.89} &  &  &  &  & t=\num{0.06}, se=\num{1.28} & t=\num{-0.14}, se=\num{1.33} & t=\num{-0.07}, se=\num{1.89} & t=\num{-0.08}, se=\num{1.89} & t=\num{-0.08}, se=\num{1.89} & t=\num{-0.03}, se=\num{1.89}\\
+ & p=\num{0.94}, df=\num{4774.00} &  &  &  &  & p=\num{0.96}, df=\num{4774.00} & p=\num{0.89}, df=\num{4774.00} & p=\num{0.94}, df=\num{4773.00} & p=\num{0.94}, df=\num{4773.00} & p=\num{0.94}, df=\num{4772.00} & p=\num{0.97}, df=\num{4771.00}\\
+V\_ProducttoiletpaperV\_RacenamefChinese & \num{-1.48}[\num{-5.15},\num{2.18}] &  &  &  &  & \num{0.17}[\num{-2.32},\num{2.66}] & \num{1.20}[\num{-1.38},\num{3.78}] & \num{-1.47}[\num{-5.14},\num{2.20}] & \num{-1.43}[\num{-5.10},\num{2.23}] & \num{-1.44}[\num{-5.10},\num{2.23}] & \num{-1.46}[\num{-5.13},\num{2.20}]\\
+ & t=\num{-0.79}, se=\num{1.87} &  &  &  &  & t=\num{0.13}, se=\num{1.27} & t=\num{0.91}, se=\num{1.32} & t=\num{-0.79}, se=\num{1.87} & t=\num{-0.77}, se=\num{1.87} & t=\num{-0.77}, se=\num{1.87} & t=\num{-0.78}, se=\num{1.87}\\
+ & p=\num{0.43}, df=\num{4774.00} &  &  &  &  & p=\num{0.89}, df=\num{4774.00} & p=\num{0.36}, df=\num{4774.00} & p=\num{0.43}, df=\num{4773.00} & p=\num{0.44}, df=\num{4773.00} & p=\num{0.44}, df=\num{4772.00} & p=\num{0.43}, df=\num{4771.00}\\
+V\_ProductcigarettesV\_RacenamefIndian & \num{3.02}[\num{-0.71},\num{6.74}] &  &  &  &  & \num{-1.40}[\num{-3.93},\num{1.12}] & \num{0.95}[\num{-1.66},\num{3.56}] & \num{2.97}[\num{-0.75},\num{6.69}] & \num{3.05}[\num{-0.68},\num{6.77}] & \num{3.01}[\num{-0.72},\num{6.73}] & \num{3.00}[\num{-0.73},\num{6.72}]\\
+ & t=\num{1.59}, se=\num{1.90} &  &  &  &  & t=\num{-1.09}, se=\num{1.29} & t=\num{0.71}, se=\num{1.33} & t=\num{1.56}, se=\num{1.90} & t=\num{1.60}, se=\num{1.90} & t=\num{1.58}, se=\num{1.90} & t=\num{1.58}, se=\num{1.90}\\
+ & p=\num{0.11}, df=\num{4774.00} &  &  &  &  & p=\num{0.28}, df=\num{4774.00} & p=\num{0.48}, df=\num{4774.00} & p=\num{0.12}, df=\num{4773.00} & p=\num{0.11}, df=\num{4773.00} & p=\num{0.11}, df=\num{4772.00} & p=\num{0.11}, df=\num{4771.00}\\
+V\_ProducthardwaresuppliesV\_RacenamefIndian & \num{1.29}[\num{-2.37},\num{4.95}] &  &  &  &  & \num{1.33}[\num{-1.15},\num{3.81}] & \num{1.94}[\num{-0.62},\num{4.51}] & \num{1.34}[\num{-2.32},\num{5.00}] & \num{1.37}[\num{-2.29},\num{5.03}] & \num{1.39}[\num{-2.27},\num{5.05}] & \num{1.48}[\num{-2.18},\num{5.14}]\\
+ & t=\num{0.69}, se=\num{1.87} &  &  &  &  & t=\num{1.05}, se=\num{1.26} & t=\num{1.49}, se=\num{1.31} & t=\num{0.72}, se=\num{1.87} & t=\num{0.73}, se=\num{1.87} & t=\num{0.74}, se=\num{1.87} & t=\num{0.79}, se=\num{1.87}\\
+ & p=\num{0.49}, df=\num{4774.00} &  &  &  &  & p=\num{0.29}, df=\num{4774.00} & p=\num{0.14}, df=\num{4774.00} & p=\num{0.47}, df=\num{4773.00} & p=\num{0.46}, df=\num{4773.00} & p=\num{0.46}, df=\num{4772.00} & p=\num{0.43}, df=\num{4771.00}\\
+V\_ProducttoiletpaperV\_RacenamefIndian & \num{1.49}[\num{-2.19},\num{5.17}] &  &  &  &  & \num{-0.39}[\num{-2.89},\num{2.10}] & \num{3.08}[\num{0.49},\num{5.66}]* & \num{1.48}[\num{-2.20},\num{5.15}] & \num{1.60}[\num{-2.08},\num{5.28}] & \num{1.57}[\num{-2.11},\num{5.25}] & \num{1.62}[\num{-2.06},\num{5.30}]\\
+ & t=\num{0.79}, se=\num{1.88} &  &  &  &  & t=\num{-0.31}, se=\num{1.27} & t=\num{2.33}, se=\num{1.32} & t=\num{0.79}, se=\num{1.88} & t=\num{0.85}, se=\num{1.88} & t=\num{0.83}, se=\num{1.88} & t=\num{0.86}, se=\num{1.88}\\
+ & p=\num{0.43}, df=\num{4774.00} &  &  &  &  & p=\num{0.76}, df=\num{4774.00} & p=\num{0.02}, df=\num{4774.00} & p=\num{0.43}, df=\num{4773.00} & p=\num{0.39}, df=\num{4773.00} & p=\num{0.40}, df=\num{4772.00} & p=\num{0.39}, df=\num{4771.00}\\
+CCOther\_Self &  & \num{-0.04}[\num{-0.08},\num{0.01}]+ &  & \num{-0.03}[\num{-0.07},\num{0.02}] & \num{-0.04}[\num{-0.08},\num{0.01}] &  &  & \num{-0.04}[\num{-0.08},\num{0.01}]+ &  & \num{-0.03}[\num{-0.07},\num{0.02}] & \num{-0.04}[\num{-0.08},\num{0.01}]\\
+ &  & t=\num{-1.72}, se=\num{0.02} &  & t=\num{-1.20}, se=\num{0.02} & t=\num{-1.53}, se=\num{0.02} &  &  & t=\num{-1.69}, se=\num{0.02} &  & t=\num{-1.18}, se=\num{0.02} & t=\num{-1.56}, se=\num{0.02}\\
+ &  & p=\num{0.09}, df=\num{4788.00} &  & p=\num{0.23}, df=\num{4787.00} & p=\num{0.13}, df=\num{4786.00} &  &  & p=\num{0.09}, df=\num{4773.00} &  & p=\num{0.24}, df=\num{4772.00} & p=\num{0.12}, df=\num{4771.00}\\
+TCOther\_Self &  &  & \num{-0.04}[\num{-0.08},\num{0.00}]+ & \num{-0.03}[\num{-0.07},\num{0.01}] & \num{-0.04}[\num{-0.08},\num{0.01}]+ &  &  &  & \num{-0.04}[\num{-0.08},\num{0.00}]+ & \num{-0.03}[\num{-0.07},\num{0.01}] & \num{-0.04}[\num{-0.08},\num{0.01}]+\\
+ &  &  & t=\num{-1.81}, se=\num{0.02} & t=\num{-1.32}, se=\num{0.02} & t=\num{-1.65}, se=\num{0.02} &  &  &  & t=\num{-1.78}, se=\num{0.02} & t=\num{-1.30}, se=\num{0.02} & t=\num{-1.69}, se=\num{0.02}\\
+ &  &  & p=\num{0.07}, df=\num{4788.00} & p=\num{0.19}, df=\num{4787.00} & p=\num{0.10}, df=\num{4786.00} &  &  &  & p=\num{0.08}, df=\num{4773.00} & p=\num{0.19}, df=\num{4772.00} & p=\num{0.09}, df=\num{4771.00}\\
+CCOther\_SelfTCOther\_Self &  &  &  &  & \num{0.00}[\num{0.00},\num{0.00}] &  &  &  &  &  & \num{0.00}[\num{0.00},\num{0.00}]\\
+ &  &  &  &  & t=\num{1.16}, se=\num{0.00} &  &  &  &  &  & t=\num{1.29}, se=\num{0.00}\\
+ &  &  &  &  & p=\num{0.25}, df=\num{4786.00} &  &  &  &  &  & p=\num{0.20}, df=\num{4771.00}\\
+SD (Intercept ID) & \num{5.70} & \num{5.72} & \num{5.68} & \num{5.70} & \num{5.69} & \num{5.74} & \num{6.84} & \num{5.72} & \num{5.68} & \num{5.70} & \num{5.68}\\
+ & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, \vphantom{1} se=\\
+ & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, \vphantom{1} df=\\
+SD (Observations) & \num{14.67} & \num{14.69} & \num{14.70} & \num{14.69} & \num{14.70} & \num{9.54} & \num{9.75} & \num{14.66} & \num{14.67} & \num{14.67} & \num{14.67}\\
+ & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se=\\
+ & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df=\\
+\midrule
+Num.Obs. & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792} & \num{4792}\\
+R2 Marg. & \num{0.006} & \num{0.001} & \num{0.001} & \num{0.001} & \num{0.001} & \num{0.003} & \num{0.003} & \num{0.007} & \num{0.007} & \num{0.007} & \num{0.007}\\
+R2 Cond. & \num{0.136} & \num{0.132} & \num{0.131} & \num{0.132} & \num{0.131} & \num{0.268} & \num{0.331} & \num{0.138} & \num{0.136} & \num{0.137} & \num{0.137}\\
+AIC & \num{39808.4} & \num{39841.7} & \num{39841.5} & \num{39847.8} & \num{39860.7} & \num{36032.3} & \num{36386.5} & \num{39813.4} & \num{39813.2} & \num{39819.6} & \num{39832.1}\\
+BIC & \num{39925.0} & \num{39867.6} & \num{39867.4} & \num{39880.2} & \num{39899.5} & \num{36148.8} & \num{36503.0} & \num{39936.4} & \num{39936.2} & \num{39949.1} & \num{39968.1}\\
+ICC & \num{0.1} & \num{0.1} & \num{0.1} & \num{0.1} & \num{0.1} & \num{0.3} & \num{0.3} & \num{0.1} & \num{0.1} & \num{0.1} & \num{0.1}\\
+RMSE & \num{14.14} & \num{14.18} & \num{14.19} & \num{14.18} & \num{14.18} & \num{9.07} & \num{9.24} & \num{14.13} & \num{14.14} & \num{14.13} & \num{14.13}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

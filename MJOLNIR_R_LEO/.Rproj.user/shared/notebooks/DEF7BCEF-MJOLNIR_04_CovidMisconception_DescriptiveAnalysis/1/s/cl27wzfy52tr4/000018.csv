@@ -1,0 +1,5 @@
+"0","regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + DOB_AGE_BRACKET + SEX_TEXT + EDUCATION_2_TEXT + neuroticism_qual + extraversion_qual + openness_qual + conscientiousness_qual + agreeableness_qual, 
+                 data = df_covmis3)
+"
+"2","Error in is.data.frame(data) : object 'df_covmis3' not found
+"

@@ -1,0 +1,13 @@
+"0","df_covmis2$EDUCATION_2_TEXT <- fct_recode(df_covmis$EDUCATION_1 %>% as.character,
+          ""No college degree""=""1"",
+          ""No college degree""=""2"",
+          ""No college degree""=""3"",
+          ""College degree""=""4"",
+          ""College degree""=""5"",
+          ""Graduate degree""=""6"",
+          ""Graduate degree""=""7"",
+          ""Graduate degree""=""8"")
+"
+"2","Error in `$<-.data.frame`(`*tmp*`, EDUCATION_2_TEXT, value = c(1L, 3L,  : 
+  replacement has 662 rows, data has 652
+"

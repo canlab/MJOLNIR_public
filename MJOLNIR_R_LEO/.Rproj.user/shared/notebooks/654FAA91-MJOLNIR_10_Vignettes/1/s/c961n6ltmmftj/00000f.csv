@@ -1,0 +1,39 @@
+"0","mixed.lmers <- list("
+"0","  ""MorallyWrong"" = lmer(MorallyWrong ~ CovidSkepticism + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)),"
+"0","  ""CatchCovid"" = lmer(CatchCovid ~ CovidSkepticism + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)),"
+"0","  ""TransmitCovid"" = lmer(TransmitCovid ~ CovidSkepticism + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)))"
+"0","      "
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}{stars}""), statistic = c(),"
+"0","             output = ""latex"", title = ""Model 7, CovidSkepticism"") "
+"1","\begin{table}
+
+\caption{Model 7, CovidSkepticism}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+  & MorallyWrong & CatchCovid & TransmitCovid\\
+\midrule
+(Intercept) & \num{28.96}*** & \num{37.34}*** & \num{36.81}***\\
+CovidSkepticism & \num{-0.11}+ & \num{-0.18}** & \num{-0.18}**\\
+SD (Intercept ID) & \num{19.89} & \num{19.25} & \num{20.26}\\
+SD (Observations) & \num{22.21} & \num{11.79} & \num{11.57}\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.003} & \num{0.013} & \num{0.012}\\
+R2 Cond. & \num{0.446} & \num{0.731} & \num{0.757}\\
+AIC & \num{22526.4} & \num{20103.0} & \num{20088.3}\\
+BIC & \num{22549.5} & \num{20126.1} & \num{20111.4}\\
+ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+RMSE & \num{19.98} & \num{10.36} & \num{10.14}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

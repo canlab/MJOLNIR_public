@@ -1,0 +1,10 @@
+"0","res.mfa <- MFA(df_covmis %>% select(matches(""^covmis"")) %>% rename_with(function(x){str_remove(x,""^covmis_[A-z]{3,4}_"")}),"
+"0","               group = c(5,4,4,3,3,3),"
+"0","               type=c(""c"",""c"",""c"",""c"",""c"",""c""),"
+"0","               name.group = c(""att"",""conspiracy"",""origin"",""politics"",""coverage"",""antivaccin""))"
+"2","Warning:"
+"2"," ggrepel: 659 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+"
+"2","Warning:"
+"2"," ggrepel: 626 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+"

@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1656543607846.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "717914882",
+    "id" : "59E8394F",
+    "lastKnownWriteTime" : 1656545957,
+    "last_content_update" : 1656545957214,
+    "path" : "~/Library/CloudStorage/OneDrive-Personnel/Documents/Job/2022/Dartmouth/MJOLNIR_R_LEO/MJOLNIR_10_Vignettes.Rmd",
+    "project_path" : "MJOLNIR_10_Vignettes.Rmd",
+    "properties" : {
+        "cursorPosition" : "765,0",
+        "docOutlineVisible" : "1",
+        "last_setup_crc32" : "486FB6F9d405253b",
+        "scrollLine" : "763"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

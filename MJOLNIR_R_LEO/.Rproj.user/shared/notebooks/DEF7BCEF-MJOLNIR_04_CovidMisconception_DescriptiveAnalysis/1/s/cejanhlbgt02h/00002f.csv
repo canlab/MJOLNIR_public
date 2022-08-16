@@ -1,0 +1,160 @@
+"1","# weights: "
+"1"," "
+"1","33"
+"1"," ("
+"1",""
+"1","20"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 476.402111
+"
+"1","iter  20 value 470.388840
+"
+"1","final  value 470.381790 
+"
+"1","converged
+"
+"1","
+Step:  AIC="
+"1",""
+"1","980.76"
+"1",""
+"1","
+"
+"1",""
+"1","covqual_class ~ EXPGRP_TEXT + HAS_LIVED_USA + neuroticism_qual + "
+"1",""
+"1","
+    openness_qual + agreeableness_qual"
+"1",""
+"1","
+
+"
+"1","trying -"
+"1"," "
+"1","EXPGRP_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","27"
+"1"," ("
+"1",""
+"1","16"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 492.680659
+"
+"1","iter  20 value 489.432376
+"
+"1","final  value 489.432340 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","HAS_LIVED_USA"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","30"
+"1"," ("
+"1",""
+"1","18"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 482.915879
+"
+"1","iter  20 value 473.412742
+"
+"1","final  value 473.410453 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","neuroticism_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","27"
+"1"," ("
+"1",""
+"1","16"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 478.676191
+"
+"1","iter  20 value 475.142942
+"
+"1","final  value 475.142866 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","openness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","27"
+"1"," ("
+"1",""
+"1","16"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 487.526012
+"
+"1","iter  20 value 482.434037
+"
+"1","final  value 482.433840 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","agreeableness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","27"
+"1"," ("
+"1",""
+"1","16"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 491.485512
+"
+"1","iter  20 value 484.121239
+"
+"1","final  value 484.121220 
+"
+"1","converged
+"

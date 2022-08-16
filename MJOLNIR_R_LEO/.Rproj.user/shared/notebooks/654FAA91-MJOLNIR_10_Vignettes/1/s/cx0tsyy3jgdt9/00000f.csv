@@ -1,0 +1,8 @@
+"0","ggplot(dff_q %>%"
+"0","         mutate(V_JudgeSelf_=V_JudgeSelf %>% as.factor),"
+"0","       aes(x=CatchCovid, y=MorallyWrong, color=V_JudgeSelf_)) +"
+"0","  facet_wrap(~EXPGRP_TEXT) +"
+"0","  geom_point() +"
+"0","  geom_smooth(method='lm')"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

@@ -1,0 +1,4 @@
+"0","# 1. Open jpeg file"
+"0","pdf(""./mixedmodel/graphs/Model/Model06_racerespondant.racename.pdf"", width = 10, height = 5)"
+"0","# 2. Create the plot"
+"0","grph"

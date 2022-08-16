@@ -1,0 +1,31 @@
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}{stars}""), statistic = c(),
+             output = ""latex"", title = ""Model 4, Race Name"") 
+"
+"1","\begin{table}
+
+\caption{Model 4, Race Name}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+  & MorallyWrong & CatchCovid & TransmitCovid\\
+\midrule
+(Intercept) & \num{28.65}*** & \num{34.36}*** & \num{34.19}***\\
+V\_RacenamefBlack & \num{-3.26}* & \num{-0.87} & \num{-1.41}*\\
+V\_RacenamefChinese & \num{-3.25}* & \num{-1.07} & \num{-0.98}\\
+V\_RacenamefIndian & \num{-1.09} & \num{-0.59} & \num{-1.62}*\\
+SD (Intercept ID) & \num{19.94} & \num{19.41} & \num{20.41}\\
+SD (Observations) & \num{22.17} & \num{11.79} & \num{11.55}\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.002} & \num{0.000} & \num{0.001}\\
+R2 Cond. & \num{0.448} & \num{0.730} & \num{0.757}\\
+AIC & \num{22513.7} & \num{20107.6} & \num{20088.2}\\
+BIC & \num{22548.3} & \num{20142.3} & \num{20122.9}\\
+ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+RMSE & \num{19.93} & \num{10.35} & \num{10.12}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

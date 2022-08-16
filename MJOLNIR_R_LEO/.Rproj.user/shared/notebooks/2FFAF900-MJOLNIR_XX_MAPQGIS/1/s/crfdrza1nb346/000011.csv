@@ -1,0 +1,9 @@
+"0","df_City <- do.call(""rbind"", l_City_scrap) %>% 
+  as_tibble() %>%
+  map_dfc(unlist)
+"
+"2","Warning in rbind(list(Loc_adresse_formated = ""Pole Green Nurseries and Plant Centre, 41 Chorley Lane, Charnock Richard, PR7 5NH, United Kingdom"",  :"
+"2","
+ "
+"2"," number of columns of result is not a multiple of vector length (arg 2)
+"

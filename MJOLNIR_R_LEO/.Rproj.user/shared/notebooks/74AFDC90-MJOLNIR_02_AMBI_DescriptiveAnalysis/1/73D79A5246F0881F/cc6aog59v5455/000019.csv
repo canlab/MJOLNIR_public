@@ -1,0 +1,11 @@
+"0","ggpubr::ggboxplot(dff %>%
+  filter(AMBI_name==""VIRTUOUS""), x = ""EXPGRP_TEXT"", y = ""AMBI_res"") +
+  ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(pwc)
+    )
+"
+"2","Error in .valide_y_position(y.position, data) : 
+  can't find the y.position variable 'y.position' in the data
+"

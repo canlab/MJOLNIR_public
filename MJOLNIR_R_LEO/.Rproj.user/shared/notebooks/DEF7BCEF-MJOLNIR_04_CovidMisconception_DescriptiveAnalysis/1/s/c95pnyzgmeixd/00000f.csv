@@ -1,0 +1,4 @@
+"0","ex <- car::powerTransform(df_covmis2$CovidSkepticism+0.0000001)"
+"2","Error in optim(start, llik, hessian = TRUE, method = method, ...) : 
+  L-BFGS-B needs finite values of 'fn'
+"

@@ -1,0 +1,4 @@
+"0","emmeans(mixed.lmer, ~ V_up + V_up:V_Product:V_presentation3)"
+"2","Error in emmeans(mixed.lmer, ~V_up + V_up:V_Product:V_presentation3) : 
+  No variable named V_Product in the reference grid
+"

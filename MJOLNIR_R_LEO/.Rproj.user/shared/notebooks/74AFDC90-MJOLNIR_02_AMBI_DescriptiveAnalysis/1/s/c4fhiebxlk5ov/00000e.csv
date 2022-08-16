@@ -1,0 +1,48 @@
+"0","res <- fa(r = df_ambi_cor, scores = ""tenBerge"","
+"0","           nfactors = 13, rotate= ""bentlerT"", fm=""uls"")"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(R) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"2","The determinant of the smoothed correlation was zero.
+This means the objective function is not defined for the null model either.
+The Chi square is thus based upon observed correlations.
+"
+"2","Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs,  :"
+"2","
+ "
+"2"," The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"0","res"
+"1","Factor Analysis using method = "
+"1"," "
+"1","uls"
+"1","
+Call: "
+"1","fa(r = df_ambi_cor, nfactors = 13, rotate = ""bentlerT"", scores = ""tenBerge"", 
+"
+"1","    fm = ""uls"")
+"
+"1","Standardized loadings (pattern matrix) based upon correlation matrix
+"

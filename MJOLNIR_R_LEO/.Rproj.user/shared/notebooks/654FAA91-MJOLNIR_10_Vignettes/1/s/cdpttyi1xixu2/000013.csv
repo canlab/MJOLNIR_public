@@ -1,0 +1,8 @@
+"0","ggplot(dff_q %>%
+         mutate(V_Number_=V_Number %>% as.factor()),
+       aes(x=CatchCovid, y=MorallyWrong, color=V_Number_)) +
+  geom_point() +
+  geom_smooth(method='lm')
+"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

@@ -1,0 +1,5 @@
+"0","df %>% "
+"0","  gather(key = ""AMBI_EFA_var"", value=""AMBI_EFA_res"", df %>% colnames %>% str_detect(""^AMBI_MSR_EFA_"") %>% which) %>%"
+"0","  ggplot(., aes(y=AMBI_EFA_res, fill=CONTINENT_BORN_TEXT_3)) +"
+"0","  geom_boxplot() +"
+"0","  facet_wrap(~ AMBI_EFA_var, ncol = 5)"

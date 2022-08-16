@@ -1,0 +1,3 @@
+"0","model <- '"
+"0","CovidSkepticism =~ covmis_att_flu + covmis_att_afrDie + covmis_att_eldrNoBgDl + covmis_att_rareNoWorr + covmis_att_bgThrt + covmis_cnsp_ctiusAsian + covmis_cnsp_stpCovStpImmi + covmis_cnsp_redIntWthChina + covmis_cnsp_chnsCovRcst + covmis_orgn_covPlnnd + covmis_orgn_covNat + covmis_orgn_covNgeenLab + covmis_orgn_scntFkNwsCov + covmis_pltc_polBgDlIntrst + covmis_pltc_covNtSerPolSay + covmis_pltc_polDwnplCovPlpLDngr + covmis_cvrg_mdiaCovBgrDl + covmis_cvrg_nwsGdJbComCov + covmis_cvrg_mdiaUseCovMkTrmpRepLkBd + covmis_anti_frGovUseCovMndtVacc + covmis_anti_thnksNoCovVacc + covmis_anti_covVacEffRedVirus + covmis_mdsk_medOrgUntrust + covmis_mdsk_skeptInfoDocSci + covmis_mdsk_medOrgRecBstInt + covmis_mdsk_fllwRecMedOrgImp"
+"0","'"

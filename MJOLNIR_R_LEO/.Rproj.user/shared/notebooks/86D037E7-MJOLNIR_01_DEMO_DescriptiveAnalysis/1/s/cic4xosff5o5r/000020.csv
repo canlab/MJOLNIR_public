@@ -1,0 +1,8 @@
+"0","df_mca <- df %>%"
+"0","  select(EXPGRP_TEXT, CONTINENT_BORN_TEXT_1, HAS_LIVED_USA, HH_INCOME_TEXT, "
+"0","         DOB_YEAR_PERIODE, EDUCATION_1_TEXT, SEX_TEXT) %>%"
+"0","  rename_with(function(x){x %>% str_remove_all(""_|TEXT|[0-9]"")})"
+"0","res.mca <- MCA(df_mca)"
+"2","Warning:"
+"2"," ggrepel: 25 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+"

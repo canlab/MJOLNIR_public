@@ -1,0 +1,12 @@
+"0","print(res)"
+"1","Factor Analysis using method = "
+"1"," "
+"1","uls"
+"1","
+Call: "
+"1","fa(r = df_ambi_cor, nfactors = 13, rotate = ""bentlerT"", scores = ""tenBerge"", 
+"
+"1","    fm = ""uls"")
+"
+"1","Standardized loadings (pattern matrix) based upon correlation matrix
+"

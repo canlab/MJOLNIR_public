@@ -1,0 +1,49 @@
+"0","mixed.lmers <- list("
+"0","  ""MorallyWrong"" = lmer(MorallyWrong ~ RaceContResp*V_Racenamef + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)),"
+"0","  ""CatchCovid"" = lmer(CatchCovid ~ RaceContResp*V_Racenamef + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)),"
+"0","  ""TransmitCovid"" = lmer(TransmitCovid ~ RaceContResp*V_Racenamef + (1|ID),"
+"0","          data = dff_q %>%"
+"0","            filter(V_JudgeSelf==0,  V_up==0)))"
+"0","      "
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}{stars}""), statistic = c(),"
+"0","             output = ""latex"", title = ""Model 5, Race Respondant and name"") "
+"1","\begin{table}
+
+\caption{Model 5, Race Respondant and name}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+  & MorallyWrong & CatchCovid & TransmitCovid\\
+\midrule
+(Intercept) & \num{32.09}*** & \num{36.19}*** & \num{35.06}***\\
+RaceContRespNonAmWhite & \num{0.06} & \num{-1.13} & \num{0.89}\\
+RaceContRespWhiteAmerican & \num{-9.05}** & \num{-3.92}+ & \num{-2.95}\\
+V\_RacenamefBlack & \num{-5.74}* & \num{-0.56} & \num{-0.86}\\
+V\_RacenamefChinese & \num{-6.37}** & \num{-1.73} & \num{-0.64}\\
+V\_RacenamefIndian & \num{-2.47} & \num{-0.19} & \num{-0.97}\\
+RaceContRespNonAmWhiteV\_RacenamefBlack & \num{5.59}+ & \num{-0.13} & \num{0.77}\\
+RaceContRespWhiteAmericanV\_RacenamefBlack & \num{2.21} & \num{-0.70} & \num{-2.02}\\
+RaceContRespNonAmWhiteV\_RacenamefChinese & \num{6.29}+ & \num{0.75} & \num{0.40}\\
+RaceContRespWhiteAmericanV\_RacenamefChinese & \num{3.37} & \num{1.16} & \num{-1.19}\\
+RaceContRespNonAmWhiteV\_RacenamefIndian & \num{3.55} & \num{-0.37} & \num{-0.01}\\
+RaceContRespWhiteAmericanV\_RacenamefIndian & \num{0.88} & \num{-0.76} & \num{-1.69}\\
+SD (Intercept ID) & \num{19.40} & \num{19.36} & \num{20.31}\\
+SD (Observations) & \num{22.18} & \num{11.81} & \num{11.56}\\
+\midrule
+Num.Obs. & \num{2396} & \num{2396} & \num{2396}\\
+R2 Marg. & \num{0.029} & \num{0.006} & \num{0.011}\\
+R2 Cond. & \num{0.450} & \num{0.731} & \num{0.758}\\
+AIC & \num{22469.0} & \num{20096.1} & \num{20072.2}\\
+BIC & \num{22549.9} & \num{20177.0} & \num{20153.2}\\
+ICC & \num{0.4} & \num{0.7} & \num{0.8}\\
+RMSE & \num{19.93} & \num{10.34} & \num{10.11}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"

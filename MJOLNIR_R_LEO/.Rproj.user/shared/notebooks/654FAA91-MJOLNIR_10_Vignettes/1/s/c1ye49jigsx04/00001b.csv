@@ -1,0 +1,9 @@
+"0","dff_q %>%
+  mutate(V_Number=V_Number%>% as.factor()) %>%
+  ggplot(aes(CatchCovid, TransmitCovid,  color=V_Number)) +
+    geom_point(alpha=.3, cex=.1) +
+    geom_smooth(method='lm')+
+  ggpubr::stat_regline_equation(aes(label = ..eq.label..))
+"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

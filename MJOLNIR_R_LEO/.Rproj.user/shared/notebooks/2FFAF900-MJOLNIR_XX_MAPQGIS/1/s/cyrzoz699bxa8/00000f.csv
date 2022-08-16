@@ -1,0 +1,11 @@
+"0","library(rvest)
+"
+"2","
+Attaching package: ‘rvest’
+
+"
+"2","The following object is masked from ‘package:readr’:
+
+    guess_encoding
+
+"

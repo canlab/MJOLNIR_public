@@ -1,0 +1,5 @@
+"0","v_big5 <- c(""AMBI_BIG5_Neuroticism"", ""AMBI_BIG5_Extraversion"", "
+"0","               ""AMBI_BIG5_Openness"", ""AMBI_BIG5_Agreeableness"","
+"0","               ""AMBI_BIG5_Conscientiousness"")"
+"0",""
+"0","pairs(df[, v_big5])"

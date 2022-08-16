@@ -1,0 +1,11 @@
+"0","ggplot(dff_q %>%"
+"0","         gather(BIG5_name, "
+"0","                BIG5_res,"
+"0","                dff_q %>% colnames() %>% str_detect(""^AMBI_BIG5_"") %>% which()) %>%"
+"0","         mutate(BIG5_res_ = BIG5_res %>% cut(c(-4,-1,1,4))), "
+"0","       aes(x=CatchCovid, y=MorallyWrong, color=BIG5_res_)) +"
+"0","  facet_wrap(~BIG5_name, ncol = 2) +"
+"0","  geom_point(size=0.1) +"
+"0","  geom_smooth(method='lm')"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

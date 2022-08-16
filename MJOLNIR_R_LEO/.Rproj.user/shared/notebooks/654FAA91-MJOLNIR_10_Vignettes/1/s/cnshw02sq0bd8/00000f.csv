@@ -1,0 +1,6 @@
+"0","ggplot(dff_q %>%"
+"0","         mutate(CovidSkepticism_ = CovidSkepticism %>% cut(c(-1,20,40, 60 ,80))),aes(x=CatchCovid, y=MorallyWrong, color=CovidSkepticism_)) +"
+"0","  geom_point() +"
+"0","  geom_smooth(method='lm')"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

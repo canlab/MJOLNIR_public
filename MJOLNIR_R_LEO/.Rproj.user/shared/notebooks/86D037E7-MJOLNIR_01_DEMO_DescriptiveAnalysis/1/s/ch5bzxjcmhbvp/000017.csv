@@ -1,0 +1,2 @@
+"0","ggplot(df) +"
+"0","  geom_bar(aes(x = HH_INCOME_TEXT, fill=EXPGRP_TEXT))"

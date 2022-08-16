@@ -1,0 +1,10 @@
+"0","res_df <- factor.scores(df[,c(colnames(df) %>% str_detect(""^AMBI_MSR_"") %>% which)], res, Phi = NULL,"
+"0","                        method = ""tenBerge"","
+"0","                        impute = ""none"")"
+"2","Warning in cor.smooth(r) :"
+"2","
+ "
+"2"," Matrix was not positive definite, smoothing was done
+"
+"0","colnames(res_df$scores) <- paste0(""AMBI_MSR_EFA_"", colnames(res_df$scores))"
+"0","df_2 <- cbind(read.csv(""./data/mjolnir_clean_v3_1_DemoVarText.csv""), df, res_df$scores)"

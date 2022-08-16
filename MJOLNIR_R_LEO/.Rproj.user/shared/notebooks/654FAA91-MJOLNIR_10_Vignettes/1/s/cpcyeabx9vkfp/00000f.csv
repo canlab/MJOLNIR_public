@@ -1,0 +1,14 @@
+"0","mixed.lmers.self <- list(
+  ""MorallyWrong"" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Racenamef+V_Product*V_presentation3+EXPGRP_TEXTChinese + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  ""CatchCovid"" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Racenamef*V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)),
+  ""TransmitCovid"" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Racenamef*V_Product*V_presentation3 + (1|ID),
+          data = dff_q %>%
+            filter(V_JudgeSelf==0)))
+"
+"2","Error in eval(predvars, data, env) : 
+  object 'EXPGRP_TEXTChinese' not found
+"

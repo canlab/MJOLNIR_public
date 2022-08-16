@@ -1,0 +1,378 @@
+"0","for (i in dff$AMBI_name %>% as.factor() %>%levels()) {
+  pwc <- dff %>%
+    filter(AMBI_name==i) %>% 
+    tukey_hsd(AMBI_res ~ EXPGRP_TEXT) %>% 
+    add_xy_position(x = ""EXPGRP_TEXT"")
+  
+  res.aov <- dff %>%
+    filter(AMBI_name==i) %>% 
+    anova_test(AMBI_res ~ EXPGRP_TEXT)
+  
+  graph[[i]] <- ggpubr::ggboxplot(dff %>% filter(AMBI_name==i), 
+                    x = ""EXPGRP_TEXT"", y = ""AMBI_res"") +
+    ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
+    labs(
+      title = i,
+      subtitle = get_test_label(res.aov, detailed = TRUE),
+      caption = get_pwc_label(pwc)
+      )
+}
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"
+"2","Coefficient covariances computed by hccm()
+"

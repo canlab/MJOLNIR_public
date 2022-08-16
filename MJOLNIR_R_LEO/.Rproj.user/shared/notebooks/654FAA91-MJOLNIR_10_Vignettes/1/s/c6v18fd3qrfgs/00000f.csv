@@ -1,0 +1,144 @@
+"0","comp <- c(mixed.lmers)"
+"0","dff.means <- difflmeansmodelcomp(comp)"
+"1","[38;5;232mJoining, by = ""comparison""[39m
+"
+"1","[38;5;232mJoining, by = ""comparison""[39m
+"
+"0","dff.means.comp <- dff.means %>%"
+"0","  mutate(name=rownames(.),"
+"0","         p1=str_extract(name, ""[A-z0-9:]{1,} ""),"
+"0","         p2=str_extract(name, "" [A-z0-9:]{1,}""),"
+"0","         p1V_Name=str_extract(p1, ""RaceContResp[A-z]{1,}"") %>%"
+"0","           str_remove(""RaceContResp""),"
+"0","         p2V_Name=str_extract(p2, ""RaceContResp[A-z]{1,}"") %>%"
+"0","           str_remove(""RaceContResp""),"
+"0","         p1V_Up=str_extract(p1, ""V_Product[A-z]{1,}"") %>%"
+"0","           str_remove(""V_Product""),"
+"0","         p2V_Up=str_extract(p2, ""V_Product[A-z]{1,}"") %>%"
+"0","           str_remove(""V_Product"")) %>%"
+"0","  filter(is.na(p1V_Name)|is.na(p1V_Up)|p1V_Up==p2V_Up&p1V_Name!=p2V_Name) %>%"
+"0","  select(-p1, -p2, -p1V_Name, -p2V_Name, -p1V_Up, -p2V_Up, -name)"
+"0",""
+"0","rownames(dff.means.comp) <-str_remove_all(rownames(dff.means.comp), ""V_Product|RaceContResp"")"
+"0","xtable::xtable(dff.means) "
+"1","% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Fri Aug  5 14:48:26 2022
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlll}
+  \hline
+ & MorallyWrong & CatchCovid & TransmitCovid \\ 
+  \hline
+RaceContRespChinese - RaceContRespNonAmWhite & -3.92. & 1.07 & -1.18 \\ 
+  RaceContRespChinese - RaceContRespWhiteAmerican & 7.44*** & 4* & 4.17* \\ 
+  RaceContRespNonAmWhite - RaceContRespWhiteAmerican & 11.36*** & 2.93 & 5.35* \\ 
+  V\_Producthardwaresupplies - V\_Producttoiletpaper & -11.75*** & -0.79 & -1.31* \\ 
+  V\_Producthardwaresupplies - V\_Productcigarettes & -11.57*** & -6.4*** & -5.16*** \\ 
+  V\_Producthardwaresupplies - V\_Productbabyformula & 6.35*** & 0.98 & 0.43 \\ 
+  V\_Producttoiletpaper - V\_Productcigarettes & 0.18 & -5.62*** & -3.85*** \\ 
+  V\_Producttoiletpaper - V\_Productbabyformula & 18.09*** & 1.77** & 1.74** \\ 
+  V\_Productcigarettes - V\_Productbabyformula & 17.91*** & 7.39*** & 5.59*** \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Producthardwaresupplies & -8.44** & -0.53 & -1.57 \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Producthardwaresupplies & 5.68* & 3.29 & 4.48* \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespChinese:V\_Producttoiletpaper & -13.82*** & -1.35 & -1.28 \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Producttoiletpaper & -19.12*** & -0.91 & -3 \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Producttoiletpaper & -5.07. & 2.66 & 3.26 \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespChinese:V\_Productcigarettes & -16.45*** & -9.19*** & -6.35*** \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Productcigarettes & -15.28*** & -4.3. & -4.49. \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Productcigarettes & -5.73* & -2.96 & -1.72 \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespChinese:V\_Productbabyformula & 4.93* & 1.25 & 1.49 \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Productbabyformula & 1.8 & 0.73 & -1.81 \\ 
+  RaceContRespChinese:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Productbabyformula & 9.55*** & 3.72. & 4.52* \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Producthardwaresupplies & 14.11*** & 3.82. & 6.05** \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespChinese:V\_Producttoiletpaper & -5.38. & -0.82 & 0.28 \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Producttoiletpaper & -10.68*** & -0.38 & -1.43 \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Producttoiletpaper & 3.36 & 3.19 & 4.83* \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespChinese:V\_Productcigarettes & -8.02** & -8.66*** & -4.79* \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Productcigarettes & -6.84** & -3.77** & -2.93* \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Productcigarettes & 2.7 & -2.43 & -0.16 \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespChinese:V\_Productbabyformula & 13.36*** & 1.78 & 3.06 \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Productbabyformula & 10.24*** & 1.26 & -0.24 \\ 
+  RaceContRespNonAmWhite:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Productbabyformula & 17.98*** & 4.25. & 6.08** \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespChinese:V\_Producttoiletpaper & -19.49*** & -4.63* & -5.77* \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Producttoiletpaper & -24.79*** & -4.2. & -7.48** \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Producttoiletpaper & -10.75*** & -0.62 & -1.22 \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespChinese:V\_Productcigarettes & -22.13*** & -12.48*** & -10.84*** \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Productcigarettes & -20.95*** & -7.58*** & -8.98*** \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Productcigarettes & -11.41*** & -6.24*** & -6.21*** \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespChinese:V\_Productbabyformula & -0.75 & -2.03 & -2.99 \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespNonAmWhite:V\_Productbabyformula & -3.87 & -2.55 & -6.29** \\ 
+  RaceContRespWhiteAmerican:V\_Producthardwaresupplies - RaceContRespWhiteAmerican:V\_Productbabyformula & 3.87* & 0.44 & 0.03 \\ 
+  RaceContRespChinese:V\_Producttoiletpaper - RaceContRespNonAmWhite:V\_Producttoiletpaper & -5.3. & 0.43 & -1.72 \\ 
+  RaceContRespChinese:V\_Producttoiletpaper - RaceContRespWhiteAmerican:V\_Producttoiletpaper & 8.74** & 4.01. & 4.54* \\ 
+  RaceContRespChinese:V\_Producttoiletpaper - RaceContRespChinese:V\_Productcigarettes & -2.64 & -7.85*** & -5.07*** \\ 
+  RaceContRespChinese:V\_Producttoiletpaper - RaceContRespNonAmWhite:V\_Productcigarettes & -1.46 & -2.95 & -3.21 \\ 
+  RaceContRespChinese:V\_Producttoiletpaper - RaceContRespWhiteAmerican:V\_Productcigarettes & 8.08** & -1.61 & -0.44 \\ 
+  RaceContRespChinese:V\_Producttoiletpaper - RaceContRespChinese:V\_Productbabyformula & 18.74*** & 2.6* & 2.77* \\ 
+  RaceContRespChinese:V\_Producttoiletpaper - RaceContRespNonAmWhite:V\_Productbabyformula & 15.62*** & 2.08 & -0.52 \\ 
+  RaceContRespChinese:V\_Producttoiletpaper - RaceContRespWhiteAmerican:V\_Productbabyformula & 23.36*** & 5.07* & 5.8* \\ 
+  RaceContRespNonAmWhite:V\_Producttoiletpaper - RaceContRespWhiteAmerican:V\_Producttoiletpaper & 14.04*** & 3.58 & 6.26** \\ 
+  RaceContRespNonAmWhite:V\_Producttoiletpaper - RaceContRespChinese:V\_Productcigarettes & 2.66 & -8.28*** & -3.35 \\ 
+  RaceContRespNonAmWhite:V\_Producttoiletpaper - RaceContRespNonAmWhite:V\_Productcigarettes & 3.84. & -3.38** & -1.49 \\ 
+  RaceContRespNonAmWhite:V\_Producttoiletpaper - RaceContRespWhiteAmerican:V\_Productcigarettes & 13.38*** & -2.04 & 1.28 \\ 
+  RaceContRespNonAmWhite:V\_Producttoiletpaper - RaceContRespChinese:V\_Productbabyformula & 24.04*** & 2.17 & 4.49. \\ 
+  RaceContRespNonAmWhite:V\_Producttoiletpaper - RaceContRespNonAmWhite:V\_Productbabyformula & 20.92*** & 1.65 & 1.19 \\ 
+  RaceContRespNonAmWhite:V\_Producttoiletpaper - RaceContRespWhiteAmerican:V\_Productbabyformula & 28.66*** & 4.64* & 7.52** \\ 
+  RaceContRespWhiteAmerican:V\_Producttoiletpaper - RaceContRespChinese:V\_Productcigarettes & -11.38*** & -11.86*** & -9.61*** \\ 
+  RaceContRespWhiteAmerican:V\_Producttoiletpaper - RaceContRespNonAmWhite:V\_Productcigarettes & -10.2*** & -6.96** & -7.75*** \\ 
+  RaceContRespWhiteAmerican:V\_Producttoiletpaper - RaceContRespWhiteAmerican:V\_Productcigarettes & -0.66 & -5.62*** & -4.98*** \\ 
+  RaceContRespWhiteAmerican:V\_Producttoiletpaper - RaceContRespChinese:V\_Productbabyformula & 10*** & -1.41 & -1.77 \\ 
+  RaceContRespWhiteAmerican:V\_Producttoiletpaper - RaceContRespNonAmWhite:V\_Productbabyformula & 6.88* & -1.93 & -5.07* \\ 
+  RaceContRespWhiteAmerican:V\_Producttoiletpaper - RaceContRespWhiteAmerican:V\_Productbabyformula & 14.62*** & 1.06 & 1.26 \\ 
+  RaceContRespChinese:V\_Productcigarettes - RaceContRespNonAmWhite:V\_Productcigarettes & 1.18 & 4.9* & 1.86 \\ 
+  RaceContRespChinese:V\_Productcigarettes - RaceContRespWhiteAmerican:V\_Productcigarettes & 10.72*** & 6.24** & 4.63* \\ 
+  RaceContRespChinese:V\_Productcigarettes - RaceContRespChinese:V\_Productbabyformula & 21.38*** & 10.45*** & 7.85*** \\ 
+  RaceContRespChinese:V\_Productcigarettes - RaceContRespNonAmWhite:V\_Productbabyformula & 18.26*** & 9.93*** & 4.55. \\ 
+  RaceContRespChinese:V\_Productcigarettes - RaceContRespWhiteAmerican:V\_Productbabyformula & 26*** & 12.92*** & 10.87*** \\ 
+  RaceContRespNonAmWhite:V\_Productcigarettes - RaceContRespWhiteAmerican:V\_Productcigarettes & 9.54*** & 1.34 & 2.77 \\ 
+  RaceContRespNonAmWhite:V\_Productcigarettes - RaceContRespChinese:V\_Productbabyformula & 20.2*** & 5.55* & 5.98* \\ 
+  RaceContRespNonAmWhite:V\_Productcigarettes - RaceContRespNonAmWhite:V\_Productbabyformula & 17.08*** & 5.03*** & 2.69* \\ 
+  RaceContRespNonAmWhite:V\_Productcigarettes - RaceContRespWhiteAmerican:V\_Productbabyformula & 24.82*** & 8.02*** & 9.01*** \\ 
+  RaceContRespWhiteAmerican:V\_Productcigarettes - RaceContRespChinese:V\_Productbabyformula & 10.66*** & 4.21. & 3.21 \\ 
+  RaceContRespWhiteAmerican:V\_Productcigarettes - RaceContRespNonAmWhite:V\_Productbabyformula & 7.54** & 3.69 & -0.08 \\ 
+  RaceContRespWhiteAmerican:V\_Productcigarettes - RaceContRespWhiteAmerican:V\_Productbabyformula & 15.28*** & 6.68*** & 6.24*** \\ 
+  RaceContRespChinese:V\_Productbabyformula - RaceContRespNonAmWhite:V\_Productbabyformula & -3.12 & -0.52 & -3.3 \\ 
+  RaceContRespChinese:V\_Productbabyformula - RaceContRespWhiteAmerican:V\_Productbabyformula & 4.62. & 2.47 & 3.03 \\ 
+  RaceContRespNonAmWhite:V\_Productbabyformula - RaceContRespWhiteAmerican:V\_Productbabyformula & 7.74** & 2.99 & 6.32** \\ 
+   \hline
+\end{tabular}
+\end{table}
+"
+"0","dff.means.comp %>% xtable::xtable()"
+"1","% latex table generated in R 4.2.0 by xtable 1.8-4 package
+% Fri Aug  5 14:48:26 2022
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlll}
+  \hline
+ & MorallyWrong & CatchCovid & TransmitCovid \\ 
+  \hline
+Chinese - NonAmWhite & -3.92. & 1.07 & -1.18 \\ 
+  Chinese - WhiteAmerican & 7.44*** & 4* & 4.17* \\ 
+  NonAmWhite - WhiteAmerican & 11.36*** & 2.93 & 5.35* \\ 
+  hardwaresupplies - toiletpaper & -11.75*** & -0.79 & -1.31* \\ 
+  hardwaresupplies - cigarettes & -11.57*** & -6.4*** & -5.16*** \\ 
+  hardwaresupplies - babyformula & 6.35*** & 0.98 & 0.43 \\ 
+  toiletpaper - cigarettes & 0.18 & -5.62*** & -3.85*** \\ 
+  toiletpaper - babyformula & 18.09*** & 1.77** & 1.74** \\ 
+  cigarettes - babyformula & 17.91*** & 7.39*** & 5.59*** \\ 
+  Chinese:hardwaresupplies - NonAmWhite:hardwaresupplies & -8.44** & -0.53 & -1.57 \\ 
+  Chinese:hardwaresupplies - WhiteAmerican:hardwaresupplies & 5.68* & 3.29 & 4.48* \\ 
+  NonAmWhite:hardwaresupplies - WhiteAmerican:hardwaresupplies & 14.11*** & 3.82. & 6.05** \\ 
+  Chinese:toiletpaper - NonAmWhite:toiletpaper & -5.3. & 0.43 & -1.72 \\ 
+  Chinese:toiletpaper - WhiteAmerican:toiletpaper & 8.74** & 4.01. & 4.54* \\ 
+  NonAmWhite:toiletpaper - WhiteAmerican:toiletpaper & 14.04*** & 3.58 & 6.26** \\ 
+  Chinese:cigarettes - NonAmWhite:cigarettes & 1.18 & 4.9* & 1.86 \\ 
+  Chinese:cigarettes - WhiteAmerican:cigarettes & 10.72*** & 6.24** & 4.63* \\ 
+  NonAmWhite:cigarettes - WhiteAmerican:cigarettes & 9.54*** & 1.34 & 2.77 \\ 
+  Chinese:babyformula - NonAmWhite:babyformula & -3.12 & -0.52 & -3.3 \\ 
+  Chinese:babyformula - WhiteAmerican:babyformula & 4.62. & 2.47 & 3.03 \\ 
+  NonAmWhite:babyformula - WhiteAmerican:babyformula & 7.74** & 2.99 & 6.32** \\ 
+   \hline
+\end{tabular}
+\end{table}
+"

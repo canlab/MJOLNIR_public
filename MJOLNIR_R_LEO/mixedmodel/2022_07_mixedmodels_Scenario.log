@@ -1,0 +1,1533 @@
+<<<<<<< HEAD
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.13)  9 AUG 2022 16:00
+=======
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.13)  20 JUL 2022 13:33
+>>>>>>> main
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**2022_07_mixedmodels_Scenario.tex
+(./2022_07_mixedmodels_Scenario.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24>
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@chapter=\count186
+\c@section=\count187
+\c@subsection=\count188
+\c@subsubsection=\count189
+\c@paragraph=\count190
+\c@subparagraph=\count191
+\c@figure=\count192
+\c@table=\count193
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+)))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tablefootnote/tablefootnote.sty
+Package: tablefootnote 2014/01/26 v1.1c Table foot notes (HMM)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/xifthen/xifthen.sty
+Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count194
+\calc@Bcount=\count195
+\calc@Adimen=\dimen139
+\calc@Bdimen=\dimen140
+\calc@Askip=\skip49
+\calc@Bskip=\skip50
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count196
+\calc@Cskip=\skip51
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
+Package: ifmtarg 2018/04/16 v1.2b check for an empty argument
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count197
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count198
+\Gm@cntv=\count199
+\c@Gm@tempcnt=\count266
+\Gm@bindingoffset=\dimen141
+\Gm@wd@mp=\dimen142
+\Gm@odd@mp=\dimen143
+\Gm@even@mp=\dimen144
+\Gm@layoutwidth=\dimen145
+\Gm@layoutheight=\dimen146
+\Gm@layouthoffset=\dimen147
+\Gm@layoutvoffset=\dimen148
+\Gm@dimlist=\toks17
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen149
+\lightrulewidth=\dimen150
+\cmidrulewidth=\dimen151
+\belowrulesep=\dimen152
+\belowbottomsep=\dimen153
+\aboverulesep=\dimen154
+\abovetopsep=\dimen155
+\cmidrulesep=\dimen156
+\cmidrulekern=\dimen157
+\defaultaddspace=\dimen158
+\@cmidla=\count267
+\@cmidlb=\count268
+\@aboverulesep=\dimen159
+\@belowrulesep=\dimen160
+\@thisruleclass=\count269
+\@lastruleclass=\count270
+\@thisrulewidth=\dimen161
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/oberdiek/resizegather.sty
+Package: resizegather 2016/05/16 v1.3 Resize overly large equations (HO)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2021/10/15 v2.17l AMS math features
+\@mathmargin=\skip52
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks18
+\ex@=\dimen162
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen163
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2021/08/26 v2.02 operator names
+)
+\inf@bad=\count271
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count272
+\leftroot@=\count273
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count274
+\DOTSCASE@=\count275
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box50
+\strutbox@=\box51
+\big@size=\dimen164
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count276
+\c@MaxMatrixCols=\count277
+\dotsspace@=\muskip16
+\c@parentequation=\count278
+\dspbrk@lvl=\count279
+\tag@help=\toks19
+\row@=\count280
+\column@=\count281
+\maxfields@=\count282
+\andhelp@=\toks20
+\eqnshift@=\dimen165
+\alignsep@=\dimen166
+\tagshift@=\dimen167
+\tagwidth@=\dimen168
+\totwidth@=\dimen169
+\lineht@=\dimen170
+\@envbody=\toks21
+\multlinegap=\skip53
+\multlinetaggap=\skip54
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip55
+\LTright=\skip56
+\LTpre=\skip57
+\LTpost=\skip58
+\LTchunksize=\count283
+\LTcapwidth=\dimen171
+\LT@head=\box52
+\LT@firsthead=\box53
+\LT@foot=\box54
+\LT@lastfoot=\box55
+\LT@gbox=\box56
+\LT@cols=\count284
+\LT@rows=\count285
+\c@LT@tables=\count286
+\c@LT@chunks=\count287
+\LT@p@ftn=\toks23
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/siunitx/siunitx.sty
+Package: siunitx 2022-02-15 v3.0.49 A comprehensive (SI) units package
+\l__siunitx_angle_tmp_dim=\dimen172
+\l__siunitx_angle_marker_box=\box57
+\l__siunitx_angle_unit_box=\box58
+\l__siunitx_compound_count_int=\count288
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/translations/translations.sty
+Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages
+ (CN)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+\l__siunitx_number_exponent_fixed_int=\count289
+\l__siunitx_number_min_decimal_int=\count290
+\l__siunitx_number_min_integer_int=\count291
+\l__siunitx_number_round_precision_int=\count292
+\l__siunitx_number_group_minimum_int=\count293
+\l__siunitx_table_tmp_box=\box59
+\l__siunitx_table_tmp_dim=\dimen173
+\l__siunitx_table_column_width_dim=\dimen174
+\l__siunitx_table_integer_box=\box60
+\l__siunitx_table_decimal_box=\box61
+\l__siunitx_table_before_box=\box62
+\l__siunitx_table_after_box=\box63
+\l__siunitx_table_before_dim=\dimen175
+\l__siunitx_table_carry_dim=\dimen176
+\l__siunitx_unit_tmp_int=\count294
+\l__siunitx_unit_position_int=\count295
+\l__siunitx_unit_total_int=\count296
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2022-02-24 L3 programming layer (loader) 
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count297
+\l__pdf_internal_box=\box64
+))
+Package: l3keys2e 2022-01-12 LaTeX2e option processing using LaTeX3 keys
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen177
+\ar@mcellbox=\box65
+\extrarowheight=\dimen178
+\NC@list=\toks24
+\extratabsurround=\skip59
+\backup@length=\skip60
+\ar@cellbox=\box66
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+\Gin@req@height=\dimen179
+\Gin@req@width=\dimen180
+)
+Package translations Info: No language package found. I am going to use `englis
+<<<<<<< HEAD
+h' as default language. on input line 18.
+=======
+h' as default language. on input line 15.
+>>>>>>> main
+
+(./2022_07_mixedmodels_Scenario.aux)
+\openout1 = `2022_07_mixedmodels_Scenario.aux'.
+
+<<<<<<< HEAD
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+=======
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+>>>>>>> main
+
+(/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count298
+\scratchdimen=\dimen181
+\scratchbox=\box67
+\nofMPsegments=\count299
+\nofMParguments=\count300
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count301
+\MPscratchDim=\dimen182
+\MPnumerator=\count302
+\makeMPintoPDFobject=\count303
+\everyMPtoPDFconversion=\toks26
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* pass: disregarded the geometry package!
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=345.0pt
+* \textheight=550.0pt
+* \oddsidemargin=62.0pt
+* \evensidemargin=62.0pt
+* \topmargin=16.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2021/12/07 v1.3c Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/translations/translations-basic-d
+ictionary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `tra
+nslations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' f
+<<<<<<< HEAD
+or `english'. on input line 18.
+ [1
+
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./2022
+_07_mixedmodels_Scenario.toc [1
+
+])
+\tf@toc=\write3
+\openout3 = `2022_07_mixedmodels_Scenario.toc'.
+
+ [2] [3
+
+]
+Overfull \hbox (81.79239pt too wide) in paragraph at lines 33--120
+ [][] 
+ []
+
+
+Overfull \hbox (81.78137pt too wide) in paragraph at lines 128--185
+ [][] 
+ []
+
+
+Overfull \hbox (81.78137pt too wide) in paragraph at lines 193--256
+ [][] 
+ []
+
+
+Overfull \hbox (81.79291pt too wide) in paragraph at lines 267--354
+ [][] 
+ []
+
+
+Overfull \hbox (81.77966pt too wide) in paragraph at lines 364--439
+ [][] 
+ []
+
+
+Overfull \hbox (81.79756pt too wide) in paragraph at lines 451--502
+ [][] 
+ []
+
+
+Overfull \hbox (81.78079pt too wide) in paragraph at lines 511--604
+ [][] 
+ []
+
+
+Overfull \hbox (81.785pt too wide) in paragraph at lines 612--690
+ [][] 
+ []
+
+
+Overfull \hbox (81.77985pt too wide) in paragraph at lines 697--751
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 21.5132pt on input line 901.
+
+
+Overfull \hbox (24.8791pt too wide) in paragraph at lines 911--1046
+ [][] 
+ []
+
+
+Overfull \hbox (81.78358pt too wide) in paragraph at lines 1053--1173
+ [][] 
+ []
+
+
+Overfull \hbox (81.779pt too wide) in paragraph at lines 1181--1253
+ [][] 
+ []
+
+[4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17
+
+]
+Overfull \hbox (81.77924pt too wide) in paragraph at lines 1263--1290
+ [][] 
+ []
+
+
+Overfull \hbox (81.78333pt too wide) in paragraph at lines 1297--1316
+ [][] 
+ []
+
+
+Overfull \hbox (81.78392pt too wide) in paragraph at lines 1324--1381
+ [][] 
+ []
+
+
+Overfull \hbox (81.7844pt too wide) in paragraph at lines 1387--1454
+ [][] 
+ []
+
+
+Overfull \hbox (81.79117pt too wide) in paragraph at lines 1461--1512
+ [][] 
+ []
+
+[18] [19] [20] [21
+=======
+or `english'. on input line 15.
+ [1
+
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [1] [1
+>>>>>>> main
+
+]
+Chapter 1.
+
+<<<<<<< HEAD
+Overfull \hbox (25.86186pt too wide) in paragraph at lines 1526--1553
+ [][] 
+ []
+
+<./graphs/Model/Model01_product.pdf, id=78, 722.7pt x 722.7pt>
+File: ./graphs/Model/Model01_product.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model01_product.pdf>
+Package pdftex.def Info: ./graphs/Model/Model01_product.pdf  used on input line
+ 1557.
+(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
+
+Overfull \hbox (96.79463pt too wide) in paragraph at lines 1555--1558
+[][] 
+ []
+
+[22
+
+] [23]
+Overfull \hbox (21.94519pt too wide) in paragraph at lines 1565--1592
+ [][] 
+ []
+
+<./graphs/Model/Model01.2_product.pdf, id=85, 722.7pt x 722.7pt>
+File: ./graphs/Model/Model01.2_product.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model01.2_product.pdf>
+Package pdftex.def Info: ./graphs/Model/Model01.2_product.pdf  used on input li
+ne 1596.
+(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1594--1597
+[] 
+ []
+
+[24 <./graphs/Model/Model01_product.pdf>] [25]
+Overfull \hbox (81.8101pt too wide) in paragraph at lines 1606--1634
+ [][] 
+ []
+
+
+Overfull \hbox (108.8064pt too wide) in paragraph at lines 1642--1678
+ [][] 
+ []
+
+<./graphs/Model/Model01.4_product.race.pdf, id=98, 722.7pt x 722.7pt>
+File: ./graphs/Model/Model01.4_product.race.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model01.4_product.race.pdf>
+Package pdftex.def Info: ./graphs/Model/Model01.4_product.race.pdf  used on inp
+ut line 1683.
+(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1681--1684
+[] 
+ []
+
+[26 <./graphs/Model/Model01.2_product.pdf>]
+Overfull \vbox (115.76248pt too high) has occurred while \output is active []
+
+
+[27 <./graphs/Model/Model01.4_product.race.pdf>] [28]
+Chapter 2.
+<./graphs/Model/Model02_presentation.pdf, id=118, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model02_presentation.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model02_presentation.pdf>
+Package pdftex.def Info: ./graphs/Model/Model02_presentation.pdf  used on input
+ line 1721.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1719--1722
+=======
+Overfull \hbox (25.86186pt too wide) in paragraph at lines 36--63
+ [][] 
+ []
+
+<./graphs/Model/Model01_product.pdf, id=16, 722.7pt x 722.7pt>
+File: ./graphs/Model/Model01_product.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model01_product.pdf>
+Package pdftex.def Info: ./graphs/Model/Model01_product.pdf  used on input line
+ 67.
+(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
+
+Overfull \hbox (96.79463pt too wide) in paragraph at lines 65--68
+[][] 
+ []
+
+[2
+
+] [3]
+Overfull \hbox (21.94519pt too wide) in paragraph at lines 75--102
+ [][] 
+ []
+
+<./graphs/Model/Model01.2_product.pdf, id=25, 722.7pt x 722.7pt>
+File: ./graphs/Model/Model01.2_product.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model01.2_product.pdf>
+Package pdftex.def Info: ./graphs/Model/Model01.2_product.pdf  used on input li
+ne 106.
+(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 104--107
+[] 
+ []
+
+[4 <./graphs/Model/Model01_product.pdf>] [5]
+Overfull \hbox (81.8101pt too wide) in paragraph at lines 116--144
+ [][] 
+ []
+
+[6 <./graphs/Model/Model01.2_product.pdf>] [7]
+Chapter 2.
+<./graphs/Model/Model02_presentation.pdf, id=49, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model02_presentation.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model02_presentation.pdf>
+Package pdftex.def Info: ./graphs/Model/Model02_presentation.pdf  used on input
+ line 182.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 180--183
+>>>>>>> main
+[] 
+ []
+
+
+<<<<<<< HEAD
+Overfull \hbox (81.80331pt too wide) in paragraph at lines 1726--1749
+ [][] 
+ []
+
+<./graphs/Model/Model02.1_presentationEXPGRP.pdf, id=119, 722.7pt x 722.7pt>
+File: ./graphs/Model/Model02.1_presentationEXPGRP.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model02.1_presentationEXPGRP.pdf>
+Package pdftex.def Info: ./graphs/Model/Model02.1_presentationEXPGRP.pdf  used 
+on input line 1757.
+(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
+
+Overfull \hbox (96.79463pt too wide) in paragraph at lines 1755--1758
+[][] 
+ []
+
+[29
+
+ <./graphs/Model/Model02_presentation.pdf>] [30]
+Overfull \hbox (36.35074pt too wide) in paragraph at lines 1769--1792
+ [][] 
+ []
+
+<./graphs/Model/Model02.2_presentationself.pdf, id=137, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model02.2_presentationself.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model02.2_presentationself.pdf>
+Package pdftex.def Info: ./graphs/Model/Model02.2_presentationself.pdf  used on
+ input line 1796.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1794--1797
+[] 
+ []
+
+[31 <./graphs/Model/Model02.1_presentationEXPGRP.pdf>]
+Overfull \hbox (81.79872pt too wide) in paragraph at lines 1806--1831
+[][] 
+ []
+
+
+Overfull \hbox (81.78992pt too wide) in paragraph at lines 1837--1888
+ [][] 
+ []
+
+<./graphs/Model/Model01.4_product.race2.pdf, id=151, 722.7pt x 722.7pt>
+File: ./graphs/Model/Model01.4_product.race2.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model01.4_product.race2.pdf>
+Package pdftex.def Info: ./graphs/Model/Model01.4_product.race2.pdf  used on in
+put line 1893.
+(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1891--1894
+[] 
+ []
+
+
+Overfull \hbox (116.46207pt too wide) in paragraph at lines 1901--1933
+ [][] 
+ []
+
+[32 <./graphs/Model/Model02.2_presentationself.pdf>]
+Overfull \vbox (88.32256pt too high) has occurred while \output is active []
+
+
+[33 <./graphs/Model/Model01.4_product.race2.pdf>] [34] [35]
+Chapter 3.
+
+Overfull \hbox (177.6677pt too wide) in alignment at lines 1938--1990
+ [] [] [] [] 
+ []
+
+[36
+
+]
+
+LaTeX Warning: Float too large for page by 15.1712pt on input line 2082.
+
+<./graphs/Model/Model03_presentation.product.pdf, id=184, 722.7pt x 939.51pt>
+File: ./graphs/Model/Model03_presentation.product.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model03_presentation.product.pdf>
+Package pdftex.def Info: ./graphs/Model/Model03_presentation.product.pdf  used 
+on input line 2086.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Overfull \hbox (96.79463pt too wide) in paragraph at lines 2084--2087
+[][] 
+ []
+
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 2093--2186
+ [][] 
+ []
+
+[37] [38]
+<./graphs/Model/Model03.2_presentation.product.EXPGRP.pdf, id=191, 722.7pt x 12
+28.59pt>
+File: ./graphs/Model/Model03.2_presentation.product.EXPGRP.pdf Graphic file (ty
+pe pdf)
+<use ./graphs/Model/Model03.2_presentation.product.EXPGRP.pdf>
+Package pdftex.def Info: ./graphs/Model/Model03.2_presentation.product.EXPGRP.p
+df  used on input line 2191.
+(pdftex.def)             Requested size: 722.69823pt x 1228.587pt.
+ [39 <./graphs/Model/Model03_presentation.product.pdf>] [40]
+Overfull \hbox (137.36768pt too wide) in paragraph at lines 2288--2316
+ [][] 
+ []
+
+<./graphs/Model/Model03.2_presentation.productself.pdf, id=208, 722.7pt x 939.5
+=======
+Overfull \hbox (36.35074pt too wide) in paragraph at lines 192--215
+ [][] 
+ []
+
+<./graphs/Model/Model02.2_presentationself.pdf, id=50, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model02.2_presentationself.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model02.2_presentationself.pdf>
+Package pdftex.def Info: ./graphs/Model/Model02.2_presentationself.pdf  used on
+ input line 219.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 217--220
+[] 
+ []
+
+[8
+
+ <./graphs/Model/Model02_presentation.pdf>] [9]
+Overfull \hbox (81.79872pt too wide) in paragraph at lines 229--254
+[][] 
+ []
+
+[10 <./graphs/Model/Model02.2_presentationself.pdf>]
+Chapter 3.
+
+Overfull \hbox (129.16756pt too wide) in alignment at lines 261--367
+ [] [] [] [] 
+ []
+
+[11
+
+] [12]
+
+LaTeX Warning: Float too large for page by 15.1712pt on input line 459.
+
+<./graphs/Model/Model03_presentation.product.pdf, id=87, 722.7pt x 939.51pt>
+File: ./graphs/Model/Model03_presentation.product.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model03_presentation.product.pdf>
+Package pdftex.def Info: ./graphs/Model/Model03_presentation.product.pdf  used 
+on input line 463.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Overfull \hbox (96.79463pt too wide) in paragraph at lines 461--464
+[][] 
+ []
+
+[13] [14]
+Overfull \hbox (137.36768pt too wide) in paragraph at lines 475--503
+ [][] 
+ []
+
+[15 <./graphs/Model/Model03_presentation.product.pdf>]
+<./graphs/Model/Model03.2_presentation.productself.pdf, id=107, 722.7pt x 939.5
+>>>>>>> main
+1pt>
+File: ./graphs/Model/Model03.2_presentation.productself.pdf Graphic file (type 
+pdf)
+<use ./graphs/Model/Model03.2_presentation.productself.pdf>
+Package pdftex.def Info: ./graphs/Model/Model03.2_presentation.productself.pdf 
+<<<<<<< HEAD
+ used on input line 2320.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 2318--2321
+[] 
+ []
+
+[41 <./graphs/Model/Model03.2_presentation.product.EXPGRP.pdf>] [42] [43]
+Overfull \vbox (20.66443pt too high) has occurred while \output is active []
+
+
+[44 <./graphs/Model/Model03.2_presentation.productself.pdf>]
+Overfull \hbox (81.78897pt too wide) in paragraph at lines 2330--2359
+ [][] 
+ []
+
+[45]
+Chapter 4.
+
+Overfull \hbox (81.7901pt too wide) in paragraph at lines 2370--2391
+ [][] 
+ []
+
+<./graphs/Model/Model04_SplillingEffect.pdf, id=245, 722.7pt x 939.51pt>
+File: ./graphs/Model/Model04_SplillingEffect.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model04_SplillingEffect.pdf>
+Package pdftex.def Info: ./graphs/Model/Model04_SplillingEffect.pdf  used on in
+put line 2396.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 2394--2397
+[] 
+ []
+
+[46
+=======
+ used on input line 507.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 505--508
+[] 
+ []
+
+
+Overfull \vbox (345.77122pt too high) has occurred while \output is active []
+
+
+[16 <./graphs/Model/Model03.2_presentation.productself.pdf>]
+Overfull \hbox (81.78897pt too wide) in paragraph at lines 517--546
+ [][] 
+ []
+
+[17]
+Chapter 4.
+
+Overfull \hbox (81.7901pt too wide) in paragraph at lines 557--578
+ [][] 
+ []
+
+<./graphs/Model/Model04_SplillingEffect.pdf, id=125, 722.7pt x 939.51pt>
+File: ./graphs/Model/Model04_SplillingEffect.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model04_SplillingEffect.pdf>
+Package pdftex.def Info: ./graphs/Model/Model04_SplillingEffect.pdf  used on in
+put line 583.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 581--584
+[] 
+ []
+
+[18
+>>>>>>> main
+
+]
+Overfull \vbox (180.59943pt too high) has occurred while \output is active []
+
+
+<<<<<<< HEAD
+[47 <./graphs/Model/Model04_SplillingEffect.pdf>]
+Chapter 5.
+[48
+
+]
+Overfull \hbox (75.96198pt too wide) in paragraph at lines 2406--2430
+ [][] 
+ []
+
+[49]
+Overfull \hbox (81.79257pt too wide) in paragraph at lines 2441--2480
+ [][] 
+ []
+
+[50]
+Chapter 6.
+
+Overfull \hbox (81.79175pt too wide) in paragraph at lines 2490--2555
+ [][] 
+ []
+
+[51
+
+
+
+] [52]
+Chapter 7.
+
+Overfull \hbox (24.89194pt too wide) in paragraph at lines 2565--2681
+ [][] 
+ []
+
+
+Overfull \hbox (24.89317pt too wide) in paragraph at lines 2688--2722
+ [][] 
+ []
+
+
+Overfull \hbox (24.89194pt too wide) in paragraph at lines 2730--2820
+ [][] 
+ []
+
+
+Overfull \hbox (24.89317pt too wide) in paragraph at lines 2828--2862
+ [][] 
+ []
+
+[53
+
+] [54] [55] [56] [57]
+Chapter 8.
+
+Overfull \hbox (24.8812pt too wide) in paragraph at lines 2873--2914
+ [][] 
+ []
+
+[58
+
+] [59] [60
+
+]
+Chapter 9.
+<./graphs/Model/Model04_racename.pdf, id=305, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model04_racename.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model04_racename.pdf>
+Package pdftex.def Info: ./graphs/Model/Model04_racename.pdf  used on input lin
+e 2957.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 2955--2958
+[] 
+ []
+
+[61
+
+ <./graphs/Model/Model04_racename.pdf>] [62]
+Chapter 10.
+<./graphs/Model/Model05_racerespondant.pdf, id=317, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model05_racerespondant.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model05_racerespondant.pdf>
+Package pdftex.def Info: ./graphs/Model/Model05_racerespondant.pdf  used on inp
+ut line 2992.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 2990--2993
+[] 
+ []
+
+
+Overfull \hbox (22.33408pt too wide) in paragraph at lines 2999--3022
+ [][] 
+ []
+
+<./graphs/Model/Model05_racerespondant.2.pdf, id=318, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model05_racerespondant.2.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model05_racerespondant.2.pdf>
+Package pdftex.def Info: ./graphs/Model/Model05_racerespondant.2.pdf  used on i
+nput line 3026.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (96.79463pt too wide) in paragraph at lines 3024--3027
+[][] 
+ []
+
+
+Overfull \hbox (124.1956pt too wide) in paragraph at lines 3031--3060
+ [][] 
+ []
+
+[63
+
+ <./graphs/Model/Model05_racerespondant.pdf>] [64] [65 <./graphs/Model/Model05_
+racerespondant.2.pdf>] [66]
+Chapter 11.
+
+Overfull \hbox (81.81421pt too wide) in paragraph at lines 3069--3130
+=======
+[19 <./graphs/Model/Model04_SplillingEffect.pdf>]
+Chapter 5.
+
+Overfull \hbox (81.79175pt too wide) in paragraph at lines 592--657
+ [][] 
+ []
+
+[20
+
+] [21]
+Chapter 6.
+
+Overfull \hbox (24.89194pt too wide) in paragraph at lines 667--783
+ [][] 
+ []
+
+
+Overfull \hbox (24.89317pt too wide) in paragraph at lines 790--824
+ [][] 
+ []
+
+
+Overfull \hbox (24.89194pt too wide) in paragraph at lines 832--922
+ [][] 
+ []
+
+
+Overfull \hbox (24.89317pt too wide) in paragraph at lines 930--964
+ [][] 
+ []
+
+[22
+
+] [23] [24] [25] [26]
+Chapter 7.
+
+Overfull \hbox (24.8812pt too wide) in paragraph at lines 975--1016
+ [][] 
+ []
+
+[27
+
+] [28] [29
+
+]
+Chapter 8.
+<./graphs/Model/Model04_racename.pdf, id=175, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model04_racename.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model04_racename.pdf>
+Package pdftex.def Info: ./graphs/Model/Model04_racename.pdf  used on input lin
+e 1059.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1057--1060
+[] 
+ []
+
+[30
+
+ <./graphs/Model/Model04_racename.pdf>] [31]
+Chapter 9.
+<./graphs/Model/Model05_racerespondant.pdf, id=187, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model05_racerespondant.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model05_racerespondant.pdf>
+Package pdftex.def Info: ./graphs/Model/Model05_racerespondant.pdf  used on inp
+ut line 1094.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1092--1095
+[] 
+ []
+
+[32
+
+ <./graphs/Model/Model05_racerespondant.pdf>] [33]
+Chapter 10.
+
+Overfull \hbox (81.81421pt too wide) in paragraph at lines 1103--1164
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+LaTeX Warning: Float too large for page by 72.1413pt on input line 3130.
+
+
+Overfull \hbox (102.30635pt too wide) in paragraph at lines 3136--3185
+ [][] 
+ []
+
+<./graphs/Model/Model06_racerespondant.racename.pdf, id=342, 722.7pt x 361.35pt
+=======
+LaTeX Warning: Float too large for page by 72.1413pt on input line 1164.
+
+<./graphs/Model/Model06_racerespondant.racename.pdf, id=199, 722.7pt x 361.35pt
+>>>>>>> main
+>
+File: ./graphs/Model/Model06_racerespondant.racename.pdf Graphic file (type pdf
+)
+<use ./graphs/Model/Model06_racerespondant.racename.pdf>
+Package pdftex.def Info: ./graphs/Model/Model06_racerespondant.racename.pdf  us
+<<<<<<< HEAD
+ed on input line 3191.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 3189--3192
+[] 
+ []
+
+
+LaTeX Warning: Float too large for page by 124.2042pt on input line 3304.
+
+
+Overfull \hbox (24.9002pt too wide) in paragraph at lines 3312--3369
+ [][] 
+ []
+
+[67
+
+ <./graphs/Model/Model06_racerespondant.racename.pdf>] [68] [69] [70]
+[71]
+Chapter 12.
+
+Overfull \hbox (81.7811pt too wide) in paragraph at lines 3378--3448
+ [][] 
+ []
+
+<./graphs/Model/Model6.2_presentation.racename.pdf, id=363, 722.7pt x 939.51pt>
+=======
+ed on input line 1169.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1167--1170
+[] 
+ []
+
+[34
+
+ <./graphs/Model/Model06_racerespondant.racename.pdf>] [35]
+Chapter 11.
+
+Overfull \hbox (81.7811pt too wide) in paragraph at lines 1177--1247
+ [][] 
+ []
+
+<./graphs/Model/Model6.2_presentation.racename.pdf, id=212, 722.7pt x 939.51pt>
+>>>>>>> main
+
+File: ./graphs/Model/Model6.2_presentation.racename.pdf Graphic file (type pdf)
+
+<use ./graphs/Model/Model6.2_presentation.racename.pdf>
+Package pdftex.def Info: ./graphs/Model/Model6.2_presentation.racename.pdf  use
+<<<<<<< HEAD
+d on input line 3453.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Overfull \hbox (81.78746pt too wide) in paragraph at lines 3460--3525
+ [][] 
+ []
+
+[72
+
+] [73]
+Overfull \vbox (27.34554pt too high) has occurred while \output is active []
+
+
+[74 <./graphs/Model/Model6.2_presentation.racename.pdf>] [75]
+<./graphs/Model/Model6.3_spill.racename.pdf, id=387, 722.7pt x 939.51pt>
+File: ./graphs/Model/Model6.3_spill.racename.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model6.3_spill.racename.pdf>
+Package pdftex.def Info: ./graphs/Model/Model6.3_spill.racename.pdf  used on in
+put line 3529.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3527--3531
+
+ []
+
+<./graphs/Model/Model6.3.2_spill.racename.update.pdf, id=388, 722.7pt x 939.51p
+=======
+d on input line 1252.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Overfull \hbox (81.78746pt too wide) in paragraph at lines 1259--1324
+ [][] 
+ []
+
+[36
+
+] [37]
+Overfull \vbox (27.34554pt too high) has occurred while \output is active []
+
+
+[38 <./graphs/Model/Model6.2_presentation.racename.pdf>] [39]
+<./graphs/Model/Model6.3_spill.racename.pdf, id=235, 722.7pt x 939.51pt>
+File: ./graphs/Model/Model6.3_spill.racename.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model6.3_spill.racename.pdf>
+Package pdftex.def Info: ./graphs/Model/Model6.3_spill.racename.pdf  used on in
+put line 1328.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1326--1330
+
+ []
+
+<./graphs/Model/Model6.3.2_spill.racename.update.pdf, id=236, 722.7pt x 939.51p
+>>>>>>> main
+t>
+File: ./graphs/Model/Model6.3.2_spill.racename.update.pdf Graphic file (type pd
+f)
+<use ./graphs/Model/Model6.3.2_spill.racename.update.pdf>
+Package pdftex.def Info: ./graphs/Model/Model6.3.2_spill.racename.update.pdf  u
+<<<<<<< HEAD
+sed on input line 3534.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+<./graphs/Model/Model6.3.2_spill.racename.update.2.pdf, id=389, 722.7pt x 939.5
+=======
+sed on input line 1333.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+<./graphs/Model/Model6.3.2_spill.racename.update.2.pdf, id=237, 722.7pt x 939.5
+>>>>>>> main
+1pt>
+File: ./graphs/Model/Model6.3.2_spill.racename.update.2.pdf Graphic file (type 
+pdf)
+<use ./graphs/Model/Model6.3.2_spill.racename.update.2.pdf>
+Package pdftex.def Info: ./graphs/Model/Model6.3.2_spill.racename.update.2.pdf 
+<<<<<<< HEAD
+ used on input line 3538.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+[76 <./graphs/Model/Model6.3_spill.racename.pdf>]
+Overfull \hbox (81.79819pt too wide) in paragraph at lines 3545--3635
+ [][] 
+ []
+
+[77 <./graphs/Model/Model6.3.2_spill.racename.update.pdf>]
+Overfull \hbox (81.79013pt too wide) in paragraph at lines 3643--3700
+=======
+ used on input line 1337.
+(pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
+[40 <./graphs/Model/Model6.3_spill.racename.pdf>]
+Overfull \hbox (81.79819pt too wide) in paragraph at lines 1344--1434
+ [][] 
+ []
+
+[41 <./graphs/Model/Model6.3.2_spill.racename.update.pdf>]
+Overfull \hbox (81.79013pt too wide) in paragraph at lines 1442--1499
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+Overfull \hbox (81.7983pt too wide) in paragraph at lines 3707--3818
+=======
+Overfull \hbox (81.7983pt too wide) in paragraph at lines 1506--1617
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+LaTeX Warning: Float too large for page by 37.78123pt on input line 3818.
+
+[78 <./graphs/Model/Model6.3.2_spill.racename.update.2.pdf>] [79] [80] [81]
+[82]
+Chapter 13.
+<./graphs/Model/Model07_covidskepticism.pdf, id=442, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model07_covidskepticism.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model07_covidskepticism.pdf>
+Package pdftex.def Info: ./graphs/Model/Model07_covidskepticism.pdf  used on in
+put line 3995.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 3993--3996
+[] 
+ []
+
+[83
+
+ <./graphs/Model/Model07_covidskepticism.pdf>] [84]
+Chapter 14.
+
+Overfull \hbox (81.80023pt too wide) in paragraph at lines 4005--4038
+=======
+LaTeX Warning: Float too large for page by 37.78123pt on input line 1617.
+
+[42 <./graphs/Model/Model6.3.2_spill.racename.update.2.pdf>] [43] [44] [45]
+[46]
+Chapter 12.
+<./graphs/Model/Model07_covidskepticism.pdf, id=290, 722.7pt x 361.35pt>
+File: ./graphs/Model/Model07_covidskepticism.pdf Graphic file (type pdf)
+<use ./graphs/Model/Model07_covidskepticism.pdf>
+Package pdftex.def Info: ./graphs/Model/Model07_covidskepticism.pdf  used on in
+put line 1794.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+Overfull \hbox (81.79463pt too wide) in paragraph at lines 1792--1795
+[] 
+ []
+
+[47
+
+ <./graphs/Model/Model07_covidskepticism.pdf>] [48]
+Chapter 13.
+
+Overfull \hbox (81.80023pt too wide) in paragraph at lines 1804--1837
+ [][] 
+ []
+
+
+Overfull \hbox (81.81071pt too wide) in paragraph at lines 1847--1884
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 17.54486pt on input line 1998.
+
+
+Overfull \hbox (81.79692pt too wide) in paragraph at lines 2004--2041
+ [][] 
+ []
+
+
+Overfull \hbox (81.80565pt too wide) in paragraph at lines 2047--2098
+ [][] 
+ []
+
+[49
+
+] [50] [51] [52] [53] [54] [55
+
+]
+Chapter 14.
+
+Overfull \hbox (81.78958pt too wide) in paragraph at lines 2109--2145
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+Overfull \hbox (81.81071pt too wide) in paragraph at lines 4048--4085
+=======
+LaTeX Warning: Float too large for page by 59.0756pt on input line 2264.
+
+
+Overfull \hbox (81.8038pt too wide) in paragraph at lines 2272--2331
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+LaTeX Warning: Float too large for page by 17.54486pt on input line 4199.
+
+
+Overfull \hbox (81.79692pt too wide) in paragraph at lines 4205--4242
+=======
+Overfull \hbox (81.7882pt too wide) in paragraph at lines 2340--2403
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+Overfull \hbox (81.80565pt too wide) in paragraph at lines 4248--4299
+ [][] 
+ []
+
+[85
+
+] [86] [87] [88] [89] [90] [91
+=======
+Overfull \hbox (81.7882pt too wide) in paragraph at lines 2410--2441
+ [][] 
+ []
+
+
+Overfull \hbox (81.79973pt too wide) in paragraph at lines 2453--2484
+ [][] 
+ []
+
+
+Overfull \hbox (81.79044pt too wide) in paragraph at lines 2490--2521
+ [][] 
+ []
+
+
+Overfull \hbox (280.41776pt too wide) in paragraph at lines 2527--2557
+ [][] 
+ []
+
+
+Overfull \hbox (81.80602pt too wide) in paragraph at lines 2563--2594
+ [][] 
+ []
+
+[56
+
+] [57] [58] [59] [60] [61] [62] [63] [64] [65
+>>>>>>> main
+
+]
+Chapter 15.
+
+<<<<<<< HEAD
+Overfull \hbox (81.78958pt too wide) in paragraph at lines 4310--4346
+=======
+Overfull \hbox (64.44524pt too wide) in paragraph at lines 2610--2629
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+LaTeX Warning: Float too large for page by 59.0756pt on input line 4465.
+
+
+Overfull \hbox (81.8038pt too wide) in paragraph at lines 4473--4532
+=======
+Overfull \hbox (97.08418pt too wide) in paragraph at lines 2635--2655
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+Overfull \hbox (81.7882pt too wide) in paragraph at lines 4541--4604
+=======
+Overfull \hbox (81.80647pt too wide) in paragraph at lines 2662--2683
+>>>>>>> main
+ [][] 
+ []
+
+
+<<<<<<< HEAD
+Overfull \hbox (81.7882pt too wide) in paragraph at lines 4611--4642
+ [][] 
+ []
+
+
+Overfull \hbox (81.79973pt too wide) in paragraph at lines 4654--4685
+ [][] 
+ []
+
+
+Overfull \hbox (81.79044pt too wide) in paragraph at lines 4691--4722
+ [][] 
+ []
+
+
+Overfull \hbox (280.41776pt too wide) in paragraph at lines 4728--4758
+ [][] 
+ []
+
+
+Overfull \hbox (81.80602pt too wide) in paragraph at lines 4764--4795
+ [][] 
+ []
+
+[92
+
+] [93] [94] [95] [96] [97] [98] [99] [100] [101
+
+]
+Chapter 16.
+
+Overfull \hbox (64.44524pt too wide) in paragraph at lines 4811--4830
+ [][] 
+ []
+
+
+Overfull \hbox (97.08418pt too wide) in paragraph at lines 4836--4856
+ [][] 
+ []
+
+
+Overfull \hbox (81.80647pt too wide) in paragraph at lines 4863--4884
+ [][] 
+ []
+
+
+Overfull \hbox (81.78244pt too wide) in paragraph at lines 4891--4915
+ [][] 
+ []
+
+[102
+
+] [103] [104] [105] (./2022_07_mixedmodels_Scenario.aux) ) 
+Here is how much of TeX's memory you used:
+ 7770 strings out of 478268
+ 182716 string characters out of 5846347
+ 1187743 words of memory out of 5000000
+ 25864 multiletter control sequences out of 15000+600000
+ 476189 words of font info for 52 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 71i,10n,79p,680b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2
+022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/20
+22/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/202
+2/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf
+-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on 2022_07_mixedmodels_Scenario.pdf (106 pages, 13925211 bytes).
+
+PDF statistics:
+ 565 PDF objects out of 1000 (max. 8388607)
+ 399 compressed objects within 4 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+=======
+Overfull \hbox (81.78244pt too wide) in paragraph at lines 2690--2714
+ [][] 
+ []
+
+[66
+
+] [67] [68] [69] (./2022_07_mixedmodels_Scenario.aux) ) 
+Here is how much of TeX's memory you used:
+ 7705 strings out of 478268
+ 180112 string characters out of 5846347
+ 623907 words of memory out of 5000000
+ 25811 multiletter control sequences out of 15000+600000
+ 475583 words of font info for 50 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 71i,10n,79p,272b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022
+/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-di
+st/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on 2022_07_mixedmodels_Scenario.pdf (71 pages, 10282299 bytes).
+PDF statistics:
+ 412 PDF objects out of 1000 (max. 8388607)
+ 292 compressed objects within 3 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+>>>>>>> main
+

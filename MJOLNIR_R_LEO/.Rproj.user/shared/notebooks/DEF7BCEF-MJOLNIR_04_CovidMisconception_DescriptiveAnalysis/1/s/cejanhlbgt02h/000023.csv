@@ -1,0 +1,430 @@
+"0","df_covmis2$EDUCATION_2_TEXT <- fct_recode(df_covmis2$EDUCATION_1 %>% as.character,"
+"0","          ""No college degree""=""1"","
+"0","          ""No college degree""=""2"","
+"0","          ""No college degree""=""3"","
+"0","          ""College degree""=""4"","
+"0","          ""College degree""=""5"","
+"0","          ""Graduate degree""=""6"","
+"0","          ""Graduate degree""=""7"","
+"0","          ""Graduate degree""=""8"")"
+"0","df_covmis2$DOB_AGE_BRACKET <- fct_recode(df_covmis2$DOB_YEAR_PERIODE %>% as.character,"
+"0","          ""-25y""=""(1995,2005]"","
+"0","          ""25 - 45y""=""(1985,1995]"","
+"0","          ""25 - 45y""=""(1975,1985]"","
+"0","          ""+45y""=""(1944,1955]"", "
+"0","          ""+45y""=""(1955,1965]"","
+"0","          ""+45y""=""(1965,1975]"")"
+"0","regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + SEX_TEXT +"
+"0","             EDUCATION_2_TEXT + DOB_AGE_BRACKET + neuroticism_qual + extraversion_qual + openness_qual + "
+"0","             conscientiousness_qual + agreeableness_qual, "
+"0","           data = df_covmis2)"
+"1","# weights: "
+"1"," "
+"1","93"
+"1"," ("
+"1",""
+"1","60"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 462.188017
+"
+"1","iter  20 value 449.856776
+"
+"1","iter  30 value 447.444923
+"
+"1","iter  40 value 446.934218
+"
+"1","iter  50 value 446.724179
+"
+"1","iter  60 value 446.717265
+"
+"1","final  value 446.717240 
+"
+"1","converged
+"
+"0","step(regm)"
+"1","Start:  AIC="
+"1",""
+"1","1013.43"
+"1",""
+"1","
+"
+"1",""
+"1","covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + "
+"1",""
+"1","
+    SEX_TEXT + EDUCATION_2_TEXT + DOB_AGE_BRACKET + neuroticism_qual + "
+"1",""
+"1","
+    extraversion_qual + openness_qual + conscientiousness_qual + "
+"1",""
+"1","
+    agreeableness_qual"
+"1",""
+"1","
+
+"
+"1","trying -"
+"1"," "
+"1","EXPGRP_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","87"
+"1"," ("
+"1",""
+"1","56"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 472.822904
+"
+"1","iter  20 value 463.510030
+"
+"1","iter  30 value 461.876855
+"
+"1","iter  40 value 461.580380
+"
+"1","iter  50 value 461.455216
+"
+"1","iter  60 value 461.452175
+"
+"1","final  value 461.452165 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","CONTINENT_BORN_TEXT_1"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","66"
+"1"," ("
+"1",""
+"1","42"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 476.303301
+"
+"1","iter  20 value 458.769836
+"
+"1","iter  30 value 457.522823
+"
+"1","iter  40 value 457.361151
+"
+"1","iter  50 value 457.346844
+"
+"1","final  value 457.346788 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","HAS_LIVED_USA"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","90"
+"1"," ("
+"1",""
+"1","58"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 464.157904
+"
+"1","iter  20 value 450.973604
+"
+"1","iter  30 value 448.654999
+"
+"1","iter  40 value 448.105546
+"
+"1","iter  50 value 447.976268
+"
+"1","iter  60 value 447.972657
+"
+"1","iter  60 value 447.972654
+"
+"1","iter  60 value 447.972654
+"
+"1","final  value 447.972654 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","SEX_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","84"
+"1"," ("
+"1",""
+"1","54"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 463.994226
+"
+"1","iter  20 value 453.708227
+"
+"1","iter  30 value 451.022245
+"
+"1","iter  40 value 450.600171
+"
+"1","iter  50 value 450.456552
+"
+"1","final  value 450.453910 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","EDUCATION_2_TEXT"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","87"
+"1"," ("
+"1",""
+"1","56"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 464.349983
+"
+"1","iter  20 value 452.621073
+"
+"1","iter  30 value 449.748916
+"
+"1","iter  40 value 449.243133
+"
+"1","iter  50 value 449.064649
+"
+"1","iter  60 value 449.063044
+"
+"1","iter  60 value 449.063040
+"
+"1","iter  60 value 449.063040
+"
+"1","final  value 449.063040 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","DOB_AGE_BRACKET"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","87"
+"1"," ("
+"1",""
+"1","56"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 459.170523
+"
+"1","iter  20 value 450.172555
+"
+"1","iter  30 value 448.409313
+"
+"1","iter  40 value 448.115124
+"
+"1","iter  50 value 448.009338
+"
+"1","final  value 448.008688 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","neuroticism_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","87"
+"1"," ("
+"1",""
+"1","56"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 463.735184
+"
+"1","iter  20 value 452.902780
+"
+"1","iter  30 value 450.779994
+"
+"1","iter  40 value 450.344219
+"
+"1","iter  50 value 450.241142
+"
+"1","final  value 450.239877 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","extraversion_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","87"
+"1"," ("
+"1",""
+"1","56"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 461.369512
+"
+"1","iter  20 value 451.551182
+"
+"1","iter  30 value 449.765707
+"
+"1","iter  40 value 449.456948
+"
+"1","iter  50 value 449.312706
+"
+"1","final  value 449.311605 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","openness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","87"
+"1"," ("
+"1",""
+"1","56"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 474.441827
+"
+"1","iter  20 value 460.569784
+"
+"1","iter  30 value 458.684048
+"
+"1","iter  40 value 458.260373
+"
+"1","iter  50 value 458.071146
+"
+"1","iter  60 value 458.068207
+"
+"1","iter  60 value 458.068203
+"
+"1","iter  60 value 458.068203
+"
+"1","final  value 458.068203 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","conscientiousness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","87"
+"1"," ("
+"1",""
+"1","56"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 462.565089
+"
+"1","iter  20 value 450.285428
+"
+"1","iter  30 value 448.374425
+"
+"1","iter  40 value 448.041717
+"
+"1","iter  50 value 447.940450
+"
+"1","final  value 447.939717 
+"
+"1","converged
+"
+"1","trying -"
+"1"," "
+"1","agreeableness_qual"
+"1"," "
+"1","
+"
+"1","# weights: "
+"1"," "
+"1","87"
+"1"," ("
+"1",""
+"1","56"
+"1",""
+"1"," variable)
+"
+"1","initial  value 716.295212 
+"
+"1","iter  10 value 471.130934
+"
+"1","iter  20 value 460.062578
+"
+"1","iter  30 value 458.306717
+"
+"1","iter  40 value 457.932446
+"
+"1","iter  50 value 457.827799
+"
+"1","final  value 457.826508 
+"
+"1","converged
+"

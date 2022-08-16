@@ -1,0 +1,2 @@
+"0","res.pca <- PCA(df_covmis %>% select(matches(""^covmis_att"")),"
+"0","               scale.unit=TRUE, ncp=25, graph=T)"

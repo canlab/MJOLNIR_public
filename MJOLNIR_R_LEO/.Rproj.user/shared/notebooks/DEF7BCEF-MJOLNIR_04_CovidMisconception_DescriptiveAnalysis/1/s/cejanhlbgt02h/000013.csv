@@ -1,0 +1,7 @@
+"0","regm <- multinom(covqual_class ~ EXPGRP_TEXT + CONTINENT_BORN_TEXT_1 + HAS_LIVED_USA + SEX_TEXT +
+             EDUCATION_2_TEXT + DOB_AGE_BRACKET + neuroticism_qual + extraversion_qual + openness_qual + 
+             conscientiousness_qual + agreeableness_qual, 
+           data = df_covmis2)
+"
+"2","Error in eval(predvars, data, env) : object 'DOB_AGE_BRACKET' not found
+"

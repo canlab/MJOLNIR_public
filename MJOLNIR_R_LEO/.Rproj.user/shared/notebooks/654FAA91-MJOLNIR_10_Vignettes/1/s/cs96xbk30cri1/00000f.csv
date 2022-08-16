@@ -1,0 +1,104 @@
+"0","modelsummary(mixed.lmers, fmt=2, estimate = c(""{estimate}[{conf.low},{conf.high}]{stars}""), statistic = c(""t={statistic}, se={std.error}"",
+                                   ""p={p.value}, df={df.error}""),
+             output = ""latex"", title = ""Model 3.2, Product and Update presentation Experience group"") 
+"
+"1","\begin{table}
+
+\caption{Model 3.2, Product and Update presentation Experience group}
+\centering
+\begin{tabular}[t]{lcccccc}
+\toprule
+  & MorallyWrong\& & MorallyWrong* & CatchCovid\& & CatchCovid* & TransmitCovid+ & TransmitCovid*\\
+\midrule
+(Intercept) & \num{21.80}[\num{19.30},\num{24.31}]*** & \num{22.55}[\num{19.84},\num{25.26}]*** & \num{31.30}[\num{29.17},\num{33.43}]*** & \num{31.62}[\num{29.42},\num{33.82}]*** & \num{30.98}[\num{28.78},\num{33.19}]*** & \num{31.04}[\num{28.76},\num{33.31}]***\\
+ & t=\num{17.07}, se=\num{1.28} & t=\num{16.33}, se=\num{1.38} & t=\num{28.82}, se=\num{1.09} & t=\num{28.20}, se=\num{1.12} & t=\num{27.55}, se=\num{1.12} & t=\num{26.75}, se=\num{1.16}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, \vphantom{1} df=\num{4765.00}\\
+V\_Producttoiletpaper & \num{11.73}[\num{9.49},\num{13.97}]*** & \num{10.72}[\num{7.99},\num{13.45}]*** & \num{0.79}[\num{-0.41},\num{1.98}] & \num{0.52}[\num{-0.93},\num{1.97}] & \num{1.30}[\num{0.08},\num{2.53}]* & \num{1.31}[\num{-0.17},\num{2.80}]+\\
+ & t=\num{10.25}, se=\num{1.14} & t=\num{7.70}, se=\num{1.39} & t=\num{1.30}, se=\num{0.61} & t=\num{0.70}, se=\num{0.74} & t=\num{2.09}, se=\num{0.62} & t=\num{1.73}, se=\num{0.76}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.20}, df=\num{4776.00} & p=\num{0.48}, df=\num{4765.00} & p=\num{0.04}, df=\num{4776.00} & p=\num{0.08}, df=\num{4765.00}\\
+V\_Productcigarettes & \num{11.72}[\num{9.47},\num{13.96}]*** & \num{9.43}[\num{6.70},\num{12.16}]*** & \num{6.48}[\num{5.29},\num{7.68}]*** & \num{5.17}[\num{3.72},\num{6.62}]*** & \num{5.30}[\num{4.07},\num{6.52}]*** & \num{4.78}[\num{3.30},\num{6.27}]***\\
+ & t=\num{10.24}, se=\num{1.14} & t=\num{6.77}, se=\num{1.39} & t=\num{10.63}, se=\num{0.61} & t=\num{6.98}, se=\num{0.74} & t=\num{8.48}, se=\num{0.62} & t=\num{6.30}, se=\num{0.76}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00}\\
+V\_Productbabyformula & \num{-6.08}[\num{-8.32},\num{-3.83}]*** & \num{-6.63}[\num{-9.36},\num{-3.90}]*** & \num{-0.94}[\num{-2.14},\num{0.25}] & \num{-0.79}[\num{-2.25},\num{0.66}] & \num{-0.43}[\num{-1.65},\num{0.80}] & \num{0.08}[\num{-1.40},\num{1.57}]\\
+ & t=\num{-5.31}, se=\num{1.14} & t=\num{-4.76}, se=\num{1.39} & t=\num{-1.55}, se=\num{0.61} & t=\num{-1.07}, se=\num{0.74} & t=\num{-0.69}, se=\num{0.62} & t=\num{0.11}, se=\num{0.76}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.12}, df=\num{4776.00} & p=\num{0.28}, df=\num{4765.00} & p=\num{0.49}, df=\num{4776.00} & p=\num{0.91}, df=\num{4765.00}\\
+V\_presentation3Defensive & \num{12.63}[\num{9.83},\num{15.44}]*** & \num{11.50}[\num{8.07},\num{14.93}]*** & \num{0.36}[\num{-1.14},\num{1.86}] & \num{0.50}[\num{-1.33},\num{2.33}] & \num{0.74}[\num{-0.79},\num{2.28}] & \num{0.49}[\num{-1.38},\num{2.36}]\\
+ & t=\num{8.82}, se=\num{1.43} & t=\num{6.58}, se=\num{1.75} & t=\num{0.47}, se=\num{0.76} & t=\num{0.54}, se=\num{0.93} & t=\num{0.95}, se=\num{0.78} & t=\num{0.51}, se=\num{0.96}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.64}, df=\num{4776.00} & p=\num{0.59}, df=\num{4765.00} & p=\num{0.34}, df=\num{4776.00} & p=\num{0.61}, df=\num{4765.00}\\
+V\_presentation3Prosocial & \num{-12.11}[\num{-14.91},\num{-9.30}]*** & \num{-12.03}[\num{-15.43},\num{-8.63}]*** & \num{-1.69}[\num{-3.19},\num{-0.19}]* & \num{-1.50}[\num{-3.31},\num{0.31}] & \num{-1.63}[\num{-3.16},\num{-0.09}]* & \num{-1.08}[\num{-2.94},\num{0.78}]\\
+ & t=\num{-8.47}, se=\num{1.43} & t=\num{-6.93}, se=\num{1.74} & t=\num{-2.21}, se=\num{0.76} & t=\num{-1.62}, se=\num{0.92} & t=\num{-2.08}, se=\num{0.78} & t=\num{-1.14}, se=\num{0.95}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.03}, df=\num{4776.00} & p=\num{0.11}, df=\num{4765.00} & p=\num{0.04}, df=\num{4776.00} & p=\num{0.26}, df=\num{4765.00}\\
+EXPGRP\_TEXTChinese & \num{1.85}[\num{-1.68},\num{5.39}] & \num{-0.44}[\num{-5.18},\num{4.31}] & \num{2.61}[\num{-0.86},\num{6.07}] & \num{1.63}[\num{-2.22},\num{5.49}] & \num{2.03}[\num{-1.56},\num{5.63}] & \num{1.86}[\num{-2.12},\num{5.85}]\\
+ & t=\num{1.03}, se=\num{1.80} & t=\num{-0.18}, se=\num{2.42} & t=\num{1.48}, se=\num{1.77} & t=\num{0.83}, se=\num{1.97} & t=\num{1.11}, se=\num{1.83} & t=\num{0.92}, se=\num{2.03}\\
+ & p=\num{0.30}, df=\num{4776.00} & p=\num{0.86}, df=\num{4765.00} & p=\num{0.14}, df=\num{4776.00} & p=\num{0.41}, df=\num{4765.00} & p=\num{0.27}, df=\num{4776.00} & p=\num{0.36}, df=\num{4765.00}\\
+V\_ProducttoiletpaperV\_presentation3Defensive & \num{-9.78}[\num{-13.77},\num{-5.79}]*** & \num{-8.89}[\num{-13.75},\num{-4.04}]*** & \num{-2.07}[\num{-4.21},\num{0.06}]+ & \num{-2.24}[\num{-4.83},\num{0.35}]+ & \num{-2.15}[\num{-4.33},\num{0.04}]+ & \num{-1.85}[\num{-4.50},\num{0.81}]\\
+ & t=\num{-4.81}, se=\num{2.04} & t=\num{-3.59}, se=\num{2.48} & t=\num{-1.91}, se=\num{1.09} & t=\num{-1.70}, se=\num{1.32} & t=\num{-1.93}, se=\num{1.11} & t=\num{-1.36}, se=\num{1.35}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.06}, df=\num{4776.00} & p=\num{0.09}, df=\num{4765.00} & p=\num{0.05}, df=\num{4776.00} & p=\num{0.17}, df=\num{4765.00}\\
+V\_ProductcigarettesV\_presentation3Defensive & \num{-12.77}[\num{-16.76},\num{-8.77}]*** & \num{-10.73}[\num{-15.57},\num{-5.88}]*** & \num{-2.63}[\num{-4.76},\num{-0.49}]* & \num{-3.11}[\num{-5.69},\num{-0.52}]* & \num{-3.11}[\num{-5.30},\num{-0.92}]** & \num{-3.20}[\num{-5.85},\num{-0.55}]*\\
+ & t=\num{-6.27}, se=\num{2.04} & t=\num{-4.34}, se=\num{2.47} & t=\num{-2.41}, se=\num{1.09} & t=\num{-2.36}, se=\num{1.32} & t=\num{-2.79}, se=\num{1.12} & t=\num{-2.37}, se=\num{1.35}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.02}, df=\num{4776.00} & p=\num{0.02}, df=\num{4765.00} & p=\num{0.01}, df=\num{4776.00} & p=\num{0.02}, df=\num{4765.00}\\
+V\_ProductbabyformulaV\_presentation3Defensive & \num{-4.97}[\num{-8.97},\num{-0.96}]* & \num{-3.57}[\num{-8.48},\num{1.33}] & \num{-0.99}[\num{-3.13},\num{1.15}] & \num{-1.06}[\num{-3.67},\num{1.56}] & \num{-1.50}[\num{-3.69},\num{0.69}] & \num{-1.06}[\num{-3.75},\num{1.62}]\\
+ & t=\num{-2.43}, se=\num{2.04} & t=\num{-1.43}, se=\num{2.50} & t=\num{-0.91}, se=\num{1.09} & t=\num{-0.79}, se=\num{1.33} & t=\num{-1.34}, se=\num{1.12} & t=\num{-0.78}, se=\num{1.37}\\
+ & p=\num{0.02}, df=\num{4776.00} & p=\num{0.15}, df=\num{4765.00} & p=\num{0.36}, df=\num{4776.00} & p=\num{0.43}, df=\num{4765.00} & p=\num{0.18}, df=\num{4776.00} & p=\num{0.44}, df=\num{4765.00}\\
+V\_ProducttoiletpaperV\_presentation3Prosocial & \num{-12.19}[\num{-16.20},\num{-8.19}]*** & \num{-12.25}[\num{-17.12},\num{-7.38}]*** & \num{2.99}[\num{0.85},\num{5.13}]** & \num{2.80}[\num{0.21},\num{5.40}]* & \num{2.23}[\num{0.04},\num{4.43}]* & \num{1.24}[\num{-1.42},\num{3.91}]\\
+ & t=\num{-5.97}, se=\num{2.04} & t=\num{-4.93}, se=\num{2.48} & t=\num{2.74}, se=\num{1.09} & t=\num{2.12}, se=\num{1.32} & t=\num{2.00}, se=\num{1.12} & t=\num{0.92}, se=\num{1.36}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.01}, df=\num{4776.00} & p=\num{0.03}, df=\num{4765.00} & p=\num{0.05}, df=\num{4776.00} & p=\num{0.36}, df=\num{4765.00}\\
+V\_ProductcigarettesV\_presentation3Prosocial & \num{6.03}[\num{2.04},\num{10.03}]** & \num{8.40}[\num{3.52},\num{13.28}]*** & \num{-2.02}[\num{-4.15},\num{0.12}]+ & \num{-1.54}[\num{-4.14},\num{1.06}] & \num{-0.10}[\num{-2.29},\num{2.09}] & \num{-1.21}[\num{-3.88},\num{1.46}]\\
+ & t=\num{2.96}, se=\num{2.04} & t=\num{3.37}, se=\num{2.49} & t=\num{-1.85}, se=\num{1.09} & t=\num{-1.16}, se=\num{1.33} & t=\num{-0.09}, se=\num{1.12} & t=\num{-0.89}, se=\num{1.36}\\
+ & p=\num{0.00}, df=\num{4776.00} & p=\num{0.00}, df=\num{4765.00} & p=\num{0.06}, df=\num{4776.00} & p=\num{0.25}, df=\num{4765.00} & p=\num{0.93}, df=\num{4776.00} & p=\num{0.37}, df=\num{4765.00}\\
+V\_ProductbabyformulaV\_presentation3Prosocial & \num{5.41}[\num{1.42},\num{9.39}]** & \num{6.45}[\num{1.63},\num{11.28}]** & \num{-0.04}[\num{-2.16},\num{2.09}] & \num{-0.27}[\num{-2.84},\num{2.31}] & \num{-0.63}[\num{-2.81},\num{1.55}] & \num{-1.31}[\num{-3.95},\num{1.33}]\\
+ & t=\num{2.66}, se=\num{2.03} & t=\num{2.62}, se=\num{2.46} & t=\num{-0.03}, se=\num{1.09} & t=\num{-0.20}, se=\num{1.31} & t=\num{-0.57}, se=\num{1.11} & t=\num{-0.97}, se=\num{1.35}\\
+ & p=\num{0.01}, df=\num{4776.00} & p=\num{0.01}, df=\num{4765.00} & p=\num{0.97}, df=\num{4776.00} & p=\num{0.84}, df=\num{4765.00} & p=\num{0.57}, df=\num{4776.00} & p=\num{0.33}, df=\num{4765.00}\\
+V\_ProducttoiletpaperEXPGRP\_TEXTChinese &  & \num{3.10}[\num{-1.69},\num{7.88}] &  & \num{0.83}[\num{-1.72},\num{3.37}] &  & \num{-0.03}[\num{-2.64},\num{2.58}]\\
+ &  & t=\num{1.27}, se=\num{2.44} &  & t=\num{0.64}, se=\num{1.30} &  & t=\num{-0.02}, se=\num{1.33}\\
+ &  & p=\num{0.20}, df=\num{4765.00} &  & p=\num{0.52}, df=\num{4765.00} &  & p=\num{0.98}, df=\num{4765.00}\\
+V\_ProductcigarettesEXPGRP\_TEXTChinese &  & \num{7.02}[\num{2.24},\num{11.80}]** &  & \num{4.02}[\num{1.48},\num{6.57}]** &  & \num{1.57}[\num{-1.04},\num{4.18}]\\
+ &  & t=\num{2.88}, se=\num{2.44} &  & t=\num{3.10}, se=\num{1.30} &  & t=\num{1.18}, se=\num{1.33}\\
+ &  & p=\num{0.00}, df=\num{4765.00} &  & p=\num{0.00}, df=\num{4765.00} &  & p=\num{0.24}, df=\num{4765.00}\\
+V\_ProductbabyformulaEXPGRP\_TEXTChinese &  & \num{1.70}[\num{-3.08},\num{6.48}] &  & \num{-0.46}[\num{-3.00},\num{2.09}] &  & \num{-1.58}[\num{-4.19},\num{1.03}]\\
+ &  & t=\num{0.70}, se=\num{2.44} &  & t=\num{-0.35}, se=\num{1.30} &  & t=\num{-1.18}, se=\num{1.33}\\
+ &  & p=\num{0.49}, df=\num{4765.00} &  & p=\num{0.72}, df=\num{4765.00} &  & p=\num{0.24}, df=\num{4765.00}\\
+V\_presentation3DefensiveEXPGRP\_TEXTChinese &  & \num{3.47}[\num{-2.49},\num{9.44}] &  & \num{-0.41}[\num{-3.59},\num{2.77}] &  & \num{0.76}[\num{-2.51},\num{4.02}]\\
+ &  & t=\num{1.14}, se=\num{3.04} &  & t=\num{-0.25}, se=\num{1.62} &  & t=\num{0.45}, se=\num{1.66}\\
+ &  & p=\num{0.25}, df=\num{4765.00} &  & p=\num{0.80}, df=\num{4765.00} &  & p=\num{0.65}, df=\num{4765.00}\\
+V\_presentation3ProsocialEXPGRP\_TEXTChinese &  & \num{-0.30}[\num{-6.30},\num{5.70}] &  & \num{-0.61}[\num{-3.81},\num{2.58}] &  & \num{-1.71}[\num{-4.99},\num{1.58}]\\
+ &  & t=\num{-0.10}, se=\num{3.06} &  & t=\num{-0.38}, se=\num{1.63} &  & t=\num{-1.02}, se=\num{1.67}\\
+ &  & p=\num{0.92}, df=\num{4765.00} &  & p=\num{0.71}, df=\num{4765.00} &  & p=\num{0.31}, df=\num{4765.00}\\
+V\_ProducttoiletpaperV\_presentation3DefensiveEXPGRP\_TEXTChinese &  & \num{-2.72}[\num{-11.23},\num{5.79}] &  & \num{0.49}[\num{-4.05},\num{5.03}] &  & \num{-0.94}[\num{-5.60},\num{3.72}]\\
+ &  & t=\num{-0.63}, se=\num{4.34} &  & t=\num{0.21}, se=\num{2.32} &  & t=\num{-0.40}, se=\num{2.38}\\
+ &  & p=\num{0.53}, df=\num{4765.00} &  & p=\num{0.83}, df=\num{4765.00} &  & p=\num{0.69}, df=\num{4765.00}\\
+V\_ProductcigarettesV\_presentation3DefensiveEXPGRP\_TEXTChinese &  & \num{-6.16}[\num{-14.72},\num{2.39}] &  & \num{1.72}[\num{-2.85},\num{6.28}] &  & \num{0.47}[\num{-4.21},\num{5.15}]\\
+ &  & t=\num{-1.41}, se=\num{4.36} &  & t=\num{0.74}, se=\num{2.33} &  & t=\num{0.20}, se=\num{2.39}\\
+ &  & p=\num{0.16}, df=\num{4765.00} &  & p=\num{0.46}, df=\num{4765.00} &  & p=\num{0.84}, df=\num{4765.00}\\
+V\_ProductbabyformulaV\_presentation3DefensiveEXPGRP\_TEXTChinese &  & \num{-4.20}[\num{-12.68},\num{4.28}] &  & \num{0.24}[\num{-4.28},\num{4.76}] &  & \num{-1.21}[\num{-5.85},\num{3.43}]\\
+ &  & t=\num{-0.97}, se=\num{4.33} &  & t=\num{0.10}, se=\num{2.31} &  & t=\num{-0.51}, se=\num{2.37}\\
+ &  & p=\num{0.33}, df=\num{4765.00} &  & p=\num{0.92}, df=\num{4765.00} &  & p=\num{0.61}, df=\num{4765.00}\\
+V\_ProducttoiletpaperV\_presentation3ProsocialEXPGRP\_TEXTChinese &  & \num{0.22}[\num{-8.34},\num{8.78}] &  & \num{0.60}[\num{-3.97},\num{5.16}] &  & \num{3.09}[\num{-1.60},\num{7.78}]\\
+ &  & t=\num{0.05}, se=\num{4.37} &  & t=\num{0.26}, se=\num{2.33} &  & t=\num{1.29}, se=\num{2.39}\\
+ &  & p=\num{0.96}, df=\num{4765.00} &  & p=\num{0.80}, df=\num{4765.00} &  & p=\num{0.20}, df=\num{4765.00}\\
+V\_ProductcigarettesV\_presentation3ProsocialEXPGRP\_TEXTChinese &  & \num{-7.05}[\num{-15.54},\num{1.44}] &  & \num{-1.50}[\num{-6.03},\num{3.02}] &  & \num{3.25}[\num{-1.40},\num{7.89}]\\
+ &  & t=\num{-1.63}, se=\num{4.33} &  & t=\num{-0.65}, se=\num{2.31} &  & t=\num{1.37}, se=\num{2.37}\\
+ &  & p=\num{0.10}, df=\num{4765.00} &  & p=\num{0.51}, df=\num{4765.00} &  & p=\num{0.17}, df=\num{4765.00}\\
+V\_ProductbabyformulaV\_presentation3ProsocialEXPGRP\_TEXTChinese &  & \num{-3.36}[\num{-11.90},\num{5.18}] &  & \num{0.69}[\num{-3.86},\num{5.25}] &  & \num{2.02}[\num{-2.66},\num{6.69}]\\
+ &  & t=\num{-0.77}, se=\num{4.36} &  & t=\num{0.30}, se=\num{2.32} &  & t=\num{0.85}, se=\num{2.38}\\
+ &  & p=\num{0.44}, df=\num{4765.00} &  & p=\num{0.77}, df=\num{4765.00} &  & p=\num{0.40}, df=\num{4765.00}\\
+SD (Intercept ID) & \num{19.47} & \num{19.47} & \num{19.93} & \num{19.93} & \num{20.68} & \num{20.68}\\
+ & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, \vphantom{1} se=\\
+ & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, \vphantom{1} df=\\
+SD (Observations) & \num{19.80} & \num{19.78} & \num{10.55} & \num{10.52} & \num{10.81} & \num{10.79}\\
+ & t=, se= & t=, se= & t=, se= & t=, se= & t=, se= & t=, se=\\
+ & p=, df= & p=, df= & p=, df= & p=, df= & p=, df= & p=, df=\\
+\midrule
+Num.Obs. & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{4791} & \num{4791}\\
+R2 Marg. & \num{0.110} & \num{0.112} & \num{0.017} & \num{0.018} & \num{0.011} & \num{0.012}\\
+R2 Cond. & \num{0.548} & \num{0.549} & \num{0.785} & \num{0.786} & \num{0.788} & \num{0.788}\\
+AIC & \num{43491.1} & \num{43456.3} & \num{38201.6} & \num{38166.3} & \num{38448.3} & \num{38422.2}\\
+BIC & \num{43588.2} & \num{43624.6} & \num{38298.7} & \num{38334.6} & \num{38545.4} & \num{38590.6}\\
+ICC & \num{0.5} & \num{0.5} & \num{0.8} & \num{0.8} & \num{0.8} & \num{0.8}\\
+RMSE & \num{18.65} & \num{18.61} & \num{9.88} & \num{9.84} & \num{10.12} & \num{10.09}\\
+\bottomrule
+\end{tabular}
+\end{table}"
+"1",""
+"1","
+"
