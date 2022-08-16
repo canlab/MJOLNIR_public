@@ -337,9 +337,12 @@ dff_2 <- dff %>%
 
 
 ```{r}
-write.csv(dff,"./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_1.csv")
-write.csv(dff_2,"./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.csv")
-dff <- read.csv("./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.csv")
+readr::write_csv(dff, file.path("./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_1.csv.gz"))
+save(dff, file = "./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_1.rdata")
+readr::write_csv(dff_2, file.path("./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.csv.gz"))
+save(dff_2, file = "./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.rdata")
+load("./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.rdata")
+dff <- dff_2
 ```
 
 
@@ -777,6 +780,8 @@ difflsmeans(mixed.lmer)
 
 ```{r}
 write.csv(dff_q, file="./data/mjolnir_databaseforModel.csv")
+readr::write_csv(dff_q, file.path("./data/mjolnir_databaseforModel.csv.gz"))
+save(dff_q, file=file.path("./data/mjolnir_databaseforModel.rdata.gz"))
 dff_q <- read.csv("./data/mjolnir_databaseforModel.csv")
 ```
 
