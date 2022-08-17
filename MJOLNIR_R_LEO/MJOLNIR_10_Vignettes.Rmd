@@ -4,7 +4,10 @@ output: html_document
 date: '2022-05-19'
 ---
 
-# Package
+# Script preparation
+
+
+## Packages Import
 
 ```{r}
 library("tidyverse")
@@ -23,15 +26,18 @@ library(lme4)
 library(lmerTest)
 library(emmeans)
 library(ggpubr)
+library(lme4)
+library(lmerTest)
+library(emmeans)
 ```
 
-# Data import
+## Data import
 
 ```{r setup, include=FALSE}
 df <- read.csv("./data/mjolnir_clean_v7_GPS.csv")
 ```
 
-# Stata Preparation
+# Data Preparation
 
 We want a database with only the data on the vignettes and the Update
 
@@ -291,7 +297,7 @@ dff <- df %>%
            HH_INCOME_TEXT != "$500,000 or more") 
 ```
 
-### modification for amalysis
+### Preparation for analysis
 
 ```{r}
 
@@ -335,18 +341,25 @@ dff_2 <- dff %>%
   dplyr::select(-matches("^clean_V|^V[1-4].[1-2]|^covmis_|^AMBI_MSR_[0-9]{1,3}|^AMBI_[0-9]{1,3}|^AMBI_W[0-9]|^FL_172"))
 ```
 
+## Export of our cleaned data
 
 ```{r}
 readr::write_csv(dff, file.path("./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_1.csv.gz"))
 save(dff, file = "./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_1.rdata")
 readr::write_csv(dff_2, file.path("./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.csv.gz"))
 save(dff_2, file = "./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.rdata")
+```
+
+# Some simple introductory models to explor our data
+
+```{r}
 load("./data/mjolnir_clean_v10_ReadyForVignetteAnalysis_2.rdata")
 dff <- dff_2
 ```
 
+## Models for V_Number==1 and V_Question=="JudgeOther_1"
 
-## JudgeOther_1
+### vignette_result ~ V_Update 
 
 ```{r}
 reg <- lm(vignette_result ~ V_Update, data = df_V %>%
@@ -355,7 +368,16 @@ reg <- lm(vignette_result ~ V_Update, data = df_V %>%
 summary(reg)
 ```
 
+### vignette_result ~ V_Update + V_Racenamef + V_Location + V_Age + V_Product + V_StoreType + V_Framing + EXPGRP_TEXT
 
+```{r}
+reg <- lm(vignette_result ~ V_Update + V_Racenamef + V_Location + V_Age + V_Product + V_StoreType + V_Framing + EXPGRP_TEXT, 
+          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
+summary(reg)
+```
+
+
+### vignette_result ~ V_Update + V_Racenamef + V_Location + V_Age + V_Product + V_StoreType + V_Framing + EXPGRP_TEXT
 
 ```{r}
 reg <- lm(vignette_result ~ V_Update + V_Racenamef + V_Location + V_Age + V_Product + V_StoreType + V_Framing + EXPGRP_TEXT, 
@@ -363,11 +385,7 @@ reg <- lm(vignette_result ~ V_Update + V_Racenamef + V_Location + V_Age + V_Prod
 summary(reg)
 ```
 
-```{r}
-reg <- lm(vignette_result ~ V_Update + V_Racenamef + V_Location + V_Age + V_Product + V_StoreType + V_Framing + EXPGRP_TEXT, 
-          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
-summary(reg)
-```
+### vignette_result ~ V_Update + V_Racenamef:EXPGRP_TEXT + V_Location + V_Age + V_Product + V_StoreType + V_Framing
 
 ```{r}
 reg <- lm(vignette_result ~ V_Update + V_Racenamef:EXPGRP_TEXT + V_Location + V_Age + V_Product + V_StoreType + V_Framing, 
@@ -375,8 +393,7 @@ reg <- lm(vignette_result ~ V_Update + V_Racenamef:EXPGRP_TEXT + V_Location + V_
 summary(reg)
 ```
 
-
-
+### vignette_result ~  V_Location + V_Age + V_Racenamef * EXPGRP_TEXT * V_Product * V_Presentation + V_StoreType + V_Framing
 
 ```{r}
 reg <- lm(vignette_result ~  V_Location + V_Age + V_Racenamef * EXPGRP_TEXT * V_Product * V_Presentation + V_StoreType + V_Framing, 
@@ -384,69 +401,8 @@ reg <- lm(vignette_result ~  V_Location + V_Age + V_Racenamef * EXPGRP_TEXT * V_
 summary(reg)
 ```
 
+### Plots of the effect of each independant variables on the vignette-results
 
-```{r}
-dff %>% 
-  filter(V_Question=="JudgeOther_1") %>%
-  mutate(vn = vignette_result^car::powerTransform(vignette_result+0.000000001)$lambda) %>%
-  .$vn %>%
-  shapiro.test()
-```
-
-
-```{r}
-dff %>% 
-  filter(V_Question=="JudgeOther_1") %>%
-  mutate(vn = vignette_result^car::powerTransform(vignette_result+0.000000001)$lambda) %>%
-  dplyr::select(vn) %>%
-  ggplot(aes(x=vn)) +
-  geom_histogram(binwidth=0.1,color="black", fill="white")
-```
-
-
-```{r}
-dff %>% 
-  filter(V_Question=="JudgeOther_1") %>%
-  dplyr::select(vignette_result) %>%
-  ggplot(aes(x=vignette_result)) +
-  geom_histogram(binwidth=1,color="black", fill="white")
-```
-
-pb our data is really not normal.
-
-## Mixed effect Model
-
-```{r}
-library(lme4)
-library(lmerTest)
-library(emmeans)
-```
-
-
-```{r}
-basic.lm <- lm(vignette_result ~ V_up, 
-          data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
-summary(basic.lm)
-```
-
-```{r}
-dff %>% 
-  filter(V_Number==1, V_Question=="JudgeOther_1") %>%
-  ggplot(aes(x=V_up, y=vignette_result)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-
-```{r}
-plot(basic.lm, which = 1)
-```
-
-```{r}
-plot(basic.lm, which = 2)
-```
-
-V_Location + V_Age + V_Product + V_StoreType + V_Framing
 ```{r}
 dff %>% 
   filter(V_Number==1, V_Question=="JudgeOther_1") %>%
@@ -504,29 +460,80 @@ boxplot(vignette_result ~ ID,
   filter(V_Number==1, V_Question=="JudgeOther_1"))
 ```
 
-```{r}
-d_verif <- dff %>% 
-  filter(V_Number==1, V_Question=="JudgeOther_1") %>%
-  group_by(ID) %>%
-  summarise(sdres = sd(vignette_result),
-            timeres = mean(V_Timeperquestion)) %>%
-  mutate(dif = sdres %>% cut(c(0, 0.0001,1,5,10,50,100), include.lowest = T),
-         time = timeres %>% cut(c(0,1,2,3,5,10,815)))
+# Checking and trying to solve the abnormality of our data
 
-table(d_verif$dif, d_verif$time) %>% lprop
+```{r}
+dff %>% 
+  filter(V_Question=="JudgeOther_1") %>%
+  mutate(vn = vignette_result^car::powerTransform(vignette_result+0.000000001)$lambda) %>%
+  .$vn %>%
+  shapiro.test()
 ```
-#### model
+
+
+```{r}
+dff %>% 
+  filter(V_Question=="JudgeOther_1") %>%
+  mutate(vn = vignette_result^car::powerTransform(vignette_result+0.000000001)$lambda) %>%
+  dplyr::select(vn) %>%
+  ggplot(aes(x=vn)) +
+  geom_histogram(binwidth=0.1,color="black", fill="white")
+```
+
+
+```{r}
+dff %>% 
+  filter(V_Question=="JudgeOther_1") %>%
+  dplyr::select(vignette_result) %>%
+  ggplot(aes(x=vignette_result)) +
+  geom_histogram(binwidth=1,color="black", fill="white")
+```
+
+pb our data is really not normal.
+
+## Checing the normality of 1/8 of our data (V_Number==1, V_Question=="JudgeOther_1")
+
+```{r}
+dff %>% 
+  filter(V_Number==1, V_Question=="JudgeOther_1") %>%
+  ggplot(aes(x=V_up, y=vignette_result)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+
+```{r}
+plot(basic.lm, which = 1)
+```
+
+```{r}
+plot(basic.lm, which = 2)
+```
+
+# Mixed effect Model
+
+
+## Exploratory models - Finding the right random variables
+
+### for (V_Number==1, V_Question=="JudgeOther_1")
+
+#### vignette_result ~ V_up + (1|V_Product) + (1|V_Product:V_Presentation) + (1|ID)
 
 ```{r}
 mixed.lmer <- lmer(vignette_result ~ V_up + (1|V_Product) + (1|V_Product:V_Presentation) + (1|ID),
           data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
 summary(mixed.lmer)
+```
 
+#### vignette_result ~ V_Update + V_Product + V_Update:V_Product:V_presentation3 + (1|ID)
+
+```{r}
 mixed.lmer2 <- lmer(vignette_result ~ V_Update + V_Product + V_Update:V_Product:V_presentation3 + (1|ID),
           data = dff %>% filter(V_Number==1, V_Question=="JudgeOther_1"))
 summary(mixed.lmer)
 ```
 
+##### Plots
 
 ```{r}
 plot(mixed.lmer)
@@ -551,12 +558,13 @@ dff %>%
   theme(legend.position = "none")
 ```
 
-
+##### Mean comparison
 
 ```{r}
 emmeans(mixed.lmer2, ~ V_Update + V_Update:V_Product:V_presentation3)
 ```
 
+#### vignette_result ~ V_presentation3 * V_Product + (1|ID)
 
 ```{r}
 mixed.lmer <- lmer(vignette_result ~ V_presentation3 * V_Product + (1|ID),
@@ -571,16 +579,9 @@ difflsmeans(mixed.lmer)
 ```
 
 
-# Model on all the db
+### Model on all the db
 
-```{r}
-mixed.lmer2 <- lmer(vignette_result ~ V_up + V_Product + V_Number + V_JudgeSelf + V_Questionnb + V_up:V_Product:V_presentation3 + (1|ID),
-          data = dff)
-summary(mixed.lmer2)
-```
-
-## Questions to each other
-
+#### Creation of Database to run model on all the Data Base
 
 ```{r}
 dff_q <- dff %>%
@@ -591,10 +592,39 @@ dff_q <- dff %>%
 
 
 ```{r}
+write.csv(dff_q, file="./data/mjolnir_databaseforModel.csv")
+readr::write_csv(dff_q, file.path("./data/mjolnir_databaseforModel.csv.gz"))
+save(dff_q, file=file.path("./data/mjolnir_databaseforModel.rdata.gz"))
+dff_q <- read.csv("./data/mjolnir_databaseforModel.csv")
+```
+
+#### vignette_result ~ V_up + V_Product + V_Number + V_JudgeSelf + V_Questionnb + V_up:V_Product:V_presentation3 + (1|ID)
+
+```{r}
+mixed.lmer2 <- lmer(vignette_result ~ V_up + V_Product + V_Number + V_JudgeSelf + V_Questionnb + V_up:V_Product:V_presentation3 + (1|ID),
+          data = dff)
+summary(mixed.lmer2)
+```
+
+#### Relation of Questions to each other (Spill-Over Effect)
+
+##### Linear Regression
+
+###### MorallyWrong ~ CatchCovid
+
+```{r}
 lm(MorallyWrong ~ CatchCovid,data = dff_q) %>% summary()
+```
+
+###### TransmitCovid ~ CatchCovid
+
+```{r}
 lm(TransmitCovid ~ CatchCovid,data = dff_q) %>% summary()
+```
 
+##### Plots on the relation MW/CC/TC
 
+```{r}
 ggplot(dff_q,aes(CatchCovid, MorallyWrong)) +
   geom_point(color="grey") +
   geom_smooth(method='lm') +
@@ -616,13 +646,17 @@ dff_q %>%
   ggpubr::stat_regline_equation(aes(label = ..eq.label..))
 ```
 
+##### TransmitCovid ~ CatchCovid * V_Number + (1|ID)
+
 ```{r}
 mixed.lmer2 <- lmer(TransmitCovid ~ CatchCovid * V_Number + (1|ID),
           data = dff_q)
 summary(mixed.lmer2)
 ```
 
+#### Plots of the correlation between MorallyWrong and CatchCovid
 
+##### Per Continent Born
 
 ```{r}
 ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=CONTINENT_BORN_TEXT_1)) +
@@ -631,11 +665,15 @@ ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=CONTINENT_BORN_TEXT_1)) +
     ggpubr::stat_regline_equation(aes(label = ..eq.label..)) 
 ```
 
+##### Per Race Participant (experience groupe Chinese/White)
+
 ```{r}
 ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=EXPGRP_TEXT)) +
   geom_point() +
   geom_smooth(method='lm')
 ```
+
+##### Per Age Participant
 
 ```{r}
 ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=DOB_AGE_BRACKET)) +
@@ -643,6 +681,7 @@ ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=DOB_AGE_BRACKET)) +
   geom_smooth(method='lm')
 ```
 
+##### Per Educational Degree
 
 ```{r}
 ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=EDUCATION_2_TEXT)) +
@@ -650,6 +689,7 @@ ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=EDUCATION_2_TEXT)) +
   geom_smooth(method='lm')
 ```
 
+##### Per Covid Skepticism group
 
 ```{r}
 ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=covqual_class_2)) +
@@ -657,12 +697,16 @@ ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=covqual_class_2)) +
   geom_smooth(method='lm')
 ```
 
+##### Per Covid Skepticism bracket
+
 ```{r}
 ggplot(dff_q %>%
          mutate(CovidSkepticism_ = CovidSkepticism %>% cut(c(-1,20,40, 60 ,80))),aes(x=CatchCovid, y=MorallyWrong, color=CovidSkepticism_)) +
   geom_point() +
   geom_smooth(method='lm')
 ```
+
+##### Per BIG5
 
 ```{r}
 ggplot(dff_q %>%
@@ -676,6 +720,8 @@ ggplot(dff_q %>%
   geom_smooth(method='lm')
 ```
 
+##### Per JudgeSelf vs Judge Other
+
 ```{r}
 ggplot(dff_q %>%
          mutate(V_JudgeSelf_=V_JudgeSelf %>% as.factor),
@@ -685,6 +731,8 @@ ggplot(dff_q %>%
   geom_smooth(method='lm')
 ```
 
+##### Per Update
+
 ```{r}
 ggplot(dff_q  %>%
          mutate(V_up_=V_up %>% as.factor),
@@ -692,6 +740,8 @@ ggplot(dff_q  %>%
   geom_point() +
   geom_smooth(method='lm')
 ```
+
+##### Per Update 2
 
 ```{r}
 ggplot(dff_q  %>%
@@ -701,6 +751,7 @@ ggplot(dff_q  %>%
   geom_smooth(method='lm')
 ```
 
+##### Per Race Name
 
 ```{r}
 ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_Racenamef)) +
@@ -709,6 +760,7 @@ ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_Racenamef)) +
   geom_smooth(method='lm')
 ```
 
+##### Per Product
 
 ```{r}
 ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_Product)) +
@@ -716,6 +768,7 @@ ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_Product)) +
   geom_smooth(method='lm')
 ```
 
+##### Per Product AND Presentation (Update)
 
 ```{r}
 ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_presentation3)) +
@@ -724,6 +777,7 @@ ggplot(dff_q,aes(x=CatchCovid, y=MorallyWrong, color=V_presentation3)) +
   geom_smooth(method='lm')
 ```
 
+##### Per Vignette Number
 
 ```{r}
 ggplot(dff_q %>%
@@ -736,12 +790,15 @@ ggplot(dff_q %>%
 
 ### Mixed model with catchcovid
 
+#### MorallyWrong ~ CONTINENT_BORN_TEXT_1 + CatchCovid + (1|ID)
+
 ```{r}
 mixed.lmer <- lmer(MorallyWrong ~ CONTINENT_BORN_TEXT_1 + CatchCovid + (1|ID),
           data = dff_q )
 summary(mixed.lmer)
 ```
 
+#### MorallyWrong ~ CatchCovid + CONTINENT_BORN_TEXT_1 + EDUCATION_2_TEXT + DOB_AGE + EXPGRP_TEXT + (1|ID)
 
 ```{r}
 mixed.lmer <- lmer(MorallyWrong ~ CatchCovid + CONTINENT_BORN_TEXT_1 + EDUCATION_2_TEXT + DOB_AGE + EXPGRP_TEXT + (1|ID),
@@ -749,6 +806,7 @@ mixed.lmer <- lmer(MorallyWrong ~ CatchCovid + CONTINENT_BORN_TEXT_1 + EDUCATION
 summary(mixed.lmer) 
 ```
 
+#### MorallyWrong ~ CatchCovid + CovidSkepticism + (1|ID)
 
 ```{r}
 mixed.lmer <- lmer(MorallyWrong ~ CatchCovid + CovidSkepticism + (1|ID),
@@ -756,6 +814,7 @@ mixed.lmer <- lmer(MorallyWrong ~ CatchCovid + CovidSkepticism + (1|ID),
 summary(mixed.lmer) 
 ```
 
+#### MorallyWrong ~ AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Agreeableness + AMBI_BIG5_Conscientiousness + CatchCovid + (1|ID)
 
 ```{r}
 mixed.lmer <- lmer(MorallyWrong ~ AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Agreeableness + AMBI_BIG5_Conscientiousness + CatchCovid + (1|ID),
@@ -763,6 +822,7 @@ mixed.lmer <- lmer(MorallyWrong ~ AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion
 summary(mixed.lmer) 
 ```
 
+#### MorallyWrong ~ V_Racenamef + V_Age + V_JudgeSelf + V_Location + V_Framing + V_Timeperquestion + CatchCovid*V_presentation3*V_Product*V_Number + (1|ID)
 
 ```{r}
 mixed.lmer <- lmer(MorallyWrong ~ V_Racenamef + V_Age + V_JudgeSelf + V_Location + V_Framing + V_Timeperquestion + CatchCovid*V_presentation3*V_Product*V_Number + (1|ID),
@@ -770,13 +830,15 @@ mixed.lmer <- lmer(MorallyWrong ~ V_Racenamef + V_Age + V_JudgeSelf + V_Location
 summary(mixed.lmer) 
 ```
 
+#### MorallyWrong ~ CovidSkepticism + CONTINENT_BORN_TEXT_1 + EDUCATION_2_TEXT + DOB_AGE + EXPGRP_TEXT*V_Racenamef + AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Agreeableness + AMBI_BIG5_Conscientiousness + V_Age + V_JudgeSelf + V_Location + V_Framing + V_Timeperquestion + CatchCovid*V_presentation3*V_Product*V_Number + (1|ID)
+
 ```{r}
 mixed.lmer <- lmer(MorallyWrong ~ CovidSkepticism + CONTINENT_BORN_TEXT_1 + EDUCATION_2_TEXT + DOB_AGE + EXPGRP_TEXT*V_Racenamef + AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Agreeableness + AMBI_BIG5_Conscientiousness + V_Age + V_JudgeSelf + V_Location + V_Framing + V_Timeperquestion + CatchCovid*V_presentation3*V_Product*V_Number + (1|ID),
           data = dff_q )
 summary(mixed.lmer) 
 ```
 
-
+##### Mean Comparison
 
 ```{r}
 difflsmeans(mixed.lmer)
@@ -784,14 +846,6 @@ difflsmeans(mixed.lmer)
 
 
 ## Only Model
-
-
-```{r}
-write.csv(dff_q, file="./data/mjolnir_databaseforModel.csv")
-readr::write_csv(dff_q, file.path("./data/mjolnir_databaseforModel.csv.gz"))
-save(dff_q, file=file.path("./data/mjolnir_databaseforModel.rdata.gz"))
-dff_q <- read.csv("./data/mjolnir_databaseforModel.csv")
-```
 
 
 ```{r}
@@ -819,10 +873,7 @@ dff_q$MorallyWrong %>% cut(c(0,10,50,100), include.lowest = T) %>% freq
 ```
 
 
-
-#### Scenarios
-
-##### Data base adjustments
+## Data base adjustments
 
 ```{r}
 dff_q <- dff_q %>%
@@ -838,9 +889,12 @@ dff_q <- dff_q %>%
 dff_q$EXPGRP_TEXT %>% freq
 
 ```
-#### Hypothesis models
 
-###### H1a
+## Pre Registered Hypothesis models
+
+### Without Race Participants
+
+#### H1a
 
 ```{r}
 dff_q <- dff_q %>%
@@ -887,6 +941,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H1a-2
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CatchCovid ~ V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
@@ -919,6 +975,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-2") 
 ```
 
+##### H1a-3
 
 ```{r}
 dff_q$V_ProductMor <- ifelse(dff_q$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
@@ -954,7 +1011,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
 ```
 
-###### H2a
+#### H2a
 
 
 ```{r}
@@ -1018,6 +1075,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a") 
 ```
 
+##### H2a-2
 
 ```{r}
 mixed.lmers <- list(
@@ -1043,6 +1101,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-2") 
 ```
 
+##### H2a-3
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCOther_Self ~ V_ProductMor*V_Racenamef + V_Age+ (1|ID),
@@ -1067,8 +1127,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-3") 
 ```
 
-###### H2b
-
+#### H2b
 
 
 ```{r}
@@ -1102,6 +1161,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H2b-2
+
 ```{r}
 mixed.lmers <- list(
   "MW A path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + (1|ID),
@@ -1131,6 +1192,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-2") 
 ```
+
+
+##### H2b-3
 
 ```{r}
 mixed.lmers <- list(
@@ -1162,7 +1226,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-3") 
 ```
 
-###### H2c
+#### H2c
 
 ```{r}
 mixed.lmers <- list(
@@ -1182,7 +1246,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
 ```
 
-###### H3a
+#### H3a
 
 ```{r}
 dff_q3 <- dff_q %>%
@@ -1248,6 +1312,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a") 
 ```
 
+
+##### H3a-2
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCPre_Post ~ V_Presentation*V_Product*V_Racenamef + (1|ID),
@@ -1273,6 +1340,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H3a-3
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
@@ -1297,9 +1366,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
 ```
 
-###### H3b
 
-
+#### H3b
 
 ```{r}
 dff_q3_self <- dff_q %>%
@@ -1366,9 +1434,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
-#### EXPGRP 2*whites
+### With EXPGRP distinguishing the WhitesAm and WhitesnonAm
 
-###### H1a
+#### H1a
 
 ```{r}
 mixed.lmers <- list(
@@ -1403,6 +1471,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H1a-2
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CatchCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
@@ -1435,6 +1505,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-2") 
 ```
 
+##### H1a-3
 
 ```{r}
 dff_q$V_ProductMor <- ifelse(dff_q$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
@@ -1470,7 +1541,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
 ```
 
-###### H2a
+#### H2a
 
 
 ```{r}
@@ -1533,6 +1604,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H2a-2
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ (1|ID),
@@ -1556,6 +1629,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-2") 
 ```
+
+
+##### H2a-3
 
 ```{r}
 mixed.lmers <- list(
@@ -1581,9 +1657,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-3") 
 ```
 
-###### H2b
 
 
+#### H2b
 
 ```{r}
 mixed.lmers <- list(
@@ -1616,6 +1692,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H2b-2
+
 ```{r}
 mixed.lmers <- list(
   "MW A path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + (1|ID),
@@ -1645,6 +1723,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-2") 
 ```
+
+
+##### H2b-3
 
 ```{r}
 mixed.lmers <- list(
@@ -1676,7 +1757,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-3") 
 ```
 
-###### H2c
+
+#### H2c
 
 ```{r}
 mixed.lmers <- list(
@@ -1696,7 +1778,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
 ```
 
-###### H3a
+
+#### H3a
 
 ```{r}
 dff_q3 <- dff_q %>%
@@ -1762,6 +1845,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a") 
 ```
 
+
+##### H3a-2
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + (1|ID),
@@ -1787,6 +1873,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H3a-3
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
@@ -1811,9 +1899,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
 ```
 
-###### H3b
 
-
+#### H3b
 
 ```{r}
 dff_q3_self <- dff_q %>%
@@ -1881,10 +1968,10 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 
-#### EXPGRP 1*whites
+### EXPGRP 1*whites
 
 
-###### H1a
+#### H1a
 
 ```{r}
 dff_q <- dff_q %>%
@@ -1930,6 +2017,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H1a-2
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
@@ -1962,6 +2051,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-2") 
 ```
 
+
+##### H1a-3
 
 ```{r}
 dff_q$V_ProductMor <- ifelse(dff_q$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
@@ -1997,8 +2088,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
 ```
 
-###### H2a
 
+#### H2a
 
 ```{r}
 dff_q2 <-  dff_q %>%
@@ -2060,6 +2151,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H2a-2
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ (1|ID),
@@ -2083,6 +2176,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-2") 
 ```
+
+
+##### H2a-3
 
 ```{r}
 mixed.lmers <- list(
@@ -2108,9 +2204,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-3") 
 ```
 
-###### H2b
 
-
+#### H2b
 
 ```{r}
 mixed.lmers <- list(
@@ -2143,6 +2238,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H2b-2
+
 ```{r}
 mixed.lmers <- list(
   "MW A path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
@@ -2172,6 +2269,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-2") 
 ```
+
+
+##### H2b-3
 
 ```{r}
 mixed.lmers <- list(
@@ -2203,7 +2303,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-3") 
 ```
 
-###### H2c
+
+#### H2c
 
 ```{r}
 mixed.lmers <- list(
@@ -2223,7 +2324,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
 ```
 
-###### H3a
+#### H3a
 
 ```{r}
 dff_q3 <- dff_q %>%
@@ -2289,6 +2390,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a") 
 ```
 
+
+##### H3a-2
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + (1|ID),
@@ -2314,6 +2418,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+##### H3a-3
+
 ```{r}
 mixed.lmers <- list(
   "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
@@ -2338,9 +2444,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
 ```
 
-###### H3b
 
-
+#### H3b
 
 ```{r}
 dff_q3_self <- dff_q %>%
@@ -2410,9 +2515,9 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 
+## Scenarios
 
-
-##### 0 Test variable controle
+### Function to get mean comparison estimates and p significance for multiple model in a list
 
 ```{r}
 difflmeansmodelcomp <- function(listlmermodels){
@@ -2438,6 +2543,8 @@ difflmeansmodelcomp <- function(listlmermodels){
   return(df_r)
 }
 ```
+
+### Test variable controle
 
 ```{r}
 dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "hardwaresupplies")
@@ -2513,8 +2620,8 @@ dff.means <- difflmeansmodelcomp(mixed.lmers)
 xtable::xtable(dff.means) 
 ```
 
-##### 1 Product
 
+### 1. Product
 
 ```{r}
 dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "hardwaresupplies")
@@ -2572,7 +2679,7 @@ grph
 dev.off()
 ```
 
-###### 1.2 Product self
+#### 1.2 Product self
 
 
 ```{r}
@@ -2625,7 +2732,7 @@ grph
 dev.off()
 ```
 
-###### 1.3 comparaison
+#### 1.3 comparaison
 
 ```{r}
 mixed.lmers.self <- list(
@@ -2652,7 +2759,9 @@ xtable::xtable(dff.means)
 
 
 
-###### 1.4 EXPRG*Product
+#### 1.4. Race
+
+##### 1.4.1 EXPRG*Product
 
 ```{r}
 mixed.lmers <- list(
@@ -2726,7 +2835,7 @@ dev.off()
 ```
 
 
-###### 1.4 RaceContResp*Product
+##### 1.4.2 RaceContResp*Product
 
 ```{r}
 mixed.lmers <- list(
@@ -2802,7 +2911,7 @@ dev.off()
 
 
 
-##### 2 Presentation
+### 2 Presentation
 
 Let's add an information to know for each participants if their answer before the update was inferior to the one after the update
 
@@ -2918,7 +3027,7 @@ dev.off()
 
 
 
-###### 2.1 Presentation * EXPGRP
+#### 2.1 Presentation * EXPGRP
 
 Let's add an information to know for each participants if their answer before the update was inferior to the one after the update
 
@@ -3000,7 +3109,7 @@ dev.off()
 ```
 
 
-###### 2.2 Presentation self
+#### 2.2 Presentation self
 
 Let's add an information to know for each participants if their answer before the update was inferior to the one after the update
 
@@ -3083,7 +3192,7 @@ xtable::xtable(dff.means)
 ```
 
 
-##### 3 Product * Presentation
+### 3 Product * Presentation
 
 ```{r}
 mixed.lmers <- list(
@@ -3207,7 +3316,9 @@ grph <- df_grph %>%
 grph
 ```
 
-###### 3.1.1 To the search of the slopes
+#### 3.1. With and without EXPGRP
+
+##### 3.1.1 To the search of the slopes
 
 ```{r}
 dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "hardwaresupplies")
@@ -3286,7 +3397,7 @@ dff_q$V_Product <- relevel(dff_q$V_Product %>% as.factor, "hardwaresupplies")
 ```
 
 
-###### 3.1.2 Product * Presentation * EXPGRP
+##### 3.1.2 Product * Presentation * EXPGRP
 
 ```{r}
 mixed.lmers <- list(
@@ -3413,7 +3524,7 @@ grph
 
 
 
-###### 3.2 Product * Presentation self
+#### 3.2 Product * Presentation self
 
 ```{r}
 mixed.lmers.self <- list(
@@ -3476,7 +3587,7 @@ dev.off()
 
 
 
-###### 3.3 comparison
+#### 3.3 comparison
 
 ```{r}
 modelsummary(c(mixed.lmers, mixed.lmers.self), fmt=2, estimate = c("{estimate}{stars}"), statistic = c(),
@@ -3484,7 +3595,7 @@ modelsummary(c(mixed.lmers, mixed.lmers.self), fmt=2, estimate = c("{estimate}{s
 ```
 
 
-##### 4 SpillOver
+### 4 SpillOver
 
 ```{r}
 dff_q <- dff_q %>%
@@ -3552,7 +3663,7 @@ grph
 dev.off()
 ```
 
-##### 4.2 SpillOver cross 
+#### 4.2 SpillOver cross 
 
 ```{r}
 dff_q <- dff_q %>%
@@ -3677,7 +3788,7 @@ dev.off()
 
 
 
-###### 5 Pill Over Update
+### 5 Spill Over Update
 
 ```{r}
 mixed.lmers <- list(
@@ -3711,7 +3822,7 @@ interactions::interact_plot(mixed.lmers[["Spill&UpdateProduct"]],
 ```
 
 
-###### 6 Pill Over Update
+### 6 Pill Over Update
 
 ```{r}
 mixed.lmers <- list(
@@ -3772,7 +3883,7 @@ dff_q %>%
 
 
 
-##### Summary
+### Summary
 
 ```{r}
 mixed.lmers <- list(
@@ -3797,29 +3908,12 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = 
 ```
 
 
-###### step
-
-```{r}
-test <- lmer(MorallyWrong ~ EXPGRP_TEXT*ScaledCatchCovid*ScaledTransmitCovid*V_Product*V_presentation3 + (1|ID),
-          data = dff_q %>%
-            filter(V_JudgeSelf==0))
-summary(test)
-```
-
-```{r}
-step(test)
-
-```
- 
- 
 
 
+## Racial demographics
 
 
-#### Racial demographics
-
-
-##### 4 Race Name
+### 1. Race Name
 
 
 ```{r}
@@ -3886,7 +3980,7 @@ dev.off()
 ```
 
 
-##### 5 Race participant
+### 2. Race participant
 
 ```{r}
 dff_q$EXPGRP_TEXT <- relevel(dff_q$EXPGRP_TEXT %>% as.factor, "White")
@@ -3949,7 +4043,7 @@ dev.off()
 
 
 
-##### 5.2 Race participant RaceContResp
+#### 2.2 Race participant RaceContResp
 
 ```{r}
 dff_q$RaceContResp <- relevel(dff_q$RaceContResp %>% as.factor, "Chinese")
@@ -4013,7 +4107,7 @@ grph
 dev.off()
 ```
 
-##### 6 RaceName * Race participant
+### 3. RaceName * Race participant
 
 ```{r}
 mixed.lmers <- list(
@@ -4164,7 +4258,7 @@ dev.off()
 
 
 
-##### 6 RaceName * RaceContResp
+### 4. RaceName * RaceContResp
 
 ```{r}
 mixed.lmers <- list(
@@ -4317,7 +4411,7 @@ dev.off()
 
 
 
-###### 5.5
+### 5. RaceContResp*V_Racenamef
 
 ```{r}
 dff_q$RaceContResp <- relevel(dff_q$RaceContResp %>% as.factor(), "Chinese")
@@ -4387,7 +4481,7 @@ dff_q$RaceContResp <- relevel(dff_q$RaceContResp %>% as.factor(), "Chinese")
 
 
 
-##### 6 RaceName * Update
+### 6. RaceName * Update
 
 ```{r}
 mixed.lmers <- list(
@@ -4484,7 +4578,7 @@ dev.off()
 ```
 
 
-##### 6 RaceName * Update * SpillOver
+#### 6.2 RaceName * Update * SpillOver
 
 ```{r}
 mixed.lmers <- list(
@@ -4578,7 +4672,7 @@ dev.off()
 ```
 
 
-##### 6 RaceName * Update * Spill * Race EXP
+#### 6.3 RaceName * Update * Spill * Race EXP
 
 ```{r}
 mixed.lmers <- list(
@@ -4632,7 +4726,7 @@ dff.means.comp %>% xtable::xtable()
 
 
 
-##### Summary
+### Summary
 
 ```{r}
 mixed.lmers <- list(
@@ -4699,7 +4793,7 @@ dff.means.comp %>% xtable::xtable()
 
 
 
-###### MODEL 3 final
+## Model Scenario final
 
 ```{r}
 mixed.lmers <- list(
@@ -4797,10 +4891,10 @@ map(dff_q$V_Product %>% levels(), f_LATEX_MEANS_RACE_COMPARISON_PER_WHICHPRODUCT
 
 
 
+## Extra Models
 
 
-
-##### 6 RaceName * Update
+### RaceName * Update
 
 ```{r}
 mixed.lmers <- list(
@@ -4898,7 +4992,7 @@ dev.off()
 
 
 
-##### 7 Covid Skepticism
+### Covid Skepticism
 
 ```{r}
 mixed.lmers <- list(
@@ -4938,7 +5032,7 @@ dev.off()
 ```
 
 
-##### 8 Covid Skepticism * Race*2
+#### Covid Skepticism * Race*2
 
 
 ```{r}
@@ -4968,7 +5062,7 @@ xtable::xtable(dff.means)
 
 
 
-##### 8.5 Covid Skepticism * Race*2
+#### Covid Skepticism * Race*2
 
 
 ```{r}
@@ -5027,9 +5121,9 @@ xtable::xtable(dff.means)
 ```
 
 
-#### Scenario and Demographics
+### Scenario and Demographics
 
-##### 9 product * Presentation * race
+#### product * Presentation * race
 
 ```{r}
 mixed.lmers <- list(
@@ -5255,7 +5349,7 @@ grph
 dev.off()
 ```
 
-##### 9 product * Presentation + race + spec
+#### product * Presentation + race + spec
 
 
 ```{r}
@@ -5309,15 +5403,8 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = 
              output = "latex", title = "Model 9, Race Name and Respondant, Product and Update presentation") 
 ```
 
-##### Presentation
 
-##### Presentation
-
-##### Presentation
-
-
-
-##### 9 Catch Covid and CovidSkepticism
+#### Catch Covid and CovidSkepticism
 
 ```{r}
 dff_q$CovidBelieved <- 100 - dff_q$CovidSkepticism
@@ -5345,7 +5432,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}{stars}"), statistic = 
              output = "latex", title = "Model x, Catch Covid and CovidSkepticism") 
 ```
 
-##### Comparison Models
+#### Comparison Models
 CovidSkepticism + CONTINENT_BORN_TEXT_1 + EDUCATION_2_TEXT + DOB_AGE + EXPGRP_TEXT*V_Racenamef + AMBI_BIG5_Neuroticism + AMBI_BIG5_Extraversion + AMBI_BIG5_Openness + AMBI_BIG5_Agreeableness + AMBI_BIG5_Conscientiousness + V_Age + V_JudgeSelf + V_Location + V_Framing + V_Timeperquestion + CatchCovid*V_presentation3*V_Product*V_Number + (1|ID)
 
 ```{r}
@@ -5444,7 +5531,7 @@ summary(mixed.lmer)
 
 
 
-## SEM Evolution Question Morality result with or without update
+# SEM Evolution Question Morality result with or without update
 
 ```{r}
 library(lavaan)
