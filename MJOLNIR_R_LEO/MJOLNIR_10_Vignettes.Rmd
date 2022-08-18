@@ -1,6 +1,9 @@
 ---
 title: "vignettes"
-output: html_document
+output:
+  html_document:
+    toc: true
+    theme: united
 date: '2022-05-19'
 ---
 
@@ -501,14 +504,6 @@ dff %>%
   geom_smooth(method = "lm")
 ```
 
-
-```{r}
-plot(basic.lm, which = 1)
-```
-
-```{r}
-plot(basic.lm, which = 2)
-```
 
 # Mixed effect Model
 
