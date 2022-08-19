@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.13)  16 AUG 2022 15:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.13)  19 AUG 2022 14:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -607,7 +607,7 @@ Overfull \hbox (81.7901pt too wide) in paragraph at lines 1138--1159
  [][] 
  []
 
-<./graphs/Model/Model04_SplillingEffect.pdf, id=201, 722.7pt x 939.51pt>
+<./graphs/Model/Model04_SplillingEffect.pdf, id=200, 722.7pt x 939.51pt>
 File: ./graphs/Model/Model04_SplillingEffect.pdf Graphic file (type pdf)
 <use ./graphs/Model/Model04_SplillingEffect.pdf>
 Package pdftex.def Info: ./graphs/Model/Model04_SplillingEffect.pdf  used on in
@@ -686,7 +686,7 @@ Overfull \hbox (24.8812pt too wide) in paragraph at lines 1641--1682
 
 ]
 Chapter 9.
-<./graphs/Model/Model04_racename.pdf, id=259, 722.7pt x 361.35pt>
+<./graphs/Model/Model04_racename.pdf, id=258, 722.7pt x 361.35pt>
 File: ./graphs/Model/Model04_racename.pdf Graphic file (type pdf)
 <use ./graphs/Model/Model04_racename.pdf>
 Package pdftex.def Info: ./graphs/Model/Model04_racename.pdf  used on input lin
@@ -701,7 +701,7 @@ Overfull \hbox (81.79463pt too wide) in paragraph at lines 1723--1726
 
  <./graphs/Model/Model04_racename.pdf>] [48]
 Chapter 10.
-<./graphs/Model/Model05_racerespondant.pdf, id=272, 722.7pt x 361.35pt>
+<./graphs/Model/Model05_racerespondant.pdf, id=271, 722.7pt x 361.35pt>
 File: ./graphs/Model/Model05_racerespondant.pdf Graphic file (type pdf)
 <use ./graphs/Model/Model05_racerespondant.pdf>
 Package pdftex.def Info: ./graphs/Model/Model05_racerespondant.pdf  used on inp
@@ -717,7 +717,7 @@ Overfull \hbox (22.33408pt too wide) in paragraph at lines 1767--1790
  [][] 
  []
 
-<./graphs/Model/Model05_racerespondant.2.pdf, id=273, 722.7pt x 361.35pt>
+<./graphs/Model/Model05_racerespondant.2.pdf, id=272, 722.7pt x 361.35pt>
 File: ./graphs/Model/Model05_racerespondant.2.pdf Graphic file (type pdf)
 <use ./graphs/Model/Model05_racerespondant.2.pdf>
 Package pdftex.def Info: ./graphs/Model/Model05_racerespondant.2.pdf  used on i
@@ -751,7 +751,7 @@ Overfull \hbox (102.30635pt too wide) in paragraph at lines 1904--1953
  [][] 
  []
 
-<./graphs/Model/Model06_racerespondant.racename.pdf, id=296, 722.7pt x 361.35pt
+<./graphs/Model/Model06_racerespondant.racename.pdf, id=295, 722.7pt x 361.35pt
 >
 File: ./graphs/Model/Model06_racerespondant.racename.pdf Graphic file (type pdf
 )
@@ -782,7 +782,7 @@ Overfull \hbox (81.7811pt too wide) in paragraph at lines 2146--2216
  [][] 
  []
 
-<./graphs/Model/Model6.2_presentation.racename.pdf, id=319, 722.7pt x 939.51pt>
+<./graphs/Model/Model6.2_presentation.racename.pdf, id=318, 722.7pt x 939.51pt>
 
 File: ./graphs/Model/Model6.2_presentation.racename.pdf Graphic file (type pdf)
 
@@ -802,7 +802,7 @@ Overfull \vbox (27.34554pt too high) has occurred while \output is active []
 
 
 [60 <./graphs/Model/Model6.2_presentation.racename.pdf>] [61]
-<./graphs/Model/Model6.3_spill.racename.pdf, id=343, 722.7pt x 939.51pt>
+<./graphs/Model/Model6.3_spill.racename.pdf, id=342, 722.7pt x 939.51pt>
 File: ./graphs/Model/Model6.3_spill.racename.pdf Graphic file (type pdf)
 <use ./graphs/Model/Model6.3_spill.racename.pdf>
 Package pdftex.def Info: ./graphs/Model/Model6.3_spill.racename.pdf  used on in
@@ -813,7 +813,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 2295--2299
 
  []
 
-<./graphs/Model/Model6.3.2_spill.racename.update.pdf, id=344, 722.7pt x 939.51p
+<./graphs/Model/Model6.3.2_spill.racename.update.pdf, id=343, 722.7pt x 939.51p
 t>
 File: ./graphs/Model/Model6.3.2_spill.racename.update.pdf Graphic file (type pd
 f)
@@ -821,7 +821,7 @@ f)
 Package pdftex.def Info: ./graphs/Model/Model6.3.2_spill.racename.update.pdf  u
 sed on input line 2302.
 (pdftex.def)             Requested size: 722.69823pt x 939.5077pt.
-<./graphs/Model/Model6.3.2_spill.racename.update.2.pdf, id=345, 722.7pt x 939.5
+<./graphs/Model/Model6.3.2_spill.racename.update.2.pdf, id=344, 722.7pt x 939.5
 1pt>
 File: ./graphs/Model/Model6.3.2_spill.racename.update.2.pdf Graphic file (type 
 pdf)
@@ -850,7 +850,7 @@ LaTeX Warning: Float too large for page by 37.78123pt on input line 2586.
 [64 <./graphs/Model/Model6.3.2_spill.racename.update.2.pdf>] [65] [66] [67]
 [68]
 Chapter 13.
-<./graphs/Model/Model07_covidskepticism.pdf, id=398, 722.7pt x 361.35pt>
+<./graphs/Model/Model07_covidskepticism.pdf, id=397, 722.7pt x 361.35pt>
 File: ./graphs/Model/Model07_covidskepticism.pdf Graphic file (type pdf)
 <use ./graphs/Model/Model07_covidskepticism.pdf>
 Package pdftex.def Info: ./graphs/Model/Model07_covidskepticism.pdf  used on in
@@ -983,10 +983,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-di
 st/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on 2022_07_mixedmodels_Scenario.pdf (92 pages, 13843964 bytes).
+Output written on 2022_07_mixedmodels_Scenario.pdf (92 pages, 12278324 bytes).
 PDF statistics:
- 521 PDF objects out of 1000 (max. 8388607)
- 369 compressed objects within 4 object streams
+ 520 PDF objects out of 1000 (max. 8388607)
+ 368 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  101 words of extra memory for PDF output out of 10000 (max. 10000000)
 

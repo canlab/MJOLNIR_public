@@ -147,7 +147,7 @@ df_V <- df_V %>%
               "Prosocial"="their house has poor insulation and their roof is leaking, which is not safe for their family who are spending all of their time indoors",
               "Prosocial"="they are out of formula and their baby cannot eat otherwise",
               "Defensive"="they are stocking up for what they expect to be an anxiety-ridden couple of months",
-              "Prosocial"="theyu0081Ere donating the toilet paper to a local homeless shelter")
+              "Prosocial"="they\u0081Ere donating the toilet paper to a local homeless shelter")
       }) %>%
       rename_with(function(x){paste0("clean_",x)})
     )
@@ -5539,24 +5539,75 @@ library(MIIVsem)
 
 ```{r}
 dff_sem <- dff_q %>%
-  mutate(V_Number = case_when(V_Number==1~"MJ_1",
-                               V_Number==2~"MJ_2",
-                               V_Number==3~"MJ_3",
-                               V_Number==4~"MJ_4"),
+  mutate(V_Number = case_when(V_Number==1~"V1",
+                               V_Number==2~"V2",
+                               V_Number==3~"V3",
+                               V_Number==4~"V4"),
          V_Update2 = case_when(V_up==1~"Update",
                                V_up==0~""),
          V_Self2 = case_when(V_JudgeSelf==1~"Self",
                                V_JudgeSelf==0~"Other"),
          V_Number_up = paste(V_Number, V_Self2, V_Update2, sep="_")) %>%
-  dplyr::select(V_Number_up, MorallyWrong,ResponseId) %>%
-  tidyr::spread(V_Number_up, MorallyWrong)
+  unite(MoralEtPresentation, MorallyWrong, V_presentation3, sep="_") %>%
+  dplyr::select(V_Number_up, MoralEtPresentation, ResponseId) %>%
+  tidyr::spread(V_Number_up, MoralEtPresentation)
+```
+
+
+```{r}
+nms <- colnames(dff_sem)[-1]
+for(i in nms){
+  n <- paste(i, "Pres", sep="_")
+  dff_sem <- dff_sem %>%
+    separate(i, c(i, n), sep = "_")
+  dff_sem[,i] <- dff_sem[,i] %>% as.numeric()
+  dff_sem[,n] <- ifelse(dff_sem[,n]=="NA", "Prosocial",dff_sem[,n])
+  dff_sem[,n] <- ifelse(dff_sem[,n]=="Prosocial", 0, 1) %>% 
+    as.factor()
+}
 ```
 
 ```{r}
-dff_sem[c(1:16),] %>%
-  dplyr::select(matches("^MJ_"))
+dff_sem_prosociallag <- dff_sem %>%
+  filter(V1_Other_Update_Pres == 0) %>%
+  mutate(V_Prior = V1_Other_,
+         V_Update = V1_Other_Update,
+         V_Post = V2_Other_) %>%
+  select(V_Prior, V_Post, V_Update) %>%
+  rbind(dff_sem %>%
+          filter(V2_Other_Update_Pres == 0) %>%
+          mutate(V_Prior = V2_Other_,
+                 V_Update = V2_Other_Update,
+                 V_Post = V3_Other_) %>%
+          select(V_Prior, V_Post, V_Update)) %>%
+  rbind(dff_sem %>%
+          filter(V3_Other_Update_Pres == 0) %>%
+          mutate(V_Prior = V3_Other_,
+                 V_Update = V3_Other_Update,
+                 V_Post = V4_Other_) %>%
+          select(V_Prior, V_Post, V_Update))
 ```
 
+```{r}
+dff_sem_defensivelag <- dff_sem %>%
+  filter(V1_Other_Update_Pres == 1) %>%
+  mutate(V_Prior = V1_Other_,
+         V_Update = V1_Other_Update,
+         V_Post = V2_Other_) %>%
+  select(V_Prior, V_Post, V_Update) %>%
+  rbind(dff_sem %>%
+          filter(V2_Other_Update_Pres == 1) %>%
+          mutate(V_Prior = V2_Other_,
+                 V_Update = V2_Other_Update,
+                 V_Post = V3_Other_) %>%
+          select(V_Prior, V_Post, V_Update)) %>%
+  rbind(dff_sem %>%
+          filter(V3_Other_Update_Pres == 1) %>%
+          mutate(V_Prior = V3_Other_,
+                 V_Update = V3_Other_Update,
+                 V_Post = V4_Other_) %>%
+          select(V_Prior, V_Post, V_Update))
+```
 
 ```{r}
 map(dff_sem %>% colnames, function(x){
@@ -5567,23 +5618,118 @@ map(dff_sem %>% colnames, function(x){
 ```
 
 ```{r}
+colnames(dff_sem)
+```
+## Prosocial Lap
 
+```{r}
+model2 <- '
+V_Update ~ V_Prior
+V_Post ~ V_Prior + V_Update
+'
 ```
 
 
+```{r}
+dff_sem_prosociallag %>%
+  ggplot(aes(x=V_Prior+1, y=V_Post+1)) +
+  geom_point() +
+  geom_smooth() +
+  scale_y_continuous(trans='log') +
+  scale_x_continuous(trans='log')
+```
 
 
+```{r}
+lm(V_Post ~ poly(V_Prior,2), data = dff_sem_prosociallag) %>% summary()
+```
+
+
+```{r}
+fit2 <- cfa(model2, data = dff_sem_prosociallag)
+```
+
+```{r}
+summary(fit2, fit.measures=T, standardized=T, rsquare=T) 
+```
+
+```{r}
+semPlot::semPaths(fit2, "std",
+                  layout = "tree2",
+                  rotation=2)
+```
+
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/SEM_Prosocial.pdf", width = 10, height = 10)
+# 2. Create the plot
+semPlot::semPaths(fit2, "std",
+                  layout = "tree2",
+                  rotation=2)
+# 3. Close the file
+dev.off()
+```
+
+```{r}
+fit2 <- cfa(model2, data = dff_sem_defensivelag)
+semPlot::semPaths(fit2, "std",
+                  layout = "tree2",
+                  rotation=2)
+```
+
+```{r}
+# 1. Open jpeg file
+pdf("./mixedmodel/graphs/Model/SEM_Defensive.pdf", width = 10, height = 10)
+# 2. Create the plot
+semPlot::semPaths(fit2, "std",
+                  layout = "tree2",
+                  rotation=2)
+# 3. Close the file
+dev.off()
+```
+
+## Other
+
+```{r}
+model2 <- '
+V1_Other_Update ~ V1_Other_
+V2_Other_ ~ V1_Other_ + V1_Other_Update
+V2_Other_Update ~ V2_Other_
+V3_Other_ ~ V2_Other_ + V2_Other_Update
+V3_Other_Update ~ V3_Other_
+V4_Other_ ~ V3_Other_ + V3_Other_Update
+V4_Other_Update ~ V4_Other_
+'
+```
+
+```{r}
+fit2 <- cfa(model2, data = dff_sem %>%
+              filter())
+```
+
+```{r}
+summary(fit2, fit.measures=T, standardized=T, rsquare=T) 
+```
+
+```{r}
+semPlot::semPaths(fit2, "std",
+                  layout = "tree2",
+                  rotation=2)
+```
+
+## Self
 
 ### without up
 
 ```{r}
 model <- '
-MJ_2_Self_ ~ MJ_1_Self_
-MJ_3_Self_ ~ MJ_2_Self_
-MJ_4_Self_ ~ MJ_3_Self_
-MJ_3_Self_ ~ MJ_1_Self_
-MJ_4_Self_ ~ MJ_1_Self_
-MJ_4_Self_ ~ MJ_2_Self_
+2_Self_ ~ 1_Self_
+3_Self_ ~ 2_Self_
+4_Self_ ~ 3_Self_
+3_Self_ ~ 1_Self_
+4_Self_ ~ 1_Self_
+4_Self_ ~ 2_Self_
 '
 ```
 
@@ -5606,13 +5752,13 @@ semPlot::semPaths(fit, "std",
 
 ```{r}
 model2 <- '
-MJ_1_Self_Update ~ MJ_1_Self_
-MJ_2_Self_ ~ MJ_1_Self_ + MJ_1_Self_Update
-MJ_2_Self_Update ~ MJ_2_Self_
-MJ_3_Self_ ~ MJ_2_Self_ + MJ_2_Self_Update
-MJ_3_Self_Update ~ MJ_3_Self_
-MJ_4_Self_ ~ MJ_3_Self_ + MJ_3_Self_Update
-MJ_4_Self_Update ~ MJ_4_Self_
+1_Self_Update ~ 1_Self_
+2_Self_ ~ 1_Self_ + 1_Self_Update
+2_Self_Update ~ 2_Self_
+3_Self_ ~ 2_Self_ + 2_Self_Update
+3_Self_Update ~ 3_Self_
+4_Self_ ~ 3_Self_ + 3_Self_Update
+4_Self_Update ~ 4_Self_
 '
 ```
 
