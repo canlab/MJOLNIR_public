@@ -5646,15 +5646,15 @@ lm(V_Post ~ poly(V_Prior,2), data = dff_sem_prosociallag) %>% summary()
 
 
 ```{r}
-fit2 <- cfa(model2, data = dff_sem_prosociallag)
+fitpros <- cfa(model2, data = dff_sem_prosociallag)
 ```
 
 ```{r}
-summary(fit2, fit.measures=T, standardized=T, rsquare=T) 
+summary(fitpros, fit.measures=T, standardized=T, rsquare=T) 
 ```
 
 ```{r}
-semPlot::semPaths(fit2, "std",
+semPlot::semPaths(fitpros, "std",
                   layout = "tree2",
                   rotation=2)
 ```
@@ -5672,8 +5672,8 @@ dev.off()
 ```
 
 ```{r}
-fit2 <- cfa(model2, data = dff_sem_defensivelag)
-semPlot::semPaths(fit2, "std",
+fitdef <- cfa(model2, data = dff_sem_defensivelag)
+semPlot::semPaths(fitdef, "std",
                   layout = "tree2",
                   rotation=2)
 ```
@@ -5688,6 +5688,11 @@ semPlot::semPaths(fit2, "std",
 # 3. Close the file
 dev.off()
 ```
+
+```{r}
+summary(fitdef, fit.measures=T, standardized=T, rsquare=T) 
+```
+
 
 ## Other
 
