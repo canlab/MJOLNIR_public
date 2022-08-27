@@ -1,0 +1,327 @@
+---
+title: "MJOLNIR_05_BDI"
+author: "Charles Mazof"
+date: "5/23/2022"
+output: html_document
+---
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(psych)
+library(GPArotation)
+library(FactoMineR)
+library(factoextra)
+library(explor)
+options(max.print=5001)
+```
+
+# data
+
+```{r}
+df <- read.csv("./data/mjolnir_databaseforModel.csv")
+```
+
+# BDI variables
+
+```{r}
+df %>% select(matches("^BDI[0-9]{2}"))
+
+```
+# mutate column names, excluding q19a (dieting)
+```{r}
+df_BDI <- df %>%
+  mutate(bdi_d_sadness=BDI01,
+         bdi_d_futureprospects=BDI02,
+         bdi_d_failure=BDI03,
+         bdi_d_enjoyment=BDI04,
+         bdi_d_guilt=BDI05,
+         bdi_d_beingpunished=BDI06,
+         bdi_d_disappointment=BDI07,
+         bdi_d_selfblame=BDI08,
+         bdi_d_suicidal=BDI09,
+         bdi_d_crying=BDI10,
+         bdi_d_irritation=BDI11,
+         bdi_d_interest=BDI12,
+         bdi_d_decisive=BDI13,
+         bdi_d_selfattractiveness=BDI14,
+         bdi_d_motivation=BDI15,
+         bdi_d_sleep=BDI16,
+         bdi_d_energy=BDI17,
+         bdi_d_appetite=BDI18,
+         bdi_d_weightloss=BDI19,
+         bdi_dieting=BDI19a,
+         bdi_d_healthworries=BDI20,
+         bdi_d_sexdrive=BDI21)
+```
+
+```{r}
+
+df_BDI %>% select(matches("^bdi_d_"))
+```
+
+### qualitative classification
+```{r}
+BDI.pca <- PCA(df_BDI %>% select(matches("^bdi_d_")),
+               scale.unit=TRUE, ncp=22, graph=T)
+```
+
+```{r}
+BDI.hcpc <- HCPC(BDI.pca, nb.clust=-1, graph=T)
+```
+```{r}
+fviz_cluster(BDI.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+
+```{r}
+BDI.hcpc$desc.var$quanti
+```
+
+```{r}
+save(BDI.pca, BDI.hcpc, file='./data/BDI_pca_and_classification.rdata')
+```
+
+### Analysis based on group classification - although BDI data is linear
+
+```{r}
+df_BDI$BDI_class <- BDI.hcpc$data.clust$clust
+freq(df_BDI$BDI_class)
+```
+
+```{r}
+df_BDI %>%
+  gather(key = "BDI_var", value="BDI_res", df_BDI %>% colnames %>% str_detect("^bdi_d_") %>% which) %>%
+  ggplot(., aes(y=BDI_res, x= BDI_class, fill=BDI_class)) +
+  geom_boxplot() +
+  facet_wrap(~ BDI_var, ncol = 5)
+
+df_BDI %>%
+  gather(key = "BDI_var", value="BDI_res", df_BDI %>% colnames %>% str_detect("^bdi_d_") %>% which) %>%
+  mutate(BDI_var=str_remove(BDI_var,"^bdi_d_")) %>%
+  ggplot(., aes(y=BDI_res, x= BDI_class, fill=BDI_class)) +
+  geom_boxplot() +
+  facet_wrap(~ BDI_var, ncol = 1)
+
+```
+
+```{r}
+table(df_BDI$EXPGRP_TEXT, df_BDI$BDI_class) %>% cprop
+table(df_BDI$EXPGRP_TEXT, df_BDI$BDI_class) %>% t.test()
+```
+
+```{r}
+df_BDI$HH_INCOME_TEXT <- fct_recode(df$HH_INCOME %>% as.character,
+"Less than $10,000"="1",
+"$10,000 to $30,000"="2",
+"$30,000 to $50,000"="3",
+"$50,000 to $70,000"="4",
+"$70,000 to $100,000"="5",
+"$100,000 to $200,000"="6",
+"$200,000 to $500,000"="7",
+"$500,000 or more"="8")
+table(df_BDI$HH_INCOME_TEXT, df_BDI$BDI_class) %>% cprop %>% xtable::xtable()
+table(df_BDI$HH_INCOME_TEXT, df_BDI$BDI_class) %>% t.test()
+```
+
+### Total BDI score, all measures have equal weights
+```{r}
+df_BDI <- df_BDI %>% rowwise() %>% mutate(BDI_unweighted = (sum(c_across(matches("^bdi_d_")))-21))
+df_BDI$BDI_unweighted
+```
+
+## SEM Scoring
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(lavaan)
+library(semTools)
+library(lavaanPlot)
+library(MVN)
+library(MIIVsem)
+library(nloptr) 
+options(max.print=2000)
+```
+
+```{r}
+model <- '
+BDI_weighted =~ bdi_d_sadness + bdi_d_futureprospects + bdi_d_failure + bdi_d_enjoyment + bdi_d_guilt + bdi_d_beingpunished + bdi_d_disappointment + bdi_d_selfblame + bdi_d_suicidal + bdi_d_crying + bdi_d_irritation + bdi_d_interest + bdi_d_decisive + bdi_d_selfattractiveness + bdi_d_motivation + bdi_d_sleep + bdi_d_energy + bdi_d_appetite + bdi_d_weightloss + bdi_d_healthworries + bdi_d_sexdrive
+'
+```
+
+```{r}
+fit <- cfa(model, data = df_BDI, estimator = "ML")
+semPlot::semPaths(fit)
+```
+```{r}
+summary(fit, fit.measures=T, standardized=T, rsquare=T) 
+```
+
+```{r}
+f_semscoring_latent <- function(fit, data, scaled = TRUE){
+  
+  df_sem_estimate <- fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1)
+  v_latent_var <- df_sem_estimate$lhs %>% as_factor %>% levels
+  
+  f_calculate_latent <- function(latent_var, data2){
+    
+    v_obs_var <- df_sem_estimate %>% filter(lhs==latent_var) %>% select(rhs) %>% as_vector()
+    
+    d <- tibble(matrix(ncol = 0, nrow = nrow(data)))
+    for (obs_var in v_obs_var) {
+      res <- data2[,obs_var] * (df_sem_estimate %>% filter(lhs==latent_var, rhs==obs_var) %>% select(est) %>% as.numeric())
+      d[,obs_var] <- res
+    }
+    res <- rowSums(d)
+    if(scaled) res <- res %>% scale
+    return(res)
+  }
+  
+  d <- tibble(matrix(ncol = 0, nrow = nrow(data)))
+  for(j in v_latent_var){
+    data[,j] <- f_calculate_latent(j, data)
+  }
+  data <- data %>% select(v_latent_var)
+  return(data)
+}
+```
+
+
+```{r}
+standardisation <- function(x){
+  x <-  (x- (fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  select(est) %>%
+  colSums()))  / ((fit %>% lavaan::partable() %>% as_tibble %>% filter(user==1) %>%
+  select(est) %>%
+  colSums()) * 4-2) * 100
+}
+```
+
+
+```{r}
+
+```
+
+
+
+```{r}
+df_scoreBDI <- f_semscoring_latent(fit, df_BDI, scaled = F)
+
+df_scoreBDI$BDI_weighted <- df_scoreBDI$BDI_weighted %>% standardisation()
+df_scoreBDI$BDI_weighted %>% summary
+
+df_BDI$BDI_weighted <- df_scoreBDI$BDI_weighted
+```
+
+```{r}
+write.csv(df_BDI,"./data/mjolnir_clean_v7_BDI.csv")
+```
+
+### Analysis using linear regression
+
+```{r}
+library(ggplot2)
+library(ggpubr)
+library(rstatix)
+library(ggpmisc)
+```
+
+
+```{r}
+aov(BDI_unweighted ~ EDUCATION_1_TEXT, data=df_BDI) %>% tukey_hsd()
+ggplot(df_BDI, aes(x = EDUCATION_1_TEXT, y = BDI_unweighted)) + 
+  geom_boxplot() +
+  geom_signif(comparisons=list(c("Bachelor's degree in college","High school graduate"),
+                               c("Bachelor's degree in college","Some college but no degree")),
+              step_increase = 0.1,
+              map_signif_level = TRUE) +
+  theme(axis.text.x = element_text(angle = 45, vjust=1, hjust=1))
+```
+```{r}
+df_BDI$EDUCATION_2_TEXT <- fct_recode(df$EDUCATION_1 %>% as.character,
+          "No college degree"="1",
+          "No college degree"="2",
+          "No college degree"="3",
+          "College degree"="4",
+          "College degree"="5",
+          "Graduate degree"="6",
+          "Graduate degree"="7",
+          "Graduate degree"="8")
+```
+
+
+```{r}
+aov(BDI_unweighted ~ EDUCATION_2_TEXT, data=df_BDI) %>% tukey_hsd()
+ggplot(df_BDI, aes(x = EDUCATION_2_TEXT, y = BDI_unweighted)) + 
+  geom_boxplot() +
+  geom_signif(comparisons=list(c("No college degree","College degree"),
+                               c("No college degree","Graduate degree"),
+                               c("College degree","Graduate degree")),
+              step_increase = 0.1,
+              map_signif_level = TRUE)
+```
+
+```{r}
+aov(BDI_unweighted ~ HH_INCOME_TEXT, data=df_BDI) %>% tukey_hsd()
+ggplot(df_BDI, aes(x = HH_INCOME_TEXT, y = BDI_unweighted)) + 
+  geom_boxplot() +
+  geom_signif(comparisons=list(c("Less than $10,000","$100,000 to $200,000"),
+                               c("Less than $10,000","$70,000 to $100,000")),
+              step_increase = 0.1,
+              map_signif_level = TRUE) +
+  theme(axis.text.x = element_text(angle = 30, vjust=1, hjust=1))
+```
+
+
+```{r}
+lm(BDI_unweighted~CovidSkepticism, data=df_BDI) %>% summary
+```
+
+```{r}
+ggplot(df_BDI, aes(x =CovidSkepticism, y = BDI_unweighted)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+```
+
+```{r}
+lm(BDI_unweighted~DOB_YEAR, data=df_BDI) %>% summary
+ggplot(df_BDI, aes(x =DOB_YEAR, y = BDI_unweighted)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+```
+
+
+```{r}
+lm(BDI_unweighted~EDUCATION_1+HH_INCOME+DOB_YEAR, data=df_BDI) %>% summary
+```
+
+```{r}
+anova <- aov(BDI_unweighted ~ EXPGRP_TEXT, data=df_BDI)
+tukey <- TukeyHSD(anova)
+print(tukey)
+ggplot(data=df_BDI, aes(EXPGRP_TEXT,BDI_unweighted)) +
+  geom_boxplot() +
+  geom_signif(comparisons=list(c("Chinese","White"),c("Chinese","Non Chinese Asian"),c("Non Chinese Asian","White")),
+              step_increase = 0.1,
+              map_signif_level = TRUE)
+```
+
+
+
+
+```{r}
+write.csv(df_BDI,"./data/mjolnir_clean_v7_BDI2.csv")
+```
+
