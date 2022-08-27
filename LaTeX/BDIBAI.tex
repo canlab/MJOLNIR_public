@@ -12,13 +12,15 @@
 
 \section{BDI}
 
+The Beck Depression Inventory is a measure of an individual's level of depression. Here we identify its relationship with various demographic measures.
+
 One-way ANOVAs were performed between each education group. Those who only complete high school are significantly more depressed than those who complete a bachelor's degree. Similarly, those who do not complete their college degree are also significantly more depressed than their degree-earning counterparts.
 
 \begin{table}[ht]
 \centering
-\caption{ANOVAs between groups}{|} \label{tab:title}
+\caption{Education vs Depression} \label{tab:title}
 
-\begin{tabular}{llrrrrl}
+\begin{tabular}{llrrrrr}
   \hline
 Group 1 & Group 2 & Estimate & Conf.low & Conf.high & P.adj & Sig. \\ 
   \hline
@@ -54,6 +56,98 @@ Doctoral degree & Prof. degree (JD,MD)  & 3.81 & -5.48 & 13.10 & 0.92 & ns \\
 \end{tabular}
 \end{table}
 
+\pagebreak
+\noindent
+Those without a college degree were significantly more depressed than those with a college degree or higher.
 
+\begin{table}[ht]
+\centering
+\caption{College Education vs Depression} \label{tab:title}
+\begin{tabular}{llrrrrr}
+  \hline
+Group 1 & Group 2 & Estimate & Conf.low & Conf.high & P.adj & Sig \\ 
+  \hline
+No college degree & College degree & -2.80 & -4.63 & -0.96 & 0.00 & ** \\ 
+No college degree & Graduate degree & -2.59 & -4.85 & -0.34 & 0.02 & * \\ 
+College degree & Graduate degree & 0.20 & -2.08 & 2.49 & 0.98 & ns \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+\bigskip
+\noindent
+The same comparison was done between income groups. Those in the lowest income brackets are more depressed than those who are in the higher income brackets.
+
+\begin{table}[ht]
+\centering
+\caption{Income vs Depression} \label{tab:title}
+\begin{tabular}{llrrrrr}
+  \hline
+Group 1 & Group 2 & Estimate & Conf.low & Conf.high & P.adj & Sig \\ 
+  \hline
+Less than \$50,000 & \$50,000 to \$100,000 & -2.15 & -4.05 & -0.26 & 0.02 & * \\ 
+Less than \$50,000 & \$100,000 or more & -3.21 & -5.46 & -0.96 & 0.00 & ** \\ 
+\$50,000 to \$100,000 & \$100,000 or more & -1.06 & -3.52 & 1.40 & 0.57 & ns \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+\noindent
+A linear regression was performed between the BDI depression index and our measure of Covid Skepticism. No significant correlation was found.
+
+\begin{table}[ht]
+\centering
+\caption{Covid Skepticism vs Depression} \label{tab:title}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 11.6084 & 0.6131 & 18.93 & 0.0000 \\ 
+  CovidSkepticism & -0.0111 & 0.0245 & -0.45 & 0.6515 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+*insert image
+
+\pagebreak
+\noindent
+
+We found that younger people are more depressed.
+
+\begin{table}[ht]
+\centering
+\caption{Age vs Depression} \label{tab:title}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & -176.8463 & 61.6530 & -2.87 & 0.0043 \\ 
+  DOB\_YEAR & 0.0945 & 0.0310 & 3.05 & 0.0024 \\ 
+   \hline
+\end{tabular}
+\end{table}
+*insert image
+
+\bigskip
+\bigskip
+\noindent
+Lastly, race does not appear to significantly impact depression. 
+
+\begin{table}[ht]
+\centering
+\caption{Race vs Depression} \label{tab:title}
+\begin{tabular}{llrrrrr}
+  \hline
+Group 1 & Group 2 & Estimate & Conf.low & Conf.high & P.adj & Sig \\ 
+  \hline
+Chinese & Non Chinese Asian & -2.85 & -8.55 & 2.85 & 0.47 & ns \\ 
+Chinese & White & 0.73 & -1.03 & 2.49 & 0.60 & ns \\ 
+Non Chinese Asian & White & 3.58 & -2.04 & 9.19 & 0.29 & ns \\ 
+   \hline
+\end{tabular}
+\end{table}
 
 \end{document}
