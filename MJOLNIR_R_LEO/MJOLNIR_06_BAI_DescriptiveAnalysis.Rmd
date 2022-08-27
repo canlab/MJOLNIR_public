@@ -1,0 +1,315 @@
+---
+title: "MJOLNIR_06_BAI"
+author: "Charles Mazof"
+date: '6/25/2022'
+output: html_document
+---
+
+```{r}
+library(questionr)
+library(FactoMineR)
+library(tidyverse)
+library(psych)
+library(GPArotation)
+library(FactoMineR)
+library(factoextra)
+library(explor)
+options(max.print=5001)
+```
+
+# data
+
+```{r}
+df <- read.csv("./data/mjolnir_clean_v7_BDI.csv")
+```
+
+# BAI variables
+
+```{r}
+df %>% select(matches("^BAI_[0-9]"))
+```
+
+
+# mutate column names
+```{r}
+df_BAI <- df %>%
+  mutate(bai_d_numbnessTingling=BAI_1,
+         bai_d_feelingHot=BAI_2,
+         bai_d_wobblyLegs=BAI_3,
+         bai_d_cannotRelax=BAI_4,
+         bai_d_fearTheWorst=BAI_5,
+         bai_d_dizzyLightheaded=BAI_6,
+         bai_d_heartRacing=BAI_7,
+         bai_d_unsteady=BAI_8,
+         bai_d_terrifiedAfraid=BAI_9,
+         bai_d_nervous=BAI_10,
+         bai_d_feelingOfChoking=BAI_11,
+         bai_d_handsTrembling=BAI_12,
+         bai_d_shakyUnsteady=BAI_13,
+         bai_d_fearLosingControl=BAI_14,
+         bai_d_difficultyBreathing=BAI_15,
+         bai_d_fearDying=BAI_16,
+         bai_d_scared=BAI_17,
+         bai_d_indigestion=BAI_18,
+         bai_d_faintLightheaded=BAI_19,
+         bai_d_faceFlushed=BAI_20,
+         bai_d_hotColdSweats=BAI_21)
+```
+
+```{r}
+df_BAI %>% select(matches("^bai_d_"))
+```
+# qualitative classification - data is linear
+```{r}
+BAI.pca <- PCA(df_BAI %>% select(matches("^bai_d_")),
+               scale.unit=TRUE, ncp=22, graph=T)
+```
+```{r}
+BAI.hcpc <- HCPC(BAI.pca, nb.clust=-1, graph=T)
+fviz_cluster(BAI.hcpc,
+             repel = TRUE, 
+             show.clust.cent = TRUE, 
+             palette = "jco", 
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+             )
+```
+```{r}
+df_BAI <- df_BAI %>% rowwise() %>% mutate(BAI_score = (sum(c_across(matches("^bai_d_")))-21))
+df_BAI$BAI_score
+```
+
+### Analysis using linear regression
+
+```{r}
+library(ggplot2)
+library(ggpubr)
+library(rstatix)
+library(ggpmisc)
+```
+
+
+```{r}
+aov(BAI_score ~ EDUCATION_1_TEXT, data=df_BAI) %>% tukey_hsd()
+ggplot(df_BAI, aes(x = EDUCATION_1_TEXT, y = BAI_score)) + 
+  geom_boxplot() +
+  geom_signif(comparisons=list(c("Bachelor's degree in college","High school graduate"),
+                               c("Bachelor's degree in college","Some college but no degree")),
+              step_increase = 0.1,
+              map_signif_level = TRUE) +
+  theme(axis.text.x = element_text(angle = 45, vjust=1, hjust=1))
+```
+
+
+```{r}
+df_BAI$EDUCATION_2_TEXT <- fct_recode(df$EDUCATION_1 %>% as.character,
+          "No college degree"="1",
+          "No college degree"="2",
+          "No college degree"="3",
+          "College degree"="4",
+          "College degree"="5",
+          "Graduate degree"="6",
+          "Graduate degree"="7",
+          "Graduate degree"="8")
+```
+
+# people with no college degree are more anxious than people with degrees
+```{r}
+aov(BAI_score ~ EDUCATION_2_TEXT, data=df_BAI) %>% tukey_hsd()
+ggplot(df_BAI, aes(x = EDUCATION_2_TEXT, y = BAI_score)) + 
+  geom_boxplot() +
+  geom_signif(comparisons=list(c("No college degree","College degree"),
+                               c("No college degree","Graduate degree"),
+                               c("College degree","Graduate degree")),
+              step_increase = 0.1,
+              map_signif_level = TRUE)
+```
+
+```{r}
+aov(BAI_score ~ HH_INCOME_TEXT, data=df_BAI) %>% tukey_hsd()
+ggplot(df_BAI, aes(x = HH_INCOME_TEXT, y = BAI_score)) + 
+  geom_boxplot() +
+  geom_signif(comparisons=list(c("Less than $10,000","$100,000 to $200,000"),
+                               c("Less than $10,000","$70,000 to $100,000")),
+              step_increase = 0.1,
+              map_signif_level = TRUE) +
+  theme(axis.text.x = element_text(angle = 30, vjust=1, hjust=1))
+```
+
+```{r}
+df_BAI$HH_INCOME_TEXT2 <- fct_recode(df$HH_INCOME %>% as.character,
+"Less than $30,000"="1",
+"Less than $30,000"="2",
+"$30,000 to $70,000"="3",
+"$30,000 to $70,000"="4",
+"$70,000 or more"="5",
+"$70,000 or more"="6",
+"$70,000 or more"="7",
+"$70,000 or more"="8")
+```
+
+# no significant results
+```{r}
+aov(BAI_score ~ HH_INCOME_TEXT2, data=df_BAI) %>% tukey_hsd()
+ggplot(df_BAI, aes(x = HH_INCOME_TEXT2, y = BAI_score)) + 
+  geom_boxplot() +
+  geom_signif(comparisons=list(c("Less than $30,000","$30,000 to $70,000"),
+                               c("Less than $30,000","$70,000 or more"),
+                               c("$30,000 to $70,000","$70,000 or more")),
+              step_increase = 0.1,
+              map_signif_level = TRUE,
+              test = "t.test") +
+  theme(axis.text.x = element_text(angle = 30, vjust=1, hjust=1))
+```
+
+```{r}
+lm(BAI_score~CovidSkepticism, data=df_BAI) %>% summary
+lm(CovidSkepticism~BAI_score, data=df_BAI) %>% summary
+```
+
+# no significant trend
+```{r}
+ggplot(df_BAI, aes(x =CovidSkepticism, y = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+
+ggplot(df_BAI, aes(y =CovidSkepticism, x = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+
+ggplot(df_BAI, aes(y =CovidSkepticism, x = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "loess", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+```
+
+```{r}
+smoothed <- predict(loess(CovidSkepticism~BAI_score, data=df_BAI, span=.5))
+plot(df_BAI$BAI_score, df_BAI$CovidSkepticism, pch=19, main='Loess Regression Models')
+lines(smoothed, x=df_BAI$BAI_score, col='red')
+```
+
+
+# younger people are more anxious
+```{r}
+lm(BAI_score~DOB_YEAR, data=df_BAI) %>% summary
+ggplot(df_BAI, aes(x =DOB_YEAR, y = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+```
+
+```{r}
+lm(BAI_score~EDUCATION_1+HH_INCOME+DOB_YEAR, data=df_BAI) %>% summary
+```
+
+# ethnic group comparison - whites are significantly more anxious than chinese
+```{r}
+anova <- aov(BAI_score ~ EXPGRP_TEXT, data=df_BAI)
+tukey <- TukeyHSD(anova)
+print(tukey)
+ggplot(data=df_BAI, aes(EXPGRP_TEXT,BAI_score)) +
+  geom_boxplot() +
+  geom_signif(comparisons=list(c('Chinese','White')),
+              map_signif_level = TRUE,
+              step_increase=0.1)
+```
+```{r}
+lm(BAI_score~BDI_unweighted, data=df_BAI) %>% summary
+ggplot(df_BAI, aes(x =BDI_unweighted, y = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+```
+
+```{r}
+ggscatter(df_BAI, x="BDI_unweighted", y="BAI_score", add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson")
+```
+
+
+```{r}
+df_BAI <- df_BAI %>% mutate(BAI_qual = ifelse(BAI_score<=20,"Low anxiety",ifelse(BAI_score>20,"High anxiety",NA)))
+```
+
+```{r}
+anova <- aov(CovidSkepticism ~ BAI_qual, data=df_BAI)
+tukey <- TukeyHSD(anova)
+print(tukey)
+ggplot(data=df_BAI, aes(BAI_qual,CovidSkepticism)) +
+  geom_boxplot() +
+  geom_signif(comparisons=list(c('Low anxiety','High anxiety')),
+              map_signif_level = TRUE,
+              step_increase=0.1)
+```
+
+
+
+```{r}
+write.csv(df_BAI,"./data/mjolnir_clean_v8_BAI.csv")
+```
+
+```{r}
+dff_BAI <- read.csv("./data/mjolnir_databaseforModel.csv")
+
+```
+
+
+```{r}
+lm(BAI_score~MorallyWrong, data=df_BAI) %>% summary
+lm(BAI_score~CatchCovid, data=df_BAI) %>% summary
+lm(BAI_score~TransmitCovid, data=df_BAI) %>% summary
+
+ggplot(df_BAI, aes(x =MorallyWrong, y = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+
+ggplot(df_BAI, aes(x =CatchCovid, y = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+
+ggplot(df_BAI, aes(x =TransmitCovid, y = BAI_score)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+```
+```{r}
+lm(BDI_unweighted~MorallyWrong, data=df_BAI) %>% summary
+lm(BDI_unweighted~CatchCovid, data=df_BAI) %>% summary
+lm(BDI_unweighted~TransmitCovid, data=df_BAI) %>% summary
+
+ggplot(df_BAI, aes(x =MorallyWrong, y = BDI_unweighted)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+
+ggplot(df_BAI, aes(x =CatchCovid, y = BDI_unweighted)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+
+ggplot(df_BAI, aes(x =TransmitCovid, y = BDI_unweighted)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  ggpubr::stat_regline_equation(label.y = 75, aes(label = ..eq.label..)) +
+    ggpubr::stat_regline_equation(label.y = 70, aes(label = ..rr.label..))
+```
+
+
+
+
+
