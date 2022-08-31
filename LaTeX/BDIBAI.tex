@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, left=2.5cm, right=2.5cm, bottom=1cm]{geometry}
+
+\title{BDIBAI}
+\author{Charles Mazof}
+\date{August 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{BDI}
+
+The Beck Depression Inventory is a measure of an individual's level of depression. Here we identify its relationship with various demographic measures.
+
+One-way ANOVAs were performed between each education group. Those who only complete high school are significantly more depressed than those who complete a bachelor's degree. Similarly, those who do not complete their college degree are also significantly more depressed than their degree-earning counterparts.
+
+\begin{table}[ht]
+\centering
+\caption{Education vs Depression} \label{tab:title}
+
+\begin{tabular}{llrrrrr}
+  \hline
+Group 1 & Group 2 & Estimate & Conf.low & Conf.high & P.adj & Sig. \\ 
+  \hline
+ Associate degree & Bachelor's degree  & -2.66 & -7.33 & 2.00 & 0.66 & ns \\ 
+ Associate degree & Doctoral degree  & -5.54 & -13.61 & 2.53 & 0.42 & ns \\ 
+ Associate degree & High school graduate  & 0.75 & -4.17 & 5.66 & 1.00 & ns \\ 
+ Associate degree & No high school degree  & 0.51 & -8.21 & 9.23 & 1.00 & ns \\ 
+ Associate degree & Master's degree  & -1.50 & -6.63 & 3.63 & 0.99 & ns \\ 
+ Associate degree & Prof. degree (JD,MD)  & -1.73 & -9.33 & 5.87 & 1.00 & ns \\ 
+ Associate degree & No college degree  & 0.39 & -4.50 & 5.27 & 1.00 & ns \\ 
+Bachelor's degree & Doctoral degree  & -2.88 & -9.97 & 4.22 & 0.92 & ns \\ 
+Bachelor's degree & High school graduate  & 3.41 & 0.36 & 6.47 & 0.02 & * \\ 
+Bachelor's degree & No high school degree  & 3.17 & -4.65 & 10.99 & 0.92 & ns \\ 
+Bachelor's degree & Master's degree  & 1.16 & -2.22 & 4.55 & 0.97 & ns \\ 
+Bachelor's degree & Prof. degree (JD,MD)  & 0.93 & -5.62 & 7.49 & 1.00 & ns \\ 
+Bachelor's degree & No college degree  & 3.05 & 0.05 & 6.05 & 0.04 & * \\ 
+Doctoral degree & High school graduate  & 6.29 & -0.97 & 13.55 & 0.15 & ns \\ 
+Doctoral degree & No high school degree  & 6.05 & -4.18 & 16.28 & 0.62 & ns \\ 
+Doctoral degree & Master's degree  & 4.04 & -3.37 & 11.45 & 0.71 & ns \\ 
+Doctoral degree & Prof. degree (JD,MD)  & 3.81 & -5.48 & 13.10 & 0.92 & ns \\ 
+ Doctoral degree & No college degree  & 5.93 & -1.32 & 13.17 & 0.20 & ns \\ 
+ High school graduate & No high school degree  & -0.24 & -8.21 & 7.73 & 1.00 & ns \\ 
+ High school graduate & Master's degree  & -2.25 & -5.97 & 1.47 & 0.59 & ns \\ 
+ High school graduate & Prof. degree (JD,MD)  & -2.48 & -9.21 & 4.25 & 0.95 & ns \\ 
+ High school graduate & No college degree  & -0.36 & -3.74 & 3.01 & 1.00 & ns \\ 
+ No high school degree & Master's degree  & -2.01 & -10.11 & 6.10 & 0.99 & ns \\ 
+ No high school degree & Prof. degree (JD,MD)  & -2.24 & -12.10 & 7.62 & 1.00 & ns \\ 
+ No high school degree & No college degree  & -0.12 & -8.08 & 7.83 & 1.00 & ns \\ 
+ Master's degree & Prof. degree (JD,MD)  & -0.23 & -7.12 & 6.66 & 1.00 & ns \\ 
+ Master's degree & No college degree  & 1.89 & -1.79 & 5.56 & 0.78 & ns \\ 
+ Prof. degree (JD,MD) & No college degree  & 2.12 & -4.60 & 8.83 & 0.98 & ns \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\noindent
+Those without a college degree were significantly more depressed than those with a college degree or higher.
+
+\begin{table}[ht]
+\centering
+\caption{College Education vs Depression} \label{tab:title}
+\begin{tabular}{llrrrrr}
+  \hline
+Group 1 & Group 2 & Estimate & Conf.low & Conf.high & P.adj & Sig \\ 
+  \hline
+No college degree & College degree & -2.80 & -4.63 & -0.96 & 0.00 & ** \\ 
+No college degree & Graduate degree & -2.59 & -4.85 & -0.34 & 0.02 & * \\ 
+College degree & Graduate degree & 0.20 & -2.08 & 2.49 & 0.98 & ns \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+\bigskip
+\noindent
+The same comparison was done between income groups. Those in the lowest income brackets are more depressed than those who are in the higher income brackets.
+
+\begin{table}[ht]
+\centering
+\caption{Income vs Depression} \label{tab:title}
+\begin{tabular}{llrrrrr}
+  \hline
+Group 1 & Group 2 & Estimate & Conf.low & Conf.high & P.adj & Sig \\ 
+  \hline
+Less than \$50,000 & \$50,000 to \$100,000 & -2.15 & -4.05 & -0.26 & 0.02 & * \\ 
+Less than \$50,000 & \$100,000 or more & -3.21 & -5.46 & -0.96 & 0.00 & ** \\ 
+\$50,000 to \$100,000 & \$100,000 or more & -1.06 & -3.52 & 1.40 & 0.57 & ns \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+\noindent
+A linear regression was performed between the BDI depression index and our measure of Covid Skepticism. No significant correlation was found.
+
+\begin{table}[ht]
+\centering
+\caption{Covid Skepticism vs Depression} \label{tab:title}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 11.6084 & 0.6131 & 18.93 & 0.0000 \\ 
+  CovidSkepticism & -0.0111 & 0.0245 & -0.45 & 0.6515 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+*insert image
+
+\pagebreak
+\noindent
+
+We found that younger people are more depressed.
+
+\begin{table}[ht]
+\centering
+\caption{Age vs Depression} \label{tab:title}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & -176.8463 & 61.6530 & -2.87 & 0.0043 \\ 
+  DOB\_YEAR & 0.0945 & 0.0310 & 3.05 & 0.0024 \\ 
+   \hline
+\end{tabular}
+\end{table}
+*insert image
+
+\bigskip
+\bigskip
+\noindent
+Lastly, race does not appear to significantly impact depression. 
+
+\begin{table}[ht]
+\centering
+\caption{Race vs Depression} \label{tab:title}
+\begin{tabular}{llrrrrr}
+  \hline
+Group 1 & Group 2 & Estimate & Conf.low & Conf.high & P.adj & Sig \\ 
+  \hline
+Chinese & Non Chinese Asian & -2.85 & -8.55 & 2.85 & 0.47 & ns \\ 
+Chinese & White & 0.73 & -1.03 & 2.49 & 0.60 & ns \\ 
+Non Chinese Asian & White & 3.58 & -2.04 & 9.19 & 0.29 & ns \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\end{document}
