@@ -890,6 +890,8 @@ dff_q$EXPGRP_TEXT %>% freq
 ### Without Race Participants
 
 #### H1a
+##### H1a-1
+
 
 ```{r}
 dff_q <- dff_q %>%
@@ -905,25 +907,25 @@ dff_q$V_StoreType <- dff_q$V_StoreType %>% as.factor()
 dff_q$V_Framing <- dff_q$V_Framing %>% as.factor()
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
@@ -936,29 +938,69 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+###### NOT WORKING Load function for Bootstraping
+
+```{r}
+load("./function/indirectmlm.rdata")
+load("./function/indirectmlmsum.rdata")
+```
+
+
+```{r}
+'''
+boot::boot(data=fff_q,
+           R=1000,
+           strat=ID
+           statistic=indirect.mlm,
+           y="CatchCovid",
+           x="V_Racenamef",
+           mediator="MorallyWrong",
+           group.id="ID")
+'''
+```
+
+
 ##### H1a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ V_Product*V_Racenamef + V_Age   + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ V_Product*V_Racenamef + V_Age   + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ V_Product*V_Racenamef + V_Age   + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ V_Product*V_Racenamef + V_Age   + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + V_Product*V_Racenamef + V_Age   + (1|ID),
@@ -970,31 +1012,49 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-2") 
 ```
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
 ##### H1a-3
 
 ```{r}
 dff_q$V_ProductMor <- ifelse(dff_q$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
@@ -1005,6 +1065,25 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
 ```
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
 
 #### H2a
 
@@ -1048,19 +1127,19 @@ dff_q2 <-  dff_q %>%
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2))
@@ -1070,23 +1149,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a") 
 ```
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ V_Product*V_Racenamef + V_Age+ (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ V_Product*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age+ (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + V_Product*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ V_Product*V_Racenamef + V_Age + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ V_Product*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age  + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + V_Product*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2))
@@ -1096,23 +1194,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-2") 
 ```
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2a-3
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ V_ProductMor*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ V_ProductMor*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + V_ProductMor*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ V_ProductMor*V_Racenamef + V_Age + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ V_ProductMor*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ V_ProductMor*V_Racenamef + V_Age  + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ V_ProductMor*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + V_ProductMor*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2))
@@ -1122,12 +1239,31 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a-3") 
 ```
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 #### H2b
 
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age+ V_Location + V_StoreType + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + V_Age+ V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -1156,11 +1292,30 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2b-2
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ V_Product*V_Racenamef + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -1189,11 +1344,30 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2b-3
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ V_ProductMor*V_Racenamef + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -1221,6 +1395,25 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b-3") 
 ```
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 #### H2c
 
 ```{r}
@@ -1240,6 +1433,25 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
 ```
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
 
 #### H3a
 
@@ -1285,19 +1497,19 @@ dff_q3$V_Presentation <- relevel(dff_q3$V_Presentation %>% as.factor, "Prosocial
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3))
@@ -1308,23 +1520,43 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
+
 ##### H3a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ V_Presentation*V_Product*V_Racenamef + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ V_Presentation*V_Product*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef  + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ V_Presentation*V_Product*V_Racenamef  + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ V_Presentation*V_Product*V_Racenamef  + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef +  (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef +  (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef +(1|ID),
           data = dff_q3))
@@ -1335,23 +1567,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H3a-3
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef +  (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef +  (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + V_Presentation*V_ProductMor*V_Racenamef +(1|ID),
           data = dff_q3))
@@ -1359,6 +1610,25 @@ mixed.lmers <- list(
 modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
+```
+
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
 ```
 
 
@@ -1406,19 +1676,19 @@ dff_q3_self$V_Presentation <- relevel(dff_q3_self$V_Presentation %>% as.factor, 
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3_self),
-  "CC C path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
-  "TC A path" = lmer(TCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3_self),
-  "TC C path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self))
@@ -1429,31 +1699,50 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ### With EXPGRP distinguishing the WhitesAm and WhitesnonAm
 
 #### H1a
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
@@ -1466,29 +1755,48 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H1a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + RaceContResp*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age   + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ RaceContResp*V_Product*V_Racenamef + V_Age   + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age   + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ RaceContResp*V_Product*V_Racenamef + V_Age   + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + RaceContResp*V_Product*V_Racenamef + V_Age   + (1|ID),
@@ -1500,31 +1808,52 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-2") 
 ```
 
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
+
 ##### H1a-3
 
 ```{r}
 dff_q$V_ProductMor <- ifelse(dff_q$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + RaceContResp*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
@@ -1535,6 +1864,27 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
 ```
+
+
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
 
 #### H2a
 
@@ -1576,19 +1926,19 @@ dff_q2 <-  dff_q %>%
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2))
@@ -1598,24 +1948,43 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2a") 
 ```
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 
 ##### H2a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age  + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + RaceContResp*V_Product*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2))
@@ -1626,23 +1995,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2a-3
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + RaceContResp*V_ProductMor*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + RaceContResp*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2))
@@ -1653,12 +2041,31 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 
 #### H2b
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ V_Location + V_StoreType + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + V_Age+ V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -1687,11 +2094,31 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
+
 ##### H2b-2
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ RaceContResp*V_Product*V_Racenamef + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -1720,11 +2147,31 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
+
 ##### H2b-3
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ RaceContResp*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -1753,6 +2200,25 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 #### H2c
 
 ```{r}
@@ -1771,6 +2237,25 @@ mixed.lmers <- list(
 modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
+```
+
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
 ```
 
 
@@ -1818,19 +2303,19 @@ dff_q3$V_Presentation <- relevel(dff_q3$V_Presentation %>% as.factor, "Prosocial
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3))
@@ -1841,23 +2326,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H3a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef  + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef  + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef  + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef +  (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef +  (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef +(1|ID),
           data = dff_q3))
@@ -1868,23 +2372,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H3a-3
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef +  (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_ProductMor*V_Racenamef +  (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_ProductMor*V_Racenamef +(1|ID),
           data = dff_q3))
@@ -1892,6 +2415,25 @@ mixed.lmers <- list(
 modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
+```
+
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
 ```
 
 
@@ -1939,19 +2481,19 @@ dff_q3_self$V_Presentation <- relevel(dff_q3_self$V_Presentation %>% as.factor, 
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3_self),
-  "CC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
-  "TC A path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3_self),
-  "TC C path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + RaceContResp*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self))
@@ -1959,6 +2501,25 @@ mixed.lmers <- list(
 modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3b") 
+```
+
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
 ```
 
 
@@ -1981,25 +2542,25 @@ dff_q$V_StoreType <- dff_q$V_StoreType %>% as.factor()
 dff_q$V_Framing <- dff_q$V_Framing %>% as.factor()
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
@@ -2012,29 +2573,48 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H1a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age   + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age   + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age   + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age   + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ EXPGRP_TEXT*MorallyWrong + V_Product*V_Racenamef + V_Age   + (1|ID),
@@ -2047,31 +2627,50 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H1a-3
 
 ```{r}
 dff_q$V_ProductMor <- ifelse(dff_q$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CatchCovid ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC B path" = lmer(CatchCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "CC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "CC C' path" = lmer(CatchCovid ~ MorallyWrong + EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC A path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TransmitCovid ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC B path" = lmer(TransmitCovid ~ MorallyWrong + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
-  "TC C path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MorallyWrong ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q %>%
             filter(V_JudgeSelf==0, V_up==0)),
   "TC C' path" = lmer(TransmitCovid ~ MorallyWrong + EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
@@ -2081,6 +2680,25 @@ mixed.lmers <- list(
 modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H1a-3") 
+```
+
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
 ```
 
 
@@ -2123,19 +2741,19 @@ dff_q2 <-  dff_q %>%
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2))
@@ -2146,23 +2764,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_Product*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2))
@@ -2173,23 +2810,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2a-3
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+  "CC C Path" = lmer(CCOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC B path" = lmer(CCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "CC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
+  "CC A Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
   "CC C' path" = lmer(CCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
-  "TC A path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + (1|ID),
+  "TC C Path" = lmer(TCOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age + (1|ID),
           data = dff_q2),
   "TC B path" = lmer(TCOther_Self ~ MWOther_Self + (1|ID),
           data = dff_q2),
-  "TC C path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
+  "TC A Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2),
   "TC C' path" = lmer(TCOther_Self ~ MWOther_Self + EXPGRP_TEXT*V_ProductMor*V_Racenamef + V_Age  + (1|ID),
           data = dff_q2))
@@ -2200,11 +2856,31 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
+
 #### H2b
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ V_Location + V_StoreType + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + V_Age+ V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -2233,11 +2909,30 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2b-2
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_Product*V_Racenamef + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -2266,11 +2961,30 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H2b-3
 
 ```{r}
 mixed.lmers <- list(
-  "MW A path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + (1|ID),
+  "MW C Path" = lmer(MWOther_Self ~ EXPGRP_TEXT*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q2),
   "MW B1 path" = lmer(MWOther_Self ~ CCOther_Self + (1|ID),
           data = dff_q2),
@@ -2299,6 +3013,25 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 #### H2c
 
 ```{r}
@@ -2318,6 +3051,25 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
 ```
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
 
 #### H3a
 
@@ -2363,19 +3115,19 @@ dff_q3$V_Presentation <- relevel(dff_q3$V_Presentation %>% as.factor, "Prosocial
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3))
@@ -2386,23 +3138,42 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 ##### H3a-2
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef  + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef  + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef  + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef +  (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef +  (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef +(1|ID),
           data = dff_q3))
@@ -2412,24 +3183,43 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-2") 
 ```
 
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+```
+
+
 
 ##### H3a-3
 
 ```{r}
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "CC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q3),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
           data = dff_q3),
-  "TC A path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef  + (1|ID),
           data = dff_q3),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3),
-  "TC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef +  (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef +  (1|ID),
           data = dff_q3),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_ProductMor*V_Racenamef +(1|ID),
           data = dff_q3))
@@ -2437,6 +3227,25 @@ mixed.lmers <- list(
 modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}]{stars}"), statistic = c("{statistic} [{std.error}]",
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H3a-3") 
+```
+
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
 ```
 
 
@@ -2484,19 +3293,19 @@ dff_q3_self$V_Presentation <- relevel(dff_q3_self$V_Presentation %>% as.factor, 
 
 
 mixed.lmers <- list(
-  "CC A path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC C Path" = lmer(CCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "CC B path" = lmer(CCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3_self),
-  "CC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "CC A Path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "CC C' path" = lmer(CCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
-  "TC A path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC C Path" = lmer(TCPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "TC B path" = lmer(TCPre_Post ~ MWPre_Post + (1|ID),
           data = dff_q3_self),
-  "TC C path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "TC A Path" = lmer(MWPre_Post ~ EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self),
   "TC C' path" = lmer(TCPre_Post ~ MWPre_Post + EXPGRP_TEXT*V_Presentation*V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q3_self))
@@ -2505,6 +3314,25 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
                                    "{p.value} [{df.error}]"),
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),
              title = "Model H3b") 
+```
+
+
+```{r}
+CPath <- mixed.lmers[["CC C Path"]]
+C2Path <- mixed.lmers[["CC C' path"]]
+
+anova(CPath, C2Path) %>%
+  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
+
+```
+
+
+```{r}
+CPath <- mixed.lmers[["TC C Path"]]
+C2Path <- mixed.lmers[["TC C' path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
 ```
 
 
@@ -5835,3 +6663,5 @@ semPlot::semPaths(fit2, "std",
 
 
 
+64.63
+64.04
