@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.13)  1 SEP 2022 14:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.13)  2 SEP 2022 11:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -454,34 +454,10 @@ Overfull \hbox (57.94539pt too wide) in paragraph at lines 128--136
  [][] 
  []
 
-! Misplaced alignment tab character &.
-<argument> ...name : \ignorespaces Catch Covid C &
-                                                   C2 Path Anova
-l.136 	\caption{Catch Covid C & C2 Path Anova}
-                                              
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
 
 Overfull \hbox (57.94539pt too wide) in paragraph at lines 145--153
  [][] 
  []
-
-! Misplaced alignment tab character &.
-<argument> ...e : \ignorespaces Transmit Covid C &
-                                                   C2 Path Anova
-l.153 	\caption{Transmit Covid C & C2 Path Anova}
-                                                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
 
 [2
 
@@ -495,34 +471,10 @@ Overfull \hbox (57.94539pt too wide) in paragraph at lines 230--238
  [][] 
  []
 
-! Misplaced alignment tab character &.
-<argument> ...name : \ignorespaces Catch Covid C &
-                                                   C2 Path Anova
-l.238 		\caption{Catch Covid C & C2 Path Anova}
-                                               
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
 
 Overfull \hbox (57.94539pt too wide) in paragraph at lines 245--253
  [][] 
  []
-
-! Misplaced alignment tab character &.
-<argument> ...e : \ignorespaces Transmit Covid C &
-                                                   C2 Path Anova
-l.253 	\caption{Transmit Covid C & C2 Path Anova}
-                                                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
 
 [4]
 Overfull \hbox (81.78137pt too wide) in paragraph at lines 262--325
@@ -534,37 +486,23 @@ Overfull \hbox (62.9454pt too wide) in paragraph at lines 331--339
  [][] 
  []
 
-! Misplaced alignment tab character &.
-<argument> ...name : \ignorespaces Catch Covid C &
-                                                   C2 Path Anova
-l.339 		\caption{Catch Covid C & C2 Path Anova}
-                                               
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
 
 Overfull \hbox (62.9454pt too wide) in paragraph at lines 346--354
  [][] 
  []
 
-! Misplaced alignment tab character &.
-<argument> ...e : \ignorespaces Transmit Covid C &
-                                                   C2 Path Anova
-l.354 		\caption{Transmit Covid C & C2 Path Anova}
-                                                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
 [5]
 Overfull \hbox (81.79291pt too wide) in paragraph at lines 364--451
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 458--466
+ [][] 
+ []
+
+
+Overfull \hbox (62.9454pt too wide) in paragraph at lines 473--481
  [][] 
  []
 
@@ -572,116 +510,557 @@ Overfull \hbox (81.79291pt too wide) in paragraph at lines 364--451
 
 
 ] [7]
-Overfull \hbox (81.77966pt too wide) in paragraph at lines 461--536
+Overfull \hbox (81.77966pt too wide) in paragraph at lines 489--564
  [][] 
  []
 
-[8]
-Overfull \hbox (81.79756pt too wide) in paragraph at lines 548--599
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 570--578
  [][] 
  []
 
-[9]
-Overfull \hbox (81.78079pt too wide) in paragraph at lines 608--701
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 586--594
  [][] 
  []
 
-[10
-
-
-] [11]
-Overfull \hbox (81.785pt too wide) in paragraph at lines 709--787
+[8] [9]
+Overfull \hbox (81.79756pt too wide) in paragraph at lines 604--655
  [][] 
  []
 
-[12]
-Overfull \hbox (81.77985pt too wide) in paragraph at lines 794--848
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 661--669
  [][] 
  []
 
-[13]
 
-LaTeX Warning: Float too large for page by 9.5132pt on input line 998.
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 676--684
+ [][] 
+ []
+
+[10]
+Overfull \hbox (81.78079pt too wide) in paragraph at lines 694--787
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 794--802
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 809--817
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 824--832
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 839--847
+ [][] 
+ []
+
+[11
+
+
+] [12] [13]
+Overfull \hbox (81.785pt too wide) in paragraph at lines 854--932
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 939--947
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 954--962
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 969--977
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 984--992
+ [][] 
+ []
 
 [14
 
-
-] [15]
-Overfull \hbox (24.8791pt too wide) in paragraph at lines 1008--1143
+] [15] [16]
+Overfull \hbox (81.77985pt too wide) in paragraph at lines 1000--1054
  [][] 
  []
 
-[16] [17]
-Overfull \hbox (81.78358pt too wide) in paragraph at lines 1150--1270
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 1061--1069
  [][] 
  []
 
-[18]
-Overfull \hbox (81.779pt too wide) in paragraph at lines 1278--1350
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 1076--1084
  [][] 
  []
 
-[19] [20
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 1091--1099
+ [][] 
+ []
 
 
-] [21]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 1106--1114
+ [][] 
+ []
+
+[17
+
+] [18]
+
+LaTeX Warning: Float too large for page by 9.5132pt on input line 1266.
+
+[19
+
+] [20]
+Overfull \hbox (24.8791pt too wide) in paragraph at lines 1276--1411
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 1418--1426
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 1434--1442
+ [][] 
+ []
+
+[21] [22]
+Overfull \hbox (81.78358pt too wide) in paragraph at lines 1451--1571
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 1578--1586
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 1593--1601
+ [][] 
+ []
+
+[23] [24]
+Overfull \hbox (81.779pt too wide) in paragraph at lines 1609--1681
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 1688--1696
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 1703--1711
+ [][] 
+ []
+
+[25] [26
+
+] [27]
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 1863--1871
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 1878--1886
+ [][] 
+ []
+
+[28]
 Chapter 2.
-[22
 
-] [23] [24] [25] [26
-
-
-] [27] [28] [29] [30
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 2089--2097
+ [][] 
+ []
 
 
-] [31] [32] [33] [34
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 2104--2112
+ [][] 
+ []
+
+[29
+
+] [30]
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 2302--2310
+ [][] 
+ []
+
+[31] [32] [33]
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 2436--2444
+ [][] 
+ []
 
 
-] [35] [36]
-[37] [38] [39] [40
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 2451--2459
+ [][] 
+ []
+
+[34]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 2659--2667
+ [][] 
+ []
 
 
-] [41]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 2675--2683
+ [][] 
+ []
+
+[35
+
+
+] [36]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 2868--2876
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 2883--2891
+ [][] 
+ []
+
+[37] [38] [39]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3003--3011
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3018--3026
+ [][] 
+ []
+
+[40]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3234--3242
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3249--3257
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3264--3272
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3279--3287
+ [][] 
+ []
+
+[41
+
+
+] [42] [43]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3492--3500
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3507--3515
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3522--3530
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3537--3545
+ [][] 
+ []
+
+[44
+
+] [45] [46]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3661--3669
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3676--3684
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3691--3699
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 3706--3714
+ [][] 
+ []
+
+[47
+
+] [48] [49
+
+] [50]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 4448--4456
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 4464--4472
+ [][] 
+ []
+
+[51] [52]
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 4799--4807
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 4814--4822
+ [][] 
+ []
+
+[53] [54]
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 5003--5011
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 5019--5027
+ [][] 
+ []
+
+[55]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 5370--5378
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 5386--5394
+ [][] 
+ []
+
+[56
+
+
+] [57] [58]
 Chapter 3.
-[42
 
-] [43] [44] [45] [46
-
-
-] [47] [48] [49] [50
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 5549--5557
+ [][] 
+ []
 
 
-] [51] [52] [53] [54
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 5564--5572
+ [][] 
+ []
+
+[59
+
+] [60]
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 5718--5726
+ [][] 
+ []
 
 
-] [55]
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 5733--5741
+ [][] 
+ []
 
-LaTeX Warning: Float too large for page by 11.3493pt on input line 6159.
+[61] [62]
+Overfull \hbox (57.94539pt too wide) in paragraph at lines 5840--5848
+ [][] 
+ []
 
-[56] [57] [58] [59] [60
+
+Overfull \hbox (62.9454pt too wide) in paragraph at lines 5855--5863
+ [][] 
+ []
+
+[63]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6015--6023
+ [][] 
+ []
 
 
-] [61] (./2022_08_HypothesisModels.aux) ) 
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6031--6039
+ [][] 
+ []
+
+[64
+
+
+] [65]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6175--6183
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6190--6198
+ [][] 
+ []
+
+[66] [67]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6287--6295
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6302--6310
+ [][] 
+ []
+
+[68]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6467--6475
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6482--6490
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6497--6505
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6512--6520
+ [][] 
+ []
+
+[69
+
+
+] [70] [71]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6661--6669
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6676--6684
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6691--6699
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6706--6714
+ [][] 
+ []
+
+[72
+
+] [73] [74]
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6814--6822
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6829--6837
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6844--6852
+ [][] 
+ []
+
+
+Overfull \hbox (59.94536pt too wide) in paragraph at lines 6859--6867
+ [][] 
+ []
+
+[75
+
+] [76] [77
+
+] [78]
+
+LaTeX Warning: Float too large for page by 11.3493pt on input line 7384.
+
+[79] [80]
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 7390--7398
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 7406--7414
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 7646--7654
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 7661--7669
+ [][] 
+ []
+
+[81] [82]
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 7802--7810
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 7817--7825
+ [][] 
+ []
+
+[83] [84]
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 8074--8082
+ [][] 
+ []
+
+
+Overfull \hbox (54.94534pt too wide) in paragraph at lines 8090--8098
+ [][] 
+ []
+
+[85
+
+] [86] [87] (./2022_08_HypothesisModels.aux) ) 
 Here is how much of TeX's memory you used:
  9075 strings out of 478268
  202551 string characters out of 5846347
- 923043 words of memory out of 5000000
+ 928051 words of memory out of 5000000
  27181 multiletter control sequences out of 15000+600000
  475547 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,10n,79p,501b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2022/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy10.pfb>
-Output written on 2022_08_HypothesisModels.pdf (62 pages, 540721 bytes).
+</usr/local/texlive/2022/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2022/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on 2022_08_HypothesisModels.pdf (88 pages, 566165 bytes).
 PDF statistics:
- 240 PDF objects out of 1000 (max. 8388607)
- 160 compressed objects within 2 object streams
+ 324 PDF objects out of 1000 (max. 8388607)
+ 217 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

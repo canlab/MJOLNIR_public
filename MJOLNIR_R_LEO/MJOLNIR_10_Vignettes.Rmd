@@ -1114,6 +1114,9 @@ for (i in colnames(dff_q2)) {
 
 
 ```{r}
+
+# For a reason I cannot find, sometimes this code work, sometimes it does not.. I cannot find the error - sorry for that. Sometimes I run it 3 or 4 times and it works. You should try to rerun the previous chunk too if it does not work.
+
 dff_q2 <-  dff_q %>%
   mutate(V_JudgeSelf = ifelse(V_JudgeSelf==1, "self", "other")) %>%
   dplyr::select(-k[1:(length(k)-6)]) %>%
@@ -1216,6 +1219,9 @@ anova(CPath, C2Path) %>%
 ##### H2a-3
 
 ```{r}
+dff_q2$V_ProductMor <- ifelse(dff_q2$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
+
+
 mixed.lmers <- list(
   "CC C Path" = lmer(CCOther_Self ~ V_ProductMor*V_Racenamef + V_Age+ (1|ID),
           data = dff_q2),
@@ -1273,9 +1279,9 @@ mixed.lmers <- list(
           data = dff_q2),
   "MW B4 path" = lmer(MWOther_Self ~ CCOther_Self*TCOther_Self + (1|ID),
           data = dff_q2),
-  "MW C1 path" = lmer(CCOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType+ (1|ID),
+  "MW A1 path" = lmer(CCOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType+ (1|ID),
           data = dff_q2),
-  "MW C2 path" = lmer(TCOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
+  "MW A2 path" = lmer(TCOther_Self ~ V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
   "MW C'1 path" = lmer(MWOther_Self ~ CCOther_Self + V_Product*V_Racenamef + V_Age + V_Location + V_StoreType + (1|ID),
           data = dff_q2),
@@ -1293,23 +1299,34 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
-```
 
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
+```
 
 ##### H2b-2
 
@@ -1345,21 +1362,33 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
 ```
 
 
@@ -1396,21 +1425,33 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
 ```
 
 
@@ -1434,23 +1475,6 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
 ```
 
-```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
-
-anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
-
-
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
-
-anova(CPath, C2Path) %>% 
-  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
-```
 
 
 #### H3a
@@ -1589,6 +1613,9 @@ anova(CPath, C2Path) %>%
 ##### H3a-3
 
 ```{r}
+dff_q3$V_ProductMor <- ifelse(dff_q3$V_Product %in% c("babyformula", "hardwaresupplies"), "MorallyCondonable", "MorallyQuestionable")
+
+
 mixed.lmers <- list(
   "CC C Path" = lmer(CCPre_Post ~ V_Presentation*V_ProductMor*V_Racenamef + (1|ID),
           data = dff_q3),
@@ -2093,23 +2120,34 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2b") 
 ```
 
-
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
 ```
 
 
@@ -2148,21 +2186,33 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
 ```
 
 
@@ -2201,21 +2251,33 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
 ```
 
 
@@ -2240,23 +2302,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 ```
 
 
-```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
 
-anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
-
-
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
-
-anova(CPath, C2Path) %>% 
-  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
-```
 
 
 #### H3a
@@ -2910,21 +2956,33 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
 ```
 
 
@@ -2962,21 +3020,33 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
 ```
 
 
@@ -3014,21 +3084,33 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
 
 
 ```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'1 path"]]
 
 anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
+  xtable::xtable(caption = "Catch Covid C & C1 Path Anova")
 
 
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'2 path"]]
 
 anova(CPath, C2Path) %>% 
   xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C3 Path Anova")
+
+
+CPath <- mixed.lmers[["MW C Path"]]
+C2Path <- mixed.lmers[["MW C'3 path"]]
+
+anova(CPath, C2Path) %>% 
+  xtable::xtable(caption = "Transmit Covid C & C4 Path Anova")
 ```
 
 
@@ -3052,23 +3134,7 @@ modelsummary(mixed.lmers, fmt=2, estimate = c("{estimate}[{conf.low},{conf.high}
              output = "latex", notes = c("Estimate [95ConfInterval]", "t, [std.error]","p.value, [df.error]"),title = "Model H2c") 
 ```
 
-```{r}
-CPath <- mixed.lmers[["CC C Path"]]
-C2Path <- mixed.lmers[["CC C' path"]]
 
-anova(CPath, C2Path) %>%
-  xtable::xtable(caption = "Catch Covid C & C2 Path Anova")
-
-```
-
-
-```{r}
-CPath <- mixed.lmers[["TC C Path"]]
-C2Path <- mixed.lmers[["TC C' path"]]
-
-anova(CPath, C2Path) %>% 
-  xtable::xtable(caption = "Transmit Covid C & C2 Path Anova")
-```
 
 
 #### H3a
